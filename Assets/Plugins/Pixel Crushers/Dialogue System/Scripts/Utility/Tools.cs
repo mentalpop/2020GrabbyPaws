@@ -125,17 +125,6 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Returns the remainder of a string after all forward slashes, or
-        /// the enter string if it doesn't contain any forward slashes.
-        /// </summary>
-        public static string GetAllAfterSlashes(string s)
-        {
-            if (string.IsNullOrEmpty(s) || !s.Contains("/")) return s;
-            var pos = s.LastIndexOf("/") + 1;
-            return (0 < pos && pos < s.Length) ? s.Substring(pos) : s;
-        }
-
-        /// <summary>
         /// Gets the name of the object, or null if the object is null.
         /// </summary>
         /// <returns>
@@ -340,13 +329,13 @@ namespace PixelCrushers.DialogueSystem
         public static string StripRichTextCodes(string s)
         {
             if (!s.Contains("<")) return s;
-            return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=[#]?\w+>|</color>", string.Empty);
+            return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=[#]\w+>|</color>", string.Empty);
         }
 
         public static string StripTextMeshProTags(string s)
         {
             if (!s.Contains("<")) return s;
-            return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=[#]?\w+>|<color=""\w+"">|</color>|" +
+            return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=#\w+>|<color=""\w+"">|</color>|" +
                 @"<align=\w+>|</align>|<font=\w+>|</font>|<indent=\w+[%]>|</indent>|" +
                 @"<line-height=\w+[%]>|</line-height>|<line-indent=\w+[%]>|</line-ident>|" +
                 @"<link=""[^""]+"">|</link>|<lowercase>|</lowercase>|<uppercase>|</uppercase>|" +

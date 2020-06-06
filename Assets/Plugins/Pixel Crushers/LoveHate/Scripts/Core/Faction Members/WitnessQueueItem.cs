@@ -19,14 +19,6 @@ namespace PixelCrushers.LoveHate
         /// </summary>
         public static Pool<WitnessQueueItem> pool = new Pool<WitnessQueueItem>();
 
-#if UNITY_2019_3_OR_NEWER
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void InitStaticVariables()
-        {
-            pool = new Pool<WitnessQueueItem>();
-        }
-#endif
-
         public Deed deed;
 
         public FactionMember witness;

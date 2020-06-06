@@ -93,8 +93,8 @@ namespace PixelCrushers.DialogueSystem
 
         public override void Close()
         {
-            base.Close();
             conversationUIElements.standardMenuControls.ClearCache();
+            base.Close();
         }
 
         #endregion

@@ -23,14 +23,6 @@ namespace PixelCrushers.LoveHate
         /// </summary>
         public static Pool<Relationship> pool = new Pool<Relationship>();
 
-#if UNITY_2019_3_OR_NEWER
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void InitStaticVariables()
-        {
-            pool = new Pool<Relationship>();
-        }
-#endif
-
         /// <summary>
         /// The ID of the faction this relationship is directed to.
         /// </summary>

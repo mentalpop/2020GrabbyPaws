@@ -70,7 +70,7 @@ namespace PixelCrushers.LoveHate
             var pleasureChange = alignment * impact;
             var arousalChange = Mathf.Max(-alignment * impact, -other.pad.arousal);
             var dominanceChange = alignment * (aggression / 100) * impact;
-            other.ModifyPAD(pleasureChange, pleasureChange, arousalChange, dominanceChange);
+            other.pad.Modify(pleasureChange, pleasureChange, arousalChange, dominanceChange);
             ExecuteEvents.Execute<IAuraEventHandler>(gameObject, null, (x, y) => x.OnAura(other));
             ExecuteEvents.Execute<IEnterAuraEventHandler>(other.gameObject, null, (x, y) => x.OnEnterAura(this));
         }

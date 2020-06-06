@@ -69,12 +69,6 @@ namespace PixelCrushers.DialogueSystem.UnityGUI
             FindControls();
         }
 
-        public override void Open()
-        {
-            base.Open();
-            dialogue.responseMenu.Hide();
-        }
-
         /// <summary>
         /// Makes sure we have a GUIRoot and logs warnings if any critical controls are unassigned.
         /// </summary>

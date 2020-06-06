@@ -120,7 +120,7 @@ namespace PixelCrushers
                 {
                     default:
                     case GameTimeMode.UnityStandard:
-                        Time.timeScale = value ? 0 : 1;
+                        Time.timeScale = value ? 1 : 0;
                         break;
                     case GameTimeMode.Realtime:
                         break;

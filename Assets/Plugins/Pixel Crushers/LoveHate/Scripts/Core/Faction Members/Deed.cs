@@ -36,14 +36,6 @@ namespace PixelCrushers.LoveHate
         /// </summary>
         public static Pool<Deed> pool = new Pool<Deed>();
 
-#if UNITY_2019_3_OR_NEWER
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void InitStaticVariables()
-        {
-            pool = new Pool<Deed>();
-        }
-#endif
-
         /// <summary>
         /// The GUID for this deed, used to determine if a faction has already
         /// heard about the deed when sharing rumors.

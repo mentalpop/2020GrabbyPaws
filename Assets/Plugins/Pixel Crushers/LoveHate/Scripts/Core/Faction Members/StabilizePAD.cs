@@ -57,35 +57,21 @@ namespace PixelCrushers.LoveHate
 
         protected virtual void Update()
         {
-            float happinessOld = m_member.pad.happiness;
-            float pleasureOld = m_member.pad.pleasure;
-            float arousalOld = m_member.pad.arousal;
-            float dominanceOld = m_member.pad.dominance;
-            float happinessNew = happinessOld;
-            float pleasureNew = pleasureOld;
-            float arousalNew = arousalOld;
-            float dominanceNew = dominanceOld;
             if (happinessSettings.stabilize)
             {
-                happinessNew = happinessSettings.Apply(m_member.pad.happiness);
+                m_member.pad.happiness = happinessSettings.Apply(m_member.pad.happiness);
             }
             if (pleasureSettings.stabilize)
             {
-                pleasureNew = pleasureSettings.Apply(m_member.pad.pleasure);
+                m_member.pad.pleasure = pleasureSettings.Apply(m_member.pad.pleasure);
             }
             if (arousalSettings.stabilize)
             {
-                arousalNew = arousalSettings.Apply(m_member.pad.arousal);
+                m_member.pad.arousal = arousalSettings.Apply(m_member.pad.arousal);
             }
             if (dominanceSettings.stabilize)
             {
-                dominanceNew = dominanceSettings.Apply(m_member.pad.dominance);
-            }
-            if (happinessNew != happinessOld || pleasureNew != pleasureOld ||
-                arousalNew != arousalOld || dominanceNew != dominanceOld)
-            {
-                m_member.ModifyPAD(happinessNew - happinessOld, pleasureNew - pleasureOld,
-                    arousalNew - arousalOld, dominanceNew - dominanceOld);
+                m_member.pad.dominance = dominanceSettings.Apply(m_member.pad.dominance);
             }
         }
 

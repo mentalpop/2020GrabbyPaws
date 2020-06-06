@@ -139,15 +139,15 @@ namespace PixelCrushers.LoveHate
         /// <param name="b">The second set of values.</param>
         public static float Alignment(float[] a, float[] b)
         {
-            var length = Mathf.Min(a.Length, b.Length);
-            if (length == 0) return 0;
             float overlap = 0;
+            var length = Mathf.Min(a.Length, b.Length);
             for (int i = 0; i < length; i++)
             {
-                var d = 1 - (Mathf.Abs(a[i] - b[i]) / 200);
-                overlap += d;
+                var aNorm = a[i] / 100;
+                var bNorm = b[i] / 100;
+                overlap += aNorm * bNorm;
             }
-            return overlap / length;
+            return (length > 0) ? overlap / length : 0;
         }
 
         public void OnDrawGizmos()

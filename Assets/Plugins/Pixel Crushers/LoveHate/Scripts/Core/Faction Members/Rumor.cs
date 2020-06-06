@@ -18,14 +18,6 @@ namespace PixelCrushers.LoveHate
         /// </summary>
         public static Pool<Rumor> pool = new Pool<Rumor>();
 
-#if UNITY_2019_3_OR_NEWER
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void InitStaticVariables()
-        {
-            pool = new Pool<Rumor>();
-        }
-#endif
-
         /// <summary>
         /// The GUID of the deed this rumor is about. We remember the GUID in case 
         /// another character shares the same rumor; in this case, we already know

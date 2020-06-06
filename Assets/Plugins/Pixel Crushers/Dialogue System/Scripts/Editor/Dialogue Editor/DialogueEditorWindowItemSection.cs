@@ -188,12 +188,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (!(0 <= list.index && list.index < database.items.Count)) return;
             var actor = database.items[list.index];
             if (actor == null) return;
-            var deletedLastOne = list.count == 1;
             if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(actor)), "Are you sure you want to delete this?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
-                if (deletedLastOne) inspectorSelection = null;
-                else inspectorSelection = (list.index < list.count) ? database.items[list.index] : (list.count > 0) ? database.items[list.count - 1] : null;
+                inspectorSelection = (list.index < list.count) ? database.items[list.index] : (list.count > 0) ? database.items[list.count - 1] : null;
                 SetDatabaseDirty("Remove Item");
             }
         }
@@ -525,10 +523,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                             if (questLanguages.Contains(afterEntryNumber)) continue;
 
                             // Otherwise add:
-                            var newFieldTitle = "Entry " + entryCount + " " + afterEntryNumber;
-                            if (item.FieldExists(newFieldTitle)) continue;
                             var copiedField = new Field(field);
-                            copiedField.title = newFieldTitle;
+                            copiedField.title = "Entry " + entryCount + " " + afterEntryNumber;
                             if (copiedField.type == FieldType.Text) copiedField.value = string.Empty;
                             item.fields.Add(copiedField);
                         }

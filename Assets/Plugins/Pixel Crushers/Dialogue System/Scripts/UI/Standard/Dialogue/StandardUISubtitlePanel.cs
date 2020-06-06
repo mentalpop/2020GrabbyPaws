@@ -340,7 +340,6 @@ namespace PixelCrushers.DialogueSystem
         public virtual void ShowContinueButton()
         {
             Tools.SetGameObjectActive(continueButton, true);
-            if (InputDeviceManager.autoFocus) Select(); 
             if (continueButton != null && continueButton.onClick.GetPersistentEventCount() == 0)
             {
                 continueButton.onClick.RemoveAllListeners();

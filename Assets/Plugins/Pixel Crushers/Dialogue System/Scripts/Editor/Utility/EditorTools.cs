@@ -6,15 +6,11 @@ using UnityEngine;
 namespace PixelCrushers.DialogueSystem
 {
 
-    /// <summary>
-    /// Utility functions used by the Dialogue System's custom editors.
-    /// </summary>
     public static class EditorTools
     {
 
         public static DialogueDatabase selectedDatabase = null;
 
-        private static GUIStyle m_textAreaGuiStyle = null;
         public static GUIStyle textAreaGuiStyle
         {
             get
@@ -30,65 +26,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private static GUIStyle m_dropDownGuiStyle = null;
-        public static GUIStyle dropDownGuiStyle
-        {
-            get
-            {
-                if (m_dropDownGuiStyle == null)
-                {
-                    m_dropDownGuiStyle = GUI.skin.GetStyle("DropDown");
-                    if (m_dropDownGuiStyle == null) m_dropDownGuiStyle = GUI.skin.label;
-                }
-                return m_dropDownGuiStyle;
-            }
-        }
-        public static float GetPopupWidth(GUIContent guiContent)
-        {
-            var size = dropDownGuiStyle.CalcSize(guiContent);
-            return (dropDownGuiStyle == GUI.skin.label) ? (size.x + 16) : size.x;
-        }
-        public static float GetPopupWidth(string text)
-        {
-            return GetPopupWidth(new GUIContent(text));
-        }
-        public static GUILayoutOption GUILayoutPopupWidth(object obj)
-        {            
-            return GUILayout.Width(GetPopupWidth(new GUIContent(obj.ToString())));
-        }
-
-
-        public static GUILayoutOption GUILayoutStyleWidth(GUIStyle style, GUIContent guiContent)
-        {
-            if (style == null) return GUILayout.Width(60);
-            var size = style.CalcSize(guiContent);
-            return GUILayout.Width(size.x);
-        }
-        public static GUILayoutOption GUILayoutStyleWidth(GUIStyle style, string s)
-        {
-            return GUILayoutStyleWidth(style, new GUIContent(s));
-        }
-
-        public static GUILayoutOption GUILayoutLabelWidth(string s)
-        {
-            return GUILayoutStyleWidth(GUI.skin.label, s);
-        }
-        public static GUILayoutOption GUILayoutButtonWidth(GUIContent guiContent)
-        {
-            return GUILayoutStyleWidth(GUI.skin.button, guiContent);
-        }
-        public static GUILayoutOption GUILayoutButtonWidth(string s)
-        {
-            return GUILayoutButtonWidth(new GUIContent(s));
-        }
-        public static GUILayoutOption GUILayoutToggleWidth(GUIContent guiContent)
-        {
-            return GUILayoutStyleWidth(GUI.skin.toggle, guiContent);
-        }
-        public static GUILayoutOption GUILayoutToggleWidth(string s)
-        {
-            return GUILayoutStyleWidth(GUI.skin.toggle, new GUIContent(s));
-        }
+        private static GUIStyle m_textAreaGuiStyle = null;
 
         public static DialogueDatabase FindInitialDatabase()
         {

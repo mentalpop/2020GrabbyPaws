@@ -1,0 +1,151 @@
+fileFormatVersion: 2
+guid: 574a18f28c751c44d80a3b6a01142e46
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Palette Specials
+    2100002: Glass
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cylinder.189
+    7400000: Cylinder.189|Cylinder.080Action
+    7400002: Cylinder.189|Cylinder.082Action
+    7400004: Cylinder.189|Cylinder.085Action
+    7400006: Cylinder.189|Cylinder.087Action
+    7400008: Cylinder.189|Cylinder.089Action
+    7400010: Cylinder.189|Cylinder.091Action
+    7400012: Cylinder.189|Cylinder.093Action
+    7400014: Cylinder.189|Cylinder.095Action
+    7400016: Cylinder.189|Cylinder.097Action
+    7400018: Cylinder.189|Cylinder.099Action
+    7400020: Cylinder.189|Cylinder.100Action
+    7400022: Cylinder.189|Cylinder.101Action
+    7400024: Cylinder.189|Cylinder.102Action
+    7400026: Cylinder.189|Cylinder.103Action
+    7400028: Cylinder.189|Cylinder.104Action
+    7400030: Cylinder.189|Cylinder.105Action
+    7400032: Cylinder.189|Cylinder.106Action
+    7400034: Cylinder.189|Cylinder.107Action
+    7400036: Cylinder.189|Cylinder.108Action
+    7400038: Cylinder.189|Cylinder.110Action
+    7400040: Cylinder.189|Cylinder.112Action
+    7400042: Cylinder.189|Cylinder.114Action
+    7400044: Cylinder.189|Cylinder.116Action
+    7400046: Cylinder.189|Cylinder.118Action
+    7400048: Cylinder.189|Cylinder.120Action
+    7400050: Cylinder.189|Cylinder.122Action
+    7400052: Cylinder.189|Cylinder.124Action
+    7400054: Cylinder.189|Cylinder.126Action
+    7400056: Cylinder.189|Cylinder.128Action
+    7400058: Cylinder.189|Cylinder.130Action
+    7400060: Cylinder.189|Cylinder.132Action
+    7400062: Cylinder.189|Cylinder.134Action
+    7400064: Cylinder.189|Cylinder.136Action
+    7400066: Cylinder.189|Cylinder.138Action
+    7400068: Cylinder.189|Cylinder.140Action
+    7400070: Cylinder.189|Cylinder.141Action
+    7400072: Cylinder.189|Cylinder.142Action
+    7400074: Cylinder.189|Cylinder.143Action
+    7400076: Cylinder.189|Cylinder.144Action
+    7400078: Cylinder.189|Cylinder.145Action
+    7400080: Cylinder.189|Cylinder.146Action
+    7400082: Cylinder.189|Cylinder.148Action
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

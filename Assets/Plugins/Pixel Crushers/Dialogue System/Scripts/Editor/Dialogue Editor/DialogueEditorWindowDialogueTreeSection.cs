@@ -306,11 +306,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (text.Contains("\n")) text = text.Replace("\n", string.Empty);
             string speaker = GetActorNameByID(entry.ActorID);
             text = string.Format("[{0}] {1}: {2}", entry.id, speaker, text);
-            if (!showNodeEditor)
-            { // Only show for Outline editor. For node editor, we draw small icons on node.
-                if (!string.IsNullOrEmpty(entry.conditionsString)) text += " [condition]";
-                if (!string.IsNullOrEmpty(entry.userScript)) text += " {script}";
-            }
+            if (!string.IsNullOrEmpty(entry.conditionsString)) text += " [condition]";
+            if (!string.IsNullOrEmpty(entry.userScript)) text += " {script}";
             if ((entry.outgoingLinks == null) || (entry.outgoingLinks.Count == 0)) text += " [END]";
             return text;
         }
@@ -352,11 +349,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 text = "[" + entry.id + "] " + text;
             }
-            if (!showNodeEditor)
-            {
-                if (!string.IsNullOrEmpty(entry.conditionsString)) text += " [condition]";
-                if (!string.IsNullOrEmpty(entry.userScript)) text += " {script}";
-            }
+            if (!string.IsNullOrEmpty(entry.conditionsString)) text += " [condition]";
+            if (!string.IsNullOrEmpty(entry.userScript)) text += " {script}";
             if ((entry.outgoingLinks == null) || (entry.outgoingLinks.Count == 0)) text += " [END]";
             return text.Substring(0, Mathf.Min(text.Length, canvasRectWidthMultiplier * MaxNodeTextLength + extraLength));
         }
@@ -583,7 +577,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             if (!entry.isGroup)
             {
-                EditorWindowTools.EditorGUILayoutBeginGroup();
 
                 EditorGUI.BeginChangeCheck();
 
@@ -606,11 +599,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     if (string.Equals(entry.Title, "New Dialogue Entry")) entry.Title = string.Empty;
                 }
 
-                EditorWindowTools.EditorGUILayoutEndGroup();
-
                 // Sequence (including localized if defined):
-                EditorWindowTools.EditorGUILayoutBeginGroup();
-
                 entry.Sequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence. Drag audio clips to add AudioWait() commands."), entry.Sequence, ref sequenceRect, ref sequenceSyntaxState);
                 DrawLocalizedVersions(entry.fields, "Sequence {0}", false, FieldType.Text);
 
@@ -627,23 +616,19 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     hasResponseMenuSequence = EditorGUILayout.ToggleLeft(new GUIContent("Add Response Menu Sequence", "Tick to add a cutscene that plays during the response menu that follows this entry."), false);
                     if (hasResponseMenuSequence) entry.ResponseMenuSequence = string.Empty;
                 }
-
-                EditorWindowTools.EditorGUILayoutEndGroup();
             }
 
-            // Conditions:
-            EditorWindowTools.EditorGUILayoutBeginGroup();
-            luaConditionWizard.database = database;
-            entry.conditionsString = luaConditionWizard.Draw(new GUIContent("Conditions", "Optional Lua statement that must be true to use this entry."), entry.conditionsString);
+            // Conditions and Script:
             int falseConditionIndex = EditorGUILayout.Popup("False Condition Action", GetFalseConditionIndex(entry.falseConditionAction), falseConditionActionStrings);
             entry.falseConditionAction = falseConditionActionStrings[falseConditionIndex];
-            EditorWindowTools.EditorGUILayoutEndGroup();
+
+            // Conditions:
+            luaConditionWizard.database = database;
+            entry.conditionsString = luaConditionWizard.Draw(new GUIContent("Conditions", "Optional Lua statement that must be true to use this entry."), entry.conditionsString);
 
             // Script:
-            EditorWindowTools.EditorGUILayoutBeginGroup();
             luaScriptWizard.database = database;
             entry.userScript = luaScriptWizard.Draw(new GUIContent("Script", "Optional Lua code to run when entry is spoken."), entry.userScript);
-            EditorWindowTools.EditorGUILayoutEndGroup();
 
             // Other primary fields defined in template:
             DrawOtherDialogueEntryPrimaryFields(entry);
@@ -870,8 +855,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private DialogueEntry serializedObjectCurrentEntry = null;
         private SerializedProperty onExecuteProperty = null;
-        private DialogueSystemSceneEvents dialogueSystemSceneEvents = null;
-        private SerializedObject dialogueSystemSceneEventsSerializedObject = null;
 
         private void ResetUnityEventSection()
         {
@@ -881,8 +864,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void DrawUnityEvents()
         {
-            // Draw scene-independent OnExecute() event:
-            EditorGUILayout.LabelField(new GUIContent("Scene-Independent Event", "This UnityEvent cannot point to scene objects. It can point to assets and prefabs."), EditorStyles.boldLabel);
             if (serializedObject == null)
             {
                 EditorGUILayout.LabelField("Error displaying UnityEvent. Please report to developer.");
@@ -925,78 +906,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 EditorGUI.BeginChangeCheck();
                 EditorGUILayout.PropertyField(onExecuteProperty);
                 if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
-            }
-
-            // Draw scene-specific event:
-            var sceneEventGuid = currentEntry.sceneEventGuid;
-            int sceneEventIndex = -1;
-            if (string.IsNullOrEmpty(sceneEventGuid))
-            {
-                // If this entry is not associated with a scene event, show Add button:
-                if (GUILayout.Button(new GUIContent("Add Scene Event", "Add a UnityEvent that operates on GameObjects in the currently-open scene.")))
-                {
-                    MakeSureDialogueSystemSceneEventsExists();
-                    sceneEventIndex = DialogueSystemSceneEvents.AddNewDialogueEntrySceneEvent(out sceneEventGuid);
-                    currentEntry.sceneEventGuid = sceneEventGuid;
-                }
-            }
-            else
-            {
-                // Otherwise check if the entry's scene event is defined in this scene:
-                sceneEventIndex = DialogueSystemSceneEvents.GetDialogueEntrySceneEventIndex(sceneEventGuid);
-            }
-            if (sceneEventIndex == -1 && !string.IsNullOrEmpty(sceneEventGuid))
-            {
-                // If scene event is assigned but not in this scene, show Delete button:
-                GUILayout.Label("Scene Event operates in another scene.");
-                if (GUILayout.Button("Delete Scene Event"))
-                {
-                    currentEntry.sceneEventGuid = string.Empty;
-                }
-            }
-            if (sceneEventIndex != -1)
-            {
-                // Make sure our serialized object points to this scene's DialogueSystemSceneEvents:
-                if (dialogueSystemSceneEvents != DialogueSystemSceneEvents.sceneInstance || dialogueSystemSceneEventsSerializedObject == null)
-                {
-                    dialogueSystemSceneEvents = DialogueSystemSceneEvents.sceneInstance;
-                    dialogueSystemSceneEventsSerializedObject = new SerializedObject(dialogueSystemSceneEvents);
-                }
-            }
-            if (sceneEventIndex != -1 && dialogueSystemSceneEventsSerializedObject != null)
-            {
-                // Scene event is in this scene. Draw it:
-                dialogueSystemSceneEventsSerializedObject.Update();
-                var sceneEventsListProperty = dialogueSystemSceneEventsSerializedObject.FindProperty("dialogueEntrySceneEvents");
-                if (sceneEventsListProperty != null && 0 <= sceneEventIndex && sceneEventIndex < sceneEventsListProperty.arraySize)
-                {
-                    var sceneEventProperty = sceneEventsListProperty.GetArrayElementAtIndex(sceneEventIndex);
-                    EditorGUILayout.LabelField("Scene Event", EditorStyles.boldLabel);
-                    EditorGUI.BeginDisabledGroup(true);
-                    EditorGUILayout.PropertyField(sceneEventProperty.FindPropertyRelative("guid"), true);
-                    EditorGUI.EndDisabledGroup();
-                    if (sceneEventProperty != null)
-                    {
-                        EditorGUILayout.PropertyField(sceneEventProperty.FindPropertyRelative("onExecute"), true);
-                    }
-                }
-                dialogueSystemSceneEventsSerializedObject.ApplyModifiedProperties();
-                if (GUILayout.Button("Delete Scene Event"))
-                {
-                    DialogueSystemSceneEvents.RemoveDialogueEntrySceneEvent(sceneEventGuid);
-                    currentEntry.sceneEventGuid = string.Empty;
-                }
-            }
-        }
-
-        private void MakeSureDialogueSystemSceneEventsExists()
-        {
-            if (DialogueSystemSceneEvents.sceneInstance == null)
-            {
-                var go = new GameObject("Dialogue System Scene Events");
-                DialogueSystemSceneEvents.sceneInstance = go.AddComponent(PixelCrushers.TypeUtility.GetWrapperType(typeof(DialogueSystemSceneEvents))) as DialogueSystemSceneEvents;
-                UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
-                dialogueSystemSceneEvents = null;
             }
         }
 

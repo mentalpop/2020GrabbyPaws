@@ -1,0 +1,176 @@
+fileFormatVersion: 2
+guid: f3f2353f9689a284482f03b149498aad
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arm01.L
+    100002: Arm01.R
+    100004: Arm02.L
+    100006: Arm02.R
+    100008: Armature
+    100010: Foot.L
+    100012: Foot.R
+    100014: Head
+    100016: Head.001
+    100018: Head.002
+    100020: IK-TARGET-leg.L
+    100022: IK-TARGET-leg.R
+    100024: Leg.TARGET.L
+    100026: Leg.TARGET.R
+    100028: Raccoon Mesh
+    100030: //RootNode
+    100032: Root
+    100034: Shin.L
+    100036: Shin.R
+    100038: Spine01
+    100040: Spine02
+    100042: Tail.TARGET
+    100044: Tail01
+    100046: Tail02
+    100048: Thigh.L
+    100050: Thigh.R
+    400000: Arm01.L
+    400002: Arm01.R
+    400004: Arm02.L
+    400006: Arm02.R
+    400008: Armature
+    400010: Foot.L
+    400012: Foot.R
+    400014: Head
+    400016: Head.001
+    400018: Head.002
+    400020: IK-TARGET-leg.L
+    400022: IK-TARGET-leg.R
+    400024: Leg.TARGET.L
+    400026: Leg.TARGET.R
+    400028: Raccoon Mesh
+    400030: //RootNode
+    400032: Root
+    400034: Shin.L
+    400036: Shin.R
+    400038: Spine01
+    400040: Spine02
+    400042: Tail.TARGET
+    400044: Tail01
+    400046: Tail02
+    400048: Thigh.L
+    400050: Thigh.R
+    2100000: Nose and Ears.001
+    2100002: Mask and Arms.001
+    2100004: Body.001
+    2100006: Eyes and Tummy.001
+    2100008: Irises.001
+    4300000: Raccoon Mesh
+    9500000: //RootNode
+    13700000: Raccoon Mesh
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body.001
+    second: {fileID: 2100000, guid: faa58c20f17edf04b8dd351f7f16abb4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes and Tummy.001
+    second: {fileID: 2100000, guid: c585069a87984c74d82561023cbe6231, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Irises.001
+    second: {fileID: 2100000, guid: 201946b8b1100954b890339b749412a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mask and Arms.001
+    second: {fileID: 2100000, guid: 28495a95f43275b48b3f231752b73135, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nose and Ears.001
+    second: {fileID: 2100000, guid: e31523de424f0764d9a813db5dfad58f, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

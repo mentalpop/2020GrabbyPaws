@@ -566,7 +566,10 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: INVECTOR_BASIC;INVECTOR_MELEE;INVECTOR_SHOOTER;TMP_PRESENT;USE_CINEMACHINE;USE_TIMELINE;USE_NEW_INPUT
+    1: INVECTOR_BASIC;INVECTOR_MELEE;INVECTOR_SHOOTER;TMP_PRESENT;USE_CINEMACHINE;USE_TIMELINE;CROSS_PLATFORM_INPUT
+    4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    14: MOBILE_INPUT
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
@@ -656,6 +659,6 @@ PlayerSettings:
   projectName: 
   organizationId: 
   cloudEnabled: 0
-  enableNativePlatformBackendsForNewInputSystem: 1
-  disableOldInputManagerSupport: 1
+  enableNativePlatformBackendsForNewInputSystem: 0
+  disableOldInputManagerSupport: 0
   legacyClampBlendShapeWeights: 0

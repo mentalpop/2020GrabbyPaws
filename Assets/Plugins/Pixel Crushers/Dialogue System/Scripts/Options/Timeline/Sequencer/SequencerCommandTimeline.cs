@@ -1,5 +1,4 @@
-// Recompile at 6/6/2020 1:32:03 PM
-#if USE_TIMELINE
+﻿#if USE_TIMELINE
 #if UNITY_2017_1_OR_NEWER
 // Copyright (c) Pixel Crushers. All rights reserved.
 
@@ -21,19 +20,15 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
     /// - timeline: Name of a GameObject with a PlayableDirector, or a Timeline asset in a Resources folder or asset bundle. Default: speaker.
     /// - nowait: If specified, doesn't wait for the director to finish.
     /// - nostop: If specified, doesn't force the director to stop at the end of the sequencer command.
-    /// - #:binding: If specified, the number indicates the track number, starting from zero. The binding is the name of a GameObject to bind to that track.
+    /// - #:binding: If specified, the number indicates the track number. The binding is the name of a GameObject to bind to that track.
     /// </summary>
     public class SequencerCommandTimeline : SequencerCommand
     {
 
         private PlayableDirector playableDirector = null;
         private TimelineAsset timelineAsset = null;
-        private string mode;
-        private Transform subject;
         private bool nostop = false;
-        private bool nowait = false;
         private bool mustDestroyPlayableDirector = false;
-        private bool mustDestroyPlayableAsset = false;
 
         public IEnumerator Start()
         {
@@ -42,42 +37,23 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                 Stop();
                 yield break;
             }
-            mode = GetParameter(0).ToLower();
-            subject = GetSubject(1, Sequencer.Speaker);
-            nowait = string.Equals(GetParameter(2), "nowait", System.StringComparison.OrdinalIgnoreCase) ||
+            var mode = GetParameter(0).ToLower();
+            var subject = GetSubject(1, Sequencer.Speaker);
+            var nowait = string.Equals(GetParameter(2), "nowait", System.StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(GetParameter(3), "nowait", System.StringComparison.OrdinalIgnoreCase);
             nostop = string.Equals(GetParameter(2), "nostop", System.StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(GetParameter(3), "nostop", System.StringComparison.OrdinalIgnoreCase);
             playableDirector = (subject != null) ? subject.GetComponent<PlayableDirector>() : null;
 
             // If no suitable PlayableDirector was found, look for a Timeline asset in Resources:
-            if (playableDirector == null || playableDirector.playableAsset == null)
+            timelineAsset = DialogueManager.LoadAsset(GetParameter(1), typeof(TimelineAsset)) as TimelineAsset;
+            if (timelineAsset != null)
             {
-                DialogueManager.LoadAsset(GetParameter(1), typeof(TimelineAsset),
-                    (asset) =>
-                    {
-                        timelineAsset = asset as TimelineAsset;
-                        if (timelineAsset != null)
-                        {
-                            if (playableDirector == null)
-                            {
-                                playableDirector = new GameObject(GetParameter(1), typeof(PlayableDirector)).GetComponent<PlayableDirector>();
-                                mustDestroyPlayableDirector = true;
-                            }
-                            playableDirector.playableAsset = timelineAsset;
-                            mustDestroyPlayableAsset = true;
-                        }
-                        StartCoroutine(Proceed());
-                    });
+                playableDirector = new GameObject(GetParameter(1), typeof(PlayableDirector)).GetComponent<PlayableDirector>();
+                playableDirector.playableAsset = timelineAsset;
+                mustDestroyPlayableDirector = true;
             }
-            else
-            {
-                yield return Proceed();
-            }
-        }
 
-        private IEnumerator Proceed()
-        { 
             if (playableDirector == null)
             {
                 if (DialogueDebug.LogWarnings) Debug.LogWarning("Dialogue System: Sequencer: Timeline(" + GetParameters() +
@@ -110,7 +86,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                             if (s.Contains(":"))
                             {
                                 var colonPos = s.IndexOf(":");
-                                var trackIndex = Tools.StringToInt(s.Substring(0, colonPos)) + 1;
+                                var trackIndex = Tools.StringToInt(s.Substring(0, colonPos));
                                 var bindName = s.Substring(colonPos + 1);
                                 var track = timelineAsset.GetOutputTrack(trackIndex);
                                 if (track != null)
@@ -165,11 +141,6 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             if (playableDirector != null && !nostop)
             {
                 playableDirector.Stop();
-                if (mustDestroyPlayableAsset)
-                {
-                    DialogueManager.UnloadAsset(playableDirector.playableAsset);
-                    playableDirector.playableAsset = null;
-                }
                 if (mustDestroyPlayableDirector) Destroy(playableDirector.gameObject);
             }
         }

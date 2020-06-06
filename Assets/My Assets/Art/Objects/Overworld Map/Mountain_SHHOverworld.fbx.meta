@@ -1,0 +1,233 @@
+fileFormatVersion: 2
+guid: 3078c36ba238f8543896d8638a96d810
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Cube.1249
+    100002: Cube.1250
+    100004: Cube.1251
+    100006: Cube.1252
+    100008: Cube.1253
+    100010: Cube.1254
+    100012: Cube.1255
+    100014: Cube.1256
+    100016: Cube.1257
+    100018: Cube.1258
+    100020: //RootNode
+    100022: Plane.028
+    100024: Plane.030
+    100026: Plane.031
+    100028: Plane.032
+    100030: Plane.033
+    100032: Plane.034
+    100034: Plane.035
+    400000: Cube.1249
+    400002: Cube.1250
+    400004: Cube.1251
+    400006: Cube.1252
+    400008: Cube.1253
+    400010: Cube.1254
+    400012: Cube.1255
+    400014: Cube.1256
+    400016: Cube.1257
+    400018: Cube.1258
+    400020: //RootNode
+    400022: Plane.028
+    400024: Plane.030
+    400026: Plane.031
+    400028: Plane.032
+    400030: Plane.033
+    400032: Plane.034
+    400034: Plane.035
+    2100000: Palette Stones
+    2100002: Mentalpop Ground
+    2100004: Palette Specials
+    2100006: Palette Stones.001
+    2100008: Water
+    2100010: Purple Light
+    2100012: BusinessWindow Light
+    2100014: BusinessSigns01
+    2100016: White Neon
+    2300000: Cube.1249
+    2300002: Cube.1250
+    2300004: Cube.1251
+    2300006: Cube.1252
+    2300008: Cube.1253
+    2300010: Cube.1254
+    2300012: Cube.1255
+    2300014: Cube.1256
+    2300016: Cube.1257
+    2300018: Cube.1258
+    2300020: Plane.028
+    2300022: Plane.030
+    2300024: Plane.031
+    2300026: Plane.032
+    2300028: Plane.033
+    2300030: Plane.034
+    2300032: Plane.035
+    3300000: Cube.1249
+    3300002: Cube.1250
+    3300004: Cube.1251
+    3300006: Cube.1252
+    3300008: Cube.1253
+    3300010: Cube.1254
+    3300012: Cube.1255
+    3300014: Cube.1256
+    3300016: Cube.1257
+    3300018: Cube.1258
+    3300020: Plane.028
+    3300022: Plane.030
+    3300024: Plane.031
+    3300026: Plane.032
+    3300028: Plane.033
+    3300030: Plane.034
+    3300032: Plane.035
+    4300000: Plane.030
+    4300002: Plane.031
+    4300004: Plane.032
+    4300006: Plane.033
+    4300008: Plane.034
+    4300010: Cube.1249
+    4300012: Cube.1250
+    4300014: Cube.1251
+    4300016: Cube.1252
+    4300018: Cube.1253
+    4300020: Cube.1254
+    4300022: Cube.1255
+    4300024: Cube.1256
+    4300026: Cube.1257
+    4300028: Cube.1258
+    4300030: Plane.028
+    4300032: Plane.035
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mentalpop Ground
+    second: {fileID: 2100000, guid: af93941db921b5543a1a5248115b341e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones.001
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Light
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: e77e8ce32e4fcea49903772ea877a381, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White Neon
+    second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

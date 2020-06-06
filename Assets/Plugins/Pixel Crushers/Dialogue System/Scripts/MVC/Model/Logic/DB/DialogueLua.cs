@@ -75,7 +75,6 @@ namespace PixelCrushers.DialogueSystem
         public static void InitializeChatMapperVariables()
         {
             Lua.Run("Actor = {}; Item = {}; Quest = Item; Location = {}; Conversation = {}; Variable = {}; Variable[\"Alert\"] = \"\"", DialogueDebug.LogInfo);
-            Lua.Run("unassigned='unassigned'; active='active'; success='success'; failure='failure'; abandoned='abandoned'", DialogueDebug.LogInfo);
         }
 
         /// <summary>

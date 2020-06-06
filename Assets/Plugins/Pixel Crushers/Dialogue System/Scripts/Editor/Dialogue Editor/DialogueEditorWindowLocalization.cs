@@ -166,7 +166,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             try
             {
-                InitializeActorNameLookupCache();
                 var numLanguages = localizationLanguages.languages.Count;
                 for (int i = 0; i < numLanguages; i++)
                 {
@@ -183,10 +182,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     {
                         file.WriteLine(language);
                         var orderedFields = new string[] { "Dialogue Text", language, "Menu Text", "Menu Text " + language, "Description" };
-                        file.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}",
+                        file.WriteLine("{0},{1},{2},{3},{4},{5},{6}",
                             "Conversation ID",
                             "Entry ID",
-                            "Actor",
                             "Original Text",
                             "Translated Text [" + language + "]",
                             "Original Menu",
@@ -203,7 +201,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                                     fields.Add((f != null) ? f.value : string.Empty);
                                 }
                                 var sb = new StringBuilder();
-                                sb.AppendFormat("{0},{1},{2}", c.id, de.id, WrapCSVValue(LookupActorName(de.ActorID)));
+                                sb.AppendFormat("{0},{1}", c.id, de.id);
                                 foreach (string value in fields)
                                     sb.AppendFormat(",{0}", WrapCSVValue(value));
                                 file.WriteLine(sb.ToString());
@@ -309,23 +307,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
-        private Dictionary<int, string> actorNameCache = new Dictionary<int, string>();
-
-        private void InitializeActorNameLookupCache()
-        {
-            actorNameCache = new Dictionary<int, string>();
-        }
-
-        private string LookupActorName(int actorID)
-        {
-            if (!actorNameCache.ContainsKey(actorID))
-            {
-                var actor = database.GetActor(actorID);
-                actorNameCache.Add(actorID, (actor != null) ? actor.Name : "Not Assigned");
-            }
-            return actorNameCache[actorID];
-        }
-
         #endregion
 
         #region Import Section
@@ -352,7 +333,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     for (int j = 2; j < lines.Count; j++)
                     {
                         var columns = GetCSVColumnsFromLine(lines[j]);
-                        if (columns.Length < 7)
+                        if (columns.Length < 6)
                         {
                             Debug.LogError(filename + ":" + (j + 1) + " Invalid line: " + lines[j]);
                         }
@@ -360,7 +341,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                         {
                             var conversationID = Tools.StringToInt(columns[0]);
                             var entryID = Tools.StringToInt(columns[1]);
-                            //columns[2] is Actor. Ignore it.
                             var entry = database.GetDialogueEntry(conversationID, entryID);
                             if (entry == null)
                             {
@@ -368,14 +348,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                             }
                             else
                             {
-                                Field.SetValue(entry.fields, language, columns[4], FieldType.Localization);
-                                Field.SetValue(entry.fields, "Menu Text " + language, columns[6], FieldType.Localization);
+                                Field.SetValue(entry.fields, language, columns[3], FieldType.Localization);
+                                Field.SetValue(entry.fields, "Menu Text " + language, columns[5], FieldType.Localization);
 
                                 // Check if we also need to import updated main text.
                                 if (alsoImportMainText)
                                 {
-                                    entry.DialogueText = columns[3];
-                                    entry.MenuText = columns[5];
+                                    entry.DialogueText = columns[2];
+                                    entry.MenuText = columns[4];
                                 }
                             }
                         }

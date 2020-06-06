@@ -155,12 +155,6 @@ namespace PixelCrushers.LoveHate
         public LayerMask sightLayerMask = 1;
 
         /// <summary>
-        /// When sharing rumors with another, also share this faction member's affinity to the player.
-        /// </summary>
-        [Tooltip("When sharing rumors with another, also share this faction member's affinity to the player.")]
-        public bool sharePlayerAffinityWithRumors = true;
-
-        /// <summary>
         /// Set `true` to log details about rumor evaluation.
         /// </summary>
         [Tooltip("Log details about rumor evaluation to the console.")]
@@ -744,18 +738,11 @@ namespace PixelCrushers.LoveHate
 
         public bool DefaultCanSee(FactionMember actor, Dimension dimension)
         {
-            try
-            {
-                if (actor == null) return false;
-                var me = (eyes == null) ? transform : eyes;
-                var hit = Raycast(me, actor.transform, sightLayerMask, dimension);
-                var hitFactionMember = (hit == null) ? null : hit.GetComponentInChildren<FactionMember>() ?? hit.GetComponentInParent<FactionMember>();
-                return (hitFactionMember == actor);
-            }
-            catch (MissingReferenceException)
-            {
-                return false; // Return false if the actor GameObject is in some error state.
-            }
+            if (actor == null) return false;
+            var me = (eyes == null) ? transform : eyes;
+            var hit = Raycast(me, actor.transform, sightLayerMask, dimension);
+            var hitFactionMember = (hit == null) ? null : hit.GetComponentInChildren<FactionMember>() ?? hit.GetComponentInParent<FactionMember>();
+            return (hitFactionMember == actor);
         }
 
         /// <summary>
@@ -797,10 +784,7 @@ namespace PixelCrushers.LoveHate
             {
                 Debug.Log("Love/Hate: " + name + ".ShareRumors with:" + other.name, this);
             }
-            if (sharePlayerAffinityWithRumors)
-            {
-                factionManager.ShareAffinity(factionID, other.factionID, FactionDatabase.PlayerFactionID);
-            }
+            factionManager.ShareAffinity(factionID, other.factionID, FactionDatabase.PlayerFactionID);
             for (int i = 0; i < longTermMemory.Count; i++)
             {
                 ShareRumor(longTermMemory[i], other);
@@ -885,7 +869,7 @@ namespace PixelCrushers.LoveHate
             // traitImpactNorm[-1,+1]: Modifies the opinion by how well the deed's traits align with our own:
             var traitAlignment = GetTraitAlignment(rumor.traits); //[-1,+1]
             var traitImpactNorm = Mathf.Approximately(0, traitAlignmentImportance) ? 0 :
-                (traitAlignment * Mathf.Abs(changeInAffinityToActorNorm)) * (traitAlignmentImportance / 100); //[-1,+1]
+                (traitAlignment * Mathf.Abs(changeInAffinityToActorNorm)) / (traitAlignmentImportance / 100); //[-1,+1]
 
             // arousalImpactNorm[-1,+1]: Modifies the opinion by our arousal level:
             var arousalImpactNorm = Mathf.Approximately(0, arousalImportance) ? 0 :
@@ -932,7 +916,7 @@ namespace PixelCrushers.LoveHate
             {
                 var debugInfo = "Love/Hate: " + name + ".EvaluateRumor actor:" + factionManager.GetFaction(rumor.actorFactionID).name +
                     " tag:" + rumor.tag + " target:" + factionManager.GetFaction(rumor.targetFactionID).name +
-                    " impact:" + rumor.impact + " aggression:" + rumor.aggression + " source:" + source.name +
+                    "impact:" + rumor.impact + " aggression:" + rumor.aggression + " source:" + source.name +
                     "\n   confidence in source: " + confidence + "%" +
                     "\n   affinity to target: " + affinityToTarget +
                     "\n   change in affinity to actor based on impact, target & confidence: " + changeInAffinityToActorNorm * 100 +
@@ -954,7 +938,7 @@ namespace PixelCrushers.LoveHate
 
             // Update affinity:
             var oldAffinityToActor = GetAffinity(rumor.actorFactionID);
-            var newAffinityToActor = Mathf.Clamp(oldAffinityToActor + changeInAffinityToActor, -100, 100);
+            var newAffinityToActor = Mathf.Clamp(oldAffinityToActor + pleasure, -100, 100);
             SetPersonalAffinity(rumor.actorFactionID, newAffinityToActor);
 
             // If the opinion is over the threshold we care about, remember the rumor:

@@ -93,13 +93,13 @@ namespace PixelCrushers.DialogueSystem
 
         public StandardDialogueUISettings standardDialogueUISettings = new StandardDialogueUISettings();
 
-        protected virtual void Awake()
+        private void Start()
         {
             SetupBarkUI();
             SetupDialoguePanels();
         }
 
-        public virtual Sprite GetPortraitSprite()
+        public Sprite GetPortraitSprite()
         {
             return UITools.GetSprite(portrait, spritePortrait);
         }
@@ -117,7 +117,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected virtual void SetupDialoguePanels()
+        private void SetupDialoguePanels()
         {
             if (standardDialogueUISettings.subtitlePanelNumber == SubtitlePanelNumber.Custom &&
                 standardDialogueUISettings.customSubtitlePanel != null &&
@@ -143,13 +143,13 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected virtual void OnEnable()
+        private void OnEnable()
         {
             if (string.IsNullOrEmpty(actor)) return;
             CharacterInfo.RegisterActorTransform(actor, transform);
         }
 
-        protected virtual void OnDisable()
+        private void OnDisable()
         {
             if (string.IsNullOrEmpty(actor)) return;
             CharacterInfo.UnregisterActorTransform(actor, transform);
@@ -158,7 +158,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Deprecated alias for GetActorName.
         /// </summary>
-        public virtual string GetName()
+        public string GetName()
         {
             return GetActorName();
         }
@@ -168,7 +168,7 @@ namespace PixelCrushers.DialogueSystem
         /// or [var] tag.
         /// </summary>
         /// <returns>The name to use, or <c>null</c> if not set.</returns>
-        public virtual string GetActorName()
+        public string GetActorName()
         {
             var actorName = string.IsNullOrEmpty(actor) ? name : actor;
             var result = CharacterInfo.GetLocalizedDisplayNameInDatabase(DialogueLua.GetActorField(actorName, "Name").asString);
@@ -186,7 +186,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Gets the name to use when saving persistent data.
         /// </summary>
-        public virtual string GetPersistentDataName()
+        public string GetPersistentDataName()
         {
             return string.IsNullOrEmpty(persistentDataName) ? GetActorName() : persistentDataName;
         }
@@ -194,7 +194,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Gets the panel number to use if using a Standard Dialogue UI.
         /// </summary>
-        public virtual SubtitlePanelNumber GetSubtitlePanelNumber()
+        public SubtitlePanelNumber GetSubtitlePanelNumber()
         {
             return standardDialogueUISettings.subtitlePanelNumber;
         }
@@ -203,7 +203,7 @@ namespace PixelCrushers.DialogueSystem
         /// Changes a dialogue actor's subtitle panel number. If a conversation is active, updates
         /// the dialogue UI.
         /// </summary>
-        public virtual void SetSubtitlePanelNumber(SubtitlePanelNumber newSubtitlePanelNumber)
+        public void SetSubtitlePanelNumber(SubtitlePanelNumber newSubtitlePanelNumber)
         {
             standardDialogueUISettings.subtitlePanelNumber = newSubtitlePanelNumber;
             if (DialogueManager.isConversationActive && DialogueManager.dialogueUI is IStandardDialogueUI)
@@ -215,7 +215,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Gets the menu panel number to use if using a Standard Dialogue UI.
         /// </summary>
-        public virtual MenuPanelNumber GetMenuPanelNumber()
+        public MenuPanelNumber GetMenuPanelNumber()
         {
             return standardDialogueUISettings.menuPanelNumber;
         }
@@ -224,7 +224,7 @@ namespace PixelCrushers.DialogueSystem
         /// Changes a dialogue actor's menu panel number. If a conversation is active, updates
         /// the dialogue UI.
         /// </summary>
-        public virtual void SetMenuPanelNumber(MenuPanelNumber newMenuPanelNumber)
+        public void SetMenuPanelNumber(MenuPanelNumber newMenuPanelNumber)
         {
             standardDialogueUISettings.menuPanelNumber = newMenuPanelNumber;
             if (DialogueManager.isConversationActive && DialogueManager.dialogueUI is IStandardDialogueUI)
@@ -238,7 +238,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         /// <param name="subtitle">The subtitle containing the source text.</param>
         /// <returns>The subtitle text adjusted for the actor's color settings.</returns>
-        public virtual string AdjustSubtitleColor(Subtitle subtitle)
+        public string AdjustSubtitleColor(Subtitle subtitle)
         {
             var text = subtitle.formattedText.text;
             return !standardDialogueUISettings.setSubtitleColor ? text

@@ -18,7 +18,6 @@ namespace PixelCrushers
         public UnityEvent onSaveEnd = new UnityEvent();
         public UnityEvent onLoadStart = new UnityEvent();
         public UnityEvent onLoadEnd = new UnityEvent();
-        public UnityEvent onSaveDataApplied = new UnityEvent();
         public UnityEvent onSceneLoad = new UnityEvent();
 
         private void OnEnable()
@@ -38,7 +37,6 @@ namespace PixelCrushers
             SaveSystem.saveEnded += OnSaveEnded;
             SaveSystem.loadStarted += OnLoadStarted;
             SaveSystem.loadEnded += OnLoadEnded;
-            SaveSystem.saveDataApplied += OnSaveDataApplied;
             SaveSystem.sceneLoaded += OnSceneLoaded;
         }
 
@@ -48,7 +46,6 @@ namespace PixelCrushers
             SaveSystem.saveEnded -= OnSaveEnded;
             SaveSystem.loadStarted -= OnLoadStarted;
             SaveSystem.loadEnded -= OnLoadEnded;
-            SaveSystem.saveDataApplied -= OnSaveDataApplied;
             SaveSystem.sceneLoaded -= OnSceneLoaded;
         }
 
@@ -70,11 +67,6 @@ namespace PixelCrushers
         private void OnLoadEnded()
         {
             onLoadEnd.Invoke();
-        }
-
-        private void OnSaveDataApplied()
-        {
-            onSaveDataApplied.Invoke();
         }
 
         private void OnSceneLoaded(string sceneName, int sceneIndex)

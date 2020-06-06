@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b16dc7c203450459bb86e24305f9ca, type: 3}
+  m_Name: ES3GlobalReferences
+  m_EditorClassIdentifier: 
+  refId:
+    _Keys:
+    - {fileID: 11500000, guid: f1660eeab87ecf543be4a3ca42e6e836, type: 3}
+    - {fileID: 2100000, guid: 165a3fd5c7582a64486b8df62343e3ed, type: 2}
+    - {fileID: 2100000, guid: 265960776f9dbc94ca6fd6b62933ff48, type: 2}
+    - {fileID: 2100000, guid: 08e41c80d637922499fe96c6272c8ba8, type: 2}
+    - {fileID: 2100000, guid: 86484963c8cd7f74bbd9e1b14eb893c2, type: 2}
+    - {fileID: 11500000, guid: 41179b6e2ee8ff24e90df27d031267b8, type: 3}
+    - {fileID: 11500000, guid: 99e732cc085df3c408d94dac60dc07d5, type: 3}
+    _Values: 13cf2c82298f437f0bfc3db29c09a2400b920e94cdb0a548aab27cf6c585f13c7389c399b982515452e610d49fc0c41a47e00502b05bd87a

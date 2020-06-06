@@ -1,0 +1,349 @@
+fileFormatVersion: 2
+guid: a164cdaefc1362e4f8ffd9ff2c4523f9
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Apartment 04.004
+    100002: Apartment 04.005
+    100004: Apartment 04.006
+    100006: Cube.1147
+    100008: Cube.1150
+    100010: Cube.1153
+    100012: Cube.1154
+    100014: Cube.1155
+    100016: Cube.1156
+    100018: Cube.1160
+    100020: Cube.1161
+    100022: Cube.1162
+    100024: Cube.1163
+    100026: Cube.1164
+    100028: Cube.1165
+    100030: Cube.1166
+    100032: Cube.1167
+    100034: Cube.484
+    100036: Cube.531
+    100038: Cube.542
+    100040: Cylinder.051
+    100042: Cylinder.052
+    100044: Cylinder.053
+    100046: Cylinder.054
+    100048: Cylinder.055
+    100050: Plane.007
+    100052: //RootNode
+    100054: Text.045
+    100056: Torus.002
+    100058: Torus.003
+    100060: Torus.004
+    100062: Torus.005
+    100064: Torus.006
+    400000: Apartment 04.004
+    400002: Apartment 04.005
+    400004: Apartment 04.006
+    400006: Cube.1147
+    400008: Cube.1150
+    400010: Cube.1153
+    400012: Cube.1154
+    400014: Cube.1155
+    400016: Cube.1156
+    400018: Cube.1160
+    400020: Cube.1161
+    400022: Cube.1162
+    400024: Cube.1163
+    400026: Cube.1164
+    400028: Cube.1165
+    400030: Cube.1166
+    400032: Cube.1167
+    400034: Cube.484
+    400036: Cube.531
+    400038: Cube.542
+    400040: Cylinder.051
+    400042: Cylinder.052
+    400044: Cylinder.053
+    400046: Cylinder.054
+    400048: Cylinder.055
+    400050: Plane.007
+    400052: //RootNode
+    400054: Text.045
+    400056: Torus.002
+    400058: Torus.003
+    400060: Torus.004
+    400062: Torus.005
+    400064: Torus.006
+    2100000: Purple Light
+    2100002: Palette Specials
+    2100004: Palette Reds
+    2100006: BusinessWindow Light
+    2100008: BusinessSigns02
+    2100010: Blue Light
+    2100012: Signs03
+    2100014: Water
+    2100016: WaterFall
+    2100018: Palette Greens
+    2100020: Palette Browns
+    2100022: Signs02
+    2100024: Ads01
+    2100026: BusinessSigns01
+    2100028: Ads02
+    2100030: Signs
+    2300000: Apartment 04.004
+    2300002: Apartment 04.005
+    2300004: Apartment 04.006
+    2300006: Cube.1147
+    2300008: Cube.1150
+    2300010: Cube.1153
+    2300012: Cube.1154
+    2300014: Cube.1155
+    2300016: Cube.1156
+    2300018: Cube.1160
+    2300020: Cube.1161
+    2300022: Cube.1162
+    2300024: Cube.1163
+    2300026: Cube.1164
+    2300028: Cube.1165
+    2300030: Cube.1166
+    2300032: Cube.1167
+    2300034: Cube.484
+    2300036: Cube.531
+    2300038: Cube.542
+    2300040: Cylinder.051
+    2300042: Cylinder.052
+    2300044: Cylinder.053
+    2300046: Cylinder.054
+    2300048: Cylinder.055
+    2300050: Plane.007
+    2300052: Text.045
+    2300054: Torus.002
+    2300056: Torus.003
+    2300058: Torus.004
+    2300060: Torus.005
+    2300062: Torus.006
+    3300000: Apartment 04.004
+    3300002: Apartment 04.005
+    3300004: Apartment 04.006
+    3300006: Cube.1147
+    3300008: Cube.1150
+    3300010: Cube.1153
+    3300012: Cube.1154
+    3300014: Cube.1155
+    3300016: Cube.1156
+    3300018: Cube.1160
+    3300020: Cube.1161
+    3300022: Cube.1162
+    3300024: Cube.1163
+    3300026: Cube.1164
+    3300028: Cube.1165
+    3300030: Cube.1166
+    3300032: Cube.1167
+    3300034: Cube.484
+    3300036: Cube.531
+    3300038: Cube.542
+    3300040: Cylinder.051
+    3300042: Cylinder.052
+    3300044: Cylinder.053
+    3300046: Cylinder.054
+    3300048: Cylinder.055
+    3300050: Plane.007
+    3300052: Text.045
+    3300054: Torus.002
+    3300056: Torus.003
+    3300058: Torus.004
+    3300060: Torus.005
+    3300062: Torus.006
+    4300000: Apartment 04.004
+    4300002: Cube.1150
+    4300004: Torus.003
+    4300006: Torus.002
+    4300008: Cube.1147
+    4300010: Cube.1153
+    4300012: Cube.1154
+    4300014: Cube.1155
+    4300016: Cube.1156
+    4300018: Cube.1160
+    4300020: Torus.004
+    4300022: Torus.005
+    4300024: Torus.006
+    4300026: Text.045
+    4300028: Plane.007
+    4300030: Cube.1161
+    4300032: Cube.1163
+    4300034: Cube.1164
+    4300036: Cube.1162
+    4300038: Cylinder.051
+    4300040: Cylinder.053
+    4300042: Cylinder.052
+    4300044: Cylinder.054
+    4300046: Cylinder.055
+    4300048: Apartment 04.005
+    4300050: Apartment 04.006
+    4300052: Cube.1165
+    4300054: Cube.1166
+    4300056: Cube.1167
+    4300058: Cube.484
+    4300060: Cube.531
+    4300062: Cube.542
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads01
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads02
+    second: {fileID: 2100000, guid: 633b8a0946380404c8c1a21bdc57d8e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns02
+    second: {fileID: 2100000, guid: 39857031c22a2e848810cbb7b3d273fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Browns
+    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Reds
+    second: {fileID: 2100000, guid: 5ec6c00fff0b69c4db2ad83be706ded3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Light
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs
+    second: {fileID: 2100000, guid: f2a75a40319ed5e488655c56dff5fcf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs02
+    second: {fileID: 2100000, guid: 452cd383fce9ef840bc4bd9950d9a596, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs03
+    second: {fileID: 2100000, guid: d5d3d7b4d753fee45b100ab81ed8c1bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterFall
+    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -123,15 +123,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void AddRuntimeVariableWatch()
         {
-            RefreshWatchableVariableList();
-            CatalogueWatchableVariableNames();
             watches.Add(new Watch(WatchType.Variable));
             watchableVariableNames = null;
         }
 
         private void AddAllRuntimeVariableWatches()
         {
-            RefreshWatchableVariableList();
             CatalogueWatchableVariableNames();
             for (int i = 0; i < watchableVariableNames.Length; i++)
             {

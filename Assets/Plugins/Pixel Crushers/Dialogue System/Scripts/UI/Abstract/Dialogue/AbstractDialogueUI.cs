@@ -87,7 +87,7 @@ namespace PixelCrushers.DialogueSystem
             else
             {
                 uiRootControls.Show();
-                if (!isOpen) dialogueControls.Hide();
+                dialogueControls.Hide();
                 qteControls.Hide();
                 if (!alertControls.isVisible) alertControls.Hide();
                 if (isOpen) Open();

@@ -25,7 +25,7 @@ namespace PixelCrushers.LoveHate
         /// When a deed is committed, process this many potential witnesses each Update.
         /// </summary>
         [Tooltip("When a deed is committed, process this many potential witnesses each Update.")]
-        public int witnessesPerUpdate = 60;
+        public int witnessesPerUpdate = 1;
 
         /// <summary>
         /// Faction members can witness their own deeds.
@@ -497,7 +497,6 @@ namespace PixelCrushers.LoveHate
             {
                 var item = m_witnessQueue.Dequeue();
                 if (item == null) return;
-                if (item.witness == null) continue;
                 item.witness.WitnessDeed(item.deed, item.actor, item.requiresSight, item.dimension);
                 WitnessQueueItem.Release(item);
             }
@@ -646,29 +645,36 @@ namespace PixelCrushers.LoveHate
         #region Evaluation Version Code
 
 #if EVALUATION_VERSION
+        private GUIStyle evaluationWatermarkStyle = null;
+        private Rect watermarkRect1;
+        private Rect watermarkRect2;
 
-        private GameObject watermark = null;
-
-        protected virtual void LateUpdate()
+        public void OnGUI()
         {
-            if (watermark != null) return;
-            watermark = new GameObject("Eval");
-            watermark.transform.SetParent(transform);
-            var canvas = watermark.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 16383;
-            Destroy(watermark.GetComponent<UnityEngine.UI.GraphicRaycaster>());
-            Destroy(watermark.GetComponent<UnityEngine.UI.CanvasScaler>());
-            var text = watermark.AddComponent<UnityEngine.UI.Text>();
-            text.text = "Love/Hate\nEvaluation Version";
-            text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            text.fontSize = 24;
-            text.fontStyle = FontStyle.Bold;
-            text.color = new Color(1, 1, 1, 0.75f);
-            text.alignment = (Random.value < 0.5f) ? TextAnchor.UpperCenter : TextAnchor.LowerCenter;
-            text.raycastTarget = false;
+            if (Camera.main == null) return;
+            if (Camera.main.GetComponent<GUILayer>() == null) Camera.main.gameObject.AddComponent<GUILayer>();
+            if (evaluationWatermarkStyle == null)
+            {
+                evaluationWatermarkStyle = new GUIStyle(GUI.skin.label);
+                evaluationWatermarkStyle.fontSize = 20;
+                evaluationWatermarkStyle.fontStyle = FontStyle.Bold;
+                evaluationWatermarkStyle.alignment = TextAnchor.MiddleCenter;
+                evaluationWatermarkStyle.normal.textColor = new Color(1, 1, 1, 0.5f);
+                Vector2 size = evaluationWatermarkStyle.CalcSize(new GUIContent("Evaluation Version"));
+                if (Random.value < 0.5f)
+                {
+                    watermarkRect1 = new Rect((Screen.width - size.x) / 2, 8, size.x, size.y);
+                    watermarkRect2 = new Rect((Screen.width - size.x) / 2, 8 + size.y, size.x, size.y);
+                }
+                else
+                {
+                    watermarkRect1 = new Rect((Screen.width - size.x) / 2, Screen.height - 2 * size.y - 8, size.x, size.y);
+                    watermarkRect2 = new Rect((Screen.width - size.x) / 2, Screen.height - size.y - 8, size.x, size.y);
+                }
+            }
+            GUI.Label(watermarkRect1, "Love/Hate", evaluationWatermarkStyle);
+            GUI.Label(watermarkRect2, "Evaluation Version", evaluationWatermarkStyle);
         }
-
 #endif
 
         #endregion

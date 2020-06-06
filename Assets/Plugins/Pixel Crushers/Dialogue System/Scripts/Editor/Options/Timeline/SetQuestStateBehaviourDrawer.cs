@@ -1,4 +1,3 @@
-// Recompile at 6/6/2020 1:32:03 PM
 #if USE_TIMELINE
 #if UNITY_2017_1_OR_NEWER
 using UnityEditor;

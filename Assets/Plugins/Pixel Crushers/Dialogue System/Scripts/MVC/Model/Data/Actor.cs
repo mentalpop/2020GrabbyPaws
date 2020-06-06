@@ -145,29 +145,6 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        public delegate void AssignSpriteDelegate(Sprite sprite);
-
-        public void AssignPortraitSprite(AssignSpriteDelegate assignSprite)
-        {
-            var originalDebugLevel = DialogueDebug.level; // Suppress logging for Lua return Actor[].Current_Portrait.
-            DialogueDebug.level = DialogueDebug.DebugLevel.Warning;
-            string imageName = DialogueLua.GetActorField(Name, DialogueSystemFields.CurrentPortrait).asString;
-            DialogueDebug.level = originalDebugLevel;
-            if (string.IsNullOrEmpty(imageName))
-            {
-                assignSprite(GetPortraitSprite(1));
-            }
-            else if (imageName.StartsWith("pic="))
-            {
-                assignSprite(GetPortraitSprite(Tools.StringToInt(imageName.Substring("pic=".Length))));
-            }
-            else
-            {
-                DialogueManager.LoadAsset(imageName, typeof(Texture2D),
-                    (asset) => { assignSprite(UITools.CreateSprite(asset as Texture2D)); });
-            }
-        }
-
         private string LookupTextureName()
         {
             var field = Field.Lookup(fields, DialogueSystemFields.Pictures);

@@ -23,12 +23,6 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Hide the continue button when continuing.")]
         public bool hideContinueButtonOnContinue = false;
 
-        [Tooltip("If subtitle is displaying, continue past it.")]
-        public bool continueSubtitlePanel = true;
-
-        [Tooltip("If alert is displaying, continue past it.")]
-        public bool continueAlertPanel = true;
-
         private UnityEngine.UI.Button continueButton;
 
         private AbstractDialogueUI m_runtimeDialogueUI;
@@ -70,12 +64,7 @@ namespace PixelCrushers.DialogueSystem
             else
             {
                 if (hideContinueButtonOnContinue && continueButton != null) continueButton.gameObject.SetActive(false);
-                if (runtimeDialogueUI != null)
-                {
-                    if (continueSubtitlePanel && continueAlertPanel) runtimeDialogueUI.OnContinue();
-                    else if (continueSubtitlePanel) runtimeDialogueUI.OnContinueConversation();
-                    else if (continueAlertPanel) runtimeDialogueUI.OnContinueAlert();
-                }
+                if (runtimeDialogueUI != null) runtimeDialogueUI.OnContinue();
             }
         }
 

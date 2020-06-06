@@ -1,0 +1,437 @@
+fileFormatVersion: 2
+guid: a8b3d7f3d12c6d54c95996fced324bfe
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Apartment 04.002
+    100002: BezierCurve
+    100004: Cube.051
+    100006: Cube.052
+    100008: Cube.053
+    100010: Cube.054
+    100012: Cube.055
+    100014: Cube.056
+    100016: Cube.058
+    100018: Cube.059
+    100020: Cube.060
+    100022: Cube.061
+    100024: Cube.062
+    100026: Cube.063
+    100028: Cube.076
+    100030: Cube.1084
+    100032: Cube.1085
+    100034: Cube.1086
+    100036: Cube.1088
+    100038: Cube.1089
+    100040: Cube.1090
+    100042: Cube.1091
+    100044: Cube.1092
+    100046: Cube.1093
+    100048: Cube.1094
+    100050: Cube.1095
+    100052: Cube.391
+    100054: Cube.404
+    100056: Cube.813
+    100058: Cube.814
+    100060: Cube.815
+    100062: Cylinder.020
+    100064: Cylinder.021
+    100066: //RootNode
+    100068: Radar Guy.003
+    100070: Solar Panel.002
+    100072: Solar Panel.003
+    100074: Square Door Blue.003
+    100076: Square Door Blue.004
+    100078: Square Door Blue.005
+    100080: Square Door Blue.006
+    100082: Square Door Blue.007
+    100084: String Lights.001
+    100086: String Lights.003
+    100088: String Lights.004
+    100090: String Lights.005
+    100092: String Lights.006
+    100094: Text.007
+    100096: Text.015
+    100098: Text.023
+    100100: Text.024
+    100102: Text.030
+    100104: Text.032
+    400000: Apartment 04.002
+    400002: BezierCurve
+    400004: Cube.051
+    400006: Cube.052
+    400008: Cube.053
+    400010: Cube.054
+    400012: Cube.055
+    400014: Cube.056
+    400016: Cube.058
+    400018: Cube.059
+    400020: Cube.060
+    400022: Cube.061
+    400024: Cube.062
+    400026: Cube.063
+    400028: Cube.076
+    400030: Cube.1084
+    400032: Cube.1085
+    400034: Cube.1086
+    400036: Cube.1088
+    400038: Cube.1089
+    400040: Cube.1090
+    400042: Cube.1091
+    400044: Cube.1092
+    400046: Cube.1093
+    400048: Cube.1094
+    400050: Cube.1095
+    400052: Cube.391
+    400054: Cube.404
+    400056: Cube.813
+    400058: Cube.814
+    400060: Cube.815
+    400062: Cylinder.020
+    400064: Cylinder.021
+    400066: //RootNode
+    400068: Radar Guy.003
+    400070: Solar Panel.002
+    400072: Solar Panel.003
+    400074: Square Door Blue.003
+    400076: Square Door Blue.004
+    400078: Square Door Blue.005
+    400080: Square Door Blue.006
+    400082: Square Door Blue.007
+    400084: String Lights.001
+    400086: String Lights.003
+    400088: String Lights.004
+    400090: String Lights.005
+    400092: String Lights.006
+    400094: Text.007
+    400096: Text.015
+    400098: Text.023
+    400100: Text.024
+    400102: Text.030
+    400104: Text.032
+    2100000: Palette Specials
+    2100002: BusinessSigns01
+    2100004: Ads01
+    2100006: Purple Lighto
+    2100008: BusinessWindow Light
+    2100010: Palette Reds
+    2100012: Water
+    2100014: Palette Greens
+    2100016: White Neon
+    2100018: Signs01
+    2100020: Blue Light
+    2100022: Signs02
+    2100024: Darkness
+    2100026: Ads02
+    2300000: Apartment 04.002
+    2300002: BezierCurve
+    2300004: Cube.051
+    2300006: Cube.052
+    2300008: Cube.053
+    2300010: Cube.054
+    2300012: Cube.055
+    2300014: Cube.056
+    2300016: Cube.058
+    2300018: Cube.059
+    2300020: Cube.060
+    2300022: Cube.061
+    2300024: Cube.062
+    2300026: Cube.063
+    2300028: Cube.076
+    2300030: Cube.1084
+    2300032: Cube.1085
+    2300034: Cube.1086
+    2300036: Cube.1088
+    2300038: Cube.1089
+    2300040: Cube.1090
+    2300042: Cube.1091
+    2300044: Cube.1092
+    2300046: Cube.1093
+    2300048: Cube.1094
+    2300050: Cube.1095
+    2300052: Cube.391
+    2300054: Cube.404
+    2300056: Cube.813
+    2300058: Cube.814
+    2300060: Cube.815
+    2300062: Cylinder.020
+    2300064: Cylinder.021
+    2300066: Radar Guy.003
+    2300068: Solar Panel.002
+    2300070: Solar Panel.003
+    2300072: Square Door Blue.003
+    2300074: Square Door Blue.004
+    2300076: Square Door Blue.005
+    2300078: Square Door Blue.006
+    2300080: Square Door Blue.007
+    2300082: String Lights.001
+    2300084: String Lights.003
+    2300086: String Lights.004
+    2300088: String Lights.005
+    2300090: String Lights.006
+    2300092: Text.007
+    2300094: Text.015
+    2300096: Text.023
+    2300098: Text.024
+    2300100: Text.030
+    2300102: Text.032
+    3300000: Apartment 04.002
+    3300002: BezierCurve
+    3300004: Cube.051
+    3300006: Cube.052
+    3300008: Cube.053
+    3300010: Cube.054
+    3300012: Cube.055
+    3300014: Cube.056
+    3300016: Cube.058
+    3300018: Cube.059
+    3300020: Cube.060
+    3300022: Cube.061
+    3300024: Cube.062
+    3300026: Cube.063
+    3300028: Cube.076
+    3300030: Cube.1084
+    3300032: Cube.1085
+    3300034: Cube.1086
+    3300036: Cube.1088
+    3300038: Cube.1089
+    3300040: Cube.1090
+    3300042: Cube.1091
+    3300044: Cube.1092
+    3300046: Cube.1093
+    3300048: Cube.1094
+    3300050: Cube.1095
+    3300052: Cube.391
+    3300054: Cube.404
+    3300056: Cube.813
+    3300058: Cube.814
+    3300060: Cube.815
+    3300062: Cylinder.020
+    3300064: Cylinder.021
+    3300066: Radar Guy.003
+    3300068: Solar Panel.002
+    3300070: Solar Panel.003
+    3300072: Square Door Blue.003
+    3300074: Square Door Blue.004
+    3300076: Square Door Blue.005
+    3300078: Square Door Blue.006
+    3300080: Square Door Blue.007
+    3300082: String Lights.001
+    3300084: String Lights.003
+    3300086: String Lights.004
+    3300088: String Lights.005
+    3300090: String Lights.006
+    3300092: Text.007
+    3300094: Text.015
+    3300096: Text.023
+    3300098: Text.024
+    3300100: Text.030
+    3300102: Text.032
+    4300000: Cube.052
+    4300002: Cube.053
+    4300004: Cube.404
+    4300006: Cube.051
+    4300008: Cube.054
+    4300010: Square Door Blue.003
+    4300012: Cube.055
+    4300014: Solar Panel.002
+    4300016: Apartment 04.002
+    4300018: Text.007
+    4300020: Text.015
+    4300022: BezierCurve
+    4300024: Cylinder.020
+    4300026: Cube.056
+    4300028: Cube.391
+    4300030: Cube.058
+    4300032: Cube.813
+    4300034: Cube.814
+    4300036: Cube.815
+    4300038: Cube.1088
+    4300040: Cube.1091
+    4300042: Square Door Blue.007
+    4300044: Cube.1092
+    4300046: Cube.1093
+    4300048: Cube.1094
+    4300050: Cube.1095
+    4300052: Radar Guy.003
+    4300054: Cube.076
+    4300056: Cube.059
+    4300058: Square Door Blue.004
+    4300060: Cube.060
+    4300062: Square Door Blue.005
+    4300064: Cube.061
+    4300066: Square Door Blue.006
+    4300068: Text.024
+    4300070: Text.030
+    4300072: Text.023
+    4300074: Text.032
+    4300076: Cube.062
+    4300078: Solar Panel.003
+    4300080: String Lights.001
+    4300082: String Lights.003
+    4300084: String Lights.004
+    4300086: String Lights.005
+    4300088: String Lights.006
+    4300090: Cube.063
+    4300092: Cube.1084
+    4300094: Cube.1085
+    4300096: Cube.1086
+    4300098: Cube.1089
+    4300100: Cylinder.021
+    4300102: Cube.1090
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads01
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads02
+    second: {fileID: 2100000, guid: 633b8a0946380404c8c1a21bdc57d8e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness
+    second: {fileID: 2100000, guid: 16506ff0b75008e40af1c7e36e3863f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Reds
+    second: {fileID: 2100000, guid: 5ec6c00fff0b69c4db2ad83be706ded3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Lighto
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs01
+    second: {fileID: 2100000, guid: f2a75a40319ed5e488655c56dff5fcf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs02
+    second: {fileID: 2100000, guid: 452cd383fce9ef840bc4bd9950d9a596, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White Neon
+    second: {fileID: 2100000, guid: 3c6655b05f79fa84ca9fb140d031124e, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -99,12 +99,9 @@ namespace PixelCrushers.DialogueSystem
                 menuResult = MenuResult.Unselected;
             }
 
-            //EditorWindowTools.StartIndentedSection(); // Removed indent; looks better without.
-
+            EditorWindowTools.StartIndentedSection();
             SetSyntaxStateGUIColor(syntaxState);
-
             var newSequence = EditorGUILayout.TextArea(sequence);
-
             ClearSyntaxStateGUIColor();
             if (!string.Equals(newSequence, sequence))
             {
@@ -137,14 +134,9 @@ namespace PixelCrushers.DialogueSystem
                                         sequence = AddCommandToSequence(sequence, GetCurrentAudioCommand() + "(" + GetResourceName(path) + ")");
                                         GUI.changed = true;
                                     }
-                                    else if (GetCurrentAudioCommand() == "LipSync")
-                                    {
-                                        sequence = AddCommandToSequence(sequence, GetCurrentAudioCommand() + "(" + System.IO.Path.GetFileNameWithoutExtension(path) + ")");
-                                        GUI.changed = true;
-                                    }
                                     else
                                     {
-                                        EditorUtility.DisplayDialog("Not in Resources Folder", "To use drag-n-drop, audio clips must be located in the hierarchy of a Resources folder.", "OK");
+                                        EditorUtility.DisplayDialog("Not in Resources Folder", "Audio clips must be located in the hierarchy of a Resources folder or an AssetBundle.", "OK");
                                     }
                                 }
                                 else if (obj is GameObject)
@@ -191,7 +183,7 @@ namespace PixelCrushers.DialogueSystem
             // If content changed, reset syntax check state:
             if (EditorGUI.EndChangeCheck()) syntaxState = SequenceSyntaxState.Unchecked;
 
-            //EditorWindowTools.EndIndentedSection();
+            EditorWindowTools.EndIndentedSection();
 
             return sequence;
         }
@@ -242,7 +234,7 @@ namespace PixelCrushers.DialogueSystem
 
         private static void ShowSequenceEditorAudioHelp(object data)
         {
-            EditorUtility.DisplayDialog("Audio Drag & Drop Help", "Select an item in this Audio submenu to specify which command to add when dragging an audio clip onto the Sequence field. Audio clips must be in a Resources folder.\n\nAudio commands can use AssetBundles and Addressables, but not with this drag-n-drop feature.\n\nIf using LipSync(), to use drag-n-drop the LipSync data file and audio file must be named the same, and you must drag the audio file into the Sequence field, but the audio file doesn't have to be in Resources.", "OK");
+            EditorUtility.DisplayDialog("Audio Drag & Drop Help", "Select an item in this Audio submenu to specify which command to add when dragging an audio clip onto the Sequence field. Audio clips must be in a Resources folder. Audio commands can use AssetBundles, but not with this drag-n-drop feature.", "OK");
         }
 
         private static void SetAudioDragDropCommand(object data)

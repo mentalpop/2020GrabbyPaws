@@ -149,22 +149,22 @@ namespace PixelCrushers.DialogueSystem
             {
                 conditionItems.Add(new ConditionItem());
             }
-            conditionsLogicalOperator = (LogicalOperatorType)EditorGUILayout.EnumPopup(conditionsLogicalOperator, EditorTools.GUILayoutPopupWidth(conditionsLogicalOperator));
-            EditorGUILayout.LabelField("must be true.", EditorTools.GUILayoutLabelWidth("must be true."));
+            conditionsLogicalOperator = (LogicalOperatorType)EditorGUILayout.EnumPopup(conditionsLogicalOperator, GUILayout.Width(48));
+            EditorGUILayout.LabelField("must be true.", GUILayout.Width(80));
 
             GUILayout.FlexibleSpace();
-            append = EditorGUILayout.ToggleLeft("Append", append, EditorTools.GUILayoutToggleWidth("Append"));
+            append = EditorGUILayout.ToggleLeft("Append", append, GUILayout.Width(60));
 
             if (EditorGUI.EndChangeCheck())
             {
                 ApplyConditionsWizard();
             }
 
-            if (GUILayout.Button(new GUIContent("Revert", "Cancel these settings."), EditorStyles.miniButton, EditorTools.GUILayoutButtonWidth("Revert")))
+            if (GUILayout.Button(new GUIContent("Revert", "Cancel these settings."), EditorStyles.miniButton, GUILayout.Width(52)))
             {
                 luaCode = CancelConditionsWizard();
             }
-            if (GUILayout.Button(new GUIContent("Apply", "Apply these settings"), EditorStyles.miniButton, EditorTools.GUILayoutButtonWidth("Apply")))
+            if (GUILayout.Button(new GUIContent("Apply", "Apply these settings"), EditorStyles.miniButton, GUILayout.Width(52)))
             {
                 luaCode = AcceptConditionsWizard();
             }
@@ -179,7 +179,7 @@ namespace PixelCrushers.DialogueSystem
         {
             EditorGUILayout.BeginHorizontal();
 
-            ConditionWizardResourceType newConditionType = (ConditionWizardResourceType)EditorGUILayout.EnumPopup(item.conditionType, EditorTools.GUILayoutPopupWidth(item.conditionType));
+            ConditionWizardResourceType newConditionType = (ConditionWizardResourceType)EditorGUILayout.EnumPopup(item.conditionType, GUILayout.Width(96));
             if (newConditionType != item.conditionType)
             {
                 item.conditionType = newConditionType;
@@ -192,7 +192,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 // Quest:
                 item.questNamesIndex = EditorGUILayout.Popup(item.questNamesIndex, questNames);
-                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, EditorTools.GUILayoutPopupWidth(item.equalityType));
+                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(60));
                 item.questState = QuestStateDrawer.LayoutQuestStatePopup(item.questState, 96);
 
                 s_lastQuestNamesIndex = item.questNamesIndex;
@@ -211,7 +211,7 @@ namespace PixelCrushers.DialogueSystem
                     item.conditionsQuestEntryNames = GetQuestEntryNames(complexQuestNames[item.questNamesIndex]);
                 }
                 item.questEntryIndex = EditorGUILayout.Popup(item.questEntryIndex, item.conditionsQuestEntryNames);
-                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, EditorTools.GUILayoutPopupWidth(item.equalityType));
+                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(60));
                 item.questState = QuestStateDrawer.LayoutQuestStatePopup(item.questState, 96);
 
                 s_lastQuestNamesIndex = item.questNamesIndex;
@@ -263,13 +263,13 @@ namespace PixelCrushers.DialogueSystem
                 item.simStatusThisID = EditorGUILayout.Toggle(GUIContent.none, item.simStatusThisID, GUILayout.Width(14));
                 if (item.simStatusThisID)
                 {
-                    EditorGUILayout.LabelField("thisID", EditorTools.GUILayoutLabelWidth("thisID"));
+                    EditorGUILayout.LabelField("thisID", GUILayout.Width(38));
                 }
                 else
                 {
                     item.simStatusID = EditorGUILayout.IntField(item.simStatusID, GUILayout.Width(38));
                 }
-                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, EditorTools.GUILayoutPopupWidth(item.equalityType));
+                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(56));
                 item.simStatusType = (SimStatusType)EditorGUILayout.EnumPopup(item.simStatusType);
             }
 
@@ -569,7 +569,7 @@ namespace PixelCrushers.DialogueSystem
                         {
                             sb.Append(openParen);
                             var luaFuncRecord = customLuaFuncs[item.customLuaFuncIndex];
-                            sb.Append(Tools.GetAllAfterSlashes(luaFuncRecord.functionName) + "(");
+                            sb.Append(luaFuncRecord.functionName + "(");
                             if (item.customParamValues == null) InitCustomParamValues(luaFuncRecord, out item.customParamValues);
                             for (int p = 0; p < luaFuncRecord.parameters.Length; p++)
                             {

@@ -85,7 +85,7 @@ namespace PixelCrushers.LoveHate
 
         private Faction LookupFactionByID(int factionID)
         {
-            if (Application.isPlaying && m_factionIDLookup.ContainsKey(factionID))
+            if (m_factionIDLookup.ContainsKey(factionID))
             {
                 return m_factionIDLookup[factionID];
             }
@@ -96,7 +96,7 @@ namespace PixelCrushers.LoveHate
                     var faction = factions[f];
                     if ((faction != null) && (faction.id == factionID))
                     {
-                        if (Application.isPlaying) m_factionIDLookup.Add(factionID, faction);
+                        m_factionIDLookup.Add(factionID, faction);
                         return faction;
                     }
                 }
@@ -118,7 +118,7 @@ namespace PixelCrushers.LoveHate
 
         private Faction LookupFactionByName(string factionName)
         {
-            if (Application.isPlaying && m_factionNameLookup.ContainsKey(factionName))
+            if (m_factionNameLookup.ContainsKey(factionName))
             {
                 return m_factionNameLookup[factionName];
             }
@@ -129,7 +129,7 @@ namespace PixelCrushers.LoveHate
                     var faction = factions[f];
                     if ((faction != null) && string.Equals(faction.name, factionName))
                     {
-                        if (Application.isPlaying) m_factionNameLookup.Add(factionName, faction);
+                        m_factionNameLookup.Add(factionName, faction);
                         return faction;
                     }
                 }
@@ -566,7 +566,7 @@ namespace PixelCrushers.LoveHate
                 return false;
             }
 
-            // Does judge have a relationship for any of subject's parents?
+            // Does judge have an relationship for any of subject's parents?
             // (If so, return the average.)
             int numFound = 0;
             float total = 0;

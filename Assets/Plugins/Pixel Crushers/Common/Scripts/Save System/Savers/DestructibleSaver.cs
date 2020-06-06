@@ -80,7 +80,7 @@ namespace PixelCrushers
             RecordDestruction();
         }
 
-        public virtual void RecordDestruction()
+        protected virtual void RecordDestruction()
         {
             if (!m_ignoreOnDestroy && SaveSystem.instance != null)
             {

@@ -91,34 +91,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private bool showQuickDialogueTextEntry = false;
         private Rect quickDialogueTextEntryRect;
 
-        private Texture2D _sequenceIcon = null;
-        private Texture2D sequenceIcon
-        {
-            get
-            {
-                if (_sequenceIcon == null) _sequenceIcon = EditorGUIUtility.Load("Dialogue System/Sequence.png") as Texture2D;
-                return _sequenceIcon;
-            }
-        }
-        private Texture2D _conditionsIcon = null;
-        private Texture2D conditionsIcon
-        {
-            get
-            {
-                if (_conditionsIcon == null) _conditionsIcon = EditorGUIUtility.Load("Dialogue System/Conditions.png") as Texture2D;
-                return _conditionsIcon;
-            }
-        }
-        private Texture2D _scriptIcon = null;
-        private Texture2D scriptIcon
-        {
-            get
-            {
-                if (_scriptIcon == null) _scriptIcon = EditorGUIUtility.Load("Dialogue System/Script.png") as Texture2D;
-                return _scriptIcon;
-            }
-        }
-
         private Vector2 ConvertScreenCoordsToZoomCoords(Rect _zoomArea, Vector2 screenCoords)
         {
             return (screenCoords - _zoomArea.TopLeft()) / _zoom + _zoomCoordsOrigin;
@@ -662,25 +634,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 GUI.backgroundColor = guicolor_backup;
             }
 
-            if (_zoom > 0.5f)
-            {
-                // Draw icons for Sequence, Conditions, & Script:
-                if (!string.IsNullOrEmpty(entry.Sequence) && !(entry.id == 0 && entry.Sequence == "None()"))
-                {
-                    GUI.Label(new Rect((boxRect.x + boxRect.width) - 44, (boxRect.y + boxRect.height) - 15, 16, 16), new GUIContent(sequenceIcon, entry.Sequence));
-                }
-
-                if (!string.IsNullOrEmpty(entry.conditionsString))
-                {
-                    GUI.Label(new Rect((boxRect.x + boxRect.width) - 30, (boxRect.y + boxRect.height) - 15, 16, 16), new GUIContent(conditionsIcon, entry.conditionsString));
-                }
-
-                if (!string.IsNullOrEmpty(entry.userScript))
-                {
-                    GUI.Label(new Rect((boxRect.x + boxRect.width) - 16, (boxRect.y + boxRect.height) - 15, 16, 16), new GUIContent(scriptIcon, entry.userScript));
-                }
-            }
-
             if (showActorPortraits)
             {
                 var portrait = GetActorPortrait(entry.ActorID);
@@ -984,11 +937,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     }
                     break;
                 case EventType.MouseUp:
-                    if (hasStartedSnapToGrid)
-                    {
-                        FinishSnapToGrid(multinodeSelection.nodes);
-                        hasStartedSnapToGrid = false;
-                    }
+                    hasStartedSnapToGrid = false;
                     if (Event.current.button == LeftMouseButton)
                     {
                         if (!isMakingLink && entry.canvasRect.Contains(Event.current.mousePosition))
@@ -1069,21 +1018,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
             hasStartedSnapToGrid = true;
             SetDatabaseDirty("Drag");
-        }
-
-        private void FinishSnapToGrid(List<DialogueEntry> nodeList)
-        {
-            var snapToGrid = snapToGridAmount >= MinorGridLineWidth;
-            if (!snapToGrid) return;
-            for (int i = 0; i < nodeList.Count; i++)
-            {
-                var entry = nodeList[i];
-                var canvasRect = entry.canvasRect;
-                entry.canvasRect.x = ((int)(canvasRect.x / snapToGridAmount) * snapToGridAmount);
-                entry.canvasRect.y = ((int)(canvasRect.y / snapToGridAmount) * snapToGridAmount);
-            }
-            hasStartedSnapToGrid = false;
-            SetDatabaseDirty("Drag End");
         }
 
         private bool IsModifierDown(EventModifiers modifier)

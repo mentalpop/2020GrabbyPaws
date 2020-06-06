@@ -144,7 +144,7 @@ namespace PixelCrushers.DialogueSystem
                     EditorGUILayout.HelpBox("You may want to set Conditions > Accepted Tags to observe collisions only with GameObjects with specific tags such as 'Player'. Otherwise this trigger may fire for unintended collisions such as world geometry.", MessageType.Info);
                     EditorGUILayout.BeginHorizontal();
                     GUILayout.FlexibleSpace();
-                    if (GUILayout.Button("Add 'Player' Tag", EditorStyles.miniButton, EditorTools.GUILayoutButtonWidth("Add 'Player' Tag")))
+                    if (GUILayout.Button("Add 'Player' Tag", EditorStyles.miniButton, GUILayout.Width(110)))
                     {
                         acceptedTags.arraySize = 1;
                         acceptedTags.GetArrayElementAtIndex(0).stringValue = "Player";
@@ -201,16 +201,16 @@ namespace PixelCrushers.DialogueSystem
                     if (showSetQuestStateAction || showRunLuaCodeAction || showPlaySequenceAction || showAlertAction || showSendMessagesAction || showBarkAction ||
                         showConversationAction || showSetActiveAction || showSetEnabledAction || showAnimatorStatesAction || showUnityEventAction)
                     {
-                        EditorGUILayout.LabelField("Actions are performed in this order:", EditorTools.GUILayoutLabelWidth("Actions are performed in this order:"));
+                        EditorGUILayout.LabelField("Actions are performed in this order:");
                     }
                     else
                     {
-                        EditorGUILayout.LabelField("Click Add Action:", EditorTools.GUILayoutLabelWidth("Click Add Action to add new action types:"));
+                        EditorGUILayout.LabelField("Click Add Action to add new action types:");
                     }
                     GUILayout.FlexibleSpace();
                     EditorGUI.BeginDisabledGroup(showSetQuestStateAction && showRunLuaCodeAction && showPlaySequenceAction && showAlertAction && showSendMessagesAction && showBarkAction &&
                         showConversationAction && showSetActiveAction && showSetEnabledAction && showAnimatorStatesAction && showUnityEventAction);
-                    if (GUILayout.Button("Add Action", EditorTools.GUILayoutButtonWidth("Add Action"))) ShowAddActionMenu();
+                    if (GUILayout.Button("Add Action", GUILayout.Width(80))) ShowAddActionMenu();
                     EditorGUI.EndDisabledGroup();
                     EditorGUILayout.EndHorizontal();
 

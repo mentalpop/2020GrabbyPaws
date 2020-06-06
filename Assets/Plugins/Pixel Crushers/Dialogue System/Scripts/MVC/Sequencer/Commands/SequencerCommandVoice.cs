@@ -19,7 +19,6 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         private Animation anim = null;
         private Animator animator = null;
         private AudioSource audioSource = null;
-        private AudioClip audioClip = null;
 
         public void Start()
         {
@@ -29,13 +28,14 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             subject = GetSubject(3);
             anim = (subject == null) ? null : subject.GetComponent<Animation>();
             animator = (subject == null) ? null : subject.GetComponent<Animator>();
+            AudioClip audioClip = (!string.IsNullOrEmpty(audioClipName)) ? (DialogueManager.LoadAsset(audioClipName) as AudioClip) : null;
             if ((anim == null) && (animator == null))
             {
                 if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}) command: No Animator or Animation component found on {3}.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, (subject != null) ? subject.name : GetParameter(3) }));
             }
-            else if (string.IsNullOrEmpty(audioClipName))
+            else if (audioClip == null)
             {
-                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}) command: Audio clip name is blank.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, subject.name }));
+                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}) command: Clip is null.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, subject.name }));
             }
             else if (string.IsNullOrEmpty(animationClipName))
             {
@@ -43,47 +43,42 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             }
             else
             {
-                DialogueManager.LoadAsset(audioClipName, typeof(AudioClip),
-                    (asset) =>
+                if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4})", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, Tools.GetObjectName(subject) }));
+                audioSource = SequencerTools.GetAudioSource(subject);
+                if (audioSource == null)
+                {
+                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Voice() command: can't find or add AudioSource to {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
+                }
+                else
+                {
+                    if (IsAudioMuted())
                     {
-                        audioClip = asset as AudioClip;
-                        if (audioClip == null)
+                        if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}): Audio is muted; not playing it.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, Tools.GetObjectName(subject) }));
+                    }
+                    else
+                    {
+                        audioSource.clip = audioClip;
+                        audioSource.Play();
+                    }
+                    try
+                    {
+                        if (animator != null)
                         {
-                            if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}) command: Audio clip is null.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, subject.name }));
-                            stopTime = 0;
+                            animator.CrossFade(animationClipName, 0.3f);
+                            stopTime = DialogueTime.time + audioClip.length;
                         }
                         else
                         {
-                            if (IsAudioMuted())
-                            {
-                                if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: Voice({1}, {2}, {3}, {4}): Audio is muted; not playing it.", new System.Object[] { DialogueDebug.Prefix, audioClipName, animationClipName, finalClipName, Tools.GetObjectName(subject) }));
-                            }
-                            else
-                            {
-                                audioSource.clip = audioClip;
-                                audioSource.Play();
-                            }
-                            try
-                            {
-                                if (animator != null)
-                                {
-                                    animator.CrossFade(animationClipName, 0.3f);
-                                    stopTime = DialogueTime.time + audioClip.length;
-                                }
-                                else
-                                {
-                                    anim.CrossFade(animationClipName);
-                                    stopTime = DialogueTime.time + Mathf.Max(0.1f, anim[animationClipName].length - 0.3f);
-                                    if (audioClip.length > anim[animationClipName].length) stopTime = DialogueTime.time + audioClip.length;
-                                }
-                            }
-                            catch (System.Exception)
-                            {
-                                stopTime = 0;
-                            }
+                            anim.CrossFade(animationClipName);
+                            stopTime = DialogueTime.time + Mathf.Max(0.1f, anim[animationClipName].length - 0.3f);
+                            if (audioClip.length > anim[animationClipName].length) stopTime = DialogueTime.time + audioClip.length;
                         }
-                    });
-
+                    }
+                    catch (System.Exception)
+                    {
+                        stopTime = 0;
+                    }
+                }
             }
         }
 
@@ -128,7 +123,6 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             {
                 audioSource.Stop();
             }
-            DialogueManager.UnloadAsset(audioClip);
         }
 
     }

@@ -1,0 +1,421 @@
+fileFormatVersion: 2
+guid: 454ac7a0b341b674b8dffcd05480a7c4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Cube
+    100002: Cube.000
+    100004: Cube.001
+    100006: Cube.002
+    100008: Cube.003
+    100010: Cube.004
+    100012: Cube.005
+    100014: Cube.006
+    100016: Cube.007
+    100018: Cube.008
+    100020: Cube.009
+    100022: Cube.011
+    100024: Cube.012
+    100026: Cube.013
+    100028: Cube.014
+    100030: Cube.015
+    100032: Cube.017
+    100034: Cube.024
+    100036: Cube.025
+    100038: Cube.026
+    100040: Cube.027
+    100042: Cube.028
+    100044: Cube.029
+    100046: Cube.030
+    100048: Cube.031
+    100050: Cube.032
+    100052: Cube.033
+    100054: Cube.1052
+    100056: Cube.1080
+    100058: Cube.434
+    100060: Cube.831
+    100062: Cube.832
+    100064: Cylinder
+    100066: Cylinder.001
+    100068: Cylinder.002
+    100070: Cylinder.351
+    100072: //RootNode
+    100074: Plane
+    100076: Plane.001
+    100078: Raccoon Mesh.001
+    100080: Raccoon Mesh.002
+    100082: Raccoon Mesh.003
+    100084: Raccoon Mesh.004
+    100086: Raccoon Mesh.005
+    100088: Raccoon Mesh.006
+    100090: Raccoon Mesh.007
+    100092: Raccoon Mesh.008
+    100094: Square Door Blue.000
+    100096: Square Door Blue.001
+    100098: Square Door Blue.002
+    100100: Text
+    100102: Text.001
+    400000: Cube
+    400002: Cube.000
+    400004: Cube.001
+    400006: Cube.002
+    400008: Cube.003
+    400010: Cube.004
+    400012: Cube.005
+    400014: Cube.006
+    400016: Cube.007
+    400018: Cube.008
+    400020: Cube.009
+    400022: Cube.011
+    400024: Cube.012
+    400026: Cube.013
+    400028: Cube.014
+    400030: Cube.015
+    400032: Cube.017
+    400034: Cube.024
+    400036: Cube.025
+    400038: Cube.026
+    400040: Cube.027
+    400042: Cube.028
+    400044: Cube.029
+    400046: Cube.030
+    400048: Cube.031
+    400050: Cube.032
+    400052: Cube.033
+    400054: Cube.1052
+    400056: Cube.1080
+    400058: Cube.434
+    400060: Cube.831
+    400062: Cube.832
+    400064: Cylinder
+    400066: Cylinder.001
+    400068: Cylinder.002
+    400070: Cylinder.351
+    400072: //RootNode
+    400074: Plane
+    400076: Plane.001
+    400078: Raccoon Mesh.001
+    400080: Raccoon Mesh.002
+    400082: Raccoon Mesh.003
+    400084: Raccoon Mesh.004
+    400086: Raccoon Mesh.005
+    400088: Raccoon Mesh.006
+    400090: Raccoon Mesh.007
+    400092: Raccoon Mesh.008
+    400094: Square Door Blue.000
+    400096: Square Door Blue.001
+    400098: Square Door Blue.002
+    400100: Text
+    400102: Text.001
+    2100000: Palette Specials
+    2100002: BusinessSigns02
+    2100004: Ads02
+    2100006: BusinessSigns01
+    2100008: Screen
+    2100010: Glass
+    2100012: BusinessWindow Light
+    2100014: Palette Stones
+    2100016: Water
+    2100018: Palette Greens
+    2100020: Purple Lighto
+    2100022: NeonPink
+    2300000: Cube
+    2300002: Cube.000
+    2300004: Cube.001
+    2300006: Cube.002
+    2300008: Cube.003
+    2300010: Cube.004
+    2300012: Cube.005
+    2300014: Cube.006
+    2300016: Cube.007
+    2300018: Cube.008
+    2300020: Cube.009
+    2300022: Cube.011
+    2300024: Cube.012
+    2300026: Cube.013
+    2300028: Cube.014
+    2300030: Cube.015
+    2300032: Cube.017
+    2300034: Cube.024
+    2300036: Cube.025
+    2300038: Cube.026
+    2300040: Cube.027
+    2300042: Cube.028
+    2300044: Cube.029
+    2300046: Cube.030
+    2300048: Cube.031
+    2300050: Cube.032
+    2300052: Cube.033
+    2300054: Cube.1052
+    2300056: Cube.1080
+    2300058: Cube.434
+    2300060: Cube.831
+    2300062: Cube.832
+    2300064: Cylinder
+    2300066: Cylinder.001
+    2300068: Cylinder.002
+    2300070: Cylinder.351
+    2300072: Plane
+    2300074: Plane.001
+    2300076: Raccoon Mesh.001
+    2300078: Raccoon Mesh.002
+    2300080: Raccoon Mesh.003
+    2300082: Raccoon Mesh.004
+    2300084: Raccoon Mesh.005
+    2300086: Raccoon Mesh.006
+    2300088: Raccoon Mesh.007
+    2300090: Raccoon Mesh.008
+    2300092: Square Door Blue.000
+    2300094: Square Door Blue.001
+    2300096: Square Door Blue.002
+    2300098: Text
+    2300100: Text.001
+    3300000: Cube
+    3300002: Cube.000
+    3300004: Cube.001
+    3300006: Cube.002
+    3300008: Cube.003
+    3300010: Cube.004
+    3300012: Cube.005
+    3300014: Cube.006
+    3300016: Cube.007
+    3300018: Cube.008
+    3300020: Cube.009
+    3300022: Cube.011
+    3300024: Cube.012
+    3300026: Cube.013
+    3300028: Cube.014
+    3300030: Cube.015
+    3300032: Cube.017
+    3300034: Cube.024
+    3300036: Cube.025
+    3300038: Cube.026
+    3300040: Cube.027
+    3300042: Cube.028
+    3300044: Cube.029
+    3300046: Cube.030
+    3300048: Cube.031
+    3300050: Cube.032
+    3300052: Cube.033
+    3300054: Cube.1052
+    3300056: Cube.1080
+    3300058: Cube.434
+    3300060: Cube.831
+    3300062: Cube.832
+    3300064: Cylinder
+    3300066: Cylinder.001
+    3300068: Cylinder.002
+    3300070: Cylinder.351
+    3300072: Plane
+    3300074: Plane.001
+    3300076: Raccoon Mesh.001
+    3300078: Raccoon Mesh.002
+    3300080: Raccoon Mesh.003
+    3300082: Raccoon Mesh.004
+    3300084: Raccoon Mesh.005
+    3300086: Raccoon Mesh.006
+    3300088: Raccoon Mesh.007
+    3300090: Raccoon Mesh.008
+    3300092: Square Door Blue.000
+    3300094: Square Door Blue.001
+    3300096: Square Door Blue.002
+    3300098: Text
+    3300100: Text.001
+    4300000: Cube.000
+    4300002: Cube.001
+    4300004: Cube.003
+    4300006: Cube.004
+    4300008: Cube.008
+    4300010: Cube.012
+    4300012: Cube.013
+    4300014: Cube.011
+    4300016: Plane
+    4300018: Cube.015
+    4300020: Plane.001
+    4300022: Cube.434
+    4300024: Cube.017
+    4300026: Cube.1052
+    4300028: Cylinder.351
+    4300030: Cylinder.002
+    4300032: Cube.831
+    4300034: Cube.832
+    4300036: Square Door Blue.000
+    4300038: Text
+    4300040: Cube.005
+    4300042: Cube.006
+    4300044: Raccoon Mesh.001
+    4300046: Raccoon Mesh.002
+    4300048: Raccoon Mesh.003
+    4300050: Raccoon Mesh.004
+    4300052: Raccoon Mesh.005
+    4300054: Raccoon Mesh.007
+    4300056: Raccoon Mesh.008
+    4300058: Cube.1080
+    4300060: Text.001
+    4300062: Cube.007
+    4300064: Cube.002
+    4300066: Square Door Blue.001
+    4300068: Raccoon Mesh.006
+    4300070: Cube
+    4300072: Cylinder
+    4300074: Cylinder.001
+    4300076: Cube.009
+    4300078: Cube.014
+    4300080: Cube.025
+    4300082: Cube.024
+    4300084: Cube.026
+    4300086: Cube.027
+    4300088: Cube.028
+    4300090: Cube.029
+    4300092: Cube.030
+    4300094: Cube.031
+    4300096: Cube.032
+    4300098: Cube.033
+    4300100: Square Door Blue.002
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads02
+    second: {fileID: 2100000, guid: 633b8a0946380404c8c1a21bdc57d8e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns02
+    second: {fileID: 2100000, guid: 39857031c22a2e848810cbb7b3d273fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NeonPink
+    second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Lighto
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screen
+    second: {fileID: 2100000, guid: cc487427856e9ae4cbc5db9062e21734, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

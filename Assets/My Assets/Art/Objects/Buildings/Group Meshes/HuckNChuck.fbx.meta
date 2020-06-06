@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: ca2946ee8af15544eba8f0be17b89f5e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Circle
+    100002: Cube.1224
+    100004: Cube.1225
+    100006: Cube.1226
+    100008: Cube.1228
+    100010: Cube.1229
+    100012: Cube.1230
+    100014: Cube.1232
+    100016: Cube.1233
+    100018: Cube.1234
+    100020: Cube.1235
+    100022: Cube.1236
+    100024: Cube.1237
+    100026: Cube.1238
+    100028: Cube.838
+    100030: Cylinder.385
+    100032: //RootNode
+    100034: Plane.025
+    100036: Plane.027
+    100038: Plane.028
+    100040: Text.050
+    100042: Text.051
+    100044: Text.053
+    400000: Circle
+    400002: Cube.1224
+    400004: Cube.1225
+    400006: Cube.1226
+    400008: Cube.1228
+    400010: Cube.1229
+    400012: Cube.1230
+    400014: Cube.1232
+    400016: Cube.1233
+    400018: Cube.1234
+    400020: Cube.1235
+    400022: Cube.1236
+    400024: Cube.1237
+    400026: Cube.1238
+    400028: Cube.838
+    400030: Cylinder.385
+    400032: //RootNode
+    400034: Plane.025
+    400036: Plane.027
+    400038: Plane.028
+    400040: Text.050
+    400042: Text.051
+    400044: Text.053
+    2100000: White Neon
+    2100002: Red Light
+    2100004: Blue Light
+    2100006: Palette Specials
+    2100008: Purple Light
+    2100010: BusinessWindow Light
+    2100012: Darkness
+    2100014: Signs01
+    2100016: BusinessSigns01
+    2100018: BusinessSigns02
+    2100020: Ads01
+    2100022: Palette Stones
+    2100024: Signs02
+    2300000: Circle
+    2300002: Cube.1224
+    2300004: Cube.1225
+    2300006: Cube.1226
+    2300008: Cube.1228
+    2300010: Cube.1229
+    2300012: Cube.1230
+    2300014: Cube.1232
+    2300016: Cube.1233
+    2300018: Cube.1234
+    2300020: Cube.1235
+    2300022: Cube.1236
+    2300024: Cube.1237
+    2300026: Cube.1238
+    2300028: Cube.838
+    2300030: Cylinder.385
+    2300032: Plane.025
+    2300034: Plane.027
+    2300036: Plane.028
+    2300038: Text.050
+    2300040: Text.051
+    2300042: Text.053
+    3300000: Circle
+    3300002: Cube.1224
+    3300004: Cube.1225
+    3300006: Cube.1226
+    3300008: Cube.1228
+    3300010: Cube.1229
+    3300012: Cube.1230
+    3300014: Cube.1232
+    3300016: Cube.1233
+    3300018: Cube.1234
+    3300020: Cube.1235
+    3300022: Cube.1236
+    3300024: Cube.1237
+    3300026: Cube.1238
+    3300028: Cube.838
+    3300030: Cylinder.385
+    3300032: Plane.025
+    3300034: Plane.027
+    3300036: Plane.028
+    3300038: Text.050
+    3300040: Text.051
+    3300042: Text.053
+    4300000: Text.050
+    4300002: Text.051
+    4300004: Cube.1225
+    4300006: Cube.1224
+    4300008: Cube.1226
+    4300010: Circle
+    4300012: Text.053
+    4300014: Cube.1228
+    4300016: Cylinder.385
+    4300018: Plane.025
+    4300020: Plane.027
+    4300022: Cube.1229
+    4300024: Cube.1230
+    4300026: Cube.838
+    4300028: Cube.1233
+    4300030: Cube.1234
+    4300032: Cube.1235
+    4300034: Cube.1236
+    4300036: Cube.1237
+    4300038: Cube.1232
+    4300040: Plane.028
+    4300042: Cube.1238
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads01
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns02
+    second: {fileID: 2100000, guid: 39857031c22a2e848810cbb7b3d273fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness
+    second: {fileID: 2100000, guid: 16506ff0b75008e40af1c7e36e3863f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Light
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red Light
+    second: {fileID: 2100000, guid: 4c3a79662559ddc4d92521507f01fa2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs01
+    second: {fileID: 2100000, guid: f2a75a40319ed5e488655c56dff5fcf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Signs02
+    second: {fileID: 2100000, guid: 452cd383fce9ef840bc4bd9950d9a596, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White Neon
+    second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
