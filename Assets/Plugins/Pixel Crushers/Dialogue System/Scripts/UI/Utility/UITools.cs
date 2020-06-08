@@ -197,8 +197,12 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (canvas.worldCamera == null) canvas.worldCamera = Camera.main;
             }
-            var graphicRaycaster = go.GetComponentInChildren<UnityEngine.UI.GraphicRaycaster>() ?? go.GetComponentInParent<UnityEngine.UI.GraphicRaycaster>();
-            if (graphicRaycaster != null) graphicRaycaster.enabled = true;
+            if (InputDeviceManager.instance == null ||
+                (InputDeviceManager.instance.controlGraphicRaycasters && InputDeviceManager.currentInputDevice == InputDevice.Mouse))
+            {
+                var graphicRaycaster = go.GetComponentInChildren<UnityEngine.UI.GraphicRaycaster>() ?? go.GetComponentInParent<UnityEngine.UI.GraphicRaycaster>();
+                if (graphicRaycaster != null) graphicRaycaster.enabled = true;
+            }
         }
 
     }

@@ -67,9 +67,9 @@ namespace PixelCrushers.DialogueSystem
 
         protected List<StandardUIQuestTrackTemplate> instantiatedItems = new List<StandardUIQuestTrackTemplate>();
 
-        private List<StandardUIQuestTrackTemplate> unusedInstances = new List<StandardUIQuestTrackTemplate>();
+        protected List<StandardUIQuestTrackTemplate> unusedInstances = new List<StandardUIQuestTrackTemplate>();
 
-        private int siblingIndexCounter = 0;
+        protected int siblingIndexCounter = 0;
 
         protected bool m_started = false;
 
@@ -234,10 +234,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (container == null || questTrackTemplate == null) return;
 
-            var questDescription = (questDescriptionSource == QuestDescriptionSource.Title)
-                ? QuestLog.GetQuestTitle(quest)
-                    : QuestLog.GetQuestDescription(quest);
-            var heading = FormattedText.Parse(questDescription, DialogueManager.masterDatabase.emphasisSettings).text;
+            var heading = GetQuestHeading(quest);
 
             GameObject go;
             if (unusedInstances.Count > 0)
@@ -264,21 +261,34 @@ namespace PixelCrushers.DialogueSystem
             instantiatedItems.Add(questTrack);
             if (questTrack != null)
             {
-                questTrack.Initialize();
-                var questState = QuestLog.GetQuestState(quest);
-                questTrack.SetDescription(heading, questState);
-                int entryCount = QuestLog.GetQuestEntryCount(quest);
-                for (int i = 1; i <= entryCount; i++)
-                {
-                    var entryState = QuestLog.GetQuestEntryState(quest, i);
-                    var entryText = FormattedText.Parse(GetQuestEntryText(quest, i, entryState), DialogueManager.masterDatabase.emphasisSettings).text;
-                    if (!string.IsNullOrEmpty(entryText))
-                    {
-                        questTrack.AddEntryDescription(entryText, entryState);
-                    }
-                }
-
+                SetupQuestTrackInstance(questTrack, quest, heading);
                 questTrack.transform.SetSiblingIndex(siblingIndexCounter++);
+            }
+        }
+
+        protected virtual string GetQuestHeading(string quest)
+        {
+            var questDescription = (questDescriptionSource == QuestDescriptionSource.Title)
+                ? QuestLog.GetQuestTitle(quest)
+                : QuestLog.GetQuestDescription(quest);
+            return FormattedText.Parse(questDescription, DialogueManager.masterDatabase.emphasisSettings).text;
+        }
+
+        protected virtual void SetupQuestTrackInstance(StandardUIQuestTrackTemplate questTrack, string quest, string heading)
+        {
+            if (questTrack == null) return;
+            questTrack.Initialize();
+            var questState = QuestLog.GetQuestState(quest);
+            questTrack.SetDescription(heading, questState);
+            int entryCount = QuestLog.GetQuestEntryCount(quest);
+            for (int i = 1; i <= entryCount; i++)
+            {
+                var entryState = QuestLog.GetQuestEntryState(quest, i);
+                var entryText = FormattedText.Parse(GetQuestEntryText(quest, i, entryState), DialogueManager.masterDatabase.emphasisSettings).text;
+                if (!string.IsNullOrEmpty(entryText))
+                {
+                    questTrack.AddEntryDescription(entryText, entryState);
+                }
             }
         }
 

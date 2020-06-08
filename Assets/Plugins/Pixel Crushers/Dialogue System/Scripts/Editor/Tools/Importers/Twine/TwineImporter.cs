@@ -101,7 +101,7 @@ namespace PixelCrushers.DialogueSystem.Twine
                     else
                     {
                         // Otherwise add a link entry between passages:
-                        var linkEntryTitle = link.name + " Link";
+                        var linkEntryTitle = GetLinkEntryTitle(link.name, originID);
                         var linkEntry = conversation.GetDialogueEntry(linkEntryTitle);
                         if (linkEntry == null)
                         {
@@ -140,7 +140,7 @@ namespace PixelCrushers.DialogueSystem.Twine
                     var conditions = hook.prefix.StartsWith("(if:") ? ConvertIfMacro(hook.prefix) : string.Empty;
                     foreach (var link in hook.links)
                     {
-                        var linkEntry = conversation.GetDialogueEntry(link + " Link");
+                        var linkEntry = conversation.GetDialogueEntry(GetLinkEntryTitle(link, passageID));
                         if (!string.IsNullOrEmpty(hook.text))
                         {
                             // Hook still has text, so make the text an intermediate entry:
@@ -161,6 +161,12 @@ namespace PixelCrushers.DialogueSystem.Twine
                     }
                 }
             }
+        }
+
+        protected string GetLinkEntryTitle(string linkName, int originPassageID)
+        {
+            // Include ID to make links with same names unique.
+            return linkName + " Link " + originPassageID;
         }
 
         protected virtual void ExtractParticipants(string text, int actorID, int conversantID, bool isLinkEntry,

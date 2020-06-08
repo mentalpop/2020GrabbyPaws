@@ -30,13 +30,13 @@ namespace PixelCrushers.DialogueSystem
 
         public StandardUIQuestTemplateAlternateDescriptions alternateEntryDescriptions = new StandardUIQuestTemplateAlternateDescriptions();
 
-        private List<GameObject> m_instances = null;
+        protected List<GameObject> m_instances = null;
 
         public bool arePropertiesAssigned { get { return (description != null) && (entryDescription != null); } }
 
-        private int numEntries = 0;
+        protected int numEntries = 0;
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             description.SetActive(false);
             alternateDescriptions.SetActive(false);
@@ -57,7 +57,7 @@ namespace PixelCrushers.DialogueSystem
             numEntries = 0;
         }
 
-        public void SetDescription(string text, QuestState questState)
+        public virtual void SetDescription(string text, QuestState questState)
         {
             if (text == null) return;
             switch (questState)
@@ -76,20 +76,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void SetFirstValidTextElement(string text, params UITextField[] textElements)
-        {
-            for (int i = 0; i < textElements.Length; i++)
-            {
-                if (textElements[i] != null && textElements[i].gameObject != null)
-                {
-                    textElements[i].SetActive(true);
-                    textElements[i].text = text;
-                    return;
-                }
-            }
-        }
-
-        public void AddEntryDescription(string text, QuestState entryState)
+        public virtual void AddEntryDescription(string text, QuestState entryState)
         {
             if (entryContainer == null)
             {
@@ -110,7 +97,6 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-
                 // Instantiate into container:
                 if (numEntries == 0)
                 {
@@ -134,7 +120,20 @@ namespace PixelCrushers.DialogueSystem
             numEntries++;
         }
 
-        private void InstantiateFirstValidTextElement(string text, Transform container, params UITextField[] textElements)
+        protected void SetFirstValidTextElement(string text, params UITextField[] textElements)
+        {
+            for (int i = 0; i < textElements.Length; i++)
+            {
+                if (textElements[i] != null && textElements[i].gameObject != null)
+                {
+                    textElements[i].SetActive(true);
+                    textElements[i].text = text;
+                    return;
+                }
+            }
+        }
+
+        protected void InstantiateFirstValidTextElement(string text, Transform container, params UITextField[] textElements)
         {
             for (int i = 0; i < textElements.Length; i++)
             {

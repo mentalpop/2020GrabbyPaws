@@ -3,13 +3,20 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEngine.SceneManagement;
+#if USE_ADDRESSABLES
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+#endif
 
 namespace PixelCrushers.DialogueSystem
 {
-
     public delegate bool GetInputButtonDownDelegate(string buttonName);
 
     public delegate void TransformDelegate(Transform t);
+
+    public delegate void AssetLoadedDelegate(UnityEngine.Object asset);
 
     /// <summary>
     /// This component ties together the elements of the Dialogue System: dialogue database, 
@@ -107,7 +114,7 @@ namespace PixelCrushers.DialogueSystem
 
         /// <summary>
         /// Raised when the Dialogue System has completely initialized, including
-        /// loadin the initial dialogue database and registering Lua functions.
+        /// loading the initial dialogue database and registering Lua functions.
         /// </summary>
         public event System.Action initializationComplete = delegate { };
 
@@ -131,7 +138,7 @@ namespace PixelCrushers.DialogueSystem
         private IsDialogueEntryValidDelegate m_isDialogueEntryValid = null;
         private GetInputButtonDownDelegate m_savedGetInputButtonDownDelegate = null;
         private LuaWatchers m_luaWatchers = new LuaWatchers();
-        private AssetBundleManager m_assetBundleManager = new AssetBundleManager();
+        private PixelCrushers.DialogueSystem.AssetBundleManager m_assetBundleManager = new PixelCrushers.DialogueSystem.AssetBundleManager();
         private bool m_started = false;
         private DialogueDebug.DebugLevel m_lastDebugLevelSet = DialogueDebug.DebugLevel.None;
         private List<ActiveConversationRecord> m_activeConversations = new List<ActiveConversationRecord>();
@@ -284,8 +291,9 @@ namespace PixelCrushers.DialogueSystem
 
         public void OnDestroy()
         {
-            //--- No need to unregister. Static functions: UnregisterLuaFunctions();
             if (dontDestroyOnLoad && allowOnlyOneInstance) applicationIsQuitting = true;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+            //--- No need to unregister static Lua functions: UnregisterLuaFunctions();
         }
 
         /// <summary>
@@ -355,6 +363,15 @@ namespace PixelCrushers.DialogueSystem
                 InitializeDatabase();
                 InitializeDisplaySettings();
                 InitializeLocalization();
+                UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (mode == LoadSceneMode.Single)
+            {
+                ClearLoadedAssetHashes();
             }
         }
 
@@ -866,7 +883,13 @@ namespace PixelCrushers.DialogueSystem
                 }
                 else
                 {
-                    sprite = UITools.CreateSprite(DialogueManager.LoadAsset(portraitName) as Texture2D);
+                    LoadAsset(portraitName, typeof(Texture2D),
+                        (asset) => 
+                        {
+                            var loadedSprite = UITools.CreateSprite(asset as Texture2D);
+                            SetActorPortraitSprite(actorName, loadedSprite);
+                        });
+                    return;
                 }
             }
             if (DialogueDebug.logWarnings && (sprite == null)) Debug.LogWarning(string.Format("{0}: SetPortrait({1}, {2}): portrait image not found.", new System.Object[] { DialogueDebug.Prefix, actorName, portraitName }));
@@ -1821,6 +1844,7 @@ namespace PixelCrushers.DialogueSystem
 
         /// <summary>
         /// Loads a named asset from the registered asset bundles or from Resources.
+        /// Note: This version of LoadAsset does not load from Addressables.
         /// </summary>
         /// <returns>The asset, or <c>null</c> if not found.</returns>
         /// <param name="name">Name of the asset.</param>
@@ -1831,6 +1855,7 @@ namespace PixelCrushers.DialogueSystem
 
         /// <summary>
         /// Loads a named asset from the registered asset bundles or from Resources.
+        /// Note: This version of LoadAsset does not load from Addressables.
         /// </summary>
         /// <returns>The asset, or <c>null</c> if not found.</returns>
         /// <param name="name">Name of the asset.</param>
@@ -1838,6 +1863,83 @@ namespace PixelCrushers.DialogueSystem
         public UnityEngine.Object LoadAsset(string name, System.Type type)
         {
             return m_assetBundleManager.Load(name, type);
+        }
+
+        protected AssetLoadedDelegate m_assetLoaded = null;
+
+        /// <summary>
+        /// Loads a named asset from the registered asset bundles, Resources, or
+        /// Addressables. Returns the asset in a callback delegate.
+        /// </summary>
+        /// <param name="name">Name of the asset.</param>
+        /// <param name="type">Type of the asset</param>
+        /// <param name="assetLoaded">Delegate method to call when returning loaded asset, or <c>null</c> if not found.</param>
+        public void LoadAsset(string name, System.Type type, AssetLoadedDelegate assetLoaded)
+        {
+            var asset = m_assetBundleManager.Load(name);
+            if (asset != null)
+            {
+                assetLoaded(asset);
+                return;
+            }
+#if USE_ADDRESSABLES
+            m_assetLoaded = assetLoaded;
+            Addressables.LoadAssetAsync<UnityEngine.Object>(name).Completed += LoadCompleted;
+#else
+            assetLoaded(null);
+#endif
+        }
+
+#if USE_ADDRESSABLES
+        // We need to record which addressables we've loaded so we know
+        // whether to tell Addressables to unload them or not.
+        private HashSet<int> loadedAddressableHashes = new HashSet<int>();
+
+        private void LoadCompleted(AsyncOperationHandle<UnityEngine.Object> obj)
+        {
+            if (m_assetLoaded != null)
+            {
+                if (obj.Result != null)
+                {
+                    loadedAddressableHashes.Add(obj.Result.GetHashCode());
+                    m_assetLoaded(obj.Result);
+                }
+                else
+                {
+                    m_assetLoaded(null);
+                }
+            }
+        }
+#endif
+
+        /// <summary>
+        /// Unloads an object previously loaded by LoadAsset. Only unloads
+        /// if using addressables.
+        /// </summary>
+        public void UnloadAsset(object obj)
+        {
+#if USE_ADDRESSABLES
+            if (obj != null)
+            {
+                var hash = obj.GetHashCode();
+                if (loadedAddressableHashes.Contains(hash))
+                {
+                    loadedAddressableHashes.Remove(hash);
+                    Addressables.Release(obj);
+                }
+            }
+#endif
+        }
+
+        /// <summary>
+        /// Clears the register of loaded addressables. Typically called
+        /// automatically when a scene is loaded/unloaded.
+        /// </summary>
+        public void ClearLoadedAssetHashes()
+        {
+#if USE_ADDRESSABLES
+            loadedAddressableHashes.Clear();
+#endif
         }
 
 #if EVALUATION_VERSION
@@ -1860,7 +1962,7 @@ namespace PixelCrushers.DialogueSystem
             text.fontSize = 24;
             text.fontStyle = FontStyle.Bold;
             text.color = new Color(1, 1, 1, 0.75f);
-            text.alignment = (Random.value < 0.5f) ? TextAnchor.UpperLeft: TextAnchor.LowerRight;
+            text.alignment = (UnityEngine.Random.value < 0.5f) ? TextAnchor.UpperLeft: TextAnchor.LowerRight;
             text.raycastTarget = false;
         }
 

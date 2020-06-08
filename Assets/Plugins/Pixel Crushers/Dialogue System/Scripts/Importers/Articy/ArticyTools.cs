@@ -78,14 +78,48 @@ namespace PixelCrushers.DialogueSystem.Articy
                 {
                     s = s.Replace(htmlTag, string.Empty);
                 }
-                s = s.Replace("&#39;", "'");
+                if (s.Contains("&#")) s = ReplaceHtmlCharacterCodes(s);
                 s = s.Replace("&quot;", "\"");
                 s = s.Replace("&amp;", "&");
                 s = s.Replace("&lt;", "<");
                 s = s.Replace("&gt;", ">");
+                s = s.Replace("&nbsp;", " ");
                 s = s.Trim();
             }
             return s;
+        }
+
+        /// <summary>
+        /// Selectively replaces HTML character codes that articy uses.
+        /// Used instead of HttpUtility.HtmlDecode() to prevent the .NET dependency.
+        /// </summary>
+        public static string ReplaceHtmlCharacterCodes(string s)
+        {
+            return s.Replace("&#33;", "!")
+                    .Replace("&#34;", "\"")
+                    .Replace("&#35;", "#")
+                    .Replace("&#36;", "$")
+                    .Replace("&#37;", "%")
+                    .Replace("&#38;", "&")
+                    .Replace("&#39;", "'")
+                    .Replace("&#96;", "`")
+                    .Replace("&#160;", " ")
+                    .Replace("&#162;", "¢")
+                    .Replace("&#163;", "£")
+                    .Replace("&#164;", "¤")
+                    .Replace("&#165;", "¥")
+                    .Replace("&#166;", "¦")
+                    .Replace("&#167;", "§")
+                    .Replace("&#168;", "¨")
+                    .Replace("&#169;", "©")
+                    .Replace("&#177;", "±")
+                    .Replace("&#178;", "²")
+                    .Replace("&#179;", "³")
+                    .Replace("&#180;", "´")
+                    .Replace("&#188;", "¼")
+                    .Replace("&#189;", "½")
+                    .Replace("&#190;", "¾")
+                    .Replace("&#191;", "¿");
         }
 
         //==================================================================

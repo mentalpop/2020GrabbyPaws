@@ -445,6 +445,12 @@ namespace PixelCrushers.DialogueSystem
                 {
                     return ((float)o).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
+                else if (type == typeof(LuaTableWrapper))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    AppendFields(sb, (LuaTableWrapper)o);
+                    return "{" + sb.ToString() + "}";
+                }
                 else
                 {
                     return o.ToString();

@@ -55,5 +55,10 @@ namespace PixelCrushers
             if (InputDeviceManager.instance == null) return;
             InputDeviceManager.instance.BrieflyIgnoreMouseMovement();
         }
+
+        public void AllowInput(bool value)
+        {
+            InputDeviceManager.isInputAllowed = value;
+        }
     }
 }

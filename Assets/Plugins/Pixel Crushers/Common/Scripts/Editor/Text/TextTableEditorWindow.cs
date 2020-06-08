@@ -88,6 +88,7 @@ namespace PixelCrushers
 
         private bool m_needToUpdateSO;
         private bool m_needToApplyBeforeUpdateSO;
+        private bool m_isPickingOtherTextTable;
         private System.DateTime m_lastApply;
 
         [System.Serializable]
@@ -171,6 +172,16 @@ namespace PixelCrushers
 
         private void OnGUI()
         {
+            if (Event.current.commandName == "ObjectSelectorClosed" || Event.current.commandName == "ObjectSelectorUpdated")
+            { 
+                if (m_isPickingOtherTextTable)
+                { 
+                    m_isPickingOtherTextTable = false;
+                    AskConfirmImportOtherTextTable(EditorGUIUtility.GetObjectPickerObject() as TextTable);
+                }
+                return;
+            }
+
             DrawWindowContents();
             if (m_needRefreshLists) Repaint();
         }
@@ -479,13 +490,16 @@ namespace PixelCrushers
             GUI.SetNextControlName(info.nameControl);
             EditorGUI.PropertyField(new Rect(rect.x, rect.y + 1, columnWidth, EditorGUIUtility.singleLineHeight), info.fieldNameProperty, GUIContent.none, false);
 
-            GUI.SetNextControlName(info.valueControl);
-            EditorGUI.PropertyField(new Rect(rect.x + rect.width - columnWidth, rect.y + 1, columnWidth, EditorGUIUtility.singleLineHeight), info.fieldValueProperty, GUIContent.none, false);
-            var focusedControl = GUI.GetNameOfFocusedControl();
-            if (string.Equals(info.nameControl, focusedControl) || string.Equals(info.valueControl, focusedControl))
+            if (info.fieldValueProperty != null)
             {
-                m_selectedFieldListElement = index;
-                m_fieldList.index = index;
+                GUI.SetNextControlName(info.valueControl);
+                EditorGUI.PropertyField(new Rect(rect.x + rect.width - columnWidth, rect.y + 1, columnWidth, EditorGUIUtility.singleLineHeight), info.fieldValueProperty, GUIContent.none, false);
+                var focusedControl = GUI.GetNameOfFocusedControl();
+                if (string.Equals(info.nameControl, focusedControl) || string.Equals(info.valueControl, focusedControl))
+                {
+                    m_selectedFieldListElement = index;
+                    m_fieldList.index = index;
+                }
             }
         }
 
@@ -638,6 +652,7 @@ namespace PixelCrushers
                     menu.AddDisabledItem(new GUIContent("Delete All..."));
                     menu.AddDisabledItem(new GUIContent("Export/CSV..."));
                     menu.AddDisabledItem(new GUIContent("Import/CSV..."));
+                    menu.AddDisabledItem(new GUIContent("Import/Other Text Table..."));
                 }
                 else
                 {
@@ -646,6 +661,7 @@ namespace PixelCrushers
                     menu.AddItem(new GUIContent("Delete All..."), false, DeleteAll);
                     menu.AddItem(new GUIContent("Export/CSV..."), false, ExportCSVDialogs);
                     menu.AddItem(new GUIContent("Import/CSV..."), false, ImportCSVDialogs);
+                    menu.AddItem(new GUIContent("Import/Other Text Table..."), false, ImportOtherTextTable);
                 }
                 menu.AddItem(new GUIContent("Encoding/UTF8"), GetEncodingType() == EncodingType.UTF8, SetEncodingType, EncodingType.UTF8);
                 menu.AddItem(new GUIContent("Encoding/Unicode"), GetEncodingType() == EncodingType.Unicode, SetEncodingType, EncodingType.Unicode);
@@ -984,6 +1000,30 @@ namespace PixelCrushers
             m_serializedObject.Update();
             RebuildFieldCache();
             EditorUtility.SetDirty(m_textTable);
+        }
+
+        #endregion
+
+        #region Import Other Text Table
+
+        private void ImportOtherTextTable()
+        {
+            m_isPickingOtherTextTable = true;
+            EditorGUIUtility.ShowObjectPicker<TextTable>(null, false, "t:TextTable", 0);
+        }
+
+        private void AskConfirmImportOtherTextTable(TextTable other)
+        {
+            if (other == null || m_textTable == null) return;
+            if (!EditorUtility.DisplayDialog("Import Text Table?", "Import the contents of " + other.name + " into this text table? This operation may take some time depending on the sizes of the text tables.", "Import", "Cancel")) return;
+            Undo.RecordObject(m_textTable, "Import");
+            m_textTable.ImportOtherTextTable(other);
+            m_textTable.OnBeforeSerialize();
+            m_serializedObject.Update();
+            RebuildFieldCache();
+            EditorUtility.SetDirty(m_textTable);
+            m_needRefreshLists = true;
+            Repaint();
         }
 
         #endregion

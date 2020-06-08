@@ -122,7 +122,11 @@ namespace PixelCrushers
             {
                 if (m_instance == null && !m_isQuitting)
                 {
-                    m_instance = new GameObject("Save System", typeof(SaveSystem)).GetComponent<SaveSystem>();
+                    m_instance = FindObjectOfType<SaveSystem>();
+                    if (m_instance == null)
+                    {
+                        m_instance = new GameObject("Save System", typeof(SaveSystem)).GetComponent<SaveSystem>();
+                    }
                 }
                 return m_instance;
             }
@@ -242,6 +246,11 @@ namespace PixelCrushers
         /// Invoked when finished loading a game.
         /// </summary>
         public static event System.Action loadEnded = delegate { };
+
+        /// <summary>
+        /// Invoked after ApplyData() has been called on all savers.
+        /// </summary>
+        public static event System.Action saveDataApplied = delegate { };
 
         private void Awake()
         {
@@ -491,10 +500,9 @@ namespace PixelCrushers
             loadStarted();
             yield return null;
             LoadFromSlotNow(slotNumber);
-            if (loadEnded.GetInvocationList().Length > 1)
-            {
-                sceneLoaded += NotifyLoadEndedWhenSceneLoaded;
-            }
+            //--- Always notify, in case loadEnded listeners are added via code:
+            //--- if (loadEnded.GetInvocationList().Length > 1)
+            sceneLoaded += NotifyLoadEndedWhenSceneLoaded;
         }
 
         private static void NotifyLoadEndedWhenSceneLoaded(string sceneName, int sceneIndex)
@@ -590,6 +598,7 @@ namespace PixelCrushers
                     Debug.LogException(e);
                 }
             }
+            saveDataApplied();
         }
 
         /// <summary>

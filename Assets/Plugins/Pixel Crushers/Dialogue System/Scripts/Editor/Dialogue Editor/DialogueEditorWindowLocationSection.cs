@@ -108,10 +108,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (!(0 <= list.index && list.index < database.locations.Count)) return;
             var location = database.locations[list.index];
             if (location == null) return;
+            var deletedLastOne = list.count == 1;
             if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(location)), "Are you sure you want to delete this location?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
-                inspectorSelection = (list.index < list.count) ? database.locations[list.index] : (list.count > 0) ? database.locations[list.count - 1] : null;
+                if (deletedLastOne) inspectorSelection = null;
+                else inspectorSelection = (list.index < list.count) ? database.locations[list.index] : (list.count > 0) ? database.locations[list.count - 1] : null;
                 SetDatabaseDirty("Remove Location");
             }
         }

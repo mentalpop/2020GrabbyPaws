@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -27,7 +28,8 @@ namespace PixelCrushers.DialogueSystem
             [Tooltip("Automatically scroll to bottom of scroll rect. Useful for long text. Works best with left justification.")]
             public bool autoScrollEnabled = false;
             public UnityEngine.UI.ScrollRect scrollRect = null;
-            public UnityUIScrollbarEnabler scrollbarEnabler = null;
+            [Tooltip("Optional. Add a UIScrollBarEnabler to main dialogue panel, assign UI elements, then assign it here to automatically enable scrollbar if content is taller than viewport.")]
+            public UIScrollbarEnabler scrollbarEnabler = null;
         }
 
         /// <summary>
@@ -74,6 +76,20 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (m_textComponent == null) m_textComponent = GetComponent<TMPro.TMP_Text>();
                 return m_textComponent;
+            }
+        }
+
+        protected LayoutElement m_layoutElement = null;
+        protected LayoutElement layoutElement
+        {
+            get
+            {
+                if (m_layoutElement == null)
+                {
+                    m_layoutElement = GetComponent<LayoutElement>();
+                    if (m_layoutElement == null) m_layoutElement = gameObject.AddComponent<LayoutElement>();
+                }
+                return m_layoutElement;
             }
         }
 
@@ -405,6 +421,10 @@ namespace PixelCrushers.DialogueSystem
         protected void HandleAutoScroll()
         {
             if (!autoScrollSettings.autoScrollEnabled) return;
+
+            var layoutElement = textComponent.GetComponent<LayoutElement>();
+            if (layoutElement == null) layoutElement = textComponent.gameObject.AddComponent<LayoutElement>();
+            layoutElement.preferredHeight = textComponent.textBounds.size.y;
             if (autoScrollSettings.scrollRect != null)
             {
                 autoScrollSettings.scrollRect.normalizedPosition = new Vector2(0, 0);

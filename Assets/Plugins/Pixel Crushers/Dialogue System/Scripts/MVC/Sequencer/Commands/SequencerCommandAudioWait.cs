@@ -46,26 +46,40 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             try
             {
-                AudioClip audioClip = (!string.IsNullOrEmpty(audioClipName)) ? (DialogueManager.LoadAsset(audioClipName) as AudioClip) : null;
-                if (audioClip == null)
+                if (string.IsNullOrEmpty(audioClipName))
                 {
-                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: Clip '{1}' wasn't found.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: Audio clip name is blank.", new System.Object[] { DialogueDebug.Prefix }));
+                    stopTime = 0;
                 }
                 else
                 {
-                    if (IsAudioMuted())
-                    {
-                        if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): waiting but not playing '{1}'; audio is muted.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
-                    }
-                    else
-                    {
-                        if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): playing '{1}'.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
-                        currentClip = audioClip;
-                        audioSource.clip = audioClip;
-                        audioSource.Play();
-                    }
+                    DialogueManager.LoadAsset(audioClipName, typeof(AudioClip),
+                        (asset) =>
+                        {
+                            var audioClip = asset as AudioClip;
+                            if (audioClip == null)
+                            {
+                                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: Clip '{1}' wasn't found.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                stopTime = 0;
+                            }
+                            else
+                            {
+                                if (IsAudioMuted())
+                                {
+                                    if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): waiting but not playing '{1}'; audio is muted.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                }
+                                else
+                                {
+                                    if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): playing '{1}'.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                    currentClip = audioClip;
+                                    audioSource.clip = audioClip;
+                                    audioSource.Play();
+                                }
+                                stopTime = DialogueTime.time + audioClip.length;
+                            }
+                        });
                 }
-                stopTime = DialogueTime.time + audioClip.length;
+
             }
             catch (System.Exception)
             {
@@ -77,6 +91,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             if (DialogueTime.time >= stopTime)
             {
+                DialogueManager.UnloadAsset(currentClip);
                 if (nextClipIndex < parameters.Length)
                 {
                     TryAudioClip(GetParameter(nextClipIndex));
@@ -84,6 +99,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                 }
                 else
                 {
+                    currentClip = null;
                     Stop();
                 }
             }
@@ -105,6 +121,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             if (audioSource != null)
             {
+                DialogueManager.UnloadAsset(currentClip);
                 if (audioSource.isPlaying && (audioSource.clip == currentClip))
                 {
                     audioSource.Stop();

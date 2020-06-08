@@ -78,44 +78,47 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             try
             {
-                AudioClip audioClip = (!string.IsNullOrEmpty(audioClipName)) ? (DialogueManager.LoadAsset(audioClipName) as AudioClip) : null;
-                if (audioClip == null)
+                if (string.IsNullOrEmpty(audioClipName))
                 {
-                    if (DialogueDebug.logWarnings)
-                    {
-                        Debug.LogWarningFormat("{0}: Sequencer: AudioWaitOnce(): Clip '{1}' wasn't found.", DialogueDebug.Prefix, audioClipName);
-                    }
+                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: Audio clip name is blank.", new System.Object[] { DialogueDebug.Prefix }));
+                    _stopTime = 0;
+                }
+                else if (this.hasPlayedAlready(audioClipName))
+                {
+                    Debug.LogFormat("{0}: Sequencer: AudioWaitOnce(): clip {1} already played, skipping", DialogueDebug.Prefix, audioClipName);
+                    _stopTime = DialogueTime.time;
+                    //  this prevents stop time from being overwritten below
+                    return;
                 }
                 else
                 {
-                    if (IsAudioMuted())
-                    {
-                        if (DialogueDebug.logInfo)
+                    DialogueManager.LoadAsset(audioClipName, typeof(AudioClip),
+                        (asset) =>
                         {
-                            Debug.LogFormat("{0}: Sequencer: AudioWaitOnce(): waiting but not playing '{1}'; audio is muted.", DialogueDebug.Prefix, audioClipName);
-                        }
-                    }
-                    else if (this.hasPlayedAlready(audioClipName))
-                    {
-                        Debug.LogFormat("{0}: Sequencer: AudioWaitOnce(): clip {1} already played, skipping", DialogueDebug.Prefix, audioClipName);
-                        _stopTime = DialogueTime.time;
-                        //  this prevents stop time from being overwritten below
-                        return;
-                    }
-                    else
-                    {
-                        if (DialogueDebug.logInfo)
-                        {
-                            Debug.LogFormat("{0}: Sequencer: AudioWaitOnce(): playing '{1}'.", DialogueDebug.Prefix, audioClipName);
-                        }
-                        _currentClip = audioClip;
-                        _audioSource.clip = audioClip;
-                        _audioSource.Play();
-                        this.markAsPlayedAlready(audioClipName);
-                    }
-
-                    _stopTime = DialogueTime.time + audioClip.length;
+                            var audioClip = asset as AudioClip;
+                            if (audioClip == null)
+                            {
+                                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: Clip '{1}' wasn't found.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                _stopTime = 0;
+                            }
+                            else
+                            {
+                                if (IsAudioMuted())
+                                {
+                                    if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): waiting but not playing '{1}'; audio is muted.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                }
+                                else
+                                {
+                                    if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait(): playing '{1}'.", new System.Object[] { DialogueDebug.Prefix, audioClipName }));
+                                    _currentClip = audioClip;
+                                    _audioSource.clip = audioClip;
+                                    _audioSource.Play();
+                                }
+                                _stopTime = DialogueTime.time + audioClip.length;
+                            }
+                        });
                 }
+
             }
             catch (System.Exception)
             {
@@ -166,6 +169,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             if (DialogueTime.time >= _stopTime)
             {
+                DialogueManager.UnloadAsset(_currentClip);
                 if (this.hasNextClip())
                 {
                     TryAudioClip(GetParameter(_nextClipIndex));
@@ -173,6 +177,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                 }
                 else
                 {
+                    _currentClip = null;
                     Stop();
                 }
             }
@@ -194,6 +199,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
         {
             if (_audioSource != null)
             {
+                DialogueManager.UnloadAsset(_currentClip);
                 if (_audioSource.isPlaying && (_audioSource.clip == _currentClip))
                 {
                     _audioSource.Stop();

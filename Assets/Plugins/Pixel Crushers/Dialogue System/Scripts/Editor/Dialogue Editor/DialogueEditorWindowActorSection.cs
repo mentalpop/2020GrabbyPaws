@@ -116,10 +116,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (!(0 <= list.index && list.index < database.actors.Count)) return;
             var actor = database.actors[list.index];
             if (actor == null) return;
+            var deletedLastOne = list.count == 1;
             if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(actor)), "Are you sure you want to delete this actor?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
-                inspectorSelection = (list.index < list.count) ? database.actors[list.index] : (list.count > 0) ? database.actors[list.count - 1] : null;
+                if (deletedLastOne) inspectorSelection = null;
+                else inspectorSelection = (list.index < list.count) ? database.actors[list.index] : (list.count > 0) ? database.actors[list.count - 1] : null;
                 SetDatabaseDirty("Remove Actor");
             }
         }

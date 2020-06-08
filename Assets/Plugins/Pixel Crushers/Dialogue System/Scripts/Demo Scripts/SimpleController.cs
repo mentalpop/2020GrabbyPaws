@@ -95,10 +95,10 @@ namespace PixelCrushers.DialogueSystem.Demo
             if (Time.timeScale <= 0) return;
 
             // Mouse X rotation:
-            transform.Rotate(0, Input.GetAxis(mouseXAxis) * mouseSensitivityX, 0);
+            transform.Rotate(0, InputDeviceManager.GetAxis(mouseXAxis) * mouseSensitivityX, 0);
 
             // Mouse Y rotation:
-            m_cameraRotationY += Input.GetAxis(mouseYAxis) * mouseSensitivityY;
+            m_cameraRotationY += InputDeviceManager.GetAxis(mouseYAxis) * mouseSensitivityY;
             m_cameraRotationY = ClampAngle(m_cameraRotationY, mouseMinimumY, mouseMaximumY);
             Quaternion yQuaternion = Quaternion.AngleAxis(m_cameraRotationY, -Vector3.right);
             if (m_smoothCamera != null)
@@ -123,8 +123,8 @@ namespace PixelCrushers.DialogueSystem.Demo
             }
 
             // Movement:
-            float centralSpeed = Input.GetAxis(verticalAxis);
-            float lateralSpeed = Input.GetAxis(horizontalAxis);
+            float centralSpeed = InputDeviceManager.GetAxis(verticalAxis);
+            float lateralSpeed = InputDeviceManager.GetAxis(horizontalAxis);
             if ((Mathf.Abs(centralSpeed) > 0.1f) || (Mathf.Abs(lateralSpeed) > 0.1f))
             {
                 SetSpeed(centralSpeed, lateralSpeed);

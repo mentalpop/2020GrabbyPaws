@@ -22,7 +22,7 @@ namespace PixelCrushers
 
         [Tooltip("Save when changing scenes to be able to restore saved state when returning to scene.")]
         [SerializeField]
-        private bool m_saveAcrossSceneChanges = false;
+        private bool m_saveAcrossSceneChanges = true;
 
         [Tooltip("When starting, restore this saver's state from current saved game data. Normally the save system restores state when loading games or changing scenes without this checkbox.")]
         [SerializeField]

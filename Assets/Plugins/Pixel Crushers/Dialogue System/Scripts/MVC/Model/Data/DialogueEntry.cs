@@ -337,6 +337,16 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
+        /// Gets or sets the guid corresponding to an entry in the current scene's
+        /// DialogueSystemSceneEvents list, or blank if none.
+        /// </summary>
+        public string sceneEventGuid
+        {
+            get { return Field.LookupValue(fields, "EventGuid"); }
+            set { SetTextField("EventGuid", value); }
+        }
+
+        /// <summary>
         /// Sets the sequence field, adding it if it doesn't already exist.
         /// </summary>
         /// <param name='title'>

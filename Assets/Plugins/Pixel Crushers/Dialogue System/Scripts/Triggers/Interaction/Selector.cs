@@ -349,7 +349,7 @@ namespace PixelCrushers.DialogueSystem
                     }
                     else
                     {
-                        Usable hitUsable = hit.collider.gameObject.GetComponent<Usable>();
+                        Usable hitUsable = hit.collider.GetComponent<Usable>();
                         if (hitUsable != null && hitUsable.enabled)
                         {
                             foundUsable = true;
@@ -378,7 +378,7 @@ namespace PixelCrushers.DialogueSystem
                     distance = (distanceFrom == DistanceFrom.Camera) ? 0 : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
                     if (selection != hit.collider.gameObject)
                     {
-                        Usable hitUsable = hit.collider.gameObject.GetComponent<Usable>();
+                        Usable hitUsable = hit.collider.GetComponent<Usable>();
                         if (hitUsable != null && hitUsable.enabled)
                         {
                             usable = hitUsable;
@@ -408,7 +408,7 @@ namespace PixelCrushers.DialogueSystem
 
             // New Variable rayCastDistance is used below for the raycasts instead of maxSelectionDistance to be able to set it to infinity (if using DistanceFrom.GameObject) instead of maxSelectionDistance:
             // Credit: Daniel D. (Thank you!)
-            float raycastDistance = (distanceFrom == DistanceFrom.GameObject) ? Mathf.Infinity : maxSelectionDistance; 
+            float raycastDistance = (distanceFrom == DistanceFrom.GameObject) ? Mathf.Infinity : maxSelectionDistance;
 
             if (raycastAll)
             {
@@ -429,7 +429,7 @@ namespace PixelCrushers.DialogueSystem
                     }
                     else
                     {
-                        Usable hitUsable = hit.collider.gameObject.GetComponent<Usable>();
+                        Usable hitUsable = hit.collider.GetComponent<Usable>();
                         if (hitUsable != null && hitUsable.enabled && hitDistance <= maxSelectionDistance)
                         {
                             foundUsable = true;
@@ -455,10 +455,10 @@ namespace PixelCrushers.DialogueSystem
                 if (Physics.Raycast(ray, out hit, maxSelectionDistance, layerMask))
                 {
                     distance = (distanceFrom == DistanceFrom.Camera) ? hit.distance : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
-                    if (selection != hit.collider.gameObject)
+                    Usable hitUsable = hit.collider.GetComponent<Usable>();
+                    if (hitUsable != null && hitUsable.enabled)
                     {
-                        Usable hitUsable = hit.collider.gameObject.GetComponent<Usable>();
-                        if (hitUsable != null && hitUsable.enabled)
+                        if (selection != hit.collider.gameObject)
                         {
                             usable = hitUsable;
                             selection = hit.collider.gameObject;
@@ -466,10 +466,10 @@ namespace PixelCrushers.DialogueSystem
                             useMessage = string.Empty;
                             OnSelectedUsableObject(usable);
                         }
-                        else
-                        {
-                            DeselectTarget();
-                        }
+                    }
+                    else
+                    {
+                        DeselectTarget();
                     }
                 }
                 else

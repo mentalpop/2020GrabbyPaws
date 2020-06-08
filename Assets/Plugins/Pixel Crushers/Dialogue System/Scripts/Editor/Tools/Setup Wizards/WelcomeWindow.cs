@@ -26,7 +26,7 @@ namespace PixelCrushers.DialogueSystem
         public static WelcomeWindow ShowWindow()
         {
             var window = GetWindow<WelcomeWindow>(false, "Welcome");
-            window.minSize = new Vector2(370, 480);
+            window.minSize = new Vector2(370, 530);
             window.showOnStart = true; // Can't check EditorPrefs when constructing window: showOnStartPrefs;
             return window;
         }
@@ -172,10 +172,12 @@ namespace PixelCrushers.DialogueSystem
 
             var define_USE_PHYSICS2D = false;
             var define_USE_NEW_INPUT = false;
+            var define_USE_ADDRESSABLES = false;
             var define_USE_TIMELINE = false;
             var define_USE_CINEMACHINE = false;
             var define_USE_ARTICY = false;
             var define_USE_AURORA = false;
+            var define_USE_TWINE = false;
             var define_TMP_PRESENT = false;
             var define_USE_STM = false;
             var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup).Split(';');
@@ -183,20 +185,24 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (string.Equals(ScriptingSymbolNames.USE_PHYSICS2D, defines[i].Trim())) define_USE_PHYSICS2D = true;
                 if (string.Equals(ScriptingSymbolNames.USE_NEW_INPUT, defines[i].Trim())) define_USE_NEW_INPUT = true;
+                if (string.Equals(ScriptingSymbolNames.USE_ADDRESSABLES, defines[i].Trim())) define_USE_ADDRESSABLES = true;
                 if (string.Equals(ScriptingSymbolNames.USE_TIMELINE, defines[i].Trim())) define_USE_TIMELINE = true;
                 if (string.Equals(ScriptingSymbolNames.USE_CINEMACHINE, defines[i].Trim())) define_USE_CINEMACHINE = true;
                 if (string.Equals(ScriptingSymbolNames.USE_ARTICY, defines[i].Trim())) define_USE_ARTICY = true;
                 if (string.Equals(ScriptingSymbolNames.USE_AURORA, defines[i].Trim())) define_USE_AURORA = true;
+                if (string.Equals(ScriptingSymbolNames.USE_TWINE, defines[i].Trim())) define_USE_TWINE = true;
                 if (string.Equals(ScriptingSymbolNames.TMP_PRESENT, defines[i].Trim())) define_TMP_PRESENT = true;
                 if (string.Equals(ScriptingSymbolNames.USE_STM, defines[i].Trim())) define_USE_STM = true;
             }
 #if EVALUATION_VERSION || !UNITY_2018_1_OR_NEWER
             define_USE_PHYSICS2D = true;
             define_USE_NEW_INPUT = false;
+            define_USE_ADDRESSABLES = false;
             define_TMP_PRESENT = false;
             define_USE_STM = false;
             define_USE_ARTICY = true;
             define_USE_AURORA = true;
+            define_USE_TWINE = true;
 #endif
 
             EditorGUI.BeginChangeCheck();
@@ -204,6 +210,7 @@ namespace PixelCrushers.DialogueSystem
 #if UNITY_2018_1_OR_NEWER && !EVALUATION_VERSION
             var new_USE_PHYSICS2D = EditorGUILayout.ToggleLeft("2D Physics (USE_PHYSICS2D)", define_USE_PHYSICS2D);
             var new_USE_NEW_INPUT = EditorGUILayout.ToggleLeft("New Input System (USE_NEW_INPUT)", define_USE_NEW_INPUT);
+            var new_USE_ADDRESSABLES = EditorGUILayout.ToggleLeft("Addressables (USE_ADDRESSABLES)", define_USE_ADDRESSABLES);
 #else
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.ToggleLeft(new GUIContent("2D Physics (USE_PHYSICS2D)", "Support is built in for evaluation version or Unity 2017 and earlier."), define_USE_PHYSICS2D);
@@ -211,6 +218,7 @@ namespace PixelCrushers.DialogueSystem
             EditorGUI.EndDisabledGroup();
             var new_USE_PHYSICS2D = define_USE_PHYSICS2D;
             var new_USE_NEW_INPUT = define_USE_NEW_INPUT;
+            var new_USE_ADDRESSABLES = define_USE_ADDRESSABLES;
 #endif
 
             var new_USE_TIMELINE = EditorGUILayout.ToggleLeft(new GUIContent("Timeline (USE_TIMELINE)", "Enable Dialogue System support for Timeline. You must still enable Timeline in Package Manager."), define_USE_TIMELINE);
@@ -223,9 +231,11 @@ namespace PixelCrushers.DialogueSystem
             EditorGUI.EndDisabledGroup();
             var new_USE_ARTICY = define_USE_ARTICY;
             var new_USE_AURORA = define_USE_AURORA;
+            var new_USE_TWINE = define_USE_TWINE;
 #else
             var new_USE_ARTICY = EditorGUILayout.ToggleLeft(new GUIContent("articy:draft (USE_ARTICY)", "Enable Dialogue System support for articy:draft XML import."), define_USE_ARTICY);
             var new_USE_AURORA = EditorGUILayout.ToggleLeft(new GUIContent("Aurora Toolset (USE_AURORA)", "Enable Dialogue System support for Aurora (Neverwinter Nights) Toolset import."), define_USE_AURORA);
+            var new_USE_TWINE = EditorGUILayout.ToggleLeft(new GUIContent("Twine (USE_TWINE)", "Enable Dialogue System support for Twine import."), define_USE_TWINE);
 #endif
 
 #if EVALUATION_VERSION
@@ -243,10 +253,12 @@ namespace PixelCrushers.DialogueSystem
 
             if (new_USE_PHYSICS2D != define_USE_PHYSICS2D) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_PHYSICS2D, new_USE_PHYSICS2D);
             if (new_USE_NEW_INPUT != define_USE_NEW_INPUT) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_NEW_INPUT, new_USE_NEW_INPUT);
+            if (new_USE_ADDRESSABLES != define_USE_ADDRESSABLES) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ADDRESSABLES, new_USE_ADDRESSABLES);
             if (new_USE_TIMELINE != define_USE_TIMELINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_TIMELINE, new_USE_TIMELINE, true);
             if (new_USE_CINEMACHINE != define_USE_CINEMACHINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CINEMACHINE, new_USE_CINEMACHINE);
             if (new_USE_ARTICY != define_USE_ARTICY) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ARTICY, new_USE_ARTICY);
             if (new_USE_AURORA != define_USE_AURORA) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_AURORA, new_USE_AURORA);
+            if (new_USE_TWINE != define_USE_TWINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_TWINE, new_USE_TWINE);
             if (new_TMP_PRESENT != define_TMP_PRESENT) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.TMP_PRESENT, new_TMP_PRESENT, true);
             if (new_USE_STM != define_USE_STM)
             {

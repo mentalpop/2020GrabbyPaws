@@ -299,7 +299,11 @@ namespace PixelCrushers.DialogueSystem
 
         private void GetCameraAngles()
         {
-            if (m_cameraAngles == null) m_cameraAngles = DialogueManager.LoadAsset(DefaultCameraAnglesResourceName) as GameObject;
+            if (m_cameraAngles == null)
+            {
+                DialogueManager.LoadAsset(DefaultCameraAnglesResourceName, typeof(GameObject),
+                    (asset) => { m_cameraAngles = asset as GameObject; });
+            }
         }
 
         private void GetCamera()
@@ -1190,33 +1194,38 @@ namespace PixelCrushers.DialogueSystem
             if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AnimatorController({1}, {2})", new System.Object[] { DialogueDebug.Prefix, controllerName, Tools.GetObjectName(subject) }));
 
             // Load animator controller:
-            RuntimeAnimatorController animatorController = null;
             try
             {
-                animatorController = Instantiate(DialogueManager.LoadAsset(controllerName)) as RuntimeAnimatorController;
+                DialogueManager.LoadAsset(controllerName, typeof(RuntimeAnimatorController),
+                    (asset) =>
+                    {
+                        var animatorControllerAsset = asset as RuntimeAnimatorController;
+                        RuntimeAnimatorController animatorController = null;
+                        if (animatorControllerAsset != null) animatorController = Instantiate<RuntimeAnimatorController>(animatorControllerAsset);
+                        if (subject == null)
+                        {
+                            if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: subject is null.", new System.Object[] { DialogueDebug.Prefix }));
+                        }
+                        else if (animatorController == null)
+                        {
+                            if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: failed to load animator controller '{1}'.", new System.Object[] { DialogueDebug.Prefix, controllerName }));
+                        }
+                        else
+                        {
+                            Animator animator = subject.GetComponentInChildren<Animator>();
+                            if (animator == null)
+                            {
+                                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: No Animator component found on {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
+                            }
+                            else
+                            {
+                                animator.runtimeAnimatorController = animatorController;
+                            }
+                        }
+                    });
             }
             catch (Exception)
             {
-            }
-            if (subject == null)
-            {
-                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: subject is null.", new System.Object[] { DialogueDebug.Prefix }));
-            }
-            else if (animatorController == null)
-            {
-                if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: failed to load animator controller '{1}'.", new System.Object[] { DialogueDebug.Prefix, controllerName }));
-            }
-            else
-            {
-                Animator animator = subject.GetComponentInChildren<Animator>();
-                if (animator == null)
-                {
-                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AnimatorController() command: No Animator component found on {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
-                }
-                else
-                {
-                    animator.runtimeAnimatorController = animatorController;
-                }
             }
             return true;
         }
@@ -1488,28 +1497,31 @@ namespace PixelCrushers.DialogueSystem
             }
 
             // Load clip:
-            AudioClip clip = DialogueManager.LoadAsset(clipName) as AudioClip;
-            if ((clip == null) && DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Audio() command: clip '{1}' could not be found or loaded.", new System.Object[] { DialogueDebug.Prefix, clipName }));
+            DialogueManager.LoadAsset(clipName, typeof(AudioClip),
+                (asset) =>
+                {
+                    var clip = asset as AudioClip;
+                    if ((clip == null) && DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Audio() command: clip '{1}' could not be found or loaded.", new System.Object[] { DialogueDebug.Prefix, clipName }));
 
-            // Play clip:
-            if (clip != null)
-            {
-                AudioSource audioSource = SequencerTools.GetAudioSource(subject);
-                if (audioSource == null)
-                {
-                    if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Audio() command: can't find or add AudioSource to {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
-                }
-                else if (oneshot)
-                {
-                    audioSource.PlayOneShot(clip);
-                }
-                else
-                {
-                    //---Was: if (Tools.ApproximatelyZero(audioSource.volume)) audioSource.volume = 1f;
-                    audioSource.clip = clip;
-                    audioSource.Play();
-                }
-            }
+                    // Play clip:
+                    if (clip != null)
+                    {
+                        AudioSource audioSource = SequencerTools.GetAudioSource(subject);
+                        if (audioSource == null)
+                        {
+                            if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: Audio() command: can't find or add AudioSource to {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
+                        }
+                        else if (oneshot)
+                        {
+                            audioSource.PlayOneShot(clip);
+                        }
+                        else
+                        {
+                            audioSource.clip = clip;
+                            audioSource.Play();
+                        }
+                    }
+                });
             return true;
         }
 
@@ -1607,7 +1619,7 @@ namespace PixelCrushers.DialogueSystem
             {
 
                 // Handle now:
-                if ((args == null) || ((args.Length == 1) && string.IsNullOrEmpty(args[0])))
+                if ((args == null) || (args.Length == 0) || ((args.Length == 1) && string.IsNullOrEmpty(args[0])))
                 {
                     // Handle empty args (speaker and listener look at each other):
                     if ((m_speaker != null) && (m_listener != null))
@@ -2276,12 +2288,30 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-                sprite = UITools.CreateSprite(DialogueManager.LoadAsset(textureName) as Texture2D);
+                DialogueManager.LoadAsset(textureName, typeof(Texture2D),
+                    (asset) =>
+                    {
+                        var spriteAsset = UITools.CreateSprite(asset as Texture2D);
+                        if (DialogueDebug.logWarnings)
+                        {
+                            if (actor == null) Debug.LogWarning(string.Format("{0}: Sequencer: SetPortrait() command: actor '{1}' not found.", new System.Object[] { DialogueDebug.Prefix, actorName }));
+                            if ((spriteAsset == null) && !isDefault) Debug.LogWarning(string.Format("{0}: Sequencer: SetPortrait() command: texture '{1}' not found.", new System.Object[] { DialogueDebug.Prefix, textureName }));
+                        }
+                        if (actor != null)
+                        {
+                            if (isDefault)
+                            {
+                                DialogueLua.SetActorField(actorName, DialogueSystemFields.CurrentPortrait, string.Empty);
+                            }
+                            else
+                            {
+                                if (spriteAsset != null) DialogueLua.SetActorField(actorName, DialogueSystemFields.CurrentPortrait, textureName);
+                            }
+                            DialogueManager.instance.SetActorPortraitSprite(actorName, spriteAsset);
+                        }
+                    });
+                return true;
             }
-            //---Was:
-            //Texture2D texture = isDefault ? null 
-            //	: (isPicTag ? actor.GetPortraitTexture(Tools.StringToInt(textureName.Substring("pic=".Length)))
-            //	: DialogueManager.LoadAsset(textureName) as Texture2D);
 
             if (DialogueDebug.logWarnings)
             {

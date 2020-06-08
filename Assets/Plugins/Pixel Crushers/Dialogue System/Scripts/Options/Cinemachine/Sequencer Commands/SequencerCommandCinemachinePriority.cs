@@ -31,7 +31,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             }
             else
             {
-                if (DialogueDebug.LogInfo) Debug.Log("Dialogue System: Sequencer: CinemachinePriority(" + vcam + ", " + priority + ")");
+                if (DialogueDebug.LogInfo) Debug.Log("Dialogue System: Sequencer: CinemachinePriority(" + vcam + ", " + priority + ", cut=" + cut + ")");
                 vcam.Priority = priority;
                 if (cut)
                 {
@@ -40,9 +40,12 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                     {
                         var previousBlendTime = cinemachineBrain.m_DefaultBlend.m_Time;
                         cinemachineBrain.m_DefaultBlend.m_Time = 0;
+                        vcam.enabled = false;
+                        vcam.enabled = true;
                         yield return null;
-                        yield return null;
+                        //yield return null;  // Cinemachine changed. No longer need to yield 2 frames, but need to disable & re-enable vcam.
                         cinemachineBrain.m_DefaultBlend.m_Time = previousBlendTime;
+                        yield return null;
                     }
                 }
             }

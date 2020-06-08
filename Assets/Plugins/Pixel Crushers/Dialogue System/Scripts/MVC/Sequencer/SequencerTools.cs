@@ -257,7 +257,7 @@ namespace PixelCrushers.DialogueSystem
         public static AudioSource GetAudioSource(Transform subject)
         {
             GameObject go = (subject != null) ? subject.gameObject : DialogueManager.instance.gameObject;
-            AudioSource audio = go.GetComponent<AudioSource>();
+            AudioSource audio = go.GetComponentInChildren<AudioSource>();
             return (audio != null) ? audio : go.AddComponent<AudioSource>();
         }
 

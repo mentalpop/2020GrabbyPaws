@@ -64,7 +64,7 @@ namespace PixelCrushers.DialogueSystem
 
                     var state = DialogueManager.currentConversationState;
                     var entry = state.hasNPCResponse ? state.firstNPCResponse.destinationEntry
-                        : state.hasPCResponses ? state.pcResponses[0].destinationEntry : null;
+                            : state.hasPCResponses ? state.pcResponses[0].destinationEntry : null;
                     if (entry == null)
                     {
                         if (DialogueDebug.logWarnings) Debug.LogWarning("Dialogue System: PushConversationPosition() Lua function can't save the current conversation position because it's invalid.");
