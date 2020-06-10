@@ -119,7 +119,7 @@ public class Sense : MonoBehaviour
             index = 0;
         }
 
-        if (Input.GetButtonDown("ChangeFocus"))
+        if (Input.GetMouseButtonDown(0)) //"ChangeFocus"
         {
             IncreaseIndex();
         }

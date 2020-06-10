@@ -1,0 +1,59 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Invector.vCamera;
+using Invector.vCharacterController.vActions;
+using Invector.vCharacterController;
+using Cinemachine;
+
+public class SpawnManager : MonoBehaviour
+{
+    public GameObject prefabPlayer;
+    public GameObject prefabDialogueSystem;
+    public GameObject prefabCinemachine;
+    public GameObject prefabTPCamera;
+    public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject dSystem;
+
+    /*
+    private void Awake() {
+        SpawnPlayer(SpawnPoints.UITestRoomA);
+    }
+    //*/
+
+    public void SpawnPlayer(SpawnPoints point) {
+        SpawnPoint pointToSpawnPlayer = spawnPoints[0];
+        bool foundSpawnPoint = false;
+        foreach (var spawnPoint in spawnPoints) {
+            if (spawnPoint.pointID == point) {
+                pointToSpawnPlayer = spawnPoint;
+                foundSpawnPoint = true;
+                break;
+            }
+        }
+        if (foundSpawnPoint) {
+            dSystem = Instantiate(prefabDialogueSystem, Vector3.zero, Quaternion.identity);
+    //Spawn the player
+            player = Instantiate(prefabPlayer, pointToSpawnPlayer.transform.position, pointToSpawnPlayer.transform.localRotation);
+            //vGenericAction gAction = player.GetComponent<vGenericAction>();
+            vThirdPersonInput vTPInput = player.GetComponent<vThirdPersonInput>();
+        //TP Camera Setup
+            GameObject _tpCamera = Instantiate(prefabTPCamera, pointToSpawnPlayer.transform.position, Quaternion.identity);
+            vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
+            //gAction.mainCamera = tpCamera.GetComponent<Camera>();
+            vTPInput.cameraMain = _tpCamera.GetComponent<Camera>();
+            tpCamera.SetTarget(player.transform);
+            UI.Instance.cBrain = tpCamera.GetComponent<CinemachineBrain>(); //Cinemachine Brain is on the TP Camera
+            UI.Instance.thirdPersonCamera = tpCamera;
+        //Spawn Cinemachine Camera
+            GameObject _cCamera = Instantiate(prefabCinemachine, pointToSpawnPlayer.transform.position, Quaternion.identity);
+            CinemachineFreeLook cinemachineFreeLook = _cCamera.GetComponent<CinemachineFreeLook>();
+            cinemachineFreeLook.LookAt = player.transform;
+            cinemachineFreeLook.Follow = player.transform;
+        } else {
+            Debug.Log("Failed to fing SpawnPoint: "+point);
+        }
+    }
+}

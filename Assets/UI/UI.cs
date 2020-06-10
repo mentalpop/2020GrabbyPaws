@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Invector.vCamera;
 
 public enum NightPhases
 {
@@ -59,7 +60,7 @@ public class UI : MonoBehaviour
     public InventoryDisplay InventoryDisplay;
     public Inventory inventory;
     public CinemachineBrain cBrain;
-    //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
+    [HideInInspector] public vThirdPersonCamera thirdPersonCamera;
 [Header("Options")]
     public float uiScale = 1f;
     [HideInInspector] public float mouseSensitivity;
@@ -210,10 +211,10 @@ public class UI : MonoBehaviour
     void Update() {
         if (lockUI == null) { //No GameObject is currently locking the UI
     //Open / Close menus
-            if (Input.GetButtonDown("Inventory")) {
+            if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
                 ShowInventoryDisplay();
             }
-            if (Input.GetButtonDown("Kwit")) { //
+            if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
                 ShowLappyMenu(false);
             }
         }
