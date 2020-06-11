@@ -15,7 +15,7 @@ namespace ECE
     public GIZMO_TYPE GizmoType = GIZMO_TYPE.SPHERE;
     public float SelectedVertexScale = 0.15f;
     public Color SelectedVertexColor = Color.green;
-    public List<Vector3> SelectedVertexPositions = new List<Vector3>();
+    public HashSet<Vector3> SelectedVertexPositions = new HashSet<Vector3>();
     public float HoveredVertexScale = 0.1f;
     public Color HoveredVertexColor = Color.cyan;
     public HashSet<Vector3> HoveredVertexPositions = new HashSet<Vector3>();
@@ -125,6 +125,16 @@ namespace ECE
           Gizmos.DrawCube(position, size);
           break;
       }
+    }
+
+    /// <summary>
+    /// Sets the set of selected vertices from a list of selected world vertices
+    /// </summary>
+    /// <param name="worldVertices">List of world vertex positions that are selected</param>
+    public void SetSelectedVertices(List<Vector3> worldVertices)
+    {
+      SelectedVertexPositions.Clear();
+      SelectedVertexPositions.UnionWith(worldVertices);
     }
   }
 }

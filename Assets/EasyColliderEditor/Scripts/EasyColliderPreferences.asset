@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5e4193615d8464a82ea935f90494a0, type: 3}
+  m_Name: EasyColliderPreferences
+  m_EditorClassIdentifier: 
+  AutoIncludeChildSkinnedMeshes: 1
+  BoxSelectPlusKey: 97
+  BoxSelectMinusKey: 122
+  _capsuleColliderMethod: 1
+  CreatedColliderDisabled: 1
+  DisplayTips: 1
+  DisplayVerticesColour: {r: 0, g: 0, b: 1, a: 1}
+  DisplayVerticesScaling: 0.05
+  ForceFocusScene: 1
+  _gizmoType: 1
+  HoverVertColour: {r: 0, g: 1, b: 1, a: 1}
+  HoverVertScaling: 0.1
+  OverlapSelectedVertColour: {r: 1, g: 0, b: 0, a: 1}
+  OverlapSelectedVertScale: 0.1
+  RaycastDelayTime: 0.1
+  RenderPointType: 0
+  RotatedOnSelectedLayer: 1
+  SaveConvexHullMeshAtSelected: 1
+  SaveConvexHullPath: Assets/EasyColliderEditor/Scripts/
+  SelectedColliderColour: {r: 1, g: 0, b: 0, a: 1}
+  SelectedVertColour: {r: 0, g: 1, b: 0, a: 1}
+  SelectedVertScaling: 0.1
+  _sphereColliderMethod: 2
+  UseFixedGizmoScale: 1
+  VertSelectKeyCode: 118
+  PointSelectKeyCode: 98

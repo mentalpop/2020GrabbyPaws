@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 // If you have purchased this asset and have any other ideas for features, please contact me at pmurph.software@gmail.com
 // I would love to hear what users of this asset would like added.
@@ -10,7 +11,6 @@ using UnityEditor;
 // Better functionality & cleanup from prefab isolation mode once PrefabStage and PrefabStageUtility is out of Experimental in LTS.
 // auto box / capsule mesh generation along bone chain using skinned mesh renderer & bone weights.
 // capsule method of swept sphere of points + axis of points.
-// vertex selection -> convex hull generation / mesh colliders
 
 namespace ECE
 {
@@ -26,6 +26,27 @@ namespace ECE
     /// Is the key to only select verts when dragging held down?
     /// </summary>
     private bool _BoxPlusHeld = false;
+
+    /// <summary>
+    /// Position of the current scene camera
+    /// </summary>
+    private Vector3 CameraPosition;
+
+    /// <summary>
+    /// Rotation of the current scene camera
+    /// </summary>
+    private Quaternion CameraRotation;
+
+    /// <summary>
+    /// True when the button to change the Box Select- key is pressed
+    /// </summary>
+    private bool _CheckKeyBoxMinus = false;
+
+    /// <summary>
+    /// True when the button to change the Box Select+ key is pressed
+    /// </summary>
+    private bool _CheckKeyBoxPlus = false;
+
 
     /// <summary>
     /// Are we checking for keypress' to change point select keycode?
@@ -121,6 +142,16 @@ namespace ECE
       }
     }
 
+    /// <summary>
+    /// Color to draw the disabled button with when using GUIButton
+    /// </summary>
+    private Color _DisabledButtonColor = new Color(0.7f, 0.7f, 0.7f, 1f);
+
+    /// <summary>
+    /// Color to use when drawing a toggle that is disabled using GUIToggleLeft
+    /// </summary>
+    private Color _DisabledToggleColor = new Color(1, 1, 1, 0.33f);
+
     private EasyColliderEditor _ECEditor;
     /// <summary>
     /// EasyColliderEditor scriptable object.
@@ -199,6 +230,41 @@ namespace ECE
     /// </summary>
     private double _LastSelectionTime = 0.0f;
 
+    private List<List<Vector3>> _LocalSpaceVertices;
+    /// <summary>
+    /// Local space vertices as a list for each valid mesh
+    /// </summary>
+    private List<List<Vector3>> LocalSpaceVertices
+    {
+      get
+      {
+        if (_LocalSpaceVertices == null)
+        {
+          _LocalSpaceVertices = new List<List<Vector3>>();
+        }
+        return _LocalSpaceVertices;
+      }
+      set { _LocalSpaceVertices = value; }
+    }
+
+    private List<List<Vector3>> _ScreenSpaceVertices;
+    /// <summary>
+    /// Screen space vertices as a list for each valid mesh
+    /// </summary>
+    private List<List<Vector3>> ScreenSpaceVertices
+    {
+      get
+      {
+        if (_ScreenSpaceVertices == null)
+        {
+          _ScreenSpaceVertices = new List<List<Vector3>>();
+        }
+        return _ScreenSpaceVertices;
+      }
+      set { _ScreenSpaceVertices = value; }
+    }
+
+
     /// <summary>
     /// Scroll position for editor window
     /// </summary>
@@ -224,6 +290,24 @@ namespace ECE
     /// </summary>
     private Vector2 _StartDragPosition = Vector2.zero;
 
+    private List<List<Vector3>> _WorldSpaceVertices;
+    /// <summary>
+    /// World space vertices as a list for each valid mesh
+    /// </summary>
+    private List<List<Vector3>> WorldSpaceVertices
+    {
+      get
+      {
+        if (_WorldSpaceVertices == null)
+        {
+          _WorldSpaceVertices = new List<List<Vector3>>();
+        }
+        return _WorldSpaceVertices;
+      }
+      set { _WorldSpaceVertices = value; }
+    }
+
+    // Default methods or functions for delegates / events
 
     [MenuItem("Window/Easy Collider Editor")]
     static void Init()
@@ -233,551 +317,32 @@ namespace ECE
       ece.autoRepaintOnSceneChange = true;
     }
 
-    //NOTE: If something suddenly stops working on a new Unity update, it's likely the delegate names were changed as has occured in the past.
-    void OnEnable()
-    {
-      ECEditor.SetValuesFromPreferences(ECEPreferences);
-      // Register to scene updates so we can raycast to the mesh
-      //EASY_COLLIDER_EDITOR_DELEGATES - Change the below delegates if something breaks! (and in OnDisable below)
-      SceneView.onSceneGUIDelegate += OnSceneGUI;
-      // Register to undo/redo to repaint immediately.
-      Undo.undoRedoPerformed += OnUndoRedoPerformed;
-    }
-
     void OnDisable()
     {
       ECEditor.SelectedGameObject = null;
-      //EASY_COLLIDER_EDITOR_DELEGATES - Change the below delegates if something breaks! (and in OnEnable above)
+      // Unregister all the delegates
+      //EASY_COLLIDER_EDITOR_DELEGATES - Change the below delegates if something breaks! (and in OnEnable below)
+#if UNITY_2019_1_OR_NEWER
+      SceneView.duringSceneGui -= OnSceneGUI;
+#else
       SceneView.onSceneGUIDelegate -= OnSceneGUI;
+#endif
       // Unregister the repaint of window when undo's are performed.
       Undo.undoRedoPerformed -= OnUndoRedoPerformed;
     }
 
-    /// <summary>
-    /// Repaints the editor window when undo/redo is done.
-    /// </summary>
-    void OnUndoRedoPerformed()
+    void OnEnable()
     {
-      Repaint();
-    }
-
-    /// <summary>
-    /// Checks if we need to update based on the selected vertex count, then updates the vertex display depending on if we're using gizmos, or shaders
-    /// </summary>
-    public void CheckUpdateVertexDisplays()
-    {
-      if (ECEditor.Gizmos != null && ECEditor.Gizmos.SelectedVertexPositions.Count != ECEditor.SelectedVertices.Count)
-      {
-        UpdateVertexDisplays();
-      }
-      if (ECEditor.Compute != null && ECEditor.Compute.PointCount != ECEditor.SelectedVertices.Count)
-      {
-        UpdateVertexDisplays();
-      }
-    }
-
-    /// <summary>
-    /// Updates the gizmos or shaders selected, hover, overlap vertices.
-    /// </summary>
-    public void UpdateVertexDisplays()
-    {
-      // Update Gizmos
-      if (ECEditor.Gizmos != null)
-      {
-        ECEditor.Gizmos.SelectedVertexPositions = ECEditor.GetWorldVertices();
-        ECEditor.Gizmos.HoveredVertexPositions = CurrentHoveredVertices;
-      }
-      // Update Compute / Shader script.
-      if (ECEditor.Compute != null)
-      {
-        ECEditor.Compute.UpdateSelectedBuffer(ECEditor.GetWorldVertices());
-        ECEditor.Compute.UpdateOverlapHoveredBuffer(CurrentHoveredVertices);
-      }
-    }
-
-    /// <summary>
-    /// Does raycasts and selection in the scene view updates.
-    /// </summary>
-    /// <param name="sceneView"></param>
-    void OnSceneGUI(SceneView sceneView)
-    {
-      // Cleanup object if we're going into play mode.
-      if (EditorApplication.isPlayingOrWillChangePlaymode)
-      {
-        ECEditor.CleanUpObject(ECEditor.SelectedGameObject, true);
-      }
-
-      // force focus scene if preference is set.
-      if ((ECEditor.VertexSelectEnabled || ECEditor.ColliderSelectEnabled) && ECEPreferences.ForceFocusScene && ECEditor.SelectedGameObject != null)
-      {
-        if (EditorWindow.focusedWindow != SceneView.currentDrawingSceneView)
-        {
-          SceneView.currentDrawingSceneView.Focus();
-        }
-      }
-
-      // Update tips.
-      if (ECEPreferences.DisplayTips)
-      {
-        UpdateTips();
-      }
-      // Update vertex displays
-      CheckUpdateVertexDisplays();
-
-
-      // Only use the mouse drag events if vert select is enabled.
-      if (ECEditor.VertexSelectEnabled
-      && ECEditor.SelectedGameObject != null
-      && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow
-      && Camera.current != null)
-      {
-        CheckMouseDrag();
-        CheckMouseDragKeyHeld();
-      }
-      // reset the variables if we don thave a seleted object or vertex select is disabled.
-      else if (_BoxMinusHeld || _BoxPlusHeld || _IsMouseDrag || _IsMouseDragEnd)
-      {
-        _BoxMinusHeld = false;
-        _BoxPlusHeld = false;
-        _IsMouseDrag = false;
-        _IsMouseDragEnd = false;
-      }
-
-      // Selection box vertex selection.
-      if (_IsMouseDrag
-      && ECEditor.SelectedGameObject != null
-      && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow
-      && Camera.current != null)
-      {
-        // Draw selection box.
-        Handles.BeginGUI();
-        Color original = GUI.color;
-        EditorGUI.DrawRect(new Rect(_StartDragPosition, _CurrentDragPosition - _StartDragPosition), _SelectionRectColor);
-        Handles.EndGUI();
-        // we need to draw the UI rect every frame, but should only update the displayed dots occasionally.
-        // but we also need to draw them constantly.
-        if (EditorApplication.timeSinceStartup - _LastSelectionTime > ECEPreferences.RaycastDelayTime && Camera.current != null)
-        {
-          _LastSelectionTime = EditorApplication.timeSinceStartup;
-          // mouse position has 0,0 at top left
-          // world to screen has 0,0 at bottom left
-          // so change mouse pos to 0,0 at bottom left.
-          // Use camera.current.pixelheight instead of the screen.height
-          // screen.height reports the window's height, which includes parts of the scene-view editor window that aren't in the world to screen calculation.
-          Vector2 endDragM = _CurrentDragPosition;
-          Vector2 startDragM = _StartDragPosition;
-          endDragM.y = Camera.current.pixelHeight - _CurrentDragPosition.y;
-          startDragM.y = Camera.current.pixelHeight - _StartDragPosition.y;
-          Vector3[] verts = new Vector3[0];
-          Vector3 currentVertexPos = Vector3.zero;
-          Vector3 transformedPoint = Vector3.zero;
-          Transform t = ECEditor.SelectedGameObject.transform;
-          for (int i = 0; i < ECEditor.MeshFilters.Count; i++)
-          {
-            if (ECEditor.MeshFilters[i] == null) continue;
-            verts = ECEditor.MeshFilters[i].sharedMesh.vertices;
-            t = ECEditor.MeshFilters[i].transform;
-            for (int j = 0; j < verts.Length; j++)
-            {
-              transformedPoint = t.TransformPoint(verts[j]);
-              currentVertexPos = Camera.current.WorldToScreenPoint(transformedPoint);
-              EasyColliderVertex ecv = new EasyColliderVertex(t, verts[j]);
-              // if the vertex's screen pos is within the drag area
-              if (
-               ((currentVertexPos.x >= startDragM.x && currentVertexPos.x <= endDragM.x) || (currentVertexPos.x <= startDragM.x && currentVertexPos.x >= endDragM.x))
-               && ((currentVertexPos.y >= startDragM.y && currentVertexPos.y <= endDragM.y) || (currentVertexPos.y <= startDragM.y && currentVertexPos.y >= endDragM.y))
-              )
-              {
-                if (_BoxPlusHeld) // box plus is held
-                {
-                  if (!ECEditor.SelectedVerticesSet.Contains(ecv)) // if it's not already selected
-                  {
-                    if (!CurrentHoveredVertices.Contains(transformedPoint)) // and it's not in our hovered list.
-                    {
-                      CurrentHoveredVertices.Add(transformedPoint); // mark it as hovered.
-                      CurrentSelectBoxVerts.Add(ecv);
-                    }
-                  }
-                  else if (CurrentHoveredVertices.Contains(transformedPoint)) // otherwise, if its in the box and currently selected
-                  {
-                    CurrentHoveredVertices.Remove(transformedPoint); // try to remove it.
-                    CurrentSelectBoxVerts.Remove(ecv);
-                  }
-                }
-                else if (_BoxMinusHeld) // box minus is held
-                {
-                  if (ECEditor.SelectedVerticesSet.Contains(ecv)) // if it's selected
-                  {
-                    if (!CurrentHoveredVertices.Contains(transformedPoint)) // and it's not in our hovered list
-                    {
-                      CurrentHoveredVertices.Add(transformedPoint); // add it.
-                      CurrentSelectBoxVerts.Add(ecv);
-                    }
-                  }
-                  else if (CurrentHoveredVertices.Contains(transformedPoint)) //otherwise, if it's within the box, and not currently selected.
-                  {
-                    CurrentHoveredVertices.Remove(transformedPoint); // so try to remove it.
-                    CurrentSelectBoxVerts.Remove(ecv);
-                  }
-                }
-                else if (!CurrentHoveredVertices.Contains(transformedPoint)) // default functionality (not currently hovered, but in box -> mark it at hovered.)
-                {
-                  CurrentHoveredVertices.Add(transformedPoint);
-                  CurrentSelectBoxVerts.Add(ecv);
-                }
-              }
-              // remove it if no longer in the box, and in our lists.
-              else if (CurrentHoveredVertices.Contains(transformedPoint))
-              {
-                CurrentSelectBoxVerts.Remove(new EasyColliderVertex(t, verts[j]));
-                CurrentHoveredVertices.Remove(transformedPoint);
-              }
-            }
-          }
-          // force update selection displays while dragging a box
-          UpdateVertexDisplays();
-        }
-      }
-      else if (_IsMouseDragEnd)
-      {
-        // Done dragging, select everything in the box.
-        Undo.RegisterCompleteObjectUndo(ECEditor, "Select Vertices");
-        int group = Undo.GetCurrentGroup();
-        ECEditor.SelectVertices(CurrentSelectBoxVerts);
-        _IsMouseDragEnd = false;
-        // Clear sets.
-        CurrentHoveredVertices = new HashSet<Vector3>();
-        CurrentSelectBoxVerts = new HashSet<EasyColliderVertex>();
-        UpdateVertexDisplays();
-        Undo.CollapseUndoOperations(group);
-        // repaint so buttons appear for vertex selection
-        this.Repaint();
-      }
-
-      // Vertex / Collider raycast selection.
-      // Do vertex selection by raycast only occasionally, and if we are able to
-      if (!_IsMouseDrag // not dragging
-        && EditorApplication.timeSinceStartup - _LastSelectionTime > ECEPreferences.RaycastDelayTime // raycast occasionally
-        && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow // if we're focused on the scene view
-        && (ECEditor.VertexSelectEnabled || ECEditor.ColliderSelectEnabled) // and selection is enabled
-        && ECEditor.SelectedGameObject != null // and theres something selected
-        && ECEditor.MeshFilters.Count > 0 // and there's mesh filters.
-        && Camera.current != null & Event.current != null) // and there's a camera and an event to use.
-      {
-        _LastSelectionTime = EditorApplication.timeSinceStartup;
-        RaycastSelect();
-        if (ECEditor.VertexSelectEnabled)
-        {
-          // if we're not collider selecting, update the vertex display
-          UpdateVertexDisplays();
-        }
-      }
-
-      // Draw hovered vertex if it's enabled, and we're hovering a vertex.
-      if (ECEditor.VertexSelectEnabled && Event.current.type == EventType.KeyUp && Event.current.isKey)
-      {
-        // Select the currently hovered vertex if we've pressed the key.
-        if (Event.current.keyCode == ECEPreferences.VertSelectKeyCode && _CurrentHoveredTransform != null)
-        {
-          // Select the vertex then repaint.
-          SelectVertex(_CurrentHoveredTransform, _CurrentHoveredPosition);
-          this.Repaint();
-        }
-        // this selects abritrary points on the mesh collider that aren't vertices
-        else if (Event.current.keyCode == ECEPreferences.PointSelectKeyCode && _CurrentHoveredPointTransform != null)
-        {
-          SelectVertex(_CurrentHoveredPointTransform, _CurrentHoveredPoint);
-          this.Repaint();
-        }
-      }
-
-      // Draw selected collider if it's enabled and we have one.
-      if (ECEditor.ColliderSelectEnabled && ECEditor.SelectedCollider != null)
-      {
-        // Draw the collider
-        EasyColliderDraw.DrawCollider(ECEditor.SelectedCollider, ECEPreferences.SelectedColliderColour);
-        // Repaint the scene view & editor window if the current drawing collider is different.
-        if (_CurrentDrawingCollider != ECEditor.SelectedCollider)
-        {
-          _CurrentDrawingCollider = ECEditor.SelectedCollider;
-          SceneView.RepaintAll();
-          this.Repaint();
-        }
-      }
-
-      // Display mesh vertices
-      if (ECEditor.SelectedGameObject != null && ECEditor.DisplayMeshVertices)
-      {
-        DrawAllVertices();
-      }
-    }
-
-    /// <summary>
-    /// Checks and sets the _BoxPlusHeld and _BoxMinusHeld bools based on key events.
-    /// </summary>
-    private void CheckMouseDragKeyHeld()
-    {
-      if (Event.current != null)
-      {
-        if (!_BoxPlusHeld && !_BoxMinusHeld) // if no button is being held
-        {
-          Event e = Event.current;
-          int controlID = GUIUtility.GetControlID(FocusType.Passive);
-          EventType type = e.GetTypeForControl(controlID);
-          // check to see if the current event is a keydown event.
-          if (e.isKey && type == EventType.KeyDown)
-          {
-            // if its one of our shortcuts, set the bool to true.
-            if (e.keyCode == ECEPreferences.BoxSelectPlusKey)
-            {
-              _BoxPlusHeld = true;
-            }
-            else if (e.keyCode == ECEPreferences.BoxSelectMinusKey)
-            {
-              _BoxMinusHeld = true;
-            }
-          }
-        }
-        // if one of the keys is held down.
-        else if (_BoxPlusHeld || _BoxMinusHeld)
-        {
-          Event e = Event.current;
-          int controlID = GUIUtility.GetControlID(FocusType.Passive);
-          EventType type = e.GetTypeForControl(controlID);
-          // check to see if the current event is a keyup event
-          if (e.isKey && type == EventType.KeyUp)
-          {
-            // and if it matches one of ours shortcuts, set the bool to false.
-            if (e.keyCode == ECEPreferences.BoxSelectPlusKey)
-            {
-              _BoxPlusHeld = false;
-            }
-            else if (e.keyCode == ECEPreferences.BoxSelectMinusKey)
-            {
-              _BoxMinusHeld = false;
-            }
-          }
-        }
-      }
-
-    }
-
-    /// <summary>
-    /// Checks if left mouse was clicked, and uses the mouse events so that selection boxes can be drawn and used.
-    /// </summary>
-    private void CheckMouseDrag()
-    {
-      // reset drag end bool.
-      if (_IsMouseDragEnd)
-      {
-        _IsMouseDragEnd = false;
-      }
-      // if we have a mouse event.
-      if (Event.current != null && Event.current.isMouse)
-      {
-        Event e = Event.current;
-        int controlID = GUIUtility.GetControlID(FocusType.Passive);
-        // get event type for the current event.
-        switch (e.GetTypeForControl(controlID))
-        {
-          case EventType.MouseDown:
-            if (e.button == 0)
-            {
-              // get the start mouse position
-              _StartDragPosition = e.mousePosition;
-              _CurrentDragPosition = e.mousePosition;
-              _IsMouseDrag = true;
-              // set the control as hot
-              GUIUtility.hotControl = controlID;
-              // use the event.
-              e.Use();
-            }
-            break;
-          case EventType.MouseUp:
-            if (e.button == 0)
-            {
-              // set our bools to track mouse drags, on mouse up the drag has just ended
-              _IsMouseDrag = false;
-              _IsMouseDragEnd = true;
-              // set the control as hot
-              GUIUtility.hotControl = 0;
-              // use the event.
-              e.Use();
-            }
-            break;
-          case EventType.MouseDrag:
-            if (e.button == 0)
-            {
-              // mouse is still dragging, continue to use the event & keep current mouse position.
-              _CurrentDragPosition = e.mousePosition;
-              // set the control as hot
-              GUIUtility.hotControl = controlID;
-              // use the event.
-              e.Use();
-            }
-            else { _IsMouseDrag = false; }
-            break;
-        }
-      }
-    }
-
-    /// <summary>
-    /// Usings a raycast and highlights whatever vertex is the closest.
-    /// Sets the current hovered filter and current hovered vertex
-    /// Also selects collider
-    /// </summary>
-    private void RaycastSelect()
-    {
-      // clear current hovered vertices
-      CurrentHoveredVertices.Clear();
-      // Use physics scene for the current scene to allow for proper raycasting in the prefab editing scene.
-      // PhysicsScene physicsScene = PhysicsSceneExtensions.GetPhysicsScene(ECEditor.SelectedGameObject.scene);
-      Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-      RaycastHit hit;
-      if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-      {
-        if (ECEditor.VertexSelectEnabled)
-        {
-          // Vertex selection.
-          float minDistance = Mathf.Infinity;
-          Transform closestTransform = ECEditor.SelectedGameObject.transform;
-          Vector3 closestLocalPosition = Vector3.zero;
-          foreach (MeshFilter meshFilter in ECEditor.MeshFilters)
-          {
-            if (meshFilter == null) continue;
-            // Get transform and verts of each mesh to make things a little quicker.
-            Transform t = meshFilter.transform;
-            Vector3[] vertices = meshFilter.sharedMesh.vertices;
-            // Get the closest by checking the distance.
-            // convert world hit point to local hit point for each meshfilter's transform.
-            Vector3 localHit = t.InverseTransformPoint(hit.point);
-            for (int i = 0; i < vertices.Length; i++)
-            {
-              float distance = Vector3.Distance(vertices[i], localHit);
-              if (distance < minDistance)
-              {
-                minDistance = distance;
-                closestTransform = t;
-                closestLocalPosition = vertices[i];
-              }
-            }
-          }
-          // if the closest changed from the one we already have.
-          if (closestTransform != null)
-          {
-            CurrentHoveredVertices.Add(closestTransform.TransformPoint(closestLocalPosition));
-            _CurrentHoveredPosition = closestLocalPosition;
-            _CurrentHoveredTransform = closestTransform;
-          }
-          _CurrentHoveredPointTransform = hit.transform;
-          if (_CurrentHoveredPointTransform != null)
-          {
-            // with point selection, you can more easily select points that aren't on the selected or child meshes
-            _CurrentHoveredPoint = _CurrentHoveredPointTransform.InverseTransformPoint(hit.point);
-            CurrentHoveredVertices.Add(hit.point);
-            // Point selection requires more repaints to display better, so we'll repaint every time we raycast.
-            // since we don't raycast constantly, it's not a huge deal.
-            SceneView.RepaintAll();
-          }
-
-        }
-        else if (ECEditor.ColliderSelectEnabled)
-        {
-          if (hit.collider != ECEditor.SelectedCollider)
-          {
-            ECEditor.SelectedCollider = hit.collider;
-            // so we display the remove button immediately.
-            this.Repaint();
-          }
-        }
-      }
-      else if (ECEditor.VertexSelectEnabled && _CurrentHoveredTransform != null)
-      {
-        // clear hovered display if we're not over anything.
-        CurrentHoveredVertices.Remove(_CurrentHoveredTransform.TransformPoint(_CurrentHoveredPosition));
-        _CurrentHoveredTransform = null;
-        SceneView.RepaintAll();
-      }
-    }
-
-    /// <summary>
-    /// Draws all vertices in Editor's mesh filter list
-    /// /// </summary>
-    private void DrawAllVertices()
-    {
-      // get all world mesh vertices is super slow.
-      if (ECEditor.Gizmos != null)
-      {
-        ECEditor.Gizmos.DisplayVertexPositions = ECEditor.GetAllWorldMeshVertices();
-      }
-      else if (ECEditor.Compute != null)
-      {
-        ECEditor.Compute.SetDisplayAllBuffer(ECEditor.GetAllWorldMeshVertices());
-      }
-    }
-
-
-    private Color DisabledButtonColor = new Color(0.7f, 0.7f, 0.7f, 1f);
-    private Color TempGUIColor;
-    /// <summary>
-    /// Creates a button that displays different if it is enabled or disabled. Button always returns false if disabled.
-    /// <param name="title">text of button</param>
-    /// <param name="enabledTooltip">tool tip for button when enabled</param>
-    /// <param name="disabledTooltip">tool tip for box when disabled</param>
-    /// <param name="isEnabled">is the button enabled?</param>
-    /// <returns>false if disabled, true if enabled and button is clicked</returns>
-    bool GUIButton(string text, string enabledTooltip, string disabledTooltip, bool isEnabled)
-    {
-      // only display the button as a button if it's actually enabled
-      if (isEnabled)
-      {
-        if (GUILayout.Button(new GUIContent(text, enabledTooltip)))
-        {
-          return true;
-        }
-      }
-      else
-      {
-        // create the style to take up the space space as an enabled buttons default sizing.
-        GUIStyle box = new GUIStyle(GUI.skin.box);
-
-        box.padding = GUI.skin.button.padding;
-        box.margin = GUI.skin.button.margin;
-        TempGUIColor = GUI.color;
-        GUI.color = DisabledButtonColor;
-        GUILayout.Box(new GUIContent(text, disabledTooltip), box, GUILayout.ExpandWidth(true));
-        GUI.color = TempGUIColor;
-      }
-      // always return false, like a normal button, unless the actual enabled button is pressed.
-      return false;
-    }
-
-    private Color disabledToggleColor = new Color(1, 1, 1, 0.33f);
-    /// <summary>
-    /// Creates a left toggle if the toggle is enabled that functions normally,
-    /// otherwise creates a style toggle that is not toggleable and grayed-out.
-    /// </summary>
-    /// <param name="text">Text to show beside the toggle</param>
-    /// <param name="enabledTooltip">Tool tip when toggle is enabled</param>
-    /// <param name="disabledTooltip">Tool tip when toggle is disabled</param>
-    /// <param name="isEnabled">Is the toggle enabled</param>
-    /// <param name="toggle">Bool the toggle controls</param>
-    /// <returns>Value of toggle</returns>
-    bool GUIToggleLeft(string text, string enabledTooltip, string disabledTooltip, bool isEnabled, bool toggle)
-    {
-      if (isEnabled)
-      {
-        bool toggleValue = EditorGUILayout.ToggleLeft(new GUIContent(text, enabledTooltip), toggle);
-        return toggleValue;
-      }
-      else
-      {
-        Color color = GUI.backgroundColor;
-        GUI.backgroundColor = disabledToggleColor;
-        EditorGUILayout.ToggleLeft(new GUIContent(text, disabledTooltip), toggle);
-        GUI.backgroundColor = color;
-      }
-      return toggle;
+      ECEditor.SetValuesFromPreferences(ECEPreferences);
+      // Register to scene updates so we can raycast to the mesh
+      //EASY_COLLIDER_EDITOR_DELEGATES - Change the below delegates if something breaks! (and in OnDisable above)
+#if UNITY_2019_1_OR_NEWER
+      SceneView.duringSceneGui += OnSceneGUI;
+#else
+      SceneView.onSceneGUIDelegate += OnSceneGUI;
+#endif
+      // Register to undo/redo to repaint immediately.
+      Undo.undoRedoPerformed += OnUndoRedoPerformed;
     }
 
     /// <summary>
@@ -903,8 +468,12 @@ namespace ECE
         ECEditor.PhysicMaterial = physicMaterial;
       }
 
-      // Vertex selection tools are a foldout that starts opened by default.
+      // Vertex selection tools are a foldout that starts opened by default. 2019_1+ uses better version where the arrow doesn't need to be clicked on.
+#if UNITY_2019_1_OR_NEWER
+      _ShowVertexSelectionTools = EditorGUILayout.BeginFoldoutHeaderGroup(_ShowVertexSelectionTools, "Vertex Selection Tools");
+#else
       _ShowVertexSelectionTools = EditorGUILayout.Foldout(_ShowVertexSelectionTools, "Vertex Selection Tools");
+#endif
       if (_ShowVertexSelectionTools)
       {
         // deselect all
@@ -972,7 +541,9 @@ namespace ECE
           SceneView.RepaintAll();
         }
       }
-      // EditorGUILayout.EndFoldoutHeaderGroup();
+#if UNITY_2019_1_OR_NEWER
+      EditorGUILayout.EndFoldoutHeaderGroup();
+#endif
 
       //space between tools and creation buttons.
       EditorGUILayout.Space();
@@ -1027,11 +598,37 @@ namespace ECE
       // capsule method enum
       ECEPreferences.CapsuleColliderMethod = (CAPSULE_COLLIDER_METHOD)EditorGUILayout.EnumPopup(new GUIContent("Capsule Method:", "Algorithm to use during capsule collider creation."), ECEPreferences.CapsuleColliderMethod);
 
+      // Generate a convex hull
+      if (GUIButton("Create Convex Mesh Collider", "Creates a Convex Mesh Collider from the selected points using Unity's PhysX convex mesh collider algorithm.", "At least 4 points must be selected to create a convex hull", ECEditor.SelectedVertices.Count >= 4))
+      {
+        Undo.RegisterCompleteObjectUndo(ECEditor.AttachToObject, "Create Convex Mesh Collider");
+        int group = Undo.GetCurrentGroup();
+        Undo.RegisterCompleteObjectUndo(ECEditor, "Create Convex Mesh Collider");
+        EditorUtility.DisplayProgressBar("Creating Convex Hull", "Creating and Saving Mesh...", 0.33f);
+        string path = GetValidConvexHullPath();
+        Mesh m = ECEditor.CreateAndSaveMesh(path);
+        if (m != null)
+        {
+          EditorUtility.DisplayProgressBar("Creating Convex Hull", "Generating Convex Hull...", 0.66f);
+          ECEditor.CreateConvexHull(m);
+          Undo.CollapseUndoOperations(group);
+          EditorUtility.ClearProgressBar();
+        }
+        else
+        {
+          EditorUtility.ClearProgressBar();
+        }
+      }
+
       // space between create colliders & remove colliders.
       EditorGUILayout.Space();
 
       // make the removal tools a foldout group
+#if UNITY_2019_1_OR_NEWER
+      _ShowColliderRemovalTools = EditorGUILayout.BeginFoldoutHeaderGroup(_ShowColliderRemovalTools, "Collider Removal Tools");
+#else
       _ShowColliderRemovalTools = EditorGUILayout.Foldout(_ShowColliderRemovalTools, "Collider Removal Tools");
+#endif
       if (_ShowColliderRemovalTools)
       {
 
@@ -1059,6 +656,9 @@ namespace ECE
         }
       }
 
+#if UNITY_2019_1_OR_NEWER
+      EditorGUILayout.EndFoldoutHeaderGroup();
+#endif
       // space between removal tools & finish.
       EditorGUILayout.Space();
       if (GUIButton("Finish Currently Selected GameObject", "Cleans up the currently selected gameobject and deselects it.", "No GameObject is currently selected.", ECEditor.SelectedGameObject != null))
@@ -1075,11 +675,18 @@ namespace ECE
       EditorGUILayout.Space();
 
       // Draw preferences in foldout menu
+#if UNITY_2019_1_OR_NEWER
+      _EditPreferences = EditorGUILayout.BeginFoldoutHeaderGroup(_EditPreferences, new GUIContent("Edit Preferences", "Allows you to edit preferences for various settings."));
+#else
       _EditPreferences = EditorGUILayout.Foldout(_EditPreferences, new GUIContent("Edit Preferences", "Allows you to edit preferences for various settings."));
+#endif
       if (_EditPreferences)
       {
         DrawPreferences();
       }
+#if UNITY_2019_1_OR_NEWER
+      EditorGUILayout.EndFoldoutHeaderGroup();
+#endif
 
       // Add a flexible space, so tips are displayed at the bottom.
       GUILayout.FlexibleSpace();
@@ -1109,7 +716,409 @@ namespace ECE
       EditorGUILayout.EndScrollView();
     }
 
-    private Color _ColorField = Color.white;
+    /// <summary>
+    /// Does raycasts and selection in the scene view updates.
+    /// </summary>
+    /// <param name="sceneView"></param>
+    void OnSceneGUI(SceneView sceneView)
+    {
+      // Cleanup object if we're going into play mode.
+      if (EditorApplication.isPlayingOrWillChangePlaymode)
+      {
+        ECEditor.CleanUpObject(ECEditor.SelectedGameObject, true);
+      }
+
+      // force focus scene if preference is set.
+      if ((ECEditor.VertexSelectEnabled || ECEditor.ColliderSelectEnabled) && ECEPreferences.ForceFocusScene && ECEditor.SelectedGameObject != null)
+      {
+        if (EditorWindow.focusedWindow != SceneView.currentDrawingSceneView)
+        {
+          SceneView.currentDrawingSceneView.Focus();
+        }
+      }
+
+      // Update tips.
+      if (ECEPreferences.DisplayTips)
+      {
+        UpdateTips();
+      }
+      // Update vertex displays
+      CheckUpdateVertexDisplays();
+
+
+      // Only use the mouse drag events if vert select is enabled.
+      if (ECEditor.VertexSelectEnabled
+      && ECEditor.SelectedGameObject != null
+      && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow
+      && Camera.current != null)
+      {
+        CheckMouseDrag();
+        CheckMouseDragKeyHeld();
+      }
+      // reset the variables if we don thave a seleted object or vertex select is disabled.
+      else if (_BoxMinusHeld || _BoxPlusHeld || _IsMouseDrag || _IsMouseDragEnd)
+      {
+        _BoxMinusHeld = false;
+        _BoxPlusHeld = false;
+        _IsMouseDrag = false;
+        _IsMouseDragEnd = false;
+      }
+      // Selection box vertex selection.
+      if (_IsMouseDrag
+      && ECEditor.SelectedGameObject != null
+      && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow
+      && Camera.current != null)
+      {
+        // Draw selection box.
+        Handles.BeginGUI();
+        Color original = GUI.color;
+        EditorGUI.DrawRect(new Rect(_StartDragPosition, _CurrentDragPosition - _StartDragPosition), _SelectionRectColor);
+        Handles.EndGUI();
+        // we need to draw the UI rect every frame, but should only update the displayed dots occasionally.
+        // but we also need to draw them constantly.
+        if (EditorApplication.timeSinceStartup - _LastSelectionTime > ECEPreferences.RaycastDelayTime && Camera.current != null)
+        {
+          // Update lists if the camera has changed poisition or rotation.
+          if (Camera.current.transform.position != CameraPosition || Camera.current.transform.rotation != CameraRotation || WorldSpaceVertices.Count != ECEditor.MeshFilters.Count)
+          {
+            UpdateWorldScreenLocalSpaceVertexLists();
+            CameraPosition = Camera.current.transform.position;
+            CameraRotation = Camera.current.transform.rotation;
+          }
+          _LastSelectionTime = EditorApplication.timeSinceStartup;
+          // mouse position has 0,0 at top left
+          // world to screen has 0,0 at bottom left
+          // so change mouse pos to 0,0 at bottom left.
+          // Use camera.current.pixelheight instead of the screen.height
+          // screen.height reports the window's height, which includes parts of the scene-view editor window that aren't in the world to screen calculation.
+          Vector2 endDragM = _CurrentDragPosition;
+          Vector2 startDragM = _StartDragPosition;
+          endDragM.y = Camera.current.pixelHeight - _CurrentDragPosition.y;
+          startDragM.y = Camera.current.pixelHeight - _StartDragPosition.y;
+          Vector3 currentVertexPos = Vector3.zero;
+          Vector3 transformedPoint = Vector3.zero;
+
+          for (int i = 0; i < ScreenSpaceVertices.Count; i++)
+          {
+            // all lists are creating by traversing the ECE.MeshFilters list in order.
+            // so each list's index should be the mesh filter's index.
+            Transform t = ECEditor.MeshFilters[i].transform;
+            for (int j = 0; j < ScreenSpaceVertices[i].Count; j++)
+            {
+              currentVertexPos = ScreenSpaceVertices[i][j];
+              transformedPoint = WorldSpaceVertices[i][j];
+              EasyColliderVertex ecv = new EasyColliderVertex(t, LocalSpaceVertices[i][j]);
+              // if the vertex's screen pos is within the drag area
+              if (
+               ((currentVertexPos.x >= startDragM.x && currentVertexPos.x <= endDragM.x) || (currentVertexPos.x <= startDragM.x && currentVertexPos.x >= endDragM.x))
+               && ((currentVertexPos.y >= startDragM.y && currentVertexPos.y <= endDragM.y) || (currentVertexPos.y <= startDragM.y && currentVertexPos.y >= endDragM.y))
+              )
+              {
+                if (_BoxPlusHeld) // box plus is held
+                {
+                  if (!ECEditor.SelectedVerticesSet.Contains(ecv)) // if it's not already selected
+                  {
+                    if (CurrentHoveredVertices.Add(transformedPoint)) // and it's not in our hovered list.
+                    {
+                      CurrentSelectBoxVerts.Add(ecv);
+                    }
+                  }
+                  else if (CurrentHoveredVertices.Remove(transformedPoint)) // otherwise, if its in the box and currently selected
+                  {
+                    CurrentSelectBoxVerts.Remove(ecv);
+                  }
+                }
+                else if (_BoxMinusHeld) // box minus is held
+                {
+                  if (ECEditor.SelectedVerticesSet.Contains(ecv)) // if it's selected
+                  {
+                    if (CurrentHoveredVertices.Add(transformedPoint)) // and it's not in our hovered list
+                    {
+                      CurrentSelectBoxVerts.Add(ecv);
+                    }
+                  }
+                  else if (CurrentHoveredVertices.Remove(transformedPoint)) //otherwise, if it's within the box, and not currently selected.
+                  {
+                    CurrentSelectBoxVerts.Remove(ecv);
+                  }
+                }
+                else if (CurrentHoveredVertices.Add(transformedPoint)) // default functionality (not currently hovered, but in box -> mark it at hovered.)
+                {
+                  CurrentSelectBoxVerts.Add(ecv);
+                }
+              }
+              // remove it if no longer in the box, and in our lists.
+              else if (CurrentHoveredVertices.Remove(transformedPoint))
+              {
+                CurrentSelectBoxVerts.Remove(ecv);
+              }
+            }
+          }
+          // force update selection displays while dragging a box
+          UpdateVertexDisplays();
+        }
+      }
+      else if (_IsMouseDragEnd)
+      {
+        // Done dragging, select everything in the box.
+        Undo.RegisterCompleteObjectUndo(ECEditor, "Select Vertices");
+        int group = Undo.GetCurrentGroup();
+        ECEditor.SelectVertices(CurrentSelectBoxVerts);
+        _IsMouseDragEnd = false;
+        // Clear sets.
+        CurrentHoveredVertices = new HashSet<Vector3>();
+        CurrentSelectBoxVerts = new HashSet<EasyColliderVertex>();
+        UpdateVertexDisplays();
+        Undo.CollapseUndoOperations(group);
+        // repaint so buttons appear for vertex selection
+        this.Repaint();
+      }
+
+      // Vertex / Collider raycast selection.
+      // Do vertex selection by raycast only occasionally, and if we are able to
+      if (!_IsMouseDrag // not dragging
+        && EditorApplication.timeSinceStartup - _LastSelectionTime > ECEPreferences.RaycastDelayTime // raycast occasionally
+        && SceneView.currentDrawingSceneView == EditorWindow.focusedWindow // if we're focused on the scene view
+        && (ECEditor.VertexSelectEnabled || ECEditor.ColliderSelectEnabled) // and selection is enabled
+        && ECEditor.SelectedGameObject != null // and theres something selected
+        && ECEditor.MeshFilters.Count > 0 // and there's mesh filters.
+        && Camera.current != null & Event.current != null) // and there's a camera and an event to use.
+      {
+        _LastSelectionTime = EditorApplication.timeSinceStartup;
+        RaycastSelect();
+        if (ECEditor.VertexSelectEnabled)
+        {
+          // if we're not collider selecting, update the vertex display
+          UpdateVertexDisplaysHovered();
+        }
+      }
+
+      // Draw hovered vertex if it's enabled, and we're hovering a vertex.
+      if (ECEditor.VertexSelectEnabled && Event.current.type == EventType.KeyUp && Event.current.isKey)
+      {
+        // Select the currently hovered vertex if we've pressed the key.
+        if (Event.current.keyCode == ECEPreferences.VertSelectKeyCode && _CurrentHoveredTransform != null)
+        {
+          // Select the vertex then repaint.
+          SelectVertex(_CurrentHoveredTransform, _CurrentHoveredPosition);
+          this.Repaint();
+        }
+        // this selects abritrary points on the mesh collider that aren't vertices
+        else if (Event.current.keyCode == ECEPreferences.PointSelectKeyCode && _CurrentHoveredPointTransform != null)
+        {
+          SelectVertex(_CurrentHoveredPointTransform, _CurrentHoveredPoint);
+          this.Repaint();
+        }
+      }
+
+      // Draw selected collider if it's enabled and we have one.
+      if (ECEditor.ColliderSelectEnabled && ECEditor.SelectedCollider != null)
+      {
+        // Draw the collider
+        EasyColliderDraw.DrawCollider(ECEditor.SelectedCollider, ECEPreferences.SelectedColliderColour);
+        // Repaint the scene view & editor window if the current drawing collider is different.
+        if (_CurrentDrawingCollider != ECEditor.SelectedCollider)
+        {
+          _CurrentDrawingCollider = ECEditor.SelectedCollider;
+          SceneView.RepaintAll();
+          this.Repaint();
+        }
+      }
+
+      // Display mesh vertices
+      if (ECEditor.SelectedGameObject != null && ECEditor.DisplayMeshVertices)
+      {
+        DrawAllVertices();
+      }
+    }
+
+    /// <summary>
+    /// Repaints the editor window when undo/redo is done.
+    /// </summary>
+    void OnUndoRedoPerformed()
+    {
+      Repaint();
+    }
+
+    // Added methods
+
+    /// <summary>
+    /// Creates a button that allows undoable changing of a keycode value.
+    /// Button displays current keycode, then press any key when pressed and listens for a keypress, then updates the keycode.
+    /// </summary>
+    /// <param name="label">Label to display beside button</param>
+    /// <param name="key">KeyCode to change. Should be unique for each button.</param>
+    /// <param name="isChanging">Bool representing whether it should be listening to key presses. Should be unique for each button.</param>
+    private void ChangeButtonKeyCodeUndoable(string label, string labelTooltip, ref KeyCode key, ref bool isChanging)
+    {
+      GUIStyle pressedButtonStyle = new GUIStyle(GUI.skin.box);
+      pressedButtonStyle.fontStyle = FontStyle.Bold;
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField(new GUIContent(label, labelTooltip), GUILayout.ExpandWidth(false));
+      string buttonTitle = isChanging ? "Press a key" : key.ToString();
+      if (GUILayout.Button(new GUIContent(buttonTitle, "Click then press a key to change."), isChanging ? pressedButtonStyle : GUI.skin.button, GUILayout.ExpandWidth(true)))
+      {
+        isChanging = true;
+        if (ECEditor.VertexSelectEnabled) { ECEditor.VertexSelectEnabled = false; }
+        this.Focus();
+      }
+      EditorGUILayout.EndHorizontal();
+      if (isChanging)
+      {
+        if (CheckKeypressChangeUndoable(ECEPreferences, ref key))
+        {
+          isChanging = false;
+          this.Repaint();
+        }
+      }
+    }
+
+    /// <summary>
+    /// Changes the KeyCode of keyCode through an undoable action when a key is pressed down.
+    /// </summary>
+    /// <param name="obj">Object to record undo on.</param>
+    /// <param name="keyCode">KeyCode to change to new key</param>
+    /// <returns>true if key was changed.</returns>
+    private bool CheckKeypressChangeUndoable(Object obj, ref KeyCode keyCode)
+    {
+      if (Event.current != null // have an event.
+        && Event.current.type == EventType.KeyDown // a key down event.
+        && Event.current.keyCode != KeyCode.None) // a key down event that wasn't None.
+      {
+        Undo.RecordObject(obj, "Change keycode");
+        keyCode = Event.current.keyCode;
+        return true;
+      }
+      return false;
+    }
+
+    /// <summary>
+    /// Checks if left mouse was clicked, and uses the mouse events so that selection boxes can be drawn and used.
+    /// </summary>
+    private void CheckMouseDrag()
+    {
+      // reset drag end bool.
+      if (_IsMouseDragEnd)
+      {
+        _IsMouseDragEnd = false;
+      }
+      // if we have a mouse event.
+      if (Event.current != null && Event.current.isMouse)
+      {
+        Event e = Event.current;
+        int controlID = GUIUtility.GetControlID(FocusType.Passive);
+        // get event type for the current event.
+        switch (e.GetTypeForControl(controlID))
+        {
+          case EventType.MouseDown:
+            if (e.button == 0 && e.modifiers == EventModifiers.None) // dont allow modifiers to start a click + drag select, as it interfers with alt+drag for rotation.
+            {
+              // get the start mouse position
+              _StartDragPosition = e.mousePosition;
+              _CurrentDragPosition = e.mousePosition;
+              _IsMouseDrag = true;
+              // set the control as hot
+              GUIUtility.hotControl = controlID;
+              // use the event.
+              e.Use();
+            }
+            break;
+          case EventType.MouseUp:
+            if (e.button == 0 && _IsMouseDrag) // only use if we're currently dragging.
+            {
+              // set our bools to track mouse drags, on mouse up the drag has just ended
+              _IsMouseDrag = false;
+              _IsMouseDragEnd = true;
+              // set the control as hot
+              GUIUtility.hotControl = 0;
+              // use the event.
+              e.Use();
+            }
+            break;
+          case EventType.MouseDrag:
+            if (e.button == 0 && _IsMouseDrag) // only use the mouse drag event if we're current dragging.
+            {
+              // mouse is still dragging, continue to use the event & keep current mouse position.
+              _CurrentDragPosition = e.mousePosition;
+              // set the control as hot
+              GUIUtility.hotControl = controlID;
+              // use the event.
+              e.Use();
+            }
+            else { _IsMouseDrag = false; }
+            break;
+        }
+      }
+    }
+
+    /// <summary>
+    /// Checks and sets the _BoxPlusHeld and _BoxMinusHeld bools based on key events.
+    /// </summary>
+    private void CheckMouseDragKeyHeld()
+    {
+      if (Event.current != null)
+      {
+        if (!_BoxPlusHeld && !_BoxMinusHeld) // if no button is being held
+        {
+          Event e = Event.current;
+          int controlID = GUIUtility.GetControlID(FocusType.Passive);
+          EventType type = e.GetTypeForControl(controlID);
+          // check to see if the current event is a keydown event.
+          if (e.isKey && type == EventType.KeyDown)
+          {
+            // if its one of our shortcuts, set the bool to true.
+            if (e.keyCode == ECEPreferences.BoxSelectPlusKey)
+            {
+              _BoxPlusHeld = true;
+            }
+            else if (e.keyCode == ECEPreferences.BoxSelectMinusKey)
+            {
+              _BoxMinusHeld = true;
+            }
+          }
+        }
+        // if one of the keys is held down.
+        else if (_BoxPlusHeld || _BoxMinusHeld)
+        {
+          Event e = Event.current;
+          int controlID = GUIUtility.GetControlID(FocusType.Passive);
+          EventType type = e.GetTypeForControl(controlID);
+          // check to see if the current event is a keyup event
+          if (e.isKey && type == EventType.KeyUp)
+          {
+            // and if it matches one of ours shortcuts, set the bool to false.
+            if (e.keyCode == ECEPreferences.BoxSelectPlusKey)
+            {
+              _BoxPlusHeld = false;
+            }
+            else if (e.keyCode == ECEPreferences.BoxSelectMinusKey)
+            {
+              _BoxMinusHeld = false;
+            }
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// Checks if we need to update based on the selected vertex count, then updates the vertex display depending on if we're using gizmos, or shaders
+    /// </summary>
+    public void CheckUpdateVertexDisplays()
+    {
+      // Update the gizmos or compute if:
+      // total selected vertices is different,
+      // hovered vertices are different,
+      // or the transforms have moved.
+      if (ECEditor.Gizmos != null && (ECEditor.Gizmos.SelectedVertexPositions.Count != ECEditor.SelectedVertices.Count || ECEditor.Gizmos.HoveredVertexPositions.Count != CurrentHoveredVertices.Count || ECEditor.HasTransformMoved()))
+      {
+        UpdateVertexDisplays();
+      }
+      if (ECEditor.Compute != null && (ECEditor.Compute.SelectedPointCount != ECEditor.SelectedVertices.Count || ECEditor.Compute.HoveredPointCount != CurrentHoveredVertices.Count || ECEditor.HasTransformMoved()))
+      {
+        UpdateVertexDisplays();
+      }
+    }
+
     /// <summary>
     /// Creates an undoable color field
     /// </summary>
@@ -1119,7 +1128,7 @@ namespace ECE
     /// <param name="value">Value of the color</param>
     private void ColorFieldUndoable(UnityEngine.Object obj, GUIContent content, string undoString, ref Color value)
     {
-      _ColorField = value;
+      Color _ColorField = value;
       EditorGUI.BeginChangeCheck();
       _ColorField = EditorGUILayout.ColorField(content, _ColorField);
       if (EditorGUI.EndChangeCheck())
@@ -1129,50 +1138,52 @@ namespace ECE
       }
     }
 
-    private float _FloatField = 0.0f;
     /// <summary>
-    /// Creates an undoable float field.
+    /// Creates a collider of collider type, with the undo string being displayed.
     /// </summary>
-    /// <param name="obj">Object to record the undo on</param>
-    /// <param name="content">GUI Content for the auto-layout field</param>
-    /// <param name="undoString">String to use for undos</param>
-    /// <param name="value">Value of the float</param>
-    private void FloatFieldUndoable(UnityEngine.Object obj, GUIContent content, string undoString, ref float value)
+    /// <param name="collider_type">Type of collider to create</param>
+    /// <param name="undoString">Undo string to be displayed.</param>
+    private void CreateCollider(CREATE_COLLIDER_TYPE collider_type, string undoString)
     {
-      _FloatField = value;
-      EditorGUI.BeginChangeCheck();
-      _FloatField = EditorGUILayout.FloatField(content, _FloatField);
-      if (EditorGUI.EndChangeCheck())
+      Undo.RegisterCompleteObjectUndo(ECEditor.AttachToObject, undoString);
+      int group = Undo.GetCurrentGroup();
+      Undo.RegisterCompleteObjectUndo(ECEditor, undoString);
+      switch (collider_type)
       {
-        Undo.RegisterCompleteObjectUndo(obj, undoString);
-        value = _FloatField;
+        case CREATE_COLLIDER_TYPE.BOX:
+          ECEditor.CreateBoxCollider();
+          break;
+        case CREATE_COLLIDER_TYPE.ROTATED_BOX:
+          ECEditor.CreateBoxCollider(COLLIDER_ORIENTATION.ROTATED);
+          break;
+        case CREATE_COLLIDER_TYPE.SPHERE:
+          ECEditor.CreateSphereCollider(ECEPreferences.SphereColliderMethod);
+          break;
+        case CREATE_COLLIDER_TYPE.CAPSULE:
+          ECEditor.CreateCapsuleCollider(ECEPreferences.CapsuleColliderMethod);
+          break;
+        case CREATE_COLLIDER_TYPE.ROTATED_CAPSULE:
+          ECEditor.CreateCapsuleCollider(ECEPreferences.CapsuleColliderMethod, COLLIDER_ORIENTATION.ROTATED);
+          break;
       }
+      Undo.CollapseUndoOperations(group);
     }
 
-    private bool _ToggleField = false;
     /// <summary>
-    /// Creates an undoable toggle field.
-    /// </summary>
-    /// <param name="obj">Object to record the undo on</param>
-    /// <param name="content">GUI Content for the auto-layout field</param>
-    /// <param name="undoString">String to use for undos</param>
-    /// <param name="value">Value of the toggle</param>
-    private void ToggleLeftUndoable(UnityEngine.Object obj, GUIContent content, string undoString, ref bool value)
+    /// Draws all vertices in Editor's mesh filter list
+    /// /// </summary>
+    private void DrawAllVertices()
     {
-      _ToggleField = value;
-      EditorGUI.BeginChangeCheck();
-      _ToggleField = EditorGUILayout.ToggleLeft(content, _ToggleField);
-      if (EditorGUI.EndChangeCheck())
+      // get all world mesh vertices is super slow.
+      if (ECEditor.Gizmos != null)
       {
-        // again record only works in some cases, and complete works significantly better.
-        // ie can't record changing DrawGizmos without the complete object undo.
-        Undo.RegisterCompleteObjectUndo(obj, undoString);
-        value = _ToggleField;
+        ECEditor.Gizmos.DisplayVertexPositions = ECEditor.GetAllWorldMeshVertices();
+      }
+      else if (ECEditor.Compute != null)
+      {
+        ECEditor.Compute.SetDisplayAllBuffer(ECEditor.GetAllWorldMeshVertices());
       }
     }
-
-    private bool _CheckKeyBoxPlus = false;
-    private bool _CheckKeyBoxMinus = false;
 
     /// <summary>
     /// Draws the Preferences UI.
@@ -1194,6 +1205,31 @@ namespace ECE
       ToggleLeftUndoable(ECEPreferences, new GUIContent("Rotated Collider on Selected GameObject Layer", "When enabled uses the selected gameobject's layer when creating rotated colliders. When disabled lets you choose the layer from a dropdown menu."), "Toggle rotated on selected layer", ref ECEPreferences.RotatedOnSelectedLayer);
       ToggleLeftUndoable(ECEPreferences, new GUIContent("Include Child Skinned Meshes", "Automatically includes skinned meshes when include child meshes is enabled."), "Toggle auto include child skinned meshes", ref ECEPreferences.AutoIncludeChildSkinnedMeshes);
       ToggleLeftUndoable(ECEPreferences, new GUIContent("Temporarily disable created colliders", "Created colliders get disabled upon creation, then enabled when done with that gameobject. Makes vertex selection easier when creating multiple colliders."), "Toggle create colliders disabled", ref ECEPreferences.CreatedColliderDisabled);
+      ToggleLeftUndoable(ECEPreferences, new GUIContent("Save Convex Hull at Selected GameObject's Path", "Saves the convex hull mesh at the selected gameobject's path if possible."), "Change save convex hull at selected path", ref ECEPreferences.SaveConvexHullMeshAtSelected);
+
+      // Save folder selection
+      GUILayout.BeginHorizontal();
+      GUILayout.Label("Save Convex Hull Path:");
+      if (GUILayout.Button(new GUIContent(ECEPreferences.SaveConvexHullPath, "Location to save the convex hull if Save Convex Hull at Selected GameObject is disabled, or that method fails.")))
+      {
+        string path = EditorUtility.OpenFolderPanel("Select folder to store convex hull meshes", "Assets", "");
+        if (path != "" && path != null)
+        {
+          if (path.Contains(Application.dataPath))
+          {
+            path = path.Replace(Application.dataPath, "Assets");
+            Undo.RegisterCompleteObjectUndo(ECEPreferences, "Change convex hull save path");
+            ECEPreferences.SaveConvexHullPath = path + "/";
+            // focus so we can immediately undo.
+            this.Focus();
+          }
+          else
+          {
+            Debug.LogWarning("Easy Collider Editor: Save path must be located under this projects Assets/ folder.");
+          }
+        }
+      }
+      GUILayout.EndHorizontal();
 
       // Colors & sizes of displayed vertices.
       ColorFieldUndoable(ECEPreferences, new GUIContent("Selected Vertex Color:", "Color of selected vertices gizmo."), "Change selected vertices color", ref ECEPreferences.SelectedVertColour);
@@ -1263,51 +1299,253 @@ namespace ECE
     }
 
     /// <summary>
-    /// Creates a button that allows undoable changing of a keycode value.
-    /// Button displays current keycode, then press any key when pressed and listens for a keypress, then updates the keycode.
+    /// Creates an undoable float field.
     /// </summary>
-    /// <param name="label">Label to display beside button</param>
-    /// <param name="key">KeyCode to change. Should be unique for each button.</param>
-    /// <param name="isChanging">Bool representing whether it should be listening to key presses. Should be unique for each button.</param>
-    private void ChangeButtonKeyCodeUndoable(string label, string labelTooltip, ref KeyCode key, ref bool isChanging)
+    /// <param name="obj">Object to record the undo on</param>
+    /// <param name="content">GUI Content for the auto-layout field</param>
+    /// <param name="undoString">String to use for undos</param>
+    /// <param name="value">Value of the float</param>
+    private void FloatFieldUndoable(UnityEngine.Object obj, GUIContent content, string undoString, ref float value)
     {
-      GUIStyle pressedButtonStyle = new GUIStyle(GUI.skin.box);
-      pressedButtonStyle.fontStyle = FontStyle.Bold;
-      EditorGUILayout.BeginHorizontal();
-      EditorGUILayout.LabelField(new GUIContent(label, labelTooltip), GUILayout.ExpandWidth(false));
-      string buttonTitle = isChanging ? "Press a key" : key.ToString();
-      if (GUILayout.Button(new GUIContent(buttonTitle, "Click then press a key to change."), isChanging ? pressedButtonStyle : GUI.skin.button, GUILayout.ExpandWidth(true)))
+      float _FloatField = value;
+      EditorGUI.BeginChangeCheck();
+      _FloatField = EditorGUILayout.FloatField(content, _FloatField);
+      if (EditorGUI.EndChangeCheck())
       {
-        isChanging = true;
-      }
-      EditorGUILayout.EndHorizontal();
-      if (isChanging)
-      {
-        if (CheckKeypressChangeUndoable(ECEPreferences, ref key))
-        {
-          isChanging = false;
-          this.Repaint();
-        }
+        Undo.RegisterCompleteObjectUndo(obj, undoString);
+        value = _FloatField;
       }
     }
 
     /// <summary>
-    /// Changes the KeyCode of keyCode through an undoable action when a key is pressed down.
+    /// Gets a valid path to save a convex hull for the currently selected gameobject.
     /// </summary>
-    /// <param name="obj">Object to record undo on.</param>
-    /// <param name="keyCode">KeyCode to change to new key</param>
-    /// <returns>true if key was changed.</returns>
-    private bool CheckKeypressChangeUndoable(Object obj, ref KeyCode keyCode)
+    /// <returns>A valid path to use in AssetDatabase.CreateAsset</returns>
+    private string GetValidConvexHullPath()
     {
-      if (Event.current != null // have an event.
-        && Event.current.type == EventType.KeyDown // a key down event.
-        && Event.current.keyCode != KeyCode.None) // a key down event that wasn't None.
+      // use default specified path
+      string path = ECEPreferences.SaveConvexHullPath + ECEditor.SelectedGameObject.name;
+      // switch to getting selected object path if enabled
+      if (ECEPreferences.SaveConvexHullMeshAtSelected)
       {
-        Undo.RecordObject(obj, "Change keycode");
-        keyCode = Event.current.keyCode;
-        return true;
+#if UNITY_2018_2_OR_NEWER
+        string altPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(ECEditor.SelectedGameObject));
+#else
+        string altPath = AssetDatabase.GetAssetPath(PrefabUtility.GetPrefabParent(ECEditor.SelectedGameObject));
+#endif
+        // but only use the path it if it exists.
+        if (altPath != null && altPath != "")
+        {
+#if UNITY_2018_2_OR_NEWER
+          path = altPath.Remove(altPath.LastIndexOf("/") + 1) + PrefabUtility.GetCorrespondingObjectFromSource(ECEditor.SelectedGameObject).name;
+#else
+          path = altPath.Remove(altPath.LastIndexOf("/") + 1) + PrefabUtility.GetPrefabParent(ECEditor.SelectedGameObject).name;
+#endif
+        }
       }
+      // turn in to full path to check if one already exists.
+      string fullPath = Application.dataPath.Remove(Application.dataPath.Length - 6) + path;
+      string directory = fullPath.Remove(fullPath.LastIndexOf("/"));
+      // if the directory specified or found does not exist, fall back to using the location of this script.
+      if (!Directory.Exists(directory))
+      {
+        fullPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(this));
+        fullPath = fullPath.Remove(fullPath.LastIndexOf("/"));
+        Debug.LogWarning("Easy Collider Editor: Convex Hull save path specified in Easy Collider Editor does not exist. Saving in: " + fullPath + " as a fallback.");
+        path = fullPath + "/" + ECEditor.SelectedGameObject.name;
+        fullPath = fullPath + path;
+      }
+      if (File.Exists(fullPath + "_ConvexHull_0.asset"))
+      {
+        // keep going until we find an unused value.
+        int i = 1;
+        while (File.Exists(fullPath + "_ConvexHull_" + i + ".asset"))
+        {
+          i += 1;
+        }
+        path += "_ConvexHull_" + i + ".asset";
+      }
+      else
+      {
+        path += "_ConvexHull_0.asset";
+      }
+      return path;
+    }
+
+    /// <summary>
+    /// Creates a button that displays different if it is enabled or disabled. Button always returns false if disabled.
+    /// <param name="title">text of button</param>
+    /// <param name="enabledTooltip">tool tip for button when enabled</param>
+    /// <param name="disabledTooltip">tool tip for box when disabled</param>
+    /// <param name="isEnabled">is the button enabled?</param>
+    /// <returns>false if disabled, true if enabled and button is clicked</returns>
+    bool GUIButton(string text, string enabledTooltip, string disabledTooltip, bool isEnabled)
+    {
+      // only display the button as a button if it's actually enabled
+      if (isEnabled)
+      {
+        if (GUILayout.Button(new GUIContent(text, enabledTooltip)))
+        {
+          return true;
+        }
+      }
+      else
+      {
+        // create the style to take up the space space as an enabled buttons default sizing.
+        GUIStyle box = new GUIStyle(GUI.skin.box);
+        box.padding = GUI.skin.button.padding;
+        box.margin = GUI.skin.button.margin;
+        Color TempGUIColor = GUI.color;
+        GUI.color = _DisabledButtonColor;
+        GUILayout.Box(new GUIContent(text, disabledTooltip), box, GUILayout.ExpandWidth(true));
+        GUI.color = TempGUIColor;
+      }
+      // always return false, like a normal button, unless the actual enabled button is pressed.
       return false;
+    }
+
+    /// <summary>
+    /// Creates a left toggle if the toggle is enabled that functions normally,
+    /// otherwise creates a style toggle that is not toggleable and grayed-out.
+    /// </summary>
+    /// <param name="text">Text to show beside the toggle</param>
+    /// <param name="enabledTooltip">Tool tip when toggle is enabled</param>
+    /// <param name="disabledTooltip">Tool tip when toggle is disabled</param>
+    /// <param name="isEnabled">Is the toggle enabled</param>
+    /// <param name="toggle">Bool the toggle controls</param>
+    /// <returns>Value of toggle</returns>
+    bool GUIToggleLeft(string text, string enabledTooltip, string disabledTooltip, bool isEnabled, bool toggle)
+    {
+      if (isEnabled)
+      {
+        bool toggleValue = EditorGUILayout.ToggleLeft(new GUIContent(text, enabledTooltip), toggle);
+        return toggleValue;
+      }
+      else
+      {
+        Color TempGUIColor = GUI.backgroundColor;
+        GUI.backgroundColor = _DisabledToggleColor;
+        EditorGUILayout.ToggleLeft(new GUIContent(text, disabledTooltip), toggle);
+        GUI.backgroundColor = TempGUIColor;
+      }
+      return toggle;
+    }
+
+    /// <summary>
+    /// Checks if a EventModifiers key is used as a keycode.
+    /// </summary>
+    /// <param name="value">Keycode to check</param>
+    /// <returns>True if keycode is an EventModifier key, false otherwsie</returns>
+    private bool IsModifierKeyUsed(KeyCode value)
+    {
+      switch (value)
+      {
+        case KeyCode.LeftShift:
+        case KeyCode.RightShift:
+        case KeyCode.LeftControl:
+        case KeyCode.RightControl:
+        case KeyCode.LeftAlt:
+        case KeyCode.RightAlt:
+        case KeyCode.LeftCommand:
+        case KeyCode.RightCommand:
+        case KeyCode.Numlock:
+        case KeyCode.CapsLock:
+        case KeyCode.LeftWindows: // covers both keycodes for right/left apple as well.
+        case KeyCode.RightWindows:
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    /// <summary>
+    /// Usings a raycast and highlights whatever vertex is the closest.
+    /// Sets the current hovered filter and current hovered vertex
+    /// Also selects collider
+    /// </summary>
+    private void RaycastSelect()
+    {
+      // clear current hovered vertices
+      CurrentHoveredVertices.Clear();
+      // Use physics scene for the current scene to allow for proper raycasting in the prefab editing scene.
+      // PhysicsScene physicsScene = PhysicsSceneExtensions.GetPhysicsScene(ECEditor.SelectedGameObject.scene);
+      Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+      RaycastHit hit;
+      if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+      {
+        if (ECEditor.VertexSelectEnabled)
+        {
+          // Vertex selection.
+          float minDistance = Mathf.Infinity;
+          Transform closestTransform = ECEditor.SelectedGameObject.transform;
+          Vector3 closestLocalPosition = Vector3.zero;
+          foreach (MeshFilter meshFilter in ECEditor.MeshFilters)
+          {
+            if (meshFilter == null) continue;
+            // Get transform and verts of each mesh to make things a little quicker.
+            Transform t = meshFilter.transform;
+            Vector3[] vertices = meshFilter.sharedMesh.vertices;
+            // Get the closest by checking the distance.
+            // convert world hit point to local hit point for each meshfilter's transform.
+            Vector3 localHit = t.InverseTransformPoint(hit.point);
+            for (int i = 0; i < vertices.Length; i++)
+            {
+              float distance = Vector3.Distance(vertices[i], localHit);
+              if (distance < minDistance)
+              {
+                minDistance = distance;
+                closestTransform = t;
+                closestLocalPosition = vertices[i];
+              }
+            }
+          }
+          // if the closest changed from the one we already have.
+          if (closestTransform != null)
+          {
+            CurrentHoveredVertices.Add(closestTransform.TransformPoint(closestLocalPosition));
+            _CurrentHoveredPosition = closestLocalPosition;
+            _CurrentHoveredTransform = closestTransform;
+          }
+          _CurrentHoveredPointTransform = hit.transform;
+          if (_CurrentHoveredPointTransform != null)
+          {
+            // with point selection, you can more easily select points that aren't on the selected or child meshes
+            _CurrentHoveredPoint = _CurrentHoveredPointTransform.InverseTransformPoint(hit.point);
+            CurrentHoveredVertices.Add(hit.point);
+            // Point selection requires more repaints to display better, so we'll repaint every time we raycast.
+            // since we don't raycast constantly, it's not a huge deal.
+            SceneView.RepaintAll();
+          }
+
+        }
+        else if (ECEditor.ColliderSelectEnabled)
+        {
+          if (hit.collider != ECEditor.SelectedCollider)
+          {
+            ECEditor.SelectedCollider = hit.collider;
+            // so we display the remove button immediately.
+            this.Repaint();
+          }
+        }
+      }
+      else if (ECEditor.VertexSelectEnabled && _CurrentHoveredTransform != null)
+      {
+        // clear hovered display if we're not over anything.
+        CurrentHoveredVertices.Remove(_CurrentHoveredTransform.TransformPoint(_CurrentHoveredPosition));
+        _CurrentHoveredTransform = null;
+        SceneView.RepaintAll();
+      }
+    }
+
+    /// <summary>
+    /// Registers an undo and selects a vertex.
+    /// </summary>
+    /// <param name="transform">transform of vertex' mesh filter to select</param>
+    /// <param name="localPosition">local position of vertex</param>
+    private void SelectVertex(Transform transform, Vector3 localPosition)
+    {
+      Undo.RegisterCompleteObjectUndo(ECEditor, "Select Vertex");
+      ECEditor.SelectVertex(new EasyColliderVertex(transform, localPosition));
     }
 
     /// <summary>
@@ -1364,14 +1602,48 @@ namespace ECE
     }
 
     /// <summary>
-    /// Registers an undo and selects a vertex.
+    /// Creates an undoable toggle field.
     /// </summary>
-    /// <param name="transform">transform of vertex' mesh filter to select</param>
-    /// <param name="localPosition">local position of vertex</param>
-    private void SelectVertex(Transform transform, Vector3 localPosition)
+    /// <param name="obj">Object to record the undo on</param>
+    /// <param name="content">GUI Content for the auto-layout field</param>
+    /// <param name="undoString">String to use for undos</param>
+    /// <param name="value">Value of the toggle</param>
+    private void ToggleLeftUndoable(UnityEngine.Object obj, GUIContent content, string undoString, ref bool value)
     {
-      Undo.RegisterCompleteObjectUndo(ECEditor, "Select Vertex");
-      ECEditor.SelectVertex(new EasyColliderVertex(transform, localPosition));
+      bool _ToggleField = value;
+      EditorGUI.BeginChangeCheck();
+      _ToggleField = EditorGUILayout.ToggleLeft(content, _ToggleField);
+      if (EditorGUI.EndChangeCheck())
+      {
+        // again record only works in some cases, and complete works significantly better.
+        // ie can't record changing DrawGizmos without the complete object undo.
+        Undo.RegisterCompleteObjectUndo(obj, undoString);
+        value = _ToggleField;
+      }
+    }
+
+
+    /// <summary>
+    /// Adds or Removes tips from CurrentTips based on whether it should be displayed or not.
+    /// </summary>
+    /// <param name="displayTip">Should this tip be displayed?</param>
+    /// <param name="tip">String of tip to display.</param>
+    /// <returns></returns>
+    private bool UpdateTip(bool displayTip, string tip)
+    {
+      if (displayTip)
+      {
+        if (!CurrentTips.Contains(tip))
+        {
+          CurrentTips.Add(tip);
+          return true;
+        }
+        return false;
+      }
+      else
+      {
+        return CurrentTips.Remove(tip);
+      }
     }
 
     /// <summary>
@@ -1400,6 +1672,7 @@ namespace ECE
         CurrentTips = new List<string>();
       }
       // Always display the check documentation tip.
+      UpdateTip((IsModifierKeyUsed(ECEPreferences.BoxSelectMinusKey) || IsModifierKeyUsed(ECEPreferences.BoxSelectPlusKey)), EasyColliderTips.MODIFIER_KEY_USED_BOX_SELECT);
       UpdateTip(true, EasyColliderTips.CHECK_DOCUMENTATION_REMINDER);
       // Repaint the Editor window if tips have changed.
       if (preUpdateCount != CurrentTips.Count)
@@ -1409,57 +1682,70 @@ namespace ECE
     }
 
     /// <summary>
-    /// Adds or Removes tips from CurrentTips based on whether it should be displayed or not.
+    /// Updates the gizmos or shaders selected, hover, and overlap vertices.
     /// </summary>
-    /// <param name="displayTip">Should this tip be displayed?</param>
-    /// <param name="tip">String of tip to display.</param>
-    /// <returns></returns>
-    private bool UpdateTip(bool displayTip, string tip)
+    public void UpdateVertexDisplays()
     {
-      if (displayTip)
+      // Update Gizmos
+      if (ECEditor.Gizmos != null)
       {
-        if (!CurrentTips.Contains(tip))
-        {
-          CurrentTips.Add(tip);
-          return true;
-        }
-        return false;
+        ECEditor.Gizmos.SetSelectedVertices(ECEditor.GetWorldVertices());
+        ECEditor.Gizmos.HoveredVertexPositions = CurrentHoveredVertices;
       }
-      else
+      // Update Compute / Shader script.
+      if (ECEditor.Compute != null)
       {
-        return CurrentTips.Remove(tip);
+        ECEditor.Compute.UpdateSelectedBuffer(ECEditor.GetWorldVertices());
+        ECEditor.Compute.UpdateOverlapHoveredBuffer(CurrentHoveredVertices);
       }
     }
 
     /// <summary>
-    /// Creates a collider of collider type, with the undo string being displayed.
+    /// Updates just the hovered vertices
     /// </summary>
-    /// <param name="collider_type">Type of collider to create</param>
-    /// <param name="undoString">Undo string to be displayed.</param>
-    private void CreateCollider(CREATE_COLLIDER_TYPE collider_type, string undoString)
+    public void UpdateVertexDisplaysHovered()
     {
-      Undo.RegisterCompleteObjectUndo(ECEditor.AttachToObject, undoString);
-      int group = Undo.GetCurrentGroup();
-      Undo.RegisterCompleteObjectUndo(ECEditor, undoString);
-      switch (collider_type)
+      if (ECEditor.Gizmos != null)
       {
-        case CREATE_COLLIDER_TYPE.BOX:
-          ECEditor.CreateBoxCollider();
-          break;
-        case CREATE_COLLIDER_TYPE.ROTATED_BOX:
-          ECEditor.CreateBoxCollider(COLLIDER_ORIENTATION.ROTATED);
-          break;
-        case CREATE_COLLIDER_TYPE.SPHERE:
-          ECEditor.CreateSphereCollider(ECEPreferences.SphereColliderMethod);
-          break;
-        case CREATE_COLLIDER_TYPE.CAPSULE:
-          ECEditor.CreateCapsuleCollider(ECEPreferences.CapsuleColliderMethod);
-          break;
-        case CREATE_COLLIDER_TYPE.ROTATED_CAPSULE:
-          ECEditor.CreateCapsuleCollider(ECEPreferences.CapsuleColliderMethod, COLLIDER_ORIENTATION.ROTATED);
-          break;
+        ECEditor.Gizmos.HoveredVertexPositions = CurrentHoveredVertices;
       }
-      Undo.CollapseUndoOperations(group);
+      // Update Compute / Shader script.
+      if (ECEditor.Compute != null)
+      {
+        ECEditor.Compute.UpdateOverlapHoveredBuffer(CurrentHoveredVertices);
+      }
+    }
+
+    /// <summary>
+    /// Updates the world space, local space, and screen space vertex lists from the valid selectable vertices.
+    /// </summary>
+    private void UpdateWorldScreenLocalSpaceVertexLists()
+    {
+      if (WorldSpaceVertices == null) { WorldSpaceVertices = new List<List<Vector3>>(); }
+      if (ScreenSpaceVertices == null) { ScreenSpaceVertices = new List<List<Vector3>>(); }
+      if (LocalSpaceVertices == null) { LocalSpaceVertices = new List<List<Vector3>>(); }
+      WorldSpaceVertices.Clear();
+      ScreenSpaceVertices.Clear();
+      LocalSpaceVertices.Clear();
+      Vector3[] verts = new Vector3[0];
+      Transform t;
+      Vector3 transformedPoint;
+      for (int i = 0; i < ECEditor.MeshFilters.Count; i++)
+      {
+        if (ECEditor.MeshFilters[i] == null) continue;
+        WorldSpaceVertices.Add(new List<Vector3>());
+        ScreenSpaceVertices.Add(new List<Vector3>());
+        LocalSpaceVertices.Add(new List<Vector3>());
+        verts = ECEditor.MeshFilters[i].sharedMesh.vertices;
+        t = ECEditor.MeshFilters[i].transform;
+        for (int j = 0; j < verts.Length; j++)
+        {
+          transformedPoint = t.TransformPoint(verts[j]);
+          WorldSpaceVertices[i].Add(transformedPoint);
+          LocalSpaceVertices[i].Add(verts[j]);
+          ScreenSpaceVertices[i].Add(Camera.current.WorldToScreenPoint(transformedPoint));
+        }
+      }
     }
   }
 }

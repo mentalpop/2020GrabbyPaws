@@ -3,11 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System;
 namespace ECE
 {
   [System.Serializable]
   public class EasyColliderEditor : ScriptableObject, ISerializationCallbackReceiver
   {
+    [SerializeField]
+    private List<int> _AddedColliderIDs;
+    /// <summary>
+    /// List of added colliders through GetInstanceID()
+    /// </summary>
+    public List<int> AddedColliderIDs
+    {
+      get
+      {
+        if (_AddedColliderIDs == null)
+        {
+          _AddedColliderIDs = new List<int>();
+        }
+        return _AddedColliderIDs;
+      }
+      set { _AddedColliderIDs = value; }
+    }
+
+    [SerializeField]
+    private List<int> _AddedComponentIDs;
+    /// <summary>
+    /// List of added components through GetInstanceID()
+    /// Used to save IDs of added components since there is improper serialization of a list of components in some versions of unity.
+    /// </summary>
+    public List<int> AddedComponentIDs
+    {
+      get
+      {
+        if (_AddedComponentIDs == null)
+        {
+          _AddedComponentIDs = new List<int>();
+        }
+        return _AddedComponentIDs;
+      }
+      set { _AddedComponentIDs = value; }
+    }
+
     [SerializeField]
     private List<Component> _AddedComponents;
     /// <summary>
@@ -26,6 +64,8 @@ namespace ECE
       }
       set { _AddedComponents = value; }
     }
+
+
 
     [SerializeField]
     private GameObject _AttachToObject;
@@ -364,7 +404,7 @@ namespace ECE
       }
       set
       {
-        if (isValidCollider(value))
+        if (IsValidCollider(value))
         {
           _SelectedCollider = value;
         }
@@ -385,7 +425,6 @@ namespace ECE
       get { return _SelectedGameObject; }
       set
       {
-        // fix 2017 null ref on ispersistent.
         if (value == null)
         {
           CleanUpObject(_SelectedGameObject, false);
@@ -456,110 +495,58 @@ namespace ECE
       set { _SelectedVerticesSet = value; }
     }
 
+    //Serializing our hashsets.
+    [SerializeField]
+    private List<EasyColliderVertex> _SerializedSelectedVertexSet;
+
+    [SerializeField]
+    private List<Vector3> _TransformPositions;
+    /// <summary>
+    /// List of mesh filter world positions
+    /// </summary>
+    public List<Vector3> TransformPositions
+    {
+      get
+      {
+        if (_TransformPositions == null)
+        {
+          _TransformPositions = new List<Vector3>();
+        }
+        return _TransformPositions;
+      }
+      set { _TransformPositions = value; }
+    }
+
+    [SerializeField]
+    private List<Quaternion> _TransformRotations;
+    /// <summary>
+    /// List of mesh filter rotations
+    /// </summary>
+    public List<Quaternion> TransformRotations
+    {
+      get
+      {
+        if (_TransformRotations == null)
+        {
+          _TransformRotations = new List<Quaternion>();
+        }
+        return _TransformRotations;
+      }
+      set { _TransformRotations = value; }
+    }
+
+
     [SerializeField]
     /// <summary>
     /// Is vertex selection enabled?
     /// </summary>
     public bool VertexSelectEnabled;
 
-    /// <summary>
-    /// Sets values on this component from preferences.
-    /// </summary>
-    /// <param name="preferences"></param>
-    public void SetValuesFromPreferences(EasyColliderPreferences preferences)
-    {
-      AutoIncludeChildSkinnedMeshes = preferences.AutoIncludeChildSkinnedMeshes;
-      RotatedOnSelectedLayer = preferences.RotatedOnSelectedLayer;
-      CreatedColliderDisabled = preferences.CreatedColliderDisabled;
-      RenderPointType = preferences.RenderPointType;
-    }
-
-    /// <summary>
-    /// Selects the gameobject. Sets up the require components based for the object.
-    /// </summary>
-    /// <param name="obj">GameObject to select</param>
-    void SelectObject(GameObject obj)
-    {
-      // set up mesh filter list
-      MeshFilters = GetMeshFilters(obj);
-      // add / disable rigidbodies + colliders
-      SetRequiredComponentsFrom(obj, MeshFilters);
-      // add display vertices component.
-      if (RenderPointType == RENDER_POINT_TYPE.GIZMOS)
-      {
-        Gizmos = Undo.AddComponent<EasyColliderGizmos>(obj);
-        AddedComponents.Add(Gizmos);
-      }
-      else if (RenderPointType == RENDER_POINT_TYPE.SHADER)
-      {
-        Compute = Undo.AddComponent<EasyColliderCompute>(obj);
-        AddedComponents.Add(Compute);
-      }
-    }
-
-    /// <summary>
-    /// Sets up the required components from the parent to the children (if children are enabled)
-    /// This includes rigidbodies, colliders, and mesh colliders.
-    /// </summary>
-    /// <param name="parent"></param>
-    /// <param name="meshFilters"></param>
-    public void SetRequiredComponentsFrom(GameObject parent, List<MeshFilter> meshFilters)
-    {
-      if (parent == null) return;
-      Rigidbody[] rigidbodies;
-      Collider[] colliders;
-
-      // get either parent + children or just parent rigidbodies & colliders.
-      if (IncludeChildMeshes)
-      {
-        rigidbodies = parent.GetComponentsInChildren<Rigidbody>();
-        colliders = parent.GetComponentsInChildren<Collider>();
-      }
-      else
-      {
-        rigidbodies = parent.GetComponents<Rigidbody>();
-        colliders = parent.GetComponents<Collider>();
-      }
-
-      // make sure rigidbodies are set to kinematic for raycasting
-      foreach (Rigidbody rb in rigidbodies)
-      {
-        if (!rb.isKinematic && !NonKinematicRigidbodies.Contains(rb))
-        {
-          Undo.RegisterCompleteObjectUndo(rb, "change isKinmatic");
-          rb.isKinematic = true;
-          NonKinematicRigidbodies.Add(rb);
-        }
-      }
-
-      // Disable currently enabled colliders, leave current disabled colliders disabled & keep track of which is which.
-      foreach (Collider col in colliders)
-      {
-        if (!DisabledColliders.Contains(col) && !PreDisabledColliders.Contains(col))
-        {
-          if (col.enabled)
-          {
-            if (!ColliderSelectEnabled)
-            {
-              Undo.RegisterCompleteObjectUndo(col, "Disable Collider");
-              col.enabled = false;
-            }
-            DisabledColliders.Add(col);
-          }
-          else { PreDisabledColliders.Add(col); }
-        }
-      }
-
-      // Add a mesh collider for every mesh filter.
-      foreach (MeshFilter filter in meshFilters)
-      {
-        MeshCollider collider = Undo.AddComponent<MeshCollider>(filter.gameObject);
-        AddedComponents.Add(collider);
-      }
-    }
-
-
     HashSet<Vector3> _WorldMeshVertices;
+    /// <summary>
+    /// Set of all world space vertices for meshes that are able to have their vertices selected
+    /// </summary>
+    /// <value></value>
     HashSet<Vector3> WorldMeshVertices
     {
       get
@@ -604,6 +591,7 @@ namespace ECE
         return _WorldMeshRotations;
       }
     }
+
     HashSet<Transform> _WorldMeshTransforms;
     /// <summary>
     /// Set of world mesh transforms, for updating world mesh vertices.
@@ -619,6 +607,319 @@ namespace ECE
         return _WorldMeshTransforms;
       }
     }
+
+    /// <summary>
+    /// Removes all vertices that have index's greater than MeshFilter's count.
+    /// </summary>
+    private void CleanChildSelectedVertices()
+    {
+      // SelectedVertices.RemoveAll(vert => vert.MeshFilterIndex >= MeshFilters.Count);
+      SelectedVertices.RemoveAll(vert => vert.T != SelectedGameObject.transform);
+    }
+
+    /// <summary>
+    /// Cleans up the object and children if required. Destroys components based on if going into play mode. Reenables/disables components to pre-selection values.
+    /// </summary>
+    /// <param name="go">Parent object to clean up</param>
+    /// <param name="intoPlayMode">Is the editor going into play mode?</param>
+    public void CleanUpObject(GameObject go, bool intoPlayMode)
+    {
+      foreach (Component component in AddedComponents)
+      {
+        if (component != null)
+        {
+          // Need to use normal destroy immediate when going into play mode.
+          if (intoPlayMode)
+          {
+            DestroyImmediate(component);
+          }
+          else
+          {
+            // Use undo to destroy the added components if not going into play mode.
+            Undo.DestroyObjectImmediate(component);
+          }
+        }
+      }
+      foreach (Rigidbody rb in NonKinematicRigidbodies)
+      {
+        if (rb != null)
+        {
+          rb.isKinematic = false;
+        }
+      }
+      foreach (Collider col in DisabledColliders)
+      {
+        if (col != null)
+        {
+          col.enabled = true;
+        }
+      }
+      foreach (Collider col in PreDisabledColliders)
+      {
+        if (col != null)
+        {
+          col.enabled = false;
+        }
+      }
+      // force cleanup gizmos and compute.
+      if (Gizmos != null)
+      {
+        Undo.DestroyObjectImmediate(Gizmos);
+      }
+      if (Compute != null)
+      {
+        Undo.DestroyObjectImmediate(Compute);
+      }
+      //force cleanup added components by instance ids.
+      if (go != null)
+      {
+        MeshCollider[] mcs = go.GetComponentsInChildren<MeshCollider>();
+        foreach (MeshCollider mc in mcs)
+        {
+          // added mesh collider for vertex selection, not a convex hull.
+          if (AddedComponentIDs.Contains(mc.GetInstanceID()) && !AddedColliderIDs.Contains(mc.GetInstanceID()))
+          {
+            Undo.DestroyObjectImmediate(mc);
+          }
+        }
+        Collider[] cols = go.GetComponentsInChildren<Collider>();
+        foreach (Collider col in cols)
+        {
+          if (AddedColliderIDs.Contains(col.GetInstanceID()))
+          {
+            col.enabled = true;
+          }
+        }
+      }
+      ClearListsForNewObject();
+    }
+
+    /// <summary>
+    /// Creates new lists for all the lists used.
+    /// </summary>
+    void ClearListsForNewObject()
+    {
+      MeshFilters = new List<MeshFilter>();
+      SelectedVertices = new List<EasyColliderVertex>();
+      AddedComponents = new List<Component>();
+      NonKinematicRigidbodies = new List<Rigidbody>();
+      DisabledColliders = new List<Collider>();
+      PreDisabledColliders = new List<Collider>();
+      CreatedColliders = new List<Collider>();
+      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+      LastSelectedVertices = new List<EasyColliderVertex>();
+    }
+
+    /// <summary>
+    /// Deselects all currently selected vertices.
+    /// </summary>
+    public void ClearSelectedVertices()
+    {
+      this.SelectedVertices = new List<EasyColliderVertex>();
+      this.SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+    }
+
+    /// <summary>
+    /// Create and saves a mesh with a minimum number of triangles that includes all selected vertices.
+    /// </summary>
+    /// <returns>The created mesh</returns>
+    public Mesh CreateAndSaveMesh(string SavePath)
+    {
+      // use vertices to make a useable mesh that contains all the selected points.
+      // The mesh is only used to generate the convex hull
+      Mesh mesh = new Mesh();
+      // get all vertices in world space and convert to local space.
+      List<Vector3> worldVertices = GetWorldVertices().Select(vertex => AttachToObject.transform.InverseTransformPoint(vertex)).ToList();
+      while (worldVertices.Count % 3 != 0)
+      {
+        worldVertices.Add(worldVertices[worldVertices.Count % 3]);
+      }
+      // attempt to deal with degenerate triangles (so if user changes the mesh collider flags manually, no crashes will occur)
+      Vector3 p0, p1, p2 = p1 = p0 = Vector3.zero;
+      Vector3 s1, s2 = s1 = Vector3.zero;
+      List<Vector3> verts = new List<Vector3>();
+      int index = worldVertices.Count - 1;
+      while (index >= 0) // need to make sure we include the last vertex.
+      {
+        p0 = worldVertices[index];
+        p1 = worldVertices[(index - 1 >= 0) ? index - 1 : worldVertices.Count - 1];
+        p2 = worldVertices[(index - 2 >= 0) ? index - 2 : worldVertices.Count - 2];
+        s1 = (p0 - p1).normalized;
+        s2 = (p0 - p2).normalized;
+        int degenIndex = worldVertices.Count; // so we can automatically re-use the last vertices if needed.
+        bool degenFixed = false;
+        while (s1 == s2 || -s1 == s2 || (s2 == Vector3.zero && s1 != Vector3.zero))
+        {
+          degenFixed = true;
+          degenIndex--;
+          if (degenIndex < 0)
+          {
+            Debug.LogError("Easy Collider Editor: Unable to generate a valid mesh collider from the selected points. This happens when all points are in a straight line.");
+            return null;
+          }
+          p2 = worldVertices[degenIndex];
+          s2 = (p0 - p2).normalized;
+        }
+        // if we fixed a degenerate we still need to do the last vertex, so only move back 2 indexs' in that case.
+        index -= degenFixed ? 2 : 3;
+        verts.Add(p0);
+        verts.Add(p1);
+        verts.Add(p2);
+      }
+      int[] triangles = new int[verts.Count];
+      for (int i = 0; i < verts.Count; i++)
+      {
+        triangles[i] = i;
+      }
+      // mesh.vertices = vertices;
+      mesh.vertices = verts.ToArray();
+      mesh.triangles = triangles;
+      // the mesh has to be saved somewhere so it can actually be used 
+      try
+      {
+        AssetDatabase.CreateAsset(mesh, SavePath);
+        AssetDatabase.SaveAssets();
+        return mesh;
+      }
+      catch
+      {
+        Debug.LogError("EasyColliderEditor: Error saving mesh at path: " + SavePath);
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Creates a box colider with a given orientation
+    /// </summary>
+    /// <param name="orientation">Orientation of box collider</param>
+    public void CreateBoxCollider(COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
+    {
+      EasyColliderCreator ecc = new EasyColliderCreator();
+      Collider createdCollider = ecc.CreateBoxCollider(GetWorldVertices(), GetProperties(orientation));
+      if (createdCollider != null)
+      {
+        DisableCreatedCollider(createdCollider);
+      }
+      SelectedVertices = new List<EasyColliderVertex>();
+      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+    }
+
+    /// <summary>
+    /// Creates a capsule collider using the method and orientation provided.
+    /// </summary>
+    /// <param name="method">Capsule collider algoirthm to use</param>
+    /// <param name="orientation">Orientation to use</param>
+    public void CreateCapsuleCollider(CAPSULE_COLLIDER_METHOD method, COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
+    {
+      EasyColliderCreator ecc = new EasyColliderCreator();
+      Collider createdCollider = null;
+      switch (method)
+      {
+        // use the same method for all min max' but pass the method in.
+        case CAPSULE_COLLIDER_METHOD.MinMax:
+        case CAPSULE_COLLIDER_METHOD.MinMaxPlusDiameter:
+        case CAPSULE_COLLIDER_METHOD.MinMaxPlusRadius:
+          createdCollider = ecc.CreateCapsuleCollider_MinMax(GetWorldVertices(), GetProperties(orientation), method);
+          break;
+        case CAPSULE_COLLIDER_METHOD.BestFit:
+          createdCollider = ecc.CreateCapsuleCollider_BestFit(GetWorldVertices(), GetProperties(orientation));
+          break;
+      }
+      if (createdCollider != null)
+      {
+        DisableCreatedCollider(createdCollider);
+      }
+      SelectedVertices = new List<EasyColliderVertex>();
+      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+    }
+
+    /// <summary>
+    /// Creates a convex hull from the mesh using all cooking options, so mesh does not have to be "valid"
+    /// </summary>
+    /// <param name="mesh">Mesh to make a convex hull from</param>
+    public void CreateConvexHull(Mesh mesh)
+    {
+      // Leverage unity and physx use quickhull to generate a convex hull from the vertices
+      // Create a mesh collider
+      MeshCollider createdCollider = Undo.AddComponent<MeshCollider>(AttachToObject);
+      createdCollider.sharedMesh = mesh;
+      // Auto inflate mesh to the minimum amount, don't have to worry about max 256 verts or 256 faces.
+      // use all cooking options so we don't have to worry about valid data being passed from our roughly created mesh.
+#if UNITY_2018_3_OR_NEWER
+      createdCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.WeldColocatedVertices;
+#elif UNITY_2017_3_OR_NEWER
+      createdCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.InflateConvexMesh | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.WeldColocatedVertices;
+      createdCollider.skinWidth = 0.0f;
+#else
+      createdCollider.inflateMesh = true;
+      createdCollider.skinWidth = 0.0f;
+#endif
+      // Would be nice if we could do a try/catch on the baking to only inflate if we have to, but that doesn't work.
+      createdCollider.convex = true;
+      SelectedVertices = new List<EasyColliderVertex>();
+      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+      if (createdCollider != null)
+      {
+        DisableCreatedCollider(createdCollider);
+      }
+    }
+
+    /// <summary>
+    /// Creates a sphere collider
+    /// </summary>
+    /// <param name="method">Algorith to use to create the sphere collider.</param>
+    public void CreateSphereCollider(SPHERE_COLLIDER_METHOD method)
+    {
+      EasyColliderCreator ecc = new EasyColliderCreator();
+      Collider createdCollider = null;
+      switch (method)
+      {
+        case SPHERE_COLLIDER_METHOD.BestFit:
+          createdCollider = ecc.CreateSphereCollider_BestFit(GetWorldVertices(), GetProperties());
+          break;
+        case SPHERE_COLLIDER_METHOD.Distance:
+          createdCollider = ecc.CreateSphereCollider_Distance(GetWorldVertices(), GetProperties());
+          break;
+        case SPHERE_COLLIDER_METHOD.MinMax:
+          createdCollider = ecc.CreateSphereCollider_MinMax(GetWorldVertices(), GetProperties());
+          break;
+      }
+      if (createdCollider != null)
+      {
+        DisableCreatedCollider(createdCollider);
+      }
+      SelectedVertices = new List<EasyColliderVertex>();
+      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+    }
+
+    /// <summary>
+    /// Disables a created collider based on preferences
+    /// </summary>
+    /// <param name="col">Collider to disable</param>
+    void DisableCreatedCollider(Collider col)
+    {
+      CreatedColliders.Add(col);
+      AddedColliderIDs.Add(col.GetInstanceID());
+      if (CreatedColliderDisabled)
+      {
+        col.enabled = false;
+        DisabledColliders.Add(col);
+      }
+    }
+
+    /// <summary>
+    /// Gets all colliders on parent + children if including children.
+    /// </summary>
+    /// <returns>Array of all colliders</returns>
+    private Collider[] GetAllColliders()
+    {
+      if (SelectedGameObject != null)
+      {
+        return IncludeChildMeshes ? SelectedGameObject.GetComponentsInChildren<Collider>() : SelectedGameObject.GetComponents<Collider>();
+      }
+      return new Collider[0];
+    }
+
     /// <summary>
     /// Gets all the locations in world space of all MeshFilters vertices.
     /// </summary>
@@ -683,39 +984,25 @@ namespace ECE
     }
 
     /// <summary>
-    /// Creates a mesh filter and bakes a mesh for a skinned mesh renderer.
+    /// Gets the collider if it's in any of the lists. Otherwise it tries to compare the collider to all colliders in the list by properties.null
+    /// Required for when editing a prefab, as the colliders hit by raycast are NOT the colliders in the list.
     /// </summary>
-    /// <param name="smr">Skinned mesh renderer to create the mesh filter for.</param>
-    /// <returns>The mesh filter that was created annd baked.</returns>
-    MeshFilter SetupFilterForSkinnedMesh(SkinnedMeshRenderer smr)
+    /// <param name="collider">Collider to match with</param>
+    /// <returns>The collider itself it it exists in one of the lists, otherwise tries to match by properties. Null if none match.</returns>
+    private Collider GetMatchedCollider(Collider collider)
     {
-      // Add a mesh filter and collider to the skinned mesh renderer while we select vertices.
-      MeshFilter filter = Undo.AddComponent<MeshFilter>(smr.gameObject);
-      // MeshCollider collider = Undo.AddComponent<MeshCollider>(smr.gameObject);
-      // Create a new mesh, so we prevent null refs by setting either the collider or filter's shared mesh.
-      Mesh mesh = new Mesh();
-      // Bake the skinned mesh to the mesh, otherwise you can have offset colliders/filters which aren't correctly located.
-      smr.BakeMesh(mesh);
-      // Set the shared mesh's to that mesh.
-      filter.sharedMesh = mesh;
-      AddedComponents.Add(filter);
-      return filter;
-    }
-
-    /// <summary>
-    /// Creates new lists for all the lists used.
-    /// </summary>
-    void ClearListsForNewObject()
-    {
-      MeshFilters = new List<MeshFilter>();
-      SelectedVertices = new List<EasyColliderVertex>();
-      AddedComponents = new List<Component>();
-      NonKinematicRigidbodies = new List<Rigidbody>();
-      DisabledColliders = new List<Collider>();
-      PreDisabledColliders = new List<Collider>();
-      CreatedColliders = new List<Collider>();
-      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
-      LastSelectedVertices = new List<EasyColliderVertex>();
+      if (DisabledColliders.Contains(collider) || PreDisabledColliders.Contains(collider) || CreatedColliders.Contains(collider))
+      {
+        return collider;
+      }
+      else
+      {
+        Collider matchedCollider = null;
+        matchedCollider = TryGetMatchColliderInList(collider, DisabledColliders);
+        matchedCollider = matchedCollider == null ? TryGetMatchColliderInList(collider, PreDisabledColliders) : matchedCollider;
+        matchedCollider = matchedCollider == null ? TryGetMatchColliderInList(collider, CreatedColliders) : matchedCollider;
+        return matchedCollider;
+      }
     }
 
     /// <summary>
@@ -770,130 +1057,19 @@ namespace ECE
     }
 
     /// <summary>
-    /// Cleans up the object and children if required. Destroys components based on if going into play mode. Reenables/disables components to pre-selection values.
+    /// Creates an EasyColliderProperties based on the ECEditors values.
     /// </summary>
-    /// <param name="go">Parent object to clean up</param>
-    /// <param name="intoPlayMode">Is the editor going into play mode?</param>
-    public void CleanUpObject(GameObject go, bool intoPlayMode)
+    /// <param name="orientation">Orientation property</param>
+    /// <returns>EasyColliderProperties to pass to collider creation methods</returns>
+    EasyColliderProperties GetProperties(COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
     {
-      foreach (Component component in AddedComponents)
-      {
-        if (component != null)
-        {
-          // Need to use normal destroy immediate when going into play mode.
-          if (intoPlayMode)
-          {
-            DestroyImmediate(component);
-          }
-          else
-          {
-            // Use undo to destroy the added components if not going into play mode.
-            Undo.DestroyObjectImmediate(component);
-          }
-        }
-      }
-      foreach (Rigidbody rb in NonKinematicRigidbodies)
-      {
-        if (rb != null)
-        {
-          rb.isKinematic = false;
-        }
-      }
-      foreach (Collider col in DisabledColliders)
-      {
-        if (col != null)
-        {
-          col.enabled = true;
-        }
-      }
-      foreach (Collider col in PreDisabledColliders)
-      {
-        if (col != null)
-        {
-          col.enabled = false;
-        }
-      }
-      ClearListsForNewObject();
-    }
-
-
-    /// <summary>
-    /// Adds / Removes / Enables / Disables required child components
-    /// </summary>
-    /// <param name="childrenEnabled">are children enabled?</param>
-    void SetupChildObjects(bool childrenEnabled)
-    {
-      MeshFilters = GetMeshFilters(SelectedGameObject);
-      if (childrenEnabled)
-      {
-        // Just essentially re-check all the components
-        SetRequiredComponentsFrom(SelectedGameObject, MeshFilters);
-      }
-      if (!childrenEnabled)
-      {
-        // Renable child components that were changed.
-        foreach (Component component in AddedComponents)
-        {
-          if (component != null && component.gameObject != SelectedGameObject)
-          {
-            Undo.DestroyObjectImmediate(component);
-          }
-        }
-        foreach (Rigidbody rb in NonKinematicRigidbodies)
-        {
-          if (rb != null & rb.gameObject != SelectedGameObject)
-          {
-            // without these the undo is still recored with a registercompleteobjectundo.
-            Undo.RecordObject(rb, "Set isKinematic");
-            rb.isKinematic = false;
-          }
-        }
-      }
-    }
-
-    /// <summary>
-    /// Selects or deselects a vertex. Returns true if selected, false if deselected.
-    /// </summary>
-    /// <param name="ecv">Vertex to select</param>
-    /// <returns>True if selected, false if deselected.</returns>
-    public bool SelectVertex(EasyColliderVertex ecv)
-    {
-
-      if (SelectedVerticesSet.Remove(ecv))
-      {
-        SelectedVertices.Remove(ecv);
-        return false;
-      }
-      else
-      {
-        LastSelectedVertices = new List<EasyColliderVertex>();
-        SelectedVerticesSet.Add(ecv);
-        SelectedVertices.Add(ecv);
-        LastSelectedVertices.Add(ecv);
-        return true;
-      }
-    }
-
-    /// <summary>
-    /// Selects a bunch of vertices at once.
-    /// </summary>
-    /// <param name="vertices">Set of vertices</param>
-    public void SelectVertices(HashSet<EasyColliderVertex> vertices)
-    {
-      // removes selected vertices that are in the vertices hashset. (deselects already selected vertices)
-      List<EasyColliderVertex> prevSelected = SelectedVertices.Where((value, index) => !vertices.Contains(value)).ToList();
-      // adds vertices in the vertices set that aren't already selected (selects unselected vertices)
-      List<EasyColliderVertex> newSelected = vertices.Where((value) => !SelectedVerticesSet.Contains(value)).ToList();
-      // last selected are the newly selected vertices.
-      LastSelectedVertices.Clear();
-      LastSelectedVertices = newSelected;
-      // Combine the lists for the all currently selected vertices.
-      prevSelected.AddRange(newSelected);
-      SelectedVertices = prevSelected;
-      // clear the selected vertices set
-      SelectedVerticesSet.Clear();
-      // add all the currently selected vertices to it with a union.
-      SelectedVerticesSet.UnionWith(SelectedVertices);
+      EasyColliderProperties ecp = new EasyColliderProperties();
+      ecp.IsTrigger = IsTrigger;
+      ecp.PhysicMaterial = PhysicMaterial;
+      ecp.Layer = RotatedOnSelectedLayer ? SelectedGameObject.layer : RotatedColliderLayer;
+      ecp.AttachTo = AttachToObject;
+      ecp.Orientation = orientation;
+      return ecp;
     }
 
     /// <summary>
@@ -915,279 +1091,91 @@ namespace ECE
     }
 
     /// <summary>
-    /// Creates a box colider with a given orientation
+    /// Grows selected vertices out from all selected vertices
     /// </summary>
-    /// <param name="orientation">Orientation of box collider</param>
-    public void CreateBoxCollider(COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
+    public void GrowAllSelectedVertices()
     {
-      EasyColliderCreator ecc = new EasyColliderCreator();
-      Collider createdCollider = ecc.CreateBoxCollider(GetWorldVertices(), GetProperties(orientation));
-      if (createdCollider != null)
-      {
-        DisableCreatedCollider(createdCollider);
-      }
-      SelectedVertices = new List<EasyColliderVertex>();
-      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
+      GrowVertices(SelectedVerticesSet);
     }
 
     /// <summary>
-    /// Creates an EasyColliderProperties based on the ECEditors values.
+    /// Grows selected vertices out from the last selected vertex(s)
     /// </summary>
-    /// <param name="orientation">Orientation property</param>
-    /// <returns>EasyColliderProperties to pass to collider creation methods</returns>
-    public EasyColliderProperties GetProperties(COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
+    public void GrowLastSelectedVertices()
     {
-      EasyColliderProperties ecp = new EasyColliderProperties();
-      ecp.IsTrigger = IsTrigger;
-      ecp.PhysicMaterial = PhysicMaterial;
-      ecp.Layer = RotatedOnSelectedLayer ? SelectedGameObject.layer : RotatedColliderLayer;
-      ecp.AttachTo = AttachToObject;
-      ecp.Orientation = orientation;
-      return ecp;
+      HashSet<EasyColliderVertex> set = new HashSet<EasyColliderVertex>();
+      set.UnionWith(LastSelectedVertices);
+      GrowVertices(set);
     }
 
     /// <summary>
-    /// Creates a capsule collider using the method and orientation provided.
+    /// Grows the list of vertices by shared triangles
     /// </summary>
-    /// <param name="method">Capsule collider algoirthm to use</param>
-    /// <param name="orientation">Orientation to use</param>
-    public void CreateCapsuleCollider(CAPSULE_COLLIDER_METHOD method, COLLIDER_ORIENTATION orientation = COLLIDER_ORIENTATION.NORMAL)
+    /// <param name="verticesToGrow">The list of vertices to expand out from</param>
+    public void GrowVertices(HashSet<EasyColliderVertex> verticesToGrow)
     {
-      EasyColliderCreator ecc = new EasyColliderCreator();
-      Collider createdCollider = null;
-      switch (method)
+      HashSet<EasyColliderVertex> newSelectedVertices = new HashSet<EasyColliderVertex>();
+      Transform t;
+      Vector3[] vertices;
+      int[] triangles;
+      // Go through every filter & triangle, seems the fastest way to do it without storing the vertices & triangles of every mesh.
+      foreach (MeshFilter filter in MeshFilters)
       {
-        // use the same method for all min max' but pass the method in.
-        case CAPSULE_COLLIDER_METHOD.MinMax:
-        case CAPSULE_COLLIDER_METHOD.MinMaxPlusDiameter:
-        case CAPSULE_COLLIDER_METHOD.MinMaxPlusRadius:
-          createdCollider = ecc.CreateCapsuleCollider_MinMax(GetWorldVertices(), GetProperties(orientation), method);
-          break;
-        case CAPSULE_COLLIDER_METHOD.BestFit:
-          createdCollider = ecc.CreateCapsuleCollider_BestFit(GetWorldVertices(), GetProperties(orientation));
-          break;
-      }
-      if (createdCollider != null)
-      {
-        DisableCreatedCollider(createdCollider);
-      }
-      SelectedVertices = new List<EasyColliderVertex>();
-      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
-    }
-
-    /// <summary>
-    /// Creates a sphere collider
-    /// </summary>
-    /// <param name="method">Algorith to use to create the sphere collider.</param>
-    public void CreateSphereCollider(SPHERE_COLLIDER_METHOD method)
-    {
-      EasyColliderCreator ecc = new EasyColliderCreator();
-      Collider createdCollider = null;
-      switch (method)
-      {
-        case SPHERE_COLLIDER_METHOD.BestFit:
-          createdCollider = ecc.CreateSphereCollider_BestFit(GetWorldVertices(), GetProperties());
-          break;
-        case SPHERE_COLLIDER_METHOD.Distance:
-          createdCollider = ecc.CreateSphereCollider_Distance(GetWorldVertices(), GetProperties());
-          break;
-        case SPHERE_COLLIDER_METHOD.MinMax:
-          createdCollider = ecc.CreateSphereCollider_MinMax(GetWorldVertices(), GetProperties());
-          break;
-      }
-      if (createdCollider != null)
-      {
-        DisableCreatedCollider(createdCollider);
-      }
-      SelectedVertices = new List<EasyColliderVertex>();
-      SelectedVerticesSet = new HashSet<EasyColliderVertex>();
-    }
-
-    /// <summary>
-    /// Disables a created collider based on preferences
-    /// </summary>
-    /// <param name="col">Collider to disable</param>
-    void DisableCreatedCollider(Collider col)
-    {
-      CreatedColliders.Add(col);
-      if (CreatedColliderDisabled)
-      {
-        col.enabled = false;
-        DisabledColliders.Add(col);
-      }
-    }
-
-    /// <summary>
-    /// Deselects all currently selected vertices.
-    /// </summary>
-    public void ClearSelectedVertices()
-    {
-      this.SelectedVertices = new List<EasyColliderVertex>();
-      this.SelectedVerticesSet = new HashSet<EasyColliderVertex>();
-    }
-
-    /// <summary>
-    /// Removes all colliders on the currently selected gameobject + children if include child meshes is true.
-    /// </summary>
-    public void RemoveAllColliders()
-    {
-      // Get colliders from either selected or selected + children.
-      Collider[] colliders = GetAllColliders();
-      foreach (Collider col in colliders)
-      {
-        // Only remove if it's not what we've added.
-        if (!AddedComponents.Contains(col))
+        triangles = filter.sharedMesh.triangles;
+        vertices = filter.sharedMesh.vertices;
+        t = filter.transform;
+        for (int i = 0; i < triangles.Length; i += 3)
         {
-          Undo.RecordObject(col.gameObject, "Remove Collider");
-          // Remove it from the components we've disabled if we've disabled it.
-          DisabledColliders.Remove(col);
-          PreDisabledColliders.Remove(col);
-          Undo.DestroyObjectImmediate(col);
-        }
-      }
-    }
-
-    /// <summary>
-    /// Gets the collider if it's in any of the lists. Otherwise it tries to compare the collider to all colliders in the list by properties.null
-    /// Required for when editing a prefab, as the colliders hit by raycast are NOT the colliders in the list.
-    /// </summary>
-    /// <param name="collider">Collider to match with</param>
-    /// <returns>The collider itself it it exists in one of the lists, otherwise tries to match by properties. Null if none match.</returns>
-    private Collider GetMatchedCollider(Collider collider)
-    {
-      if (DisabledColliders.Contains(collider) || PreDisabledColliders.Contains(collider) || CreatedColliders.Contains(collider))
-      {
-        return collider;
-      }
-      else
-      {
-        Collider matchedCollider = null;
-        matchedCollider = tryGetMatchColliderInList(collider, DisabledColliders);
-        matchedCollider = matchedCollider == null ? tryGetMatchColliderInList(collider, PreDisabledColliders) : matchedCollider;
-        matchedCollider = matchedCollider == null ? tryGetMatchColliderInList(collider, CreatedColliders) : matchedCollider;
-        return matchedCollider;
-      }
-    }
-
-    /// <summary>
-    /// Attempts to match the given collider to any collider in the given list.
-    /// </summary>
-    /// <param name="collider">Collider to match</param>
-    /// <param name="colliderList">Collider list to find a match in.</param>
-    /// <returns>The matched collider, or null if none found.</returns>
-    private Collider tryGetMatchColliderInList(Collider collider, List<Collider> colliderList)
-    {
-      // dont match by checking physic materials, that causes issues.
-      foreach (Collider col in colliderList)
-      {
-        if (col.gameObject.name != collider.gameObject.name)
-        {
-          continue;
-        }
-        if (col is BoxCollider && collider is BoxCollider)
-        {
-          BoxCollider c1 = col as BoxCollider;
-          BoxCollider c2 = collider as BoxCollider;
-          if (c1.center == c2.center && c1.size == c2.size && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
+          EasyColliderVertex ecv1 = new EasyColliderVertex(t, vertices[triangles[i]]);
+          EasyColliderVertex ecv2 = new EasyColliderVertex(t, vertices[triangles[i + 1]]);
+          EasyColliderVertex ecv3 = new EasyColliderVertex(t, vertices[triangles[i + 2]]);
+          if (verticesToGrow.Contains(ecv1) || verticesToGrow.Contains(ecv2) || verticesToGrow.Contains(ecv3))
           {
-            return col;
-          }
-        }
-        else if (col is CapsuleCollider && collider is CapsuleCollider)
-        {
-          CapsuleCollider c1 = col as CapsuleCollider;
-          CapsuleCollider c2 = collider as CapsuleCollider;
-          if (c1.center == c2.center && c1.height == c2.height && c1.direction == c2.direction && c1.height == c2.height && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
-          {
-            return col;
-          }
-        }
-        else if (col is SphereCollider && collider is SphereCollider)
-        {
-          SphereCollider c1 = col as SphereCollider;
-          SphereCollider c2 = collider as SphereCollider;
-          if (c1.center == c2.center && c1.radius == c2.radius && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
-          {
-            return col;
+            newSelectedVertices.Add(ecv1);
+            newSelectedVertices.Add(ecv2);
+            newSelectedVertices.Add(ecv3);
           }
         }
       }
-      return null;
+      // newly selected vertices are the ones where they are in the new set, but aren't currently in the selected set.
+      List<EasyColliderVertex> newSelected = newSelectedVertices.Where(value => !SelectedVerticesSet.Contains(value)).ToList();
+      // Add the new ones to the list.
+      SelectedVertices.AddRange(newSelected);
+      // clear the set, then union with the select vertices.
+      SelectedVerticesSet.Clear();
+      SelectedVerticesSet.UnionWith(SelectedVertices);
+      // these aren't really the "last selected" as it contains the previous grown set as well, but its close enough that it doesn't really matter much.
+      LastSelectedVertices = newSelected;
     }
 
     /// <summary>
-    /// Determines if the collider is valid. A collider is valid if it exists in the collider lists, OR it matches one in the list based on parameters.
+    /// Checks if the transforms the mesh filters of the currently selected gameobject have moved or rotated
     /// </summary>
-    /// <param name="collider">Collider to match</param>
-    /// <returns>True if in one of the lists, or matches one of the items in the lists.</returns>
-    private bool isValidCollider(Collider collider)
+    public bool HasTransformMoved()
     {
-      if (collider == null) return false;
-      Collider matched = GetMatchedCollider(collider);
-      if (matched != null)
+      bool hasMoved = false;
+      foreach (MeshFilter filter in MeshFilters)
       {
-        return true;
-      }
-      return false;
-    }
-
-    /// <summary>
-    /// Removes the currently selected collider.
-    /// </summary>
-    public void RemoveSelectedCollider()
-    {
-      Collider collider = GetMatchedCollider(SelectedCollider);
-      DisabledColliders.Remove(collider);
-      CreatedColliders.Remove(collider);
-      Undo.RecordObject(collider, "Remove collider");
-      Undo.DestroyObjectImmediate(collider);
-      SelectedCollider = null;
-    }
-
-    /// <summary>
-    /// Enabled and disables all colliders based on if collider selection is enabled.
-    /// </summary>
-    /// <param name="colliderSelectionEnabled">is collider selection enabled?</param>
-    private void ToggleCollidersEnabled(bool colliderSelectionEnabled)
-    {
-      // Get colliders from either selected or selected + children.
-      Collider[] colliders = GetAllColliders();
-      foreach (Collider col in colliders)
-      {
-        // Without this undo, the enable/disable is not recorded.
-        Undo.RecordObject(col, "Toggle Collider Enabled");
-        // we add the mesh collider, so we want to disable it during collider selection.
-        if (AddedComponents.Contains(col))
+        if (filter != null && !TransformPositions.Contains(filter.transform.position) || !TransformRotations.Contains(filter.transform.rotation))
         {
-          col.enabled = !colliderSelectionEnabled;
-        }
-        else
-        {
-          col.enabled = colliderSelectionEnabled;
+          hasMoved = true;
+          break;
         }
       }
-    }
-
-    /// <summary>
-    /// Gets all colliders on parent + children if including children.
-    /// </summary>
-    /// <returns>Array of all colliders</returns>
-    private Collider[] GetAllColliders()
-    {
-      if (SelectedGameObject != null)
+      if (hasMoved)
       {
-        return IncludeChildMeshes ? SelectedGameObject.GetComponentsInChildren<Collider>() : SelectedGameObject.GetComponents<Collider>();
+        TransformPositions.Clear();
+        TransformRotations.Clear();
+        foreach (MeshFilter filter in MeshFilters)
+        {
+          if (filter != null)
+          {
+            TransformRotations.Add(filter.transform.rotation);
+            TransformPositions.Add(filter.transform.position);
+          }
+        }
       }
-      return new Collider[0];
-    }
-
-    /// <summary>
-    /// Removes all vertices that have index's greater than MeshFilter's count.
-    /// </summary>
-    private void CleanChildSelectedVertices()
-    {
-      // SelectedVertices.RemoveAll(vert => vert.MeshFilterIndex >= MeshFilters.Count);
-      SelectedVertices.RemoveAll(vert => vert.T != SelectedGameObject.transform);
+      return hasMoved;
     }
 
     /// <summary>
@@ -1237,87 +1225,83 @@ namespace ECE
     }
 
     /// <summary>
-    /// Grows the list of vertices by shared triangles
+    /// Determines if the collider is valid. A collider is valid if it exists in the collider lists, OR it matches one in the list based on parameters.
     /// </summary>
-    /// <param name="verticesToGrow">The list of vertices to expand out from</param>
-    public void GrowVertices(HashSet<EasyColliderVertex> verticesToGrow)
+    /// <param name="collider">Collider to match</param>
+    /// <returns>True if in one of the lists, or matches one of the items in the lists.</returns>
+    private bool IsValidCollider(Collider collider)
     {
-      HashSet<EasyColliderVertex> newSelectedVertices = new HashSet<EasyColliderVertex>();
-      Transform t;
-      Vector3[] vertices;
-      int[] triangles;
-      // Go through every filter & triangle, seems the fastest way to do it without storing the vertices & triangles of every mesh.
-      foreach (MeshFilter filter in MeshFilters)
+      if (collider == null) return false;
+      Collider matched = GetMatchedCollider(collider);
+      if (matched != null)
       {
-        triangles = filter.sharedMesh.triangles;
-        vertices = filter.sharedMesh.vertices;
-        t = filter.transform;
-        for (int i = 0; i < triangles.Length; i += 3)
-        {
-          EasyColliderVertex ecv1 = new EasyColliderVertex(t, vertices[triangles[i]]);
-          EasyColliderVertex ecv2 = new EasyColliderVertex(t, vertices[triangles[i + 1]]);
-          EasyColliderVertex ecv3 = new EasyColliderVertex(t, vertices[triangles[i + 2]]);
-          if (verticesToGrow.Contains(ecv1) || verticesToGrow.Contains(ecv2) || verticesToGrow.Contains(ecv3))
-          {
-            newSelectedVertices.Add(ecv1);
-            newSelectedVertices.Add(ecv2);
-            newSelectedVertices.Add(ecv3);
-          }
-        }
+        return true;
       }
-      // newly selected vertices are the ones where they are in the new set, but aren't currently in the selected set.
-      List<EasyColliderVertex> newSelected = newSelectedVertices.Where(value => !SelectedVerticesSet.Contains(value)).ToList();
-      // Add the new ones to the list.
-      SelectedVertices.AddRange(newSelected);
-      // clear the set, then union with the select vertices.
-      SelectedVerticesSet.Clear();
-      SelectedVerticesSet.UnionWith(SelectedVertices);
-      // these aren't really the "last selected" as it contains the previous grown set as well, but its close enough that it doesn't really matter much.
-      LastSelectedVertices = newSelected;
+      return false;
     }
+
 
     /// <summary>
-    /// Grows selected vertices out from all selected vertices
+    /// Called after deserializing, used to deserilize our serializable list of selected points back into the hashset.
     /// </summary>
-    public void GrowAllSelectedVertices()
-    {
-      GrowVertices(SelectedVerticesSet);
-    }
-
-    /// <summary>
-    /// Grows selected vertices out from the last selected vertex(s)
-    /// </summary>
-    public void GrowLastSelectedVertices()
-    {
-      HashSet<EasyColliderVertex> set = new HashSet<EasyColliderVertex>();
-      set.UnionWith(LastSelectedVertices);
-      GrowVertices(set);
-    }
-
-    //Serializing our hashsets.
-    [SerializeField]
-    private List<EasyColliderVertex> serializedSelectedVertexSet;
-    public void OnBeforeSerialize()
-    {
-      // Serialize ours hashsets.
-      if (serializedSelectedVertexSet == null)
-      {
-        serializedSelectedVertexSet = new List<EasyColliderVertex>();
-      }
-      serializedSelectedVertexSet = SelectedVerticesSet.ToList();
-    }
-
     public void OnAfterDeserialize()
     {
       // Deserialize our hashsets.
-      if (serializedSelectedVertexSet.Count > 0)
+      if (_SerializedSelectedVertexSet.Count > 0)
       {
-        SelectedVerticesSet = new HashSet<EasyColliderVertex>(serializedSelectedVertexSet);
+        SelectedVerticesSet = new HashSet<EasyColliderVertex>(_SerializedSelectedVertexSet);
       }
       else
       {
         SelectedVerticesSet = new HashSet<EasyColliderVertex>();
       }
+    }
+
+    /// <summary>
+    /// Called before serialization, used to store our hashset of selected vertices into a serializable list.
+    /// </summary>
+    public void OnBeforeSerialize()
+    {
+      // Serialize ours hashsets.
+      if (_SerializedSelectedVertexSet == null)
+      {
+        _SerializedSelectedVertexSet = new List<EasyColliderVertex>();
+      }
+      _SerializedSelectedVertexSet = SelectedVerticesSet.ToList();
+    }
+
+    /// <summary>
+    /// Removes all colliders on the currently selected gameobject + children if include child meshes is true.
+    /// </summary>
+    public void RemoveAllColliders()
+    {
+      // Get colliders from either selected or selected + children.
+      Collider[] colliders = GetAllColliders();
+      foreach (Collider col in colliders)
+      {
+        // Only remove if it's not what we've added.
+        if (!AddedComponents.Contains(col))
+        {
+          Undo.RecordObject(col.gameObject, "Remove Collider");
+          // Remove it from the components we've disabled if we've disabled it.
+          DisabledColliders.Remove(col);
+          PreDisabledColliders.Remove(col);
+          Undo.DestroyObjectImmediate(col);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Removes the currently selected collider.
+    /// </summary>
+    public void RemoveSelectedCollider()
+    {
+      Collider collider = GetMatchedCollider(SelectedCollider);
+      DisabledColliders.Remove(collider);
+      CreatedColliders.Remove(collider);
+      Undo.RecordObject(collider, "Remove collider");
+      Undo.DestroyObjectImmediate(collider);
+      SelectedCollider = null;
     }
 
     /// <summary>
@@ -1445,6 +1429,316 @@ namespace ECE
       LastSelectedVertices.Clear();
       LastSelectedVertices = newVerticesToAdd;
     }
+
+    /// <summary>
+    /// Selects the gameobject. Sets up the require components based for the object.
+    /// </summary>
+    /// <param name="obj">GameObject to select</param>
+    void SelectObject(GameObject obj)
+    {
+      // set up mesh filter list
+      MeshFilters = GetMeshFilters(obj);
+      // add / disable rigidbodies + colliders
+      SetRequiredComponentsFrom(obj, MeshFilters);
+      // add display vertices component.
+      if (RenderPointType == RENDER_POINT_TYPE.GIZMOS)
+      {
+        Gizmos = Undo.AddComponent<EasyColliderGizmos>(obj);
+        AddedComponents.Add(Gizmos);
+      }
+      else if (RenderPointType == RENDER_POINT_TYPE.SHADER)
+      {
+        Compute = Undo.AddComponent<EasyColliderCompute>(obj);
+        AddedComponents.Add(Compute);
+      }
+    }
+
+    /// <summary>
+    /// Selects a bunch of vertices at once.
+    /// </summary>
+    /// <param name="vertices">Set of vertices</param>
+    public void SelectVertices(HashSet<EasyColliderVertex> vertices)
+    {
+      // removes selected vertices that are in the vertices hashset. (deselects already selected vertices)
+      List<EasyColliderVertex> prevSelected = SelectedVertices.Where((value, index) => !vertices.Contains(value)).ToList();
+      // adds vertices in the vertices set that aren't already selected (selects unselected vertices)
+      List<EasyColliderVertex> newSelected = vertices.Where((value) => !SelectedVerticesSet.Contains(value)).ToList();
+      // last selected are the newly selected vertices.
+      LastSelectedVertices.Clear();
+      LastSelectedVertices = newSelected;
+      // Combine the lists for the all currently selected vertices.
+      prevSelected.AddRange(newSelected);
+      SelectedVertices = prevSelected;
+      // clear the selected vertices set
+      SelectedVerticesSet.Clear();
+      // add all the currently selected vertices to it with a union.
+      SelectedVerticesSet.UnionWith(SelectedVertices);
+    }
+
+    /// <summary>
+    /// Selects or deselects a vertex. Returns true if selected, false if deselected.
+    /// </summary>
+    /// <param name="ecv">Vertex to select</param>
+    /// <returns>True if selected, false if deselected.</returns>
+    public bool SelectVertex(EasyColliderVertex ecv)
+    {
+
+      if (SelectedVerticesSet.Remove(ecv))
+      {
+        SelectedVertices.Remove(ecv);
+        return false;
+      }
+      else
+      {
+        LastSelectedVertices = new List<EasyColliderVertex>();
+        SelectedVerticesSet.Add(ecv);
+        SelectedVertices.Add(ecv);
+        LastSelectedVertices.Add(ecv);
+        return true;
+      }
+    }
+
+    /// <summary>
+    /// Sets up the required components from the parent to the children (if children are enabled)
+    /// This includes rigidbodies, colliders, and mesh colliders.
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="meshFilters"></param>
+    public void SetRequiredComponentsFrom(GameObject parent, List<MeshFilter> meshFilters)
+    {
+      if (parent == null) return;
+      Rigidbody[] rigidbodies;
+      Collider[] colliders;
+
+      // get either parent + children or just parent rigidbodies & colliders.
+      if (IncludeChildMeshes)
+      {
+        rigidbodies = parent.GetComponentsInChildren<Rigidbody>();
+        colliders = parent.GetComponentsInChildren<Collider>();
+      }
+      else
+      {
+        rigidbodies = parent.GetComponents<Rigidbody>();
+        colliders = parent.GetComponents<Collider>();
+      }
+
+      // make sure rigidbodies are set to kinematic for raycasting
+      foreach (Rigidbody rb in rigidbodies)
+      {
+        if (!rb.isKinematic && !NonKinematicRigidbodies.Contains(rb))
+        {
+          Undo.RegisterCompleteObjectUndo(rb, "change isKinmatic");
+          rb.isKinematic = true;
+          NonKinematicRigidbodies.Add(rb);
+        }
+      }
+
+      // Disable currently enabled colliders, leave current disabled colliders disabled & keep track of which is which.
+      foreach (Collider col in colliders)
+      {
+        if (!DisabledColliders.Contains(col) && !PreDisabledColliders.Contains(col))
+        {
+          if (col.enabled)
+          {
+            if (!ColliderSelectEnabled)
+            {
+              Undo.RegisterCompleteObjectUndo(col, "Disable Collider");
+              col.enabled = false;
+            }
+            DisabledColliders.Add(col);
+          }
+          else { PreDisabledColliders.Add(col); }
+        }
+      }
+
+      // Add a mesh collider for every mesh filter.
+      foreach (MeshFilter filter in meshFilters)
+      {
+        MeshCollider collider = Undo.AddComponent<MeshCollider>(filter.gameObject);
+        AddedComponents.Add(collider);
+        AddedComponentIDs.Add(collider.GetInstanceID());
+      }
+    }
+
+    /// <summary>
+    /// Adds / Removes / Enables / Disables required child components
+    /// </summary>
+    /// <param name="childrenEnabled">are children enabled?</param>
+    void SetupChildObjects(bool childrenEnabled)
+    {
+      MeshFilters = GetMeshFilters(SelectedGameObject);
+      if (childrenEnabled)
+      {
+        // Just essentially re-check all the components
+        SetRequiredComponentsFrom(SelectedGameObject, MeshFilters);
+      }
+      if (!childrenEnabled)
+      {
+        // Renable child components that were changed.
+        foreach (Component component in AddedComponents)
+        {
+          if (component != null && component.gameObject != SelectedGameObject)
+          {
+            Undo.DestroyObjectImmediate(component);
+          }
+        }
+        foreach (Rigidbody rb in NonKinematicRigidbodies)
+        {
+          if (rb != null & rb.gameObject != SelectedGameObject)
+          {
+            // without these the undo is still recored with a registercompleteobjectundo.
+            Undo.RecordObject(rb, "Set isKinematic");
+            rb.isKinematic = false;
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// Creates a mesh filter and bakes a mesh for a skinned mesh renderer.
+    /// </summary>
+    /// <param name="smr">Skinned mesh renderer to create the mesh filter for.</param>
+    /// <returns>The mesh filter that was created annd baked.</returns>
+    MeshFilter SetupFilterForSkinnedMesh(SkinnedMeshRenderer smr)
+    {
+      // Add a mesh filter and collider to the skinned mesh renderer while we select vertices.
+      MeshFilter filter = Undo.AddComponent<MeshFilter>(smr.gameObject);
+      // MeshCollider collider = Undo.AddComponent<MeshCollider>(smr.gameObject);
+      // Create a new mesh, so we prevent null refs by setting either the collider or filter's shared mesh.
+      Mesh mesh = new Mesh();
+      // Bake the skinned mesh to the mesh, otherwise you can have offset colliders/filters which aren't correctly located.
+      smr.BakeMesh(mesh);
+      // Set the shared mesh's to that mesh.
+      filter.sharedMesh = mesh;
+      AddedComponents.Add(filter);
+      return filter;
+    }
+
+    /// <summary>
+    /// Sets values on this component from preferences.
+    /// </summary>
+    /// <param name="preferences"></param>
+    public void SetValuesFromPreferences(EasyColliderPreferences preferences)
+    {
+      AutoIncludeChildSkinnedMeshes = preferences.AutoIncludeChildSkinnedMeshes;
+      RotatedOnSelectedLayer = preferences.RotatedOnSelectedLayer;
+      CreatedColliderDisabled = preferences.CreatedColliderDisabled;
+      RenderPointType = preferences.RenderPointType;
+    }
+
+    /// <summary>
+    /// Enabled and disables all colliders based on if collider selection is enabled.
+    /// </summary>
+    /// <param name="colliderSelectionEnabled">is collider selection enabled?</param>
+    private void ToggleCollidersEnabled(bool colliderSelectionEnabled)
+    {
+      // Get colliders from either selected or selected + children.
+      Collider[] colliders = GetAllColliders();
+      foreach (Collider col in colliders)
+      {
+        // Without this undo, the enable/disable is not recorded.
+        Undo.RecordObject(col, "Toggle Collider Enabled");
+        // we add the mesh collider, so we want to disable it during collider selection.
+        if (AddedComponents.Contains(col))
+        {
+          col.enabled = !colliderSelectionEnabled;
+        }
+        else
+        {
+          col.enabled = colliderSelectionEnabled;
+        }
+      }
+    }
+
+    /// <summary>
+    /// Attempts to match the given collider to any collider in the given list.
+    /// </summary>
+    /// <param name="collider">Collider to match</param>
+    /// <param name="colliderList">Collider list to find a match in.</param>
+    /// <returns>The matched collider, or null if none found.</returns>
+    private Collider TryGetMatchColliderInList(Collider collider, List<Collider> colliderList)
+    {
+      // dont match by checking physic materials, that causes issues.
+      foreach (Collider col in colliderList)
+      {
+        if (col.gameObject.name != collider.gameObject.name)
+        {
+          continue;
+        }
+        if (col is BoxCollider && collider is BoxCollider)
+        {
+          BoxCollider c1 = col as BoxCollider;
+          BoxCollider c2 = collider as BoxCollider;
+          if (c1.center == c2.center && c1.size == c2.size && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
+          {
+            return col;
+          }
+        }
+        else if (col is CapsuleCollider && collider is CapsuleCollider)
+        {
+          CapsuleCollider c1 = col as CapsuleCollider;
+          CapsuleCollider c2 = collider as CapsuleCollider;
+          if (c1.center == c2.center && c1.height == c2.height && c1.direction == c2.direction && c1.height == c2.height && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
+          {
+            return col;
+          }
+        }
+        else if (col is SphereCollider && collider is SphereCollider)
+        {
+          SphereCollider c1 = col as SphereCollider;
+          SphereCollider c2 = collider as SphereCollider;
+          if (c1.center == c2.center && c1.radius == c2.radius && c1.isTrigger == c2.isTrigger && c1.sharedMaterial == c2.sharedMaterial)
+          {
+            return col;
+          }
+        }
+      }
+      return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 }
 #endif

@@ -10,6 +10,8 @@ namespace ECE
     public const string NO_MESH_FILTER_FOUND = "No mesh filter is on the selected gameobject, try enabling include child meshes.";
     public const string CHECK_DOCUMENTATION_REMINDER = "Need help? Be sure to check out the included documentation.";
     public const string COMPUTE_SHADER_TIP = "You're system's shader model does not support shaders with a compute buffer. Be sure to use the gizmo display method instead of shader in the preferences.";
+
+    public const string MODIFIER_KEY_USED_BOX_SELECT = "A Modifier key is used as a box select+ or box select- keycode. These keys will not work if held down prior to dragging, as they can interfere with other actions. See Unity's EventModifiers documentation for a list of what keys these include.";
   }
 }
 #endif

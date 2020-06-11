@@ -1,5 +1,6 @@
 ﻿#if (UNITY_EDITOR)
 using UnityEngine;
+using UnityEditor;
 namespace ECE
 {
   [System.Serializable]
@@ -57,6 +58,12 @@ namespace ECE
 
     //If true, puts rotated colliders on the same layer as the selected gameobject.
     [SerializeField] public bool RotatedOnSelectedLayer;
+
+    // Saves convex hull's mesh at the same path as the selected gameobject if true
+    [SerializeField] public bool SaveConvexHullMeshAtSelected;
+
+    // if SaveConvexHullMeshAtSelected is false, saves at the path specified.
+    [SerializeField] public string SaveConvexHullPath;
 
     // Color to draw the select collider lines/handles.
     [SerializeField] public Color SelectedColliderColour;
@@ -120,6 +127,10 @@ namespace ECE
       }
 
       RotatedOnSelectedLayer = true;
+
+      SaveConvexHullMeshAtSelected = true;
+      SaveConvexHullPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(this));
+      SaveConvexHullPath = SaveConvexHullPath.Remove(SaveConvexHullPath.LastIndexOf("/")) + "/";
 
       SelectedColliderColour = Color.red;
 
