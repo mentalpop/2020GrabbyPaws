@@ -65,6 +65,7 @@ public class UI : MonoBehaviour
     public float uiScale = 1f;
     public float fontScale = 1f;
     public int fontChoice = 0;
+    public float textPrintSpeed = 1f;
     [HideInInspector] public float mouseSensitivity;
 
     public static UI Instance { get; private set; }
@@ -78,6 +79,9 @@ public class UI : MonoBehaviour
 
     public delegate void FontSelectEvent(int fontChoice);
     public event FontSelectEvent OnFontChoice = delegate { };
+
+    public delegate void PrintSpeedEvent(float speed);
+    public event PrintSpeedEvent OnPrintSpeedSet = delegate { };
 
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
@@ -153,6 +157,11 @@ public class UI : MonoBehaviour
     public static void SetTextSize(float _size) {
         Instance.fontScale = _size;
         Instance.OnTextScaled(_size);
+    }
+
+    public static void SetPrintSpeed(float _speed) {
+        Instance.textPrintSpeed = _speed;
+        Instance.OnPrintSpeedSet(_speed);
     }
 
     public static void SetMouseState(bool lockMouse, GameObject gameObject) {

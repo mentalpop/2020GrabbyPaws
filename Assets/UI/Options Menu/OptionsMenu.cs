@@ -16,6 +16,7 @@ public class OptionsMenu : MonoBehaviour
     public DropDownMenu uiScale;
     public DropDownMenu fontChoice;
     public DropDownMenu textSize;
+    public DropDownMenu printSpeed;
     public DropDownMenu lappyBG;
     public Slider mouseSensitivity;
 
@@ -51,8 +52,10 @@ public class OptionsMenu : MonoBehaviour
         uiScale.OnChoiceMade += UiScale_OnChoiceMade;
     //fontChoice
         fontChoice.OnChoiceMade += FontChoice_OnChoiceMade;
-        //textSize
+    //textSize
         textSize.OnChoiceMade += TextSize_OnChoiceMade;
+    //printSpeed
+        printSpeed.OnChoiceMade += PrintSpeed_OnChoiceMade;
 	//Lappy BG
 		lappyBG.chosenIndex = lappyMenu.chosenBGIndex;
 		lappyBG.SetHeader(lappyBG.chosenIndex);
@@ -101,6 +104,16 @@ public class OptionsMenu : MonoBehaviour
             case 2: _fontScale = 2f; break;
         }
 		UI.SetTextSize(_fontScale);
+    }
+
+    private void PrintSpeed_OnChoiceMade(int choiceMade) {
+		float _speed = 1f;
+		switch (choiceMade) {
+            case 0: _speed = 1f; break;
+            case 1: _speed = 2f; break;
+            case 2: _speed = 4f; break;
+        }
+        UI.SetPrintSpeed(_speed);
     }
 
 	private void LappyBG_OnChoiceMade(int choiceMade) {

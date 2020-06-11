@@ -11,7 +11,7 @@ public class FontHandler : MonoBehaviour
     private TMP_FontAsset initialFont;
 [Header("Text Size")]
     public bool handleFontResize = false;
-    public float fSizeMax = 18f;
+    public float fSizeMax = 40f;
     private float fSizeInitial;
 
     private UI UIRef;
