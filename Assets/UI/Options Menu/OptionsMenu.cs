@@ -14,6 +14,8 @@ public class OptionsMenu : MonoBehaviour
 	public DropDownMenu quality;
     [Header("Misc Tab")]
     public DropDownMenu uiScale;
+    public DropDownMenu fontChoice;
+    public DropDownMenu textSize;
     public DropDownMenu lappyBG;
     public Slider mouseSensitivity;
 
@@ -44,8 +46,13 @@ public class OptionsMenu : MonoBehaviour
 		resolution.OnChoiceMade += Resolution_OnChoiceMade;
 	//Quality
 		quality.OnChoiceMade += Quality_OnChoiceMade;
+//Misc Tab
     //UI Scale
         uiScale.OnChoiceMade += UiScale_OnChoiceMade;
+    //fontChoice
+        fontChoice.OnChoiceMade += FontChoice_OnChoiceMade;
+        //textSize
+        textSize.OnChoiceMade += TextSize_OnChoiceMade;
 	//Lappy BG
 		lappyBG.chosenIndex = lappyMenu.chosenBGIndex;
 		lappyBG.SetHeader(lappyBG.chosenIndex);
@@ -62,9 +69,15 @@ public class OptionsMenu : MonoBehaviour
 		resolution.OnChoiceMade -= Resolution_OnChoiceMade;
 		quality.OnChoiceMade -= Quality_OnChoiceMade;
 		uiScale.OnChoiceMade -= UiScale_OnChoiceMade;
+        fontChoice.OnChoiceMade -= FontChoice_OnChoiceMade;
 		lappyBG.OnChoiceMade -= LappyBG_OnChoiceMade;
         mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged ();});
 	}
+
+//MISC TAB
+    public void mouseSensitivity_onValueChanged() {
+        UI.Instance.mouseSensitivity = mouseSensitivity.value;
+    }
 
     private void UiScale_OnChoiceMade(int choiceMade) {
         float _uiScale = 1f;
@@ -76,10 +89,24 @@ public class OptionsMenu : MonoBehaviour
 		UI.SetUIScale(_uiScale);
     }
 
+    private void FontChoice_OnChoiceMade(int choiceMade) {
+        UI.SetFontChoice(choiceMade);
+    }
+
+    private void TextSize_OnChoiceMade(int choiceMade) {
+        float _fontScale = 1f;
+		switch (choiceMade) {
+            case 0: _fontScale = 1f; break;
+            case 1: _fontScale = 1.5f; break;
+            case 2: _fontScale = 2f; break;
+        }
+		UI.SetTextSize(_fontScale);
+    }
+
 	private void LappyBG_OnChoiceMade(int choiceMade) {
 		lappyMenu.SetBackground(choiceMade);
 	}
-
+//VIDEO Tab
 	private void Quality_OnChoiceMade(int choiceMade) {
 		Debug.Log("choiceMade: "+choiceMade);
 	}
@@ -100,10 +127,6 @@ public class OptionsMenu : MonoBehaviour
 			case 1: Screen.fullScreen = true; break;
 		}
 	}
-	
-    public void mouseSensitivity_onValueChanged() {
-        UI.Instance.mouseSensitivity = mouseSensitivity.value;
-    }
 
 	private void Close() {
 		gameObject.SetActive(false);

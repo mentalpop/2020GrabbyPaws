@@ -63,6 +63,8 @@ public class UI : MonoBehaviour
     //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
 [Header("Options")]
     public float uiScale = 1f;
+    public float fontScale = 1f;
+    public int fontChoice = 0;
     [HideInInspector] public float mouseSensitivity;
 
     public static UI Instance { get; private set; }
@@ -70,6 +72,12 @@ public class UI : MonoBehaviour
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
     public event FileIOEvent OnLoad = delegate { };
+
+    public delegate void TextScaledEvent(float fontScale);
+    public event TextScaledEvent OnTextScaled = delegate { };
+
+    public delegate void FontSelectEvent(int fontChoice);
+    public event FontSelectEvent OnFontChoice = delegate { };
 
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
@@ -135,6 +143,16 @@ public class UI : MonoBehaviour
     public static void SetUIScale(float scale) {
         Instance.uiScale = scale;
         Instance.lappy.transform.localScale = new Vector2(scale, scale);
+    }
+
+    public static void SetFontChoice(int _choice) {
+        Instance.fontChoice = _choice;
+        Instance.OnFontChoice(_choice);
+    }
+
+    public static void SetTextSize(float _size) {
+        Instance.fontScale = _size;
+        Instance.OnTextScaled(_size);
     }
 
     public static void SetMouseState(bool lockMouse, GameObject gameObject) {
