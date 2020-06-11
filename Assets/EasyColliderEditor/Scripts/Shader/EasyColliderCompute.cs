@@ -51,12 +51,15 @@ namespace ECE
     [SerializeField]
     private List<Vector3> _SelectedWorldPoints = new List<Vector3>();
     [SerializeField]
+    private HashSet<Vector3> _SelectedWorldPointsSet = new HashSet<Vector3>();
+    [SerializeField]
     private List<Vector3> _OverlappedPoints = new List<Vector3>();
     [SerializeField]
     private List<Vector3> _HoveredPoints = new List<Vector3>();
     [SerializeField]
     private List<Vector3> _DisplayAllPoints = new List<Vector3>();
-    public int PointCount { get { return _SelectedWorldPoints.Count; } }
+    public int SelectedPointCount { get { return _SelectedWorldPoints.Count; } }
+    public int HoveredPointCount { get { return _HoveredPoints.Count + _OverlappedPoints.Count; } }
     public int DisplayPointCount { get { return _DisplayAllPoints.Count; } }
     // Compute buffers
     [SerializeField]
@@ -156,7 +159,10 @@ namespace ECE
     /// <param name="worldPoints">New list of world points</param>
     public void UpdateSelectedBuffer(List<Vector3> worldPoints)
     {
+      _SelectedWorldPointsSet.Clear();
       _SelectedWorldPoints = worldPoints;
+      _SelectedWorldPointsSet.UnionWith(worldPoints);
+      worldPoints.ForEach(point => _SelectedWorldPointsSet.Add(point));
       if (_SelectedBuffer != null)
       {
         _SelectedBuffer.Release();
@@ -184,9 +190,21 @@ namespace ECE
     public void UpdateOverlapHoveredBuffer(HashSet<Vector3> worldPoints)
     {
       _OverlappedPoints.Clear();
-      _OverlappedPoints = _SelectedWorldPoints.Where(value => worldPoints.Contains(value)).ToList();
       _HoveredPoints.Clear();
-      _HoveredPoints = worldPoints.Except(_SelectedWorldPoints).ToList();
+      foreach (Vector3 p in _SelectedWorldPoints)
+      {
+        if (worldPoints.Contains(p))
+        {
+          _OverlappedPoints.Add(p);
+        }
+      }
+      foreach (Vector3 p in worldPoints)
+      {
+        if (!_SelectedWorldPointsSet.Contains(p))
+        {
+          _HoveredPoints.Add(p);
+        }
+      }
 
       if (_OverlapBuffer != null)
       {
