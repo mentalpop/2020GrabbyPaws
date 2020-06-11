@@ -144,7 +144,7 @@ public class UI : MonoBehaviour
             Instance.mouseCursorUsers.Remove(gameObject);
         }
         bool suppressCamera = false;
-        Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
+        //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
             suppressCamera = true;
             Cursor.visible = true;

@@ -12,7 +12,7 @@ public class ItemTooltip : MonoBehaviour
     public RectTransform myRect;
     public Vector2 canvasSize;
     public Vector2 tooltipOffset;
-    public float offset = 16f;
+    public float offset = 120;
 
     public void Unpack(InventoryItem inventoryItem, Vector2 _position) {
         itemName.text = inventoryItem.item.name;
@@ -33,11 +33,11 @@ public class ItemTooltip : MonoBehaviour
         float _scale = UI.Instance.uiScale;
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
         tooltipOffset = new Vector2(tooltipOffset.x, tooltipOffset.y * _scale);
-        offset *= _scale;
         Vector2 correctedPosition = Camera.main.WorldToScreenPoint(_position);
         correctedPosition = new Vector2(ScreenSpace.Inverse(correctedPosition.x), ScreenSpace.Inverse(correctedPosition.y));
-        float yMax = (canvasSize.y - myRect.rect.height - offset) / 2f;
-        myRect.anchoredPosition = new Vector3(Mathf.Clamp(correctedPosition.x + tooltipOffset.x, 0f, canvasSize.x - myRect.rect.width - offset),
+        float yMax = (canvasSize.y - myRect.rect.height - offset * _scale) / 2f;
+        //Debug.Log("yMax: "+yMax);
+        myRect.anchoredPosition = new Vector3(Mathf.Clamp(correctedPosition.x + tooltipOffset.x, 0f, canvasSize.x - myRect.rect.width - offset * _scale),
             Mathf.Clamp(correctedPosition.y + tooltipOffset.y - canvasSize.y / 2f, -yMax, yMax), transform.position.z);
     }
 }
