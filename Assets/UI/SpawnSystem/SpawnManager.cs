@@ -41,15 +41,15 @@ public class SpawnManager : MonoBehaviour
             vThirdPersonInput vTPInput = player.GetComponent<vThirdPersonInput>();
         //TP Camera Setup
             GameObject _tpCamera = Instantiate(prefabTPCamera, pointToSpawnPlayer.transform.position, Quaternion.identity);
-            vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
+            //vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
             //gAction.mainCamera = tpCamera.GetComponent<Camera>();
             vTPInput.cameraMain = _tpCamera.GetComponent<Camera>();
-            tpCamera.SetTarget(player.transform);
-            UI.Instance.cBrain = tpCamera.GetComponent<CinemachineBrain>(); //Cinemachine Brain is on the TP Camera
-            UI.Instance.thirdPersonCamera = tpCamera;
+            //tpCamera.SetTarget(player.transform);
+            //UI.Instance.thirdPersonCamera = tpCamera;
         //Spawn Cinemachine Camera
             GameObject _cCamera = Instantiate(prefabCinemachine, pointToSpawnPlayer.transform.position, Quaternion.identity);
             CinemachineFreeLook cinemachineFreeLook = _cCamera.GetComponent<CinemachineFreeLook>();
+            UI.Instance.cFreeLook = cinemachineFreeLook;//tpCamera.GetComponent<CinemachineBrain>(); //Cinemachine Brain is on the TP Camera
             cinemachineFreeLook.LookAt = player.transform;
             cinemachineFreeLook.Follow = player.transform;
         } else {

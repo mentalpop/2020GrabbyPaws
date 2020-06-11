@@ -59,8 +59,8 @@ public class UI : MonoBehaviour
 [Header("Inventory")]
     public InventoryDisplay InventoryDisplay;
     public Inventory inventory;
-    public CinemachineBrain cBrain;
-    [HideInInspector] public vThirdPersonCamera thirdPersonCamera;
+    [HideInInspector] public CinemachineFreeLook cFreeLook;
+    //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
 [Header("Options")]
     public float uiScale = 1f;
     [HideInInspector] public float mouseSensitivity;
@@ -144,7 +144,7 @@ public class UI : MonoBehaviour
             Instance.mouseCursorUsers.Remove(gameObject);
         }
         bool suppressCamera = false;
-        //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
+        Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
             suppressCamera = true;
             Cursor.visible = true;
@@ -157,26 +157,27 @@ public class UI : MonoBehaviour
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
         Debug.Log("Instance.cBrain: "+Instance.cBrain);
         //*/
-        /*
-        if (Instance.thirdPersonCamera == null) {
+        //*
+        //if (Instance.thirdPersonCamera == null) {
     //Using Cinemachine Freelook?
-            if (Instance.cBrain != null) {
-                CinemachineFreeLook currentCamera = Instance.cBrain.ActiveVirtualCamera as CinemachineFreeLook;
-                //Debug.Log("currentCamera: "+currentCamera);
-                if (currentCamera != null) {
-                    if (suppressCamera) {
-                        currentCamera.m_XAxis.m_InputAxisName = "";
-                        currentCamera.m_YAxis.m_InputAxisName = "";
-                    } else {
-                        currentCamera.m_XAxis.m_InputAxisName = "Mouse X";
-                        currentCamera.m_YAxis.m_InputAxisName = "Mouse Y";
-                    }
-                }
+        if (Instance.cFreeLook != null) {
+            //Debug.Log("suppressCamera: "+suppressCamera);
+            //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
+            //Debug.Log("currentCamera: "+currentCamera);
+            if (suppressCamera) {
+                Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
+                Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
+            } else {
+                Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
             }
+        }
+        /*
         } else {
     //Using thirdPersonCamera
             Instance.thirdPersonCamera.enabled = !suppressCamera;
         }
+        //*/
         //*/
     }
 
