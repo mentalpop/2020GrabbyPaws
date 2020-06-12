@@ -183,6 +183,7 @@ public class DropDownMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             buttonState.SetActiveState(false);
             if (parentTransform != null) {
                 transform.SetParent(parentTransform);
+                myRect.anchoredPosition = originPosition;
             }
         }
     }
