@@ -25,7 +25,7 @@ public class UITest : MonoBehaviour
             FlagRepository.WriteQuestKey(QuestNames.q001TwilightCottonCandy.ToString(), true);
         }
 //Saving / Loading
-        if (Input.GetKeyDown(KeyCode.S)) { //Save
+        if (Input.GetKeyDown(KeyCode.V)) { //Save
             UI.Instance.SaveGameData(0);
         }
         if (Input.GetKeyDown(KeyCode.L)) { //Load

@@ -27,7 +27,7 @@ public class Readable : MonoBehaviour
 
     private void Container_OnEffectComplete(bool reverse) {
         if (reverse) {
-            UI.SetMouseState(false, gameObject); //De-register from UI
+            UI.MouseSetState(false, gameObject); //De-register from UI
             gameObject.SetActive(false); //For now, just close instantly
         } else {
 

@@ -636,8 +636,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handleFontChange: 1
   fontData: {fileID: 11400000, guid: 290e02563cd53f0408f87d961cf2857a, type: 2}
-  handleFontResize: 0
-  fSizeMax: 18
+  handleFontResize: 1
+  fSizeMax: 180
 --- !u!1 &2451708043467875521
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,6 +3270,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -18
+      objectReference: {fileID: 0}
+    - target: {fileID: 239286636893885369, guid: a0c573980043aba4aa95f3894388d3b5,
+        type: 3}
+      propertyPath: m_MinValue
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 239286636893885369, guid: a0c573980043aba4aa95f3894388d3b5,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 239286637465076737, guid: a0c573980043aba4aa95f3894388d3b5,
         type: 3}

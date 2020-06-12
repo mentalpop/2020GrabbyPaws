@@ -15,6 +15,7 @@ public class LappyMenu : MonoBehaviour
     public GameObject rivenChatWindow;
     public Image lappyBG;
     public ClickToClose clickToClose;
+    public ConstrainedIntPref lappySelectedBG;
     public List<Sprite> lappyBGs = new List<Sprite>();
     [HideInInspector] public int chosenBGIndex = 0;
     
@@ -37,6 +38,7 @@ public class LappyMenu : MonoBehaviour
         clickToClose.OnClick += Close;
         startButton.OnClick += OnClickStart;
         container.OnEffectComplete += Container_OnEffectComplete;
+        SetBackground(lappySelectedBG.Read());
     }
 
     private void OnDisable() {
@@ -52,7 +54,7 @@ public class LappyMenu : MonoBehaviour
 
     private void Container_OnEffectComplete(bool reverse) {
         if (reverse) {
-            UI.SetMouseState(false, gameObject); //De-register from UI
+            UI.MouseSetState(false, gameObject); //De-register from UI
             gameObject.SetActive(false); //For now, just close instantly
         } else {
 
@@ -127,6 +129,7 @@ public class LappyMenu : MonoBehaviour
     }
 
     public void SetBackground(int _bgIndex) {
+        lappySelectedBG.Write(_bgIndex);
         chosenBGIndex = _bgIndex;
         lappyBG.sprite = lappyBGs[_bgIndex];
     }

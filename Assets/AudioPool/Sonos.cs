@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 public enum AudioType { Effect, Music, Voice}
 public class Sonos : MonoBehaviour
 {
+    /*
     private string saveString = "volumeLevels";
     private string saveString2 = "volumeMaster";
+    //*/
     public static float VolumeMaster { get { return _volumeMaster; } set {
             _volumeMaster = value;
             if (instance.OnVolumeChanged != null)
@@ -18,7 +20,7 @@ public class Sonos : MonoBehaviour
 
     public List<float> Volume { get {return _volume; } set {
             _volume = value;
-            Debug.Log("OnVolumeChanged" + ": " + OnVolumeChanged);
+            //Debug.Log("OnVolumeChanged" + ": " + OnVolumeChanged);
             if (OnVolumeChanged != null) {
                 OnVolumeChanged.Invoke();
             }
@@ -57,8 +59,24 @@ public class Sonos : MonoBehaviour
         }
     //Subscribe to Scene management event
         SceneManager.sceneLoaded += OnSceneLoaded;
+        Load();
     }
 
+    public static void Save() {
+        PlayerPrefs.SetFloat("volumeMaster", _volumeMaster);
+        for (int i = 0; i < instance._volume.Count; i++) {
+            PlayerPrefs.SetFloat("volume"+i.ToString(), instance._volume[i]);
+        }
+    }
+
+    public static void Load() {
+        _volumeMaster = PlayerPrefs.GetFloat("volumeMaster", 1f);
+        for (int i = 0; i < instance._volume.Count; i++) {
+            instance._volume[i] = PlayerPrefs.GetFloat("volume"+i.ToString(), 1f);
+        }
+    }
+
+    /*
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
@@ -74,8 +92,8 @@ public class Sonos : MonoBehaviour
             //Debug.Log("Saving volume: "+volume);
             volumeLevels.Add(volume);
         }
-        ES3.Save<List<float>>(saveString, volumeLevels);
-        ES3.Save<float>(saveString2, _volumeMaster);
+        ES3.Save(saveString, volumeLevels);
+        ES3.Save(saveString2, _volumeMaster);
     }
 
     public void Load(int fileIndex) {
@@ -86,6 +104,7 @@ public class Sonos : MonoBehaviour
         }
         _volumeMaster = ES3.Load<float>(saveString2);
     }
+    //*/
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) {
 //Halt all sounds which are not supposed to persist
@@ -128,6 +147,7 @@ public class Sonos : MonoBehaviour
         Volume[(int)aType] = Mathf.Clamp(newValue, 0f, 1f);
         if (OnVolumeChanged != null)
             OnVolumeChanged.Invoke();
+        Save();
     }
 
     public void CullExtraPlayers() {

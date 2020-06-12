@@ -17,7 +17,7 @@ public class OptionDialogueSystemPrintSpeed : MonoBehaviour
 
     private void OnEnable() {
         UIRef.OnPrintSpeedSet += UIRef_OnPrintSpeedSet;
-        UIRef_OnPrintSpeedSet(UIRef.textPrintSpeed);
+        UIRef_OnPrintSpeedSet(UI.GetPrintSpeed());
     }
 
     private void OnDisable() {

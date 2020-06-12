@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Invector.vCamera;
+using System;
 
 public enum NightPhases
 {
@@ -61,14 +62,36 @@ public class UI : MonoBehaviour
     public Inventory inventory;
     [HideInInspector] public CinemachineFreeLook cFreeLook;
     //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
-[Header("Options")]
-    public float uiScale = 1f;
-    public float fontScale = 1f;
-    public int fontChoice = 0;
-    public float textPrintSpeed = 1f;
-    [HideInInspector] public float mouseSensitivity;
+[Header("VIDEO Options")]
+    public ConstrainedIntPref screenMode;
+    public ConstrainedIntPref resolution;
+    public ConstrainedIntPref quality;
+[Header("MISC Options")]
+    public ConstrainedFloatPref mouseSensitivity;
+    public ConstrainedIntPref uiScale;
+    public ConstrainedIntPref textSize;
+    public ConstrainedIntPref fontChoice;
+    public ConstrainedIntPref textPrintSpeed;
 
-    public static UI Instance { get; private set; }
+    /*
+    public static void SaveOptionsData() {
+//Sonos Settings
+        
+//VIDEO Options
+
+    }
+    //*/
+
+    private void LoadOptionsData() {
+        SetQuality(quality.Read());
+        SetWindowMode(screenMode.Read());
+        SetResolution(resolution.Read());
+        SetMouseSensitivity(mouseSensitivity.Read());
+        SetUIScale(uiScale.Read());
+        SetTextSize(textSize.Read());
+        SetFontChoice(fontChoice.Read());
+        SetPrintSpeed(textPrintSpeed.Read());
+    }
 
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
@@ -88,6 +111,8 @@ public class UI : MonoBehaviour
 
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
 
+    public static UI Instance { get; private set; }
+
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
     }
@@ -103,13 +128,14 @@ public class UI : MonoBehaviour
             return;
         }
         Instance = this;
+        LoadOptionsData();
         DontDestroyOnLoad(gameObject);
     }
 
     public void DisplayReadable(ReadableData rData) {
         if (rData.isBook) {
             book.gameObject.SetActive(true);
-            SetMouseState(true, book.gameObject);
+            MouseSetState(true, book.gameObject);
             book.Unpack(rData);
         } else {
             Debug.Log("Readable PC not yet implemented!");
@@ -120,7 +146,7 @@ public class UI : MonoBehaviour
     //Show / Hide the HUD
         bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
         if (menuIsActive) {
-            SetMouseState(true, lappy.gameObject);
+            MouseSetState(true, lappy.gameObject);
             lappy.gameObject.SetActive(true);
         } else {
             lappy.Close();
@@ -141,30 +167,89 @@ public class UI : MonoBehaviour
             InventoryDisplay.Close();
             currencyDisplay.Close();
         }
-        SetMouseState(menuIsActive, InventoryDisplay.gameObject);
+        MouseSetState(menuIsActive, InventoryDisplay.gameObject);
+    }
+//VIDEO OPTIONS
+    public static void SetWindowMode(int choiceMade) {
+        Instance.screenMode.Write(choiceMade);
+        switch (choiceMade) {
+			case 0: Screen.fullScreen = false; break;
+			case 1: Screen.fullScreen = true; break;
+		}
     }
 
-    public static void SetUIScale(float scale) {
-        Instance.uiScale = scale;
-        Instance.lappy.transform.localScale = new Vector2(scale, scale);
+    public static void SetResolution(int choiceMade) {
+        Instance.resolution.Write(choiceMade);
+        switch (choiceMade) {
+			case 0: Screen.SetResolution(1920, 1080, Screen.fullScreen); break;
+			case 1: Screen.SetResolution(1600, 900, Screen.fullScreen); break;
+			case 2: Screen.SetResolution(1366, 768, Screen.fullScreen); break;
+			case 3: Screen.SetResolution(1280, 720, Screen.fullScreen); break;
+			case 4: Screen.SetResolution(1176, 664, Screen.fullScreen); break;
+		}
     }
 
-    public static void SetFontChoice(int _choice) {
-        Instance.fontChoice = _choice;
-        Instance.OnFontChoice(_choice);
+    public static void SetQuality(int choiceMade) {
+        Instance.quality.Write(choiceMade);
+        Debug.Log("quality: "+choiceMade);
     }
 
-    public static void SetTextSize(float _size) {
-        Instance.fontScale = _size;
-        Instance.OnTextScaled(_size);
+//MISC OPTIONS
+    public static void SetMouseSensitivity(float _val) {
+        Instance.mouseSensitivity.Write(_val);
+    //Set Mouse Sensitivity
+        //TODO
+    }
+    public static void SetUIScale(int choiceMade) {
+        Instance.uiScale.Write(choiceMade); //Set and Save
+        float _uiScale = GetUIScale();
+        Instance.lappy.transform.localScale = new Vector2(_uiScale, _uiScale);
+    }
+    public static float GetUIScale() {
+        float _uiScale = 1f;
+		switch (Instance.uiScale.value) {
+            case 0: _uiScale = 1f; break;
+            case 1: _uiScale = 1.125f; break;
+            case 2: _uiScale = 1.25f; break;
+        }
+        return _uiScale;
     }
 
-    public static void SetPrintSpeed(float _speed) {
-        Instance.textPrintSpeed = _speed;
-        Instance.OnPrintSpeedSet(_speed);
+    public static void SetFontChoice(int choiceMade) {
+        Instance.fontChoice.Write(choiceMade);
+        Instance.OnFontChoice(choiceMade);
     }
 
-    public static void SetMouseState(bool lockMouse, GameObject gameObject) {
+    public static void SetTextSize(int choiceMade) {
+        Instance.textSize.Write(choiceMade);
+        Instance.OnTextScaled(GetTextSize());
+    }
+    public static float GetTextSize() {
+        float _textSize = 1f;
+		switch (Instance.textSize.value) {
+            case 0: _textSize = 1f; break;
+            case 1: _textSize = 1.5f; break;
+            case 2: _textSize = 2f; break;
+        }
+        return _textSize;
+    }
+
+    public static void SetPrintSpeed(int choiceMade) {
+        Instance.textPrintSpeed.Write(choiceMade);
+        Instance.OnPrintSpeedSet(GetPrintSpeed());
+    }
+    
+    public static float GetPrintSpeed() {
+        float _speed = 1f;
+		switch (Instance.uiScale.value) {
+            case 0: _speed = 1f; break;
+            case 1: _speed = 2f; break;
+            case 2: _speed = 4f; break;
+        }
+        return _speed;
+    }
+
+    public static void MouseSetState(bool lockMouse, GameObject gameObject) {
         if (lockMouse) {
             Instance.mouseCursorUsers.Add(gameObject);
         } else {
@@ -270,4 +355,48 @@ public static class ScreenSpace
     public static float Inverse(float variable) {
 		return variable * (Height / Screen.height);
 	}
+}
+
+[Serializable]
+public class ConstrainedFloatPref
+{
+    public string key;
+    public float defaultValue;
+    public float minValue;
+    public float maxValue;
+    [HideInInspector] public float value;
+
+    public float Read() {
+    //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
+        value = Mathf.Clamp(PlayerPrefs.GetFloat(key, defaultValue), minValue, maxValue);
+        return value;
+    }
+
+    public void Write(float _value) {
+//Save a value, but Clamp it before even writing to the file
+        value = Mathf.Clamp(_value, minValue, maxValue);
+        PlayerPrefs.SetFloat(key, value);
+    }
+}
+
+[Serializable]
+public class ConstrainedIntPref
+{
+    public string key;
+    public int defaultValue;
+    public int minValue;
+    public int maxValue;
+    [HideInInspector] public int value;
+
+    public int Read() {
+    //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
+        value = Mathf.Clamp(PlayerPrefs.GetInt(key, defaultValue), minValue, maxValue);
+        return value;
+    }
+
+    public void Write(int _value) {
+//Save a value, but Clamp it before even writing to the file
+        value = Mathf.Clamp(_value, minValue, maxValue);
+        PlayerPrefs.SetInt(key, value);
+    }
 }

@@ -28,11 +28,11 @@ public class FontHandler : MonoBehaviour
     void OnEnable() {
         if (handleFontResize) {
             UIRef.OnTextScaled += UIRef_OnTextScaled;
-            UIRef_OnTextScaled(UIRef.fontScale);
+            UIRef_OnTextScaled(UI.GetTextSize());
         }
         if (handleFontChange) {
             UIRef.OnFontChoice += UIRef_OnFontChoice;
-            UIRef_OnFontChoice(UIRef.fontChoice);
+            UIRef_OnFontChoice(UIRef.fontChoice.value);
         }
     }
 

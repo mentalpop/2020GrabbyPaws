@@ -30,7 +30,7 @@ public class ItemTooltip : MonoBehaviour
             value.text = string.Format("{0:n0}", _value);
         }
     //Keep on screen
-        float _scale = UI.Instance.uiScale;
+        float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
         tooltipOffset = new Vector2(tooltipOffset.x, tooltipOffset.y * _scale);
         Vector2 correctedPosition = Camera.main.WorldToScreenPoint(_position);

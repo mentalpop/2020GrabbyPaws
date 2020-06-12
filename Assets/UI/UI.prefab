@@ -313,6 +313,12 @@ MonoBehaviour:
   rivenChatWindow: {fileID: 4977252432908022975}
   lappyBG: {fileID: 5819588753361442768}
   clickToClose: {fileID: 996181082529471763}
+  lappySelectedBG:
+    key: lappyBG
+    defaultValue: 0
+    minValue: 0
+    maxValue: 4
+    value: 0
   lappyBGs:
   - {fileID: 21300000, guid: 87fd995b124943947a068a141db46398, type: 3}
   - {fileID: 21300000, guid: 431ad851ba69dfb48ab9a8ad912d6b6e, type: 3}
@@ -4812,11 +4818,54 @@ MonoBehaviour:
   InventoryDisplay: {fileID: 5819588752369103831}
   inventory: {fileID: 5819588752494907362}
   cFreeLook: {fileID: 0}
-  uiScale: 1
-  fontScale: 1
-  fontChoice: 0
-  textPrintSpeed: 50
-  mouseSensitivity: 0
+  screenMode:
+    key: screenMode
+    defaultValue: 0
+    minValue: 0
+    maxValue: 1
+    value: 0
+  resolution:
+    key: resolution
+    defaultValue: 0
+    minValue: 0
+    maxValue: 4
+    value: 0
+  quality:
+    key: quality
+    defaultValue: 0
+    minValue: 0
+    maxValue: 2
+    value: 0
+  mouseSensitivity:
+    key: mouseSensitivity
+    defaultValue: 1
+    minValue: -1
+    maxValue: 1
+    value: 0
+  uiScale:
+    key: uiScale
+    defaultValue: 0
+    minValue: 0
+    maxValue: 2
+    value: 0
+  textSize:
+    key: textSize
+    defaultValue: 0
+    minValue: 0
+    maxValue: 2
+    value: 0
+  fontChoice:
+    key: fontChoice
+    defaultValue: 0
+    minValue: 0
+    maxValue: 1
+    value: 0
+  textPrintSpeed:
+    key: textPrintSpeed
+    defaultValue: 0
+    minValue: 0
+    maxValue: 2
+    value: 0
 --- !u!114 &5819588752494907362
 MonoBehaviour:
   m_ObjectHideFlags: 0

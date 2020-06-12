@@ -26,13 +26,7 @@ public class OptionsMenu : MonoBehaviour
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 	//Set Screen Mode drop-down
-		if (Screen.fullScreen) {
-		//Fullscreen
-			screenMode.chosenIndex = 1;
-		} else {
-		//Windowed
-			screenMode.chosenIndex = 0;
-		}
+		screenMode.chosenIndex = Screen.fullScreen ? 1 : 0; //Fullscreen / Windowed
 		screenMode.SetHeader(screenMode.chosenIndex);
 		screenMode.OnChoiceMade += ScreenMode_OnChoiceMade;
 	//Screen Resolution
@@ -46,23 +40,33 @@ public class OptionsMenu : MonoBehaviour
 		resolution.SetHeader(resolution.chosenIndex);
 		resolution.OnChoiceMade += Resolution_OnChoiceMade;
 	//Quality
+		quality.chosenIndex = UI.Instance.quality.value;
+		quality.SetHeader(quality.chosenIndex);
 		quality.OnChoiceMade += Quality_OnChoiceMade;
 //Misc Tab
     //UI Scale
-        uiScale.OnChoiceMade += UiScale_OnChoiceMade;
+		uiScale.chosenIndex = UI.Instance.uiScale.value;
+		uiScale.SetHeader(uiScale.chosenIndex);
+        uiScale.OnChoiceMade += UI.SetUIScale;
     //fontChoice
-        fontChoice.OnChoiceMade += FontChoice_OnChoiceMade;
+		fontChoice.chosenIndex = UI.Instance.fontChoice.value;
+		fontChoice.SetHeader(fontChoice.chosenIndex);
+        fontChoice.OnChoiceMade += UI.SetFontChoice;
     //textSize
-        textSize.OnChoiceMade += TextSize_OnChoiceMade;
+		textSize.chosenIndex = UI.Instance.textSize.value;
+		textSize.SetHeader(textSize.chosenIndex);
+        textSize.OnChoiceMade += UI.SetTextSize;
     //printSpeed
-        printSpeed.OnChoiceMade += PrintSpeed_OnChoiceMade;
+		printSpeed.chosenIndex = UI.Instance.textPrintSpeed.value;
+		printSpeed.SetHeader(printSpeed.chosenIndex);
+        printSpeed.OnChoiceMade += UI.SetPrintSpeed;
 	//Lappy BG
 		lappyBG.chosenIndex = lappyMenu.chosenBGIndex;
 		lappyBG.SetHeader(lappyBG.chosenIndex);
 		lappyBG.OnChoiceMade += LappyBG_OnChoiceMade;
 	//mouseSensitivity
-        mouseSensitivity.value = UI.Instance.mouseSensitivity;
-        mouseSensitivity.onValueChanged.AddListener (delegate {mouseSensitivity_onValueChanged ();});
+        mouseSensitivity.value = UI.Instance.mouseSensitivity.value;
+        mouseSensitivity.onValueChanged.AddListener (delegate {mouseSensitivity_onValueChanged();});
 	}
 
     private void OnDisable() {
@@ -71,49 +75,17 @@ public class OptionsMenu : MonoBehaviour
 		screenMode.OnChoiceMade -= ScreenMode_OnChoiceMade;
 		resolution.OnChoiceMade -= Resolution_OnChoiceMade;
 		quality.OnChoiceMade -= Quality_OnChoiceMade;
-		uiScale.OnChoiceMade -= UiScale_OnChoiceMade;
-        fontChoice.OnChoiceMade -= FontChoice_OnChoiceMade;
+		uiScale.OnChoiceMade -= UI.SetUIScale;
+        fontChoice.OnChoiceMade -= UI.SetFontChoice;
+		textSize.OnChoiceMade -= UI.SetTextSize;
+		printSpeed.OnChoiceMade -= UI.SetPrintSpeed;
 		lappyBG.OnChoiceMade -= LappyBG_OnChoiceMade;
-        mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged ();});
+        mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged();});
 	}
 
 //MISC TAB
     public void mouseSensitivity_onValueChanged() {
-        UI.Instance.mouseSensitivity = mouseSensitivity.value;
-    }
-
-    private void UiScale_OnChoiceMade(int choiceMade) {
-        float _uiScale = 1f;
-		switch (choiceMade) {
-            case 0: _uiScale = 1f; break;
-            case 1: _uiScale = 1.125f; break;
-            case 2: _uiScale = 1.25f; break;
-        }
-		UI.SetUIScale(_uiScale);
-    }
-
-    private void FontChoice_OnChoiceMade(int choiceMade) {
-        UI.SetFontChoice(choiceMade);
-    }
-
-    private void TextSize_OnChoiceMade(int choiceMade) {
-        float _fontScale = 1f;
-		switch (choiceMade) {
-            case 0: _fontScale = 1f; break;
-            case 1: _fontScale = 1.5f; break;
-            case 2: _fontScale = 2f; break;
-        }
-		UI.SetTextSize(_fontScale);
-    }
-
-    private void PrintSpeed_OnChoiceMade(int choiceMade) {
-		float _speed = 1f;
-		switch (choiceMade) {
-            case 0: _speed = 1f; break;
-            case 1: _speed = 2f; break;
-            case 2: _speed = 4f; break;
-        }
-        UI.SetPrintSpeed(_speed);
+        UI.SetMouseSensitivity(mouseSensitivity.value);
     }
 
 	private void LappyBG_OnChoiceMade(int choiceMade) {
@@ -121,10 +93,12 @@ public class OptionsMenu : MonoBehaviour
 	}
 //VIDEO Tab
 	private void Quality_OnChoiceMade(int choiceMade) {
-		Debug.Log("choiceMade: "+choiceMade);
+		UI.SetQuality(choiceMade);
 	}
 
 	private void Resolution_OnChoiceMade(int choiceMade) {
+		UI.SetResolution(choiceMade);
+		/*
 		switch (choiceMade) {
 			case 0: Screen.SetResolution(1920, 1080, Screen.fullScreen); break;
 			case 1: Screen.SetResolution(1600, 900, Screen.fullScreen); break;
@@ -132,13 +106,11 @@ public class OptionsMenu : MonoBehaviour
 			case 3: Screen.SetResolution(1280, 720, Screen.fullScreen); break;
 			case 4: Screen.SetResolution(1176, 664, Screen.fullScreen); break;
 		}
+		//*/
 	}
 
 	private void ScreenMode_OnChoiceMade(int choiceMade) {
-		switch (choiceMade) {
-			case 0: Screen.fullScreen = false; break;
-			case 1: Screen.fullScreen = true; break;
-		}
+		UI.SetWindowMode(choiceMade);
 	}
 
 	private void Close() {
