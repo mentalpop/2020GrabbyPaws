@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public GadgetList gadgetList;
     public Vector3 dropPosition;
     public ItemTooltip itemTooltip;
+    public GameObject pickupSphere;
     public List<InventoryItem> items = new List<InventoryItem>();
     //public UI uiRef;
     [HideInInspector] public List<bool> gadgetUnlocked = new List<bool>();
@@ -19,6 +20,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
 
     public delegate void InventoryEvent();
     public InventoryEvent OnItemChanged;
+    public InventoryEvent OnPickUp;
+    public InventoryEvent OnDrop;
 
     public static Inventory instance;
 
@@ -210,6 +213,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             if (item.item == _toDrop) {
                 if (item.item.physicalItem != null) {
                     toDrop = Instantiate(item.item.physicalItem, dropPosition, Quaternion.identity);
+                    Instantiate(pickupSphere, dropPosition, Quaternion.identity); //Drop a sphere where the item was dropped
+                    OnDrop();
                 }
                 Remove(item.item);
                 break;

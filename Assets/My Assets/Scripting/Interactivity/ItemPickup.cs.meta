@@ -3,7 +3,12 @@ guid: 9770fe22858ab9e43a2d44345cf3773a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - item: {instanceID: 0}
+  - myRigidBody: {instanceID: 0}
+  - myCollider: {instanceID: 0}
+  - pickupSphere: {fileID: 7665324660621762108, guid: 6654e4a1c297c6d449b22614777b4a29,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

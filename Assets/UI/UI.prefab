@@ -4866,6 +4866,7 @@ MonoBehaviour:
     minValue: 0
     maxValue: 2
     value: 0
+  player: {fileID: 0}
 --- !u!114 &5819588752494907362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4882,6 +4883,8 @@ MonoBehaviour:
   gadgetList: {fileID: 11400000, guid: af2eabea3b7dd6e4084d6e81d9e3d17d, type: 2}
   dropPosition: {x: 0, y: -2, z: 10}
   itemTooltip: {fileID: 1669461762406351715}
+  pickupSphere: {fileID: 7665324660621762108, guid: 6654e4a1c297c6d449b22614777b4a29,
+    type: 3}
   items:
   - item: {fileID: 11400000, guid: 70764bac1a5ab3049be8db818f8cf15e, type: 2}
     quantity: 55

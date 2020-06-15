@@ -54,7 +54,7 @@ public class SpawnManager : MonoBehaviour
             cinemachineFreeLook.LookAt = _player.cameraTarget.transform;
             cinemachineFreeLook.Follow = _player.cameraTarget.transform;
         } else {
-            Debug.Log("Failed to fing SpawnPoint: "+point);
+            Debug.Log("Failed to find SpawnPoint: "+point);
         }
     }
 }
