@@ -4815,7 +4815,7 @@ MonoBehaviour:
   book: {fileID: 5819588753942763090}
   currency: {fileID: 5819588752494907363}
   currencyDisplay: {fileID: 5819588754008408647}
-  InventoryDisplay: {fileID: 5819588752369103831}
+  inventoryDisplay: {fileID: 5819588752369103831}
   inventory: {fileID: 5819588752494907362}
   cFreeLook: {fileID: 0}
   screenMode:

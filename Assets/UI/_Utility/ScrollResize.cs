@@ -37,9 +37,11 @@ public class ScrollResize : MonoBehaviour
     }
 
     public void RectResize(int childCount) {
+        float _oldtargetHeight = targetHeight;
         int numToResize = Mathf.Min(maxChildrenOnScreen, childCount);
         targetHeight = heightPerChild * numToResize;
-        gTween.Reset();
+        if (targetHeight != _oldtargetHeight) //Only resize if necessary
+            gTween.Reset();
     }
 
     public void Collapse() {

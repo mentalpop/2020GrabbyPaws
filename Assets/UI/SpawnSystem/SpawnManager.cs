@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Invector.vCamera;
-using Invector.vCharacterController.vActions;
+//using Invector.vCharacterController.vActions;
 using Invector.vCharacterController;
 using Cinemachine;
 
@@ -38,20 +38,21 @@ public class SpawnManager : MonoBehaviour
     //Spawn the player
             player = Instantiate(prefabPlayer, pointToSpawnPlayer.transform.position, pointToSpawnPlayer.transform.localRotation);
             //vGenericAction gAction = player.GetComponent<vGenericAction>();
-            vThirdPersonInput vTPInput = player.GetComponent<vThirdPersonInput>();
+            PlayerBehaviour _player = player.GetComponent<PlayerBehaviour>();
+            UI.Instance.player = _player;
         //TP Camera Setup
             GameObject _tpCamera = Instantiate(prefabTPCamera, pointToSpawnPlayer.transform.position, Quaternion.identity);
             //vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
             //gAction.mainCamera = tpCamera.GetComponent<Camera>();
-            vTPInput.cameraMain = _tpCamera.GetComponent<Camera>();
+            _player.vThirdPersonInput.cameraMain = _tpCamera.GetComponent<Camera>();
             //tpCamera.SetTarget(player.transform);
             //UI.Instance.thirdPersonCamera = tpCamera;
         //Spawn Cinemachine Camera
             GameObject _cCamera = Instantiate(prefabCinemachine, pointToSpawnPlayer.transform.position, Quaternion.identity);
             CinemachineFreeLook cinemachineFreeLook = _cCamera.GetComponent<CinemachineFreeLook>();
             UI.Instance.cFreeLook = cinemachineFreeLook;//tpCamera.GetComponent<CinemachineBrain>(); //Cinemachine Brain is on the TP Camera
-            cinemachineFreeLook.LookAt = player.transform;
-            cinemachineFreeLook.Follow = player.transform;
+            cinemachineFreeLook.LookAt = _player.cameraTarget.transform;
+            cinemachineFreeLook.Follow = _player.cameraTarget.transform;
         } else {
             Debug.Log("Failed to fing SpawnPoint: "+point);
         }

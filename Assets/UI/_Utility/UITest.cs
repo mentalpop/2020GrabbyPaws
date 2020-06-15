@@ -7,8 +7,9 @@ public class UITest : MonoBehaviour
     public ReadableData sampleBook;
 
     private void Start() {
-//Debug; open Lappy menu instantly to test
-        UI.Instance.ShowLappyMenu(true); 
+//Debug; 
+        //UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
+        UI.Instance.ShowInventoryDisplay();
     }
 
     void Update() {

@@ -54,7 +54,7 @@ public class LappyMenu : MonoBehaviour
 
     private void Container_OnEffectComplete(bool reverse) {
         if (reverse) {
-            UI.MouseSetState(false, gameObject); //De-register from UI
+            UI.SetControlState(false, gameObject); //De-register from UI
             gameObject.SetActive(false); //For now, just close instantly
         } else {
 

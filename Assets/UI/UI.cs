@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using Invector.vCamera;
+using Invector.vCharacterController;
 using System;
 
 public enum NightPhases
@@ -58,7 +58,7 @@ public class UI : MonoBehaviour
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
 [Header("Inventory")]
-    public InventoryDisplay InventoryDisplay;
+    public InventoryDisplay inventoryDisplay;
     public Inventory inventory;
     [HideInInspector] public CinemachineFreeLook cFreeLook;
     //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
@@ -72,6 +72,8 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref textSize;
     public ConstrainedIntPref fontChoice;
     public ConstrainedIntPref textPrintSpeed;
+
+    [HideInInspector] public PlayerBehaviour player;
 
     /*
     public static void SaveOptionsData() {
@@ -108,6 +110,8 @@ public class UI : MonoBehaviour
 
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
+    private float cameraVelocityX;
+    private float cameraVelocityY;
 
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
 
@@ -135,7 +139,7 @@ public class UI : MonoBehaviour
     public void DisplayReadable(ReadableData rData) {
         if (rData.isBook) {
             book.gameObject.SetActive(true);
-            MouseSetState(true, book.gameObject);
+            SetControlState(true, book.gameObject);
             book.Unpack(rData);
         } else {
             Debug.Log("Readable PC not yet implemented!");
@@ -146,28 +150,28 @@ public class UI : MonoBehaviour
     //Show / Hide the HUD
         bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
         if (menuIsActive) {
-            MouseSetState(true, lappy.gameObject);
+            SetControlState(true, lappy.gameObject);
             lappy.gameObject.SetActive(true);
         } else {
             lappy.Close();
         }
     }
 
-    private void ShowInventoryDisplay() {
+    public void ShowInventoryDisplay() { //TODO: Make private
     //Show / Hide the HUD
-        bool menuIsActive = !InventoryDisplay.gameObject.activeSelf;
+        bool menuIsActive = !inventoryDisplay.gameObject.activeSelf;
         if (menuIsActive) {
-            InventoryDisplay.gameObject.SetActive(true);
+            inventoryDisplay.gameObject.SetActive(true);
             if (currencyDisplay.gameObject.activeSelf) {
                 currencyDisplay.Open();
             } else {
                 currencyDisplay.gameObject.SetActive(true);
             }
         } else {
-            InventoryDisplay.Close();
+            inventoryDisplay.Close();
             currencyDisplay.Close();
         }
-        MouseSetState(menuIsActive, InventoryDisplay.gameObject);
+        SetControlState(menuIsActive, inventoryDisplay.gameObject);
     }
 //VIDEO OPTIONS
     public static void SetWindowMode(int choiceMade) {
@@ -249,21 +253,25 @@ public class UI : MonoBehaviour
         return _speed;
     }
 
-    public static void MouseSetState(bool lockMouse, GameObject gameObject) {
+    public static void SetControlState(bool lockMouse, GameObject gameObject) {
         if (lockMouse) {
             Instance.mouseCursorUsers.Add(gameObject);
         } else {
             Instance.mouseCursorUsers.Remove(gameObject);
         }
-        bool suppressCamera = false;
+        bool lockControls = false;
         //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
-            suppressCamera = true;
+            lockControls = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         } else {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+        }
+    //Player
+        if (Instance.player != null) {
+            Instance.player.SetLockState(lockControls);
         }
         /*
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
@@ -271,17 +279,26 @@ public class UI : MonoBehaviour
         //*/
         //*
         //if (Instance.thirdPersonCamera == null) {
+//Camera
     //Using Cinemachine Freelook?
         if (Instance.cFreeLook != null) {
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
-            if (suppressCamera) {
+            if (lockControls) {
+            //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
+                Instance.cameraVelocityX = Instance.cFreeLook.m_XAxis.m_MaxSpeed;
+                Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
+            //Y Axis
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
+                Instance.cameraVelocityY = Instance.cFreeLook.m_YAxis.m_MaxSpeed;
+                Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                Instance.cFreeLook.m_XAxis.m_MaxSpeed = Instance.cameraVelocityX;
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                Instance.cFreeLook.m_YAxis.m_MaxSpeed = Instance.cameraVelocityY;
             }
         }
         /*
