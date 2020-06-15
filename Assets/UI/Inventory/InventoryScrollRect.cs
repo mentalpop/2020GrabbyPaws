@@ -31,6 +31,13 @@ public class InventoryScrollRect : MonoBehaviour
                 slot.Unpack(iItem);
             }
         }
+        if (slots.Count == 0) {
+    //Add a Null Item
+            GameObject gameObject = Instantiate(slotPrefab, contentTransform, false);
+            slots.Add(gameObject);
+            InventorySlot slot = gameObject.GetComponent<InventorySlot>();
+            slot.Unpack(Inventory.instance.nullItem);
+        }
         scrollResize.RectResize(slots.Count);
     }
 

@@ -5,6 +5,7 @@ using Cinemachine;
 using Invector.vCharacterController;
 using System;
 
+#region Enums
 public enum NightPhases
 {
     p1Twilight,
@@ -41,6 +42,7 @@ public enum NPCLocations {
     q004Twilight,
     //*/
 }
+#endregion
 
 [DefaultExecutionOrder(-100)]
 public class UI : MonoBehaviour
@@ -75,26 +77,6 @@ public class UI : MonoBehaviour
 
     [HideInInspector] public PlayerBehaviour player;
 
-    /*
-    public static void SaveOptionsData() {
-//Sonos Settings
-        
-//VIDEO Options
-
-    }
-    //*/
-
-    private void LoadOptionsData() {
-        SetQuality(quality.Read());
-        SetWindowMode(screenMode.Read());
-        SetResolution(resolution.Read());
-        SetMouseSensitivity(mouseSensitivity.Read());
-        SetUIScale(uiScale.Read());
-        SetTextSize(textSize.Read());
-        SetFontChoice(fontChoice.Read());
-        SetPrintSpeed(textPrintSpeed.Read());
-    }
-
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
     public event FileIOEvent OnLoad = delegate { };
@@ -116,7 +98,7 @@ public class UI : MonoBehaviour
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
 
     public static UI Instance { get; private set; }
-
+    #region Unity Messages
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
     }
@@ -136,44 +118,21 @@ public class UI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void DisplayReadable(ReadableData rData) {
-        if (rData.isBook) {
-            book.gameObject.SetActive(true);
-            SetControlState(true, book.gameObject);
-            book.Unpack(rData);
-        } else {
-            Debug.Log("Readable PC not yet implemented!");
-        }
-    }
-
-    public void ShowLappyMenu(bool _override) { //TODO: Make private
-    //Show / Hide the HUD
-        bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
-        if (menuIsActive) {
-            SetControlState(true, lappy.gameObject);
-            lappy.gameObject.SetActive(true);
-        } else {
-            lappy.Close();
-        }
-    }
-
-    public void ShowInventoryDisplay() { //TODO: Make private
-    //Show / Hide the HUD
-        bool menuIsActive = !inventoryDisplay.gameObject.activeSelf;
-        if (menuIsActive) {
-            inventoryDisplay.gameObject.SetActive(true);
-            if (currencyDisplay.gameObject.activeSelf) {
-                currencyDisplay.Open();
-            } else {
-                currencyDisplay.gameObject.SetActive(true);
+    void Update() {
+        if (lockUI == null) { //No GameObject is currently locking the UI
+    //Open / Close menus
+            if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
+                ShowInventoryDisplay();
             }
-        } else {
-            inventoryDisplay.Close();
-            currencyDisplay.Close();
+            if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
+                ShowLappyMenu(false);
+            }
         }
-        SetControlState(menuIsActive, inventoryDisplay.gameObject);
     }
-//VIDEO OPTIONS
+    #endregion
+
+    #region Options, Get / Set Methods
+    //VIDEO OPTIONS
     public static void SetWindowMode(int choiceMade) {
         Instance.screenMode.Write(choiceMade);
         switch (choiceMade) {
@@ -251,6 +210,46 @@ public class UI : MonoBehaviour
             case 2: _speed = 4f; break;
         }
         return _speed;
+    }
+    #endregion
+    
+    #region UI State
+    public void DisplayReadable(ReadableData rData) {
+        if (rData.isBook) {
+            book.gameObject.SetActive(true);
+            SetControlState(true, book.gameObject);
+            book.Unpack(rData);
+        } else {
+            Debug.Log("Readable PC not yet implemented!");
+        }
+    }
+
+    public void ShowLappyMenu(bool _override) { //TODO: Make private
+    //Show / Hide the HUD
+        bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
+        if (menuIsActive) {
+            SetControlState(true, lappy.gameObject);
+            lappy.gameObject.SetActive(true);
+        } else {
+            lappy.Close();
+        }
+    }
+
+    public void ShowInventoryDisplay() { //TODO: Make private
+    //Show / Hide the HUD
+        bool menuIsActive = !inventoryDisplay.gameObject.activeSelf;
+        if (menuIsActive) {
+            inventoryDisplay.gameObject.SetActive(true);
+            if (currencyDisplay.gameObject.activeSelf) {
+                currencyDisplay.Open();
+            } else {
+                currencyDisplay.gameObject.SetActive(true);
+            }
+        } else {
+            inventoryDisplay.Close();
+            currencyDisplay.Close();
+        }
+        SetControlState(menuIsActive, inventoryDisplay.gameObject);
     }
 
     public static void SetControlState(bool lockMouse, GameObject gameObject) {
@@ -337,19 +336,30 @@ public class UI : MonoBehaviour
     public static void UnlockUI() {
         Instance.lockUI = null;
     }
+    #endregion
 
-    void Update() {
-        if (lockUI == null) { //No GameObject is currently locking the UI
-    //Open / Close menus
-            if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
-                ShowInventoryDisplay();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
-                ShowLappyMenu(false);
-            }
-        }
+    #region Save / Load
+
+    /*
+    public static void SaveOptionsData() {
+//Sonos Settings
+        
+//VIDEO Options
+
     }
-//Save / Load
+    //*/
+
+    private void LoadOptionsData() {
+        SetQuality(quality.Read());
+        SetWindowMode(screenMode.Read());
+        SetResolution(resolution.Read());
+        SetMouseSensitivity(mouseSensitivity.Read());
+        SetUIScale(uiScale.Read());
+        SetTextSize(textSize.Read());
+        SetFontChoice(fontChoice.Read());
+        SetPrintSpeed(textPrintSpeed.Read());
+    }
+
     public void SaveGameData(int fileNum) {
         Debug.Log("Game Saved: "+Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
@@ -359,6 +369,7 @@ public class UI : MonoBehaviour
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
     }
+    #endregion
 }
 
 public static class ScreenSpace

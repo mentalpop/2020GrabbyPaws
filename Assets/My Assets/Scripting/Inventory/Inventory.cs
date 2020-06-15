@@ -6,6 +6,7 @@ using PixelCrushers.DialogueSystem;
 public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int>>
 {
     public ItemMetaList itemMetaList;
+    public InventoryItem nullItem;
     public GadgetList gadgetList;
     public Vector3 dropPosition;
     public ItemTooltip itemTooltip;

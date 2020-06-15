@@ -4880,24 +4880,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemMetaList: {fileID: 11400000, guid: 9160342b84b22fd4d872ce9fc3c9e11f, type: 2}
+  nullItem:
+    item: {fileID: 11400000, guid: 9ea78cb0b244d4f449a9d0bf1732ea1d, type: 2}
+    quantity: 1
   gadgetList: {fileID: 11400000, guid: af2eabea3b7dd6e4084d6e81d9e3d17d, type: 2}
   dropPosition: {x: 0, y: -2, z: 10}
   itemTooltip: {fileID: 1669461762406351715}
   pickupSphere: {fileID: 7665324660621762108, guid: 6654e4a1c297c6d449b22614777b4a29,
     type: 3}
-  items:
-  - item: {fileID: 11400000, guid: 70764bac1a5ab3049be8db818f8cf15e, type: 2}
-    quantity: 55
-  - item: {fileID: 11400000, guid: 4135fd9abe67934488b76c619fab2e7c, type: 2}
-    quantity: 1
-  - item: {fileID: 11400000, guid: bcb6219916cb5414e9cb031f0850a368, type: 2}
-    quantity: 1
-  - item: {fileID: 11400000, guid: 4ce3cb55c809fc1429e6e3832ebaf5c5, type: 2}
-    quantity: 1
-  - item: {fileID: 11400000, guid: f6b194f74bffaa443a2b937c262012ce, type: 2}
-    quantity: 1
-  - item: {fileID: 11400000, guid: 514ef6c7ea1f6fe4ca512c4223f2d96c, type: 2}
-    quantity: 1
+  items: []
   gadgetUnlocked: 
 --- !u!114 &5819588752494907363
 MonoBehaviour:
