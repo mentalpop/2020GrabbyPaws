@@ -5,16 +5,21 @@ using UnityEngine;
 public class UITest : MonoBehaviour
 {
     public ReadableData sampleBook;
+    public ReadablePCData samplePC;
 
     private void Start() {
 //Debug; 
         //UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
-        UI.Instance.ShowInventoryDisplay();
+        //UI.Instance.ShowInventoryDisplay();
+        UI.Instance.DisplayPC(samplePC);
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.B)) { //B for Book
-            UI.Instance.DisplayReadable(sampleBook);
+            UI.Instance.DisplayBook(sampleBook);
+        }
+        if (Input.GetKeyDown(KeyCode.P)) { //P for PB
+            UI.Instance.DisplayPC(samplePC);
         }
         /*
         if (Input.GetKeyDown(KeyCode.Keypad0)) {

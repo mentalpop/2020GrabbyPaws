@@ -56,6 +56,7 @@ public class UI : MonoBehaviour
     //public FlagRepository flagRepository;
 [Header("Readables")]
     public Readable book;
+    public ReadablePC pc;
 [Header("Currency")]
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
@@ -214,14 +215,16 @@ public class UI : MonoBehaviour
     #endregion
     
     #region UI State
-    public void DisplayReadable(ReadableData rData) {
-        if (rData.isBook) {
-            book.gameObject.SetActive(true);
-            SetControlState(true, book.gameObject);
-            book.Unpack(rData);
-        } else {
-            Debug.Log("Readable PC not yet implemented!");
-        }
+    public void DisplayBook(ReadableData rData) {
+        book.gameObject.SetActive(true);
+        SetControlState(true, book.gameObject);
+        book.Unpack(rData);
+    }
+
+    public void DisplayPC(ReadablePCData pcData) {
+        pc.gameObject.SetActive(true);
+        SetControlState(true, pc.gameObject);
+        pc.Unpack(pcData);
     }
 
     public void ShowLappyMenu(bool _override) { //TODO: Make private

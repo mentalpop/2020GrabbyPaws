@@ -38,10 +38,4 @@ public class Readable : MonoBehaviour
         if (!container.gTween.doReverse)
             container.gTween.Reverse();
     }
-
-    /*
-    public void Close() {
-        gameObject.SetActive(false); //For now, just close instantly
-    }
-    //*/
 }

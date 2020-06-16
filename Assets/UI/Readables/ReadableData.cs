@@ -7,6 +7,5 @@ public class ReadableData : ScriptableObject {
     
     public string title;
     [TextArea(0, 10)] public string contents;
-    public bool isBook = true;
     public string readFlag;
 }
