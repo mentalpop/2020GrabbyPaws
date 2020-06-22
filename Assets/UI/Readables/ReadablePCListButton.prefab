@@ -533,10 +533,10 @@ GameObject:
   - component: {fileID: 7992222504103808018}
   - component: {fileID: 7992222504103808028}
   - component: {fileID: 7992222504103808019}
-  - component: {fileID: 6017764067710355318}
   - component: {fileID: 7202881477852516260}
   - component: {fileID: 7254916870014389814}
   - component: {fileID: 6976116435879314799}
+  - component: {fileID: 5796812356168759968}
   m_Layer: 5
   m_Name: ReadablePCListButton
   m_TagString: Untagged
@@ -604,25 +604,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6017764067710355318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992222504103808030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonStateData:
-    available: 1
-    hasToggleState: 1
-    stateActive: 0
-    inputPressed: 0
-    hasFocus: 0
-  navButtonData: {fileID: 0}
 --- !u!114 &7202881477852516260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,15 +616,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dac8c58a73f2d4eafd39e6d89e96dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navButton: {fileID: 6017764067710355318}
-  allowSelectionWhileActive: 0
-  goDefaultNeutral: {fileID: 8379313049312881055}
-  goDefaultHover: {fileID: 1025385736505626319}
-  goDefaultSelected: {fileID: 5405060611870052075}
-  goToggleNeutral: {fileID: 5405060611870052075}
-  goToggleHover: {fileID: 4104132576263024240}
-  goToggleSelected: {fileID: 8379313049312881055}
-  goUnavailable: {fileID: 0}
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    inputPressed: 0
+    hasFocus: 0
+  navButtonData: {fileID: 0}
   myRect: {fileID: 7992222504103808018}
   titles:
   - {fileID: 7294874168381997142}
@@ -662,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b826b1b99d32644390beb12505a056f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navButton: {fileID: 6017764067710355318}
+  navButton: {fileID: 7202881477852516260}
   listController: {fileID: 0}
   listIndex: 0
 --- !u!114 &6976116435879314799
@@ -677,7 +656,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navButton: {fileID: 6017764067710355318}
+  navButton: {fileID: 7202881477852516260}
+--- !u!114 &5796812356168759968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7992222504103808030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b194338c3a141a5409089dc8c46a3cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 7202881477852516260}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  goNeutral: {fileID: 8379313049312881055}
+  goFocus: {fileID: 1025385736505626319}
+  goSelected: {fileID: 1025385736505626319}
+  goActive: {fileID: 5405060611870052075}
+  goActiveFocus: {fileID: 4104132576263024240}
+  goActiveSelected: {fileID: 4104132576263024240}
+  goUnavailable: {fileID: 8379313049312881055}
 --- !u!1 &8379313049312881055
 GameObject:
   m_ObjectHideFlags: 0

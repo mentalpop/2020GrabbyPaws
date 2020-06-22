@@ -9,9 +9,9 @@ public class UITest : MonoBehaviour
 
     private void Start() {
 //Debug; 
-        //UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
+        UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
         //UI.Instance.ShowInventoryDisplay();
-        UI.Instance.DisplayPC(samplePC);
+        //UI.Instance.DisplayPC(samplePC);
     }
 
     void Update() {

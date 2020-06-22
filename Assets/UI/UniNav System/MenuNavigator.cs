@@ -6,13 +6,13 @@ public class MenuNavigator : MonoBehaviour
 {
     public MenuNode activeMenuNode;
     public MenuNode defaultMenuNode;
-    public int indexHeld = -1;
 
     public delegate void MenuEvent(MenuNode menuNode);
     public event MenuEvent OnClose = delegate { };
     public event MenuEvent OnMenuFocus = delegate { };
 
     private NavButton activeButton;
+    private int indexHeld = -1;
 
     /*
     private void Awake() {

@@ -2,48 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonFormatterGO : ButtonFormatter
+public class ButtonFormatterGO : ButtonFormatterSevenState
 {
-    public GameObject goDefaultNeutral;
-    public GameObject goDefaultHover;
-    public GameObject goDefaultSelected;
-    public GameObject goToggleNeutral;
-    public GameObject goToggleHover;
-    public GameObject goToggleSelected;
+    public GameObject goNeutral;
+    public GameObject goFocus;
+    public GameObject goSelected;
+    public GameObject goActive;
+    public GameObject goActiveFocus;
+    public GameObject goActiveSelected;
     public GameObject goUnavailable;
     //[HideInInspector] public bool permanentFocus = false;
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
-		GameObject setThisActive;
-        if (_buttonStateData.available) {
-            if (!_buttonStateData.stateActive || (_buttonStateData.stateActive && allowSelectionWhileActive)) {
-                if (_buttonStateData.inputPressed) {
-                    setThisActive = _buttonStateData.stateActive ? goToggleSelected : goDefaultSelected; //Selected
-                } else {
-                    if (_buttonStateData.hasFocus) { // || permanentFocus
-                        setThisActive = _buttonStateData.stateActive ? goToggleHover : goDefaultHover; //Focus
-                    } else {
-                        setThisActive = _buttonStateData.stateActive ? goToggleNeutral : goDefaultNeutral; //Neutral
-                    }
-                }
-            } else {
-                if (_buttonStateData.hasFocus) { // || permanentFocus
-                    setThisActive = _buttonStateData.stateActive ? goToggleHover : goDefaultHover; //Focus
-                } else {
-                    setThisActive = _buttonStateData.stateActive ? goToggleNeutral : goDefaultNeutral; //Neutral
-                }
-            }
-        } else {
-            setThisActive = goUnavailable;
-        }
+        base.ButtonFormat(_buttonStateData);
     //Disable all GameObjects except the right one
-        if (goDefaultNeutral != null) goDefaultNeutral.SetActive(false);
-        if (goDefaultHover != null) goDefaultHover.SetActive(false);
-        if (goDefaultSelected != null) goDefaultSelected.SetActive(false);
-        if (goToggleNeutral != null) goToggleNeutral.SetActive(false);
-        if (goToggleHover != null) goToggleHover.SetActive(false);
-        if (goToggleSelected != null) goToggleSelected.SetActive(false);
-        if (goUnavailable != null) goUnavailable.SetActive(false);
-        if (setThisActive != null) setThisActive.SetActive(true);
-	}
+        TrySetActive(goNeutral, false);
+        TrySetActive(goFocus, false);
+        TrySetActive(goSelected, false);
+        TrySetActive(goActive, false);
+        TrySetActive(goActiveFocus, false);
+        TrySetActive(goActiveSelected, false);
+        TrySetActive(goUnavailable, false);
+        switch (buttonState) {
+            case BState.Neutral: TrySetActive(goNeutral, true); break;
+            case BState.Focus: TrySetActive(goFocus, true); break;
+            case BState.Selected: TrySetActive(goSelected, true); break;
+            case BState.Active: TrySetActive(goActive, true); break;
+            case BState.ActiveFocus: TrySetActive(goActiveFocus, true); break;
+            case BState.ActiveSelected: TrySetActive(goActiveSelected, true); break;
+            case BState.Unavailable: TrySetActive(goUnavailable, true); break;
+        }
+    }
+
+    private void TrySetActive(GameObject button, bool _active) {
+        if (button != null) {
+            button.SetActive(_active);
+        }
+    }
 }
