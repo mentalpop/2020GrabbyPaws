@@ -13,6 +13,8 @@ public class Readable : MonoBehaviour
     private void OnEnable() {
         clickToClose.OnClick += Close;
         container.OnEffectComplete += Container_OnEffectComplete;
+        float _scale = UI.GetUIScale();
+        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
     }
 
     private void OnDisable() {

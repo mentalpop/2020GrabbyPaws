@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb46c33d001efe843b00300402149d32, type: 3}
+  m_Name: PCTitlesTest1
+  m_EditorClassIdentifier: 
+  title: Long title test
+  contents: To right the countless wrongs of our day, we shine this light of true
+    redemption, that this place may become as paradise. Oh, what a wonderful world
+    such would be.

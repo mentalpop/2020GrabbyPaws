@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ReadablePCData", menuName = "Readable PC Data", order = 1)]
 public class ReadablePCData : ScriptableObject {
     
-    public string title;
+    public string header;
     public string readFlag;
-    [TextArea(0, 10)] public string contents;
+    public List<NavButtonDataPCTitles> data = new List<NavButtonDataPCTitles>();
 }

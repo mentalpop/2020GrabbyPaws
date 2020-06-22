@@ -18,6 +18,10 @@ public class ClickToClose : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick (PointerEventData evd) {
         //Debug.Log("OnPointerClick");
-		OnClick?.Invoke();
+		ManualClose();
 	}
+
+    public void ManualClose() {
+        OnClick?.Invoke();
+    }
 }

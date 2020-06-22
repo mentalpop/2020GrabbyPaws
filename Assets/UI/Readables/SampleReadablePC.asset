@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17de7181be5992449c15a9f3a403a89, type: 3}
   m_Name: SampleReadablePC
   m_EditorClassIdentifier: 
-  title: Sample Header
+  header: HEADER GOES HERE
   readFlag: test2
-  contents: To right the countless wrongs of our day, we shine this light of true
-    redemption, that this place may become as paradise. Oh, what a wonderful world
-    such would be.
+  data:
+  - {fileID: 11400000, guid: c0c4fd3a3a664fe4ca605a2c12d506cf, type: 2}
+  - {fileID: 11400000, guid: 68df1349610de014db9720954d692d7e, type: 2}

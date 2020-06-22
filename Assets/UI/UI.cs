@@ -373,6 +373,10 @@ public class UI : MonoBehaviour
         OnLoad?.Invoke(fileNum);
     }
     #endregion
+    
+    public static float Direction(Vector2 _a, Vector2 _b) {
+       return Mathf.Rad2Deg*Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
+    }
 }
 
 public static class ScreenSpace
