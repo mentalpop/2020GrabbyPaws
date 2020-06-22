@@ -19,8 +19,9 @@ public class LappyMenu : MonoBehaviour
     public List<Sprite> lappyBGs = new List<Sprite>();
     [HideInInspector] public int chosenBGIndex = 0;
     
-    public TabSortMenu startTabsSortMenu;
-    public List<TabData> tabs = new List<TabData>();
+    public ListController startMenuList;
+    public MenuNavigator menuNavigator;
+    //public List<TabData> tabs = new List<TabData>();
     public ButtonGeneric startButton;
 
 	public ConfirmationPromptData promptSave;
@@ -30,22 +31,24 @@ public class LappyMenu : MonoBehaviour
 	private bool awaitingConfirmation = false;
 
 	private void OnClickStart() {
-		startTabsSortMenu.gameObject.SetActive(!startTabsSortMenu.gameObject.activeInHierarchy);
+		startMenuList.gameObject.SetActive(!startMenuList.gameObject.activeInHierarchy);
 	}
 
     private void OnEnable() {
-        startTabsSortMenu.OnTabSelected += SelectStartMenuItem;
+        startMenuList.OnSelect += SelectStartMenuItem;
         clickToClose.OnClick += Close;
         startButton.OnClick += OnClickStart;
         container.OnEffectComplete += Container_OnEffectComplete;
+        menuNavigator.OnClose += MenuNavigator_OnClose;
         SetBackground(lappySelectedBG.Read());
     }
 
     private void OnDisable() {
-        startTabsSortMenu.OnTabSelected -= SelectStartMenuItem;
+        startMenuList.OnSelect -= SelectStartMenuItem;
         clickToClose.OnClick -= Close;
 		startButton.OnClick -= OnClickStart;
         container.OnEffectComplete -= Container_OnEffectComplete;
+        menuNavigator.OnClose -= MenuNavigator_OnClose;
 		if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
@@ -59,6 +62,10 @@ public class LappyMenu : MonoBehaviour
         } else {
 
         }
+    }
+    
+    private void MenuNavigator_OnClose(MenuNode menuNode) {
+        Close();
     }
 
     public void Close() {
@@ -86,9 +93,11 @@ public class LappyMenu : MonoBehaviour
 		}
 	}
 
+    /*
     void Start() {
         startTabsSortMenu.InstantiateTabs(tabs);
     }
+    //*/
 
     public void SelectStartMenuItem(int _activeTab) {
         switch(_activeTab) {

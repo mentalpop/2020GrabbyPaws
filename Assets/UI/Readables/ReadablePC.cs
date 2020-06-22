@@ -31,6 +31,7 @@ public class ReadablePC : MonoBehaviour
         clickToClose.OnClick -= Close;
         container.OnEffectComplete -= Container_OnEffectComplete;
         listUnpacker.listController.OnSelect -= ListController_OnSelect;
+        menuNavigator.OnClose -= MenuNavigator_OnClose;
     }
 
     public void Unpack(ReadablePCData _rData) {

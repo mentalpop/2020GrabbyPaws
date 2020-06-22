@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7870374954614802047}
+  - component: {fileID: 1900385395967882183}
+  - component: {fileID: 5044506501611377202}
   - component: {fileID: 4730026332528020386}
   - component: {fileID: 809166080867620293}
-  - component: {fileID: 2255045520107491422}
   - component: {fileID: 8934639829175357188}
+  - component: {fileID: 5313048681073635355}
   m_Layer: 5
   m_Name: StartMenuButton
   m_TagString: Untagged
@@ -43,6 +45,43 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 606, y: 144}
   m_Pivot: {x: 0, y: 0}
+--- !u!222 &1900385395967882183
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_CullTransparentMesh: 0
+--- !u!114 &5044506501611377202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4730026332528020386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,19 +118,6 @@ MonoBehaviour:
   navButton: {fileID: 4730026332528020386}
   listController: {fileID: 0}
   listIndex: 0
---- !u!114 &2255045520107491422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455262508151470272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navButton: {fileID: 4730026332528020386}
 --- !u!114 &8934639829175357188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,11 +136,24 @@ MonoBehaviour:
   image: {fileID: 7995964536186389750}
   colorNeutral: {r: 0.11372549, g: 0.10980392, b: 0.33333334, a: 1}
   colorFocus: {r: 0.17254902, g: 0.21176471, b: 0.5686275, a: 1}
-  colorSelected: {r: 0.11372549, g: 0.10980392, b: 0.33333334, a: 1}
+  colorSelected: {r: 0.075181276, g: 0.07231222, b: 0.23584908, a: 1}
   colorActive: {r: 1, g: 1, b: 1, a: 1}
   colorActiveFocus: {r: 1, g: 1, b: 1, a: 1}
   colorActiveSelected: {r: 1, g: 1, b: 1, a: 1}
   colorUnavailable: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &5313048681073635355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 4730026332528020386}
 --- !u!1 &4513065594803914880
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -248,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.11372549, g: 0.10980392, b: 0.33333334, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -339,7 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -532,7 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.011764706, g: 0.011764706, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

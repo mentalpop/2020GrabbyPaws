@@ -13,5 +13,6 @@ public class ButtonIconTitle : NavButton
         NavButtonDataIconTitle navButtonDataPCTitles = (NavButtonDataIconTitle)_navButtonData;
         myTitle.text = navButtonDataPCTitles.title;
         icon.sprite = navButtonDataPCTitles.icon;
+        icon.SetNativeSize();
     }
 }
