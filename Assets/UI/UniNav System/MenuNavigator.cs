@@ -5,14 +5,14 @@ using UnityEngine;
 public class MenuNavigator : MonoBehaviour
 {
     public MenuNode activeMenuNode;
-    public MenuNode defaultMenuNode;
+    //public MenuNode defaultMenuNode;
 
     public delegate void MenuEvent(MenuNode menuNode);
     public event MenuEvent OnClose = delegate { };
     public event MenuEvent OnMenuFocus = delegate { };
 
-    private NavButton activeButton;
-    private int indexHeld = -1;
+    protected NavButton activeButton;
+    protected NavButton heldButton;
 
     /*
     private void Awake() {
@@ -32,128 +32,32 @@ public class MenuNavigator : MonoBehaviour
 
     public void MenuFocus(MenuNode _mNode) {
         if (_mNode != null) {
-            activeMenuNode.listController.Unfocus();
+            activeMenuNode.MenuUnfocus();
             activeMenuNode = _mNode;
-            activeMenuNode.listController.Focus();
+            activeMenuNode.MenuFocus();
             OnMenuFocus(_mNode);
         }
     }
 
     public void MenuPress() {
-        indexHeld = activeMenuNode.listController.focusIndex;
+        heldButton = activeButton;//activeMenuNode.listController.focusIndex;
         activeButton.buttonStateData.inputPressed = true;
         activeButton.StateUpdate();
     }
 
     public void MenuRelease() {
-        if (indexHeld == activeMenuNode.listController.focusIndex) {
+        if (activeButton == heldButton) {
             activeButton.buttonStateData.inputPressed = false;
             if (activeButton.buttonStateData.hasToggleState)
                 activeButton.buttonStateData.stateActive = !activeButton.buttonStateData.stateActive;
             activeButton.Select();
         }
-        indexHeld = -1;
+        heldButton = null;
     }
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
-        switch (navDir) {
-            case MenuNode.NavDir.Left:
-                switch (activeMenuNode.navigationType) {
-                    case MenuNode.NavigationType.Horizontal:
-                        if (!activeMenuNode.listController.DecrementIndex()) {
-                            if (activeMenuNode.outOfBoundsLoop) {
-                                activeMenuNode.listController.LastIndex();
-                            } else {
-                                MenuFocus(activeMenuNode.mLeft);
-                            }
-                        }
-                        break;
-                    case MenuNode.NavigationType.Vertical:
-                        if (activeMenuNode.outOfBoundsLoop) {
-                            activeMenuNode.listController.FirstIndex();
-                        } else {
-                            MenuFocus(activeMenuNode.mUp);
-                        }
-                        break;
-                    case MenuNode.NavigationType.Grid:
-                        
-                        break;
-                }
-                break;
-            case MenuNode.NavDir.Right:
-                switch (activeMenuNode.navigationType) {
-                    case MenuNode.NavigationType.Horizontal:
-                        if (!activeMenuNode.listController.IncrementIndex()) {
-                            if (activeMenuNode.outOfBoundsLoop) {
-                                activeMenuNode.listController.FirstIndex();
-                            } else {
-                                MenuFocus(activeMenuNode.mRight);
-                            }
-                        }
-                        break;
-                    case MenuNode.NavigationType.Vertical:
-                        if (activeMenuNode.outOfBoundsLoop) {
-                            activeMenuNode.listController.LastIndex();
-                        } else {
-                            MenuFocus(activeMenuNode.mDown);
-                        }
-                        break;
-                    case MenuNode.NavigationType.Grid:
-
-                        break;
-                }
-                break;
-            case MenuNode.NavDir.Up:
-                switch (activeMenuNode.navigationType) {
-                    case MenuNode.NavigationType.Horizontal:
-                        if (activeMenuNode.outOfBoundsLoop) {
-                            activeMenuNode.listController.FirstIndex();
-                        } else {
-                            MenuFocus(activeMenuNode.mUp);
-                        }
-                        break;
-                    case MenuNode.NavigationType.Vertical:
-                        if (!activeMenuNode.listController.DecrementIndex()) {
-                            if (activeMenuNode.outOfBoundsLoop) {
-                                activeMenuNode.listController.LastIndex();
-                            } else {
-                                MenuFocus(activeMenuNode.mUp);
-                            }
-                        }
-                        break;
-                    case MenuNode.NavigationType.Grid:
-
-                        break;
-                }
-                break;
-            case MenuNode.NavDir.Down:
-                switch (activeMenuNode.navigationType) {
-                    case MenuNode.NavigationType.Horizontal:
-                        if (activeMenuNode.outOfBoundsLoop) {
-                            activeMenuNode.listController.LastIndex();
-                        } else {
-                            MenuFocus(activeMenuNode.mDown);
-                        }
-                        break;
-                    case MenuNode.NavigationType.Vertical:
-                        if (!activeMenuNode.listController.IncrementIndex()) {
-                            if (activeMenuNode.outOfBoundsLoop) {
-                                activeMenuNode.listController.FirstIndex();
-                            } else {
-                                MenuFocus(activeMenuNode.mDown);
-                            }
-                        }
-                        break;
-                    case MenuNode.NavigationType.Grid:
-
-                        break;
-                }
-                break;
-            case MenuNode.NavDir.Forward: MenuFocus(activeMenuNode.mForward); break;
-            case MenuNode.NavDir.Backward: MenuFocus(activeMenuNode.mBackward); break;
-            case MenuNode.NavDir.Cancel: MenuCancel(activeMenuNode.mCancel); break;
-        }
-        activeButton = activeMenuNode.listController.elements[activeMenuNode.listController.focusIndex].navButton;
+        activeMenuNode.MenuNavigate(navDir, this);
+        activeButton = activeMenuNode.GetButtonInFocus();
     }
 
     /*

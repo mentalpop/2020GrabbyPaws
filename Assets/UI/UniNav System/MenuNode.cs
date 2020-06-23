@@ -4,37 +4,39 @@ using UnityEngine;
 
 public class MenuNode : MonoBehaviour
 {
-    public enum NavigationType
-    {
-        Vertical,
-        Horizontal,
-        Grid
-    }
     public enum NavDir
     {
+        Accept,
+        Cancel,
         Left,
         Right,
         Up,
         Down,
         Forward,
-        Backward,
-        Cancel
+        Backward
     }
-    public ListController listController;
-    public NavigationType navigationType;
-    public Vector2Int menuSize;
-    public bool outOfBoundsLoop = false;
+    public MenuNode mAccept;
+    public MenuNode mCancel;
     public MenuNode mLeft;
     public MenuNode mRight;
     public MenuNode mUp;
     public MenuNode mDown;
     public MenuNode mForward;
     public MenuNode mBackward;
-    public MenuNode mCancel;
 
-    /*
-    public void SetFocus(bool _hasFocus) {
+    public virtual void MenuUnfocus() {
+        
+    }
+
+    public virtual void MenuFocus() {
+        
+    }
+
+    public virtual void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
 
     }
-    //*/
+
+    public virtual NavButton GetButtonInFocus() {
+        return null;
+    }
 }
