@@ -16,11 +16,7 @@ public class ListUnpacker : MonoBehaviour
 
     public void Unpack(List<NavButtonData> _buttonData) {
         buttonData = _buttonData;
-        if (targetTransform.childCount > 0) {
-            foreach (Transform child in targetTransform) {
-                Destroy(child.gameObject);
-            }
-        }
+        ClearList();
         List<ListElement> _elements = new List<ListElement>();
         for (int i = 0; i < buttonData.Count; i++) {
             var buttonClone = Instantiate(listObject, targetTransform, false);
@@ -33,9 +29,17 @@ public class ListUnpacker : MonoBehaviour
         listController.elements = _elements;
         if (listController.behaveAsTabs) {
             listController.SetActiveIndex(listController.activeIndex);
-        } else {
+        } else if (listController.listHasFocus) {
             listController.SetFocus(listController.focusIndex);
         }
         //listController.DefineIndex();
+    }
+
+    public void ClearList() {
+        if (targetTransform.childCount > 0) {
+            foreach (Transform child in targetTransform) {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ public class ListController : MonoBehaviour
     public List<ListElement> elements = new List<ListElement>();
     public int activeIndex = 0;
     public int focusIndex = 0;
+    public bool listHasFocus = false;
 
     public delegate void ListElementEvent (int index);
 	public event ListElementEvent OnSelect = delegate { };
@@ -40,10 +41,12 @@ public class ListController : MonoBehaviour
     }
 
     public void Focus() {
+        listHasFocus = true;
         SetFocus(focusIndex);
     }
     
     public void Unfocus() {
+        listHasFocus = false;
         for (int i = 0; i < elements.Count; i++) {
             elements[i].navButton.SetFocus(false);
         }
