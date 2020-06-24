@@ -48,7 +48,9 @@ public class ButtonFormatterSevenState : ButtonStateFormatter
         } else {
             buttonState = BState.Unavailable;
         }
+        //Debug.Log("buttonState: "+buttonState);
         /*
+        base.ButtonFormat(_buttonStateData);
         switch (buttonState) {
             case BState.Neutral: ; break;
             case BState.Focus: ; break;

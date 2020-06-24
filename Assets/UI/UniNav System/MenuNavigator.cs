@@ -32,32 +32,44 @@ public class MenuNavigator : MonoBehaviour
 
     public void MenuFocus(MenuNode _mNode) {
         if (_mNode != null) {
+            activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
             activeMenuNode.MenuUnfocus();
             activeMenuNode = _mNode;
             activeMenuNode.MenuFocus();
+            activeMenuNode.OnSelectionAbort += ActiveMenuNode_OnSelectionAbort;
             OnMenuFocus(_mNode);
         }
     }
 
+    private void ActiveMenuNode_OnSelectionAbort(MenuNode _fallbackMenu) {
+        MenuFocus(_fallbackMenu);
+    }
+
     public void MenuPress() {
+        activeButton = activeMenuNode.GetButtonInFocus();
         heldButton = activeButton;//activeMenuNode.listController.focusIndex;
         activeButton.buttonStateData.inputPressed = true;
         activeButton.StateUpdate();
     }
 
     public void MenuRelease() {
-        if (activeButton == heldButton) {
+        activeButton = activeMenuNode.GetButtonInFocus();
+        if (activeButton != null && activeButton == heldButton) {
             activeButton.buttonStateData.inputPressed = false;
-            if (activeButton.buttonStateData.hasToggleState)
-                activeButton.buttonStateData.stateActive = !activeButton.buttonStateData.stateActive;
-            activeButton.Select();
+            if (activeMenuNode.mAccept == null) {
+                if (activeButton.buttonStateData.hasToggleState)
+                    activeButton.buttonStateData.stateActive = !activeButton.buttonStateData.stateActive;
+                activeButton.Select();
+            } else {
+                MenuNavigate(MenuNode.NavDir.Accept);
+                activeButton.StateUpdate();
+            }
         }
         heldButton = null;
     }
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
         activeMenuNode.MenuNavigate(navDir, this);
-        activeButton = activeMenuNode.GetButtonInFocus();
     }
 
     /*

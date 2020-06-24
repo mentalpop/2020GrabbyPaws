@@ -346,8 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeMenuNode: {fileID: 513766546053049310}
-  defaultMenuNode: {fileID: 513766546053049310}
+  activeMenuNode: {fileID: 6220181618831938254}
 --- !u!114 &744915634787806077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6106,7 +6105,7 @@ GameObject:
   - component: {fileID: 5819588754295743411}
   - component: {fileID: 2521789612498907762}
   - component: {fileID: 3214433912011948990}
-  - component: {fileID: 513766546053049310}
+  - component: {fileID: 6220181618831938254}
   m_Layer: 5
   m_Name: StartMenu (ListController)
   m_TagString: Untagged
@@ -6189,6 +6188,7 @@ MonoBehaviour:
   elements: []
   activeIndex: 0
   focusIndex: 0
+  listHasFocus: 1
 --- !u!114 &3214433912011948990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6215,7 +6215,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45e75e10ccd238a40911a80279d51057, type: 2}
   - {fileID: 11400000, guid: 232fb59d21187cf42a9405128ca34001, type: 2}
   - {fileID: 11400000, guid: 38a56c08da83e55478fb855a125ca0f2, type: 2}
---- !u!114 &513766546053049310
+--- !u!114 &6220181618831938254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6224,20 +6224,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5819588754295743375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c01c4442ceadb428c4456a79e9a891, type: 3}
+  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listController: {fileID: 2521789612498907762}
-  navigationType: 0
-  menuSize: {x: 0, y: 0}
-  outOfBoundsLoop: 0
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
   mLeft: {fileID: 0}
   mRight: {fileID: 0}
   mUp: {fileID: 0}
   mDown: {fileID: 0}
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
-  mCancel: {fileID: 0}
+  listController: {fileID: 2521789612498907762}
+  navigationType: 0
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 1
 --- !u!1 &5819588754319237087
 GameObject:
   m_ObjectHideFlags: 0
@@ -6821,6 +6822,11 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 5819588752494907362}
+    - target: {fileID: 6881530353596349549, guid: e99dd8bcdae65404c85c6fdb6cd2082b,
+        type: 3}
+      propertyPath: menuNavigator
+      value: 
+      objectReference: {fileID: 8208146288739447323}
     - target: {fileID: 6881530354377408700, guid: e99dd8bcdae65404c85c6fdb6cd2082b,
         type: 3}
       propertyPath: m_AnchorMin.y

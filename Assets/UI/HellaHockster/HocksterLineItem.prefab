@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4731719376594656351}
   - component: {fileID: 4731719376594656344}
   - component: {fileID: 4731719376594656345}
+  - component: {fileID: 7954698142527426795}
   - component: {fileID: 4731719376594656350}
+  - component: {fileID: 7636645473647798632}
+  - component: {fileID: 2161467185554622358}
   m_Layer: 5
   m_Name: HocksterLineItem
   m_TagString: Untagged
@@ -79,6 +82,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7954698142527426795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731719376594656346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
 --- !u!114 &4731719376594656350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,12 +113,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18694224f69163488dfcab8b3e58d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navButton: {fileID: 7954698142527426795}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  tooltipPrefab: {fileID: 8031846233236847780, guid: 3dd11a0f5e0a2c24d990299bf9baff29,
+    type: 3}
   arrow: {fileID: 4731719376806276322}
   itemName: {fileID: 4731719377762561989}
   itemQuantity: {fileID: 4731719378294394394}
   colorNeutral: {r: 1, g: 1, b: 1, a: 1}
   colorMOver: {r: 0.49803925, g: 0.41960788, b: 0.9490197, a: 1}
-  tooltipOffset: {x: 2.25, y: 0}
+  singleItemInput: X
+  stackInput: A
+  height: 52
+--- !u!114 &7636645473647798632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731719376594656346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b826b1b99d32644390beb12505a056f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 7954698142527426795}
+  listController: {fileID: 0}
+  listIndex: 0
+--- !u!114 &2161467185554622358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731719376594656346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 7954698142527426795}
 --- !u!1 &4731719376806276322
 GameObject:
   m_ObjectHideFlags: 0

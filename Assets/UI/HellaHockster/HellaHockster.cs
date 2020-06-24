@@ -7,6 +7,8 @@ using TMPro;
 public class HellaHockster : MonoBehaviour
 {
     public Inventory inventory;
+	public MenuNavigator menuNavigator;
+	public MenuNode menuOnEnable;
 
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
@@ -35,6 +37,7 @@ public class HellaHockster : MonoBehaviour
 		recoverTrash.OnClick += RecoverAllTrash;
         //inventory.OnItemChanged += UpdateDisplay;
 		UpdateHockstersAvailable();
+		menuNavigator.MenuFocus(menuOnEnable);
 	//Player Funds
 		Currency.instance.OnCashChanged += CurrencyCashUpdate;
 		CurrencyCashUpdate();

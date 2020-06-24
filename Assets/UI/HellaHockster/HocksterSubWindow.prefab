@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7483753647609140518}
   - component: {fileID: 1094094149058710806}
   - component: {fileID: 2784253224823186883}
+  - component: {fileID: 2555044063574030580}
+  - component: {fileID: 8817043502995407073}
   m_Layer: 5
   m_Name: HocksterSubWindow
   m_TagString: Untagged
@@ -75,6 +77,47 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2555044063574030580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043318204972232080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf2b470e1712d144ad6fd9579953ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaveAsTabs: 0
+  elements: []
+  activeIndex: 0
+  focusIndex: 0
+  listHasFocus: 0
+--- !u!114 &8817043502995407073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043318204972232080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 0}
+  mDown: {fileID: 0}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  listController: {fileID: 2555044063574030580}
+  navigationType: 0
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 0
 --- !u!1 &5157319129638044489
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,8 +582,8 @@ MonoBehaviour:
     available: 1
     hasToggleState: 0
     stateActive: 0
-    inputPressed: 0
     hasFocus: 0
+    inputPressed: 0
   navButtonData: {fileID: 0}
 --- !u!114 &8588705819037754985
 MonoBehaviour:

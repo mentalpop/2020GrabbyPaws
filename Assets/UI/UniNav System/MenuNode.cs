@@ -23,6 +23,10 @@ public class MenuNode : MonoBehaviour
     public MenuNode mDown;
     public MenuNode mForward;
     public MenuNode mBackward;
+    public bool validSelection = true;
+
+    public delegate void AbortSelectionEvent(MenuNode _fallbackMenu);
+    public event AbortSelectionEvent OnSelectionAbort = delegate { };
 
     public virtual void MenuUnfocus() {
         
@@ -38,5 +42,9 @@ public class MenuNode : MonoBehaviour
 
     public virtual NavButton GetButtonInFocus() {
         return null;
+    }
+
+    public void SelectionAbort(MenuNode _fallbackMenu) {
+        OnSelectionAbort(_fallbackMenu);
     }
 }

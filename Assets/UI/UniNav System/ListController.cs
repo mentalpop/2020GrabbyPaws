@@ -5,7 +5,17 @@ using UnityEngine;
 public class ListController : MonoBehaviour
 {
     public bool behaveAsTabs = false;
-    public List<ListElement> elements = new List<ListElement>();
+    //public List<ListElement> elements = new List<ListElement>();
+    //private int listElementCount = -1; //Initialize to an invalid count
+    private List<ListElement> elements;
+    public List<ListElement> Elements
+    {
+        get { return elements; }
+        set {
+            elements = value;
+            DefineIndex();
+        }
+    }
     public int activeIndex = 0;
     public int focusIndex = 0;
     public bool listHasFocus = false;
@@ -13,6 +23,10 @@ public class ListController : MonoBehaviour
     public delegate void ListElementEvent (int index);
 	public event ListElementEvent OnSelect = delegate { };
 
+    public delegate void ListEmptyEvent (bool _isEmpty);
+	public event ListEmptyEvent OnListEmpty = delegate { };
+
+    /*
     private void Awake() {
         if (elements.Count != 0) {
             for (int i = 0; i < elements.Count; i++) {
@@ -20,6 +34,7 @@ public class ListController : MonoBehaviour
             }
         }
     }
+    //*/
 
     public void SetActiveIndex(int _index) {
         activeIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
@@ -84,11 +99,14 @@ public class ListController : MonoBehaviour
         return false;
     }
 
-    /*
     public void DefineIndex() {
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].Unpack(this, i);
+        if (elements.Count == 0) {
+            OnListEmpty(true);
+        } else {
+            OnListEmpty(false);
+            for (int i = 0; i < elements.Count; i++) {
+                elements[i].Unpack(this, i);
+            }
         }
     }
-    //*/
 }

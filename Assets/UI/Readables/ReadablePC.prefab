@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 465571891068018372}
   - component: {fileID: 1186467345762593546}
   - component: {fileID: 7246027013793531332}
-  - component: {fileID: 3329982537258310088}
+  - component: {fileID: 2867577034513772681}
   m_Layer: 5
   m_Name: ButtonListContainer
   m_TagString: Untagged
@@ -154,6 +154,7 @@ MonoBehaviour:
   elements: []
   activeIndex: 0
   focusIndex: 0
+  listHasFocus: 0
 --- !u!114 &7246027013793531332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   listObject: {fileID: 7992222504103808030, guid: e6c0645cabfe30d408a881dbe0d8b61e,
     type: 3}
   buttonData: []
---- !u!114 &3329982537258310088
+--- !u!114 &2867577034513772681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,20 +181,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4675382204010234930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c01c4442ceadb428c4456a79e9a891, type: 3}
+  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listController: {fileID: 1186467345762593546}
-  navigationType: 0
-  menuSize: {x: 0, y: 0}
-  outOfBoundsLoop: 1
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
   mLeft: {fileID: 0}
   mRight: {fileID: 0}
   mUp: {fileID: 0}
   mDown: {fileID: 0}
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
-  mCancel: {fileID: 0}
+  listController: {fileID: 1186467345762593546}
+  navigationType: 0
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 1
 --- !u!1 &4798017151024553112
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 4798017152742097650}
   speedMultiplier: {x: 1, y: 1}
+  scrollPastLimit: 0.1
+  inFocus: 1
   inputHorizontal: RightAnalogHorizontal
   inputVertical: RightAnalogVertical
   axisThreshold: 0.025
@@ -760,9 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeMenuNode: {fileID: 3329982537258310088}
-  defaultMenuNode: {fileID: 3329982537258310088}
-  indexHeld: -1
+  activeMenuNode: {fileID: 2867577034513772681}
 --- !u!114 &5159981143259196045
 MonoBehaviour:
   m_ObjectHideFlags: 0

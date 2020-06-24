@@ -27,6 +27,7 @@ public class NavButton : MonoBehaviour
     }
 
     public void SetFocus(bool _hasFocus) {
+        //Debug.Log("_hasFocus: "+gameObject.name);
         buttonStateData.hasFocus = _hasFocus;
         buttonStateData.inputPressed = false;
         StateUpdate();
@@ -45,6 +46,6 @@ public class ButtonStateData
     public bool available = true;
 	public bool hasToggleState = false;
     public bool stateActive = false; //If this button has a toggled state, should it use that sprite set?
+    public bool hasFocus = false;
     [HideInInspector] public bool inputPressed = false;
-    [HideInInspector] public bool hasFocus = false;
 }

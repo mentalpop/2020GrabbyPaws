@@ -94,15 +94,15 @@ public class MenuInputLegacy : MonoBehaviour
     //Other
         if (inputForward != "" && Input.GetButtonUp(inputForward)) {
             menuNavigator.MenuNavigate(MenuNode.NavDir.Forward);
-            Debug.Log("MenuNode.NavDir.Forward: "+MenuNode.NavDir.Forward);
+            //Debug.Log("MenuNode.NavDir.Forward: "+MenuNode.NavDir.Forward);
         }
         if (inputBackward != "" && Input.GetButtonUp(inputBackward)) {
             menuNavigator.MenuNavigate(MenuNode.NavDir.Backward);
-            Debug.Log("MenuNode.NavDir.Backward: "+MenuNode.NavDir.Backward);
+            //Debug.Log("MenuNode.NavDir.Backward: "+MenuNode.NavDir.Backward);
         }
         if (inputCancel != "" && Input.GetButtonUp(inputCancel)) {
             menuNavigator.MenuNavigate(MenuNode.NavDir.Cancel);
-            Debug.Log("MenuNode.NavDir.Cancel: "+MenuNode.NavDir.Cancel);
+            //Debug.Log("MenuNode.NavDir.Cancel: "+MenuNode.NavDir.Cancel);
         }
     //inputActivate
         if (inputActivate != "") {
