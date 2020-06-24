@@ -14,6 +14,26 @@ public class ItemTooltip : MonoBehaviour
     public Vector2 tooltipOffset;
     public float offset = 120;
 
+    public void Unpack(InventoryItem inventoryItem) {
+        itemName.text = inventoryItem.item.name;
+        description.text = inventoryItem.item.description;
+        weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
+        float _value = inventoryItem.item.value * inventoryItem.quantity;
+        if (_value < 100f) {
+    //Prepend zeroes in front of small numbers
+            if (_value < 10f) {
+                value.text = "00"+_value.ToString();
+            } else {
+                value.text = "0"+_value.ToString();
+            }
+        } else {
+            value.text = string.Format("{0:n0}", _value);
+        }
+    //Keep on screen
+        float _scale = UI.GetUIScale();
+        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
+    }
+
     public void Unpack(InventoryItem inventoryItem, Vector2 _position) {
         itemName.text = inventoryItem.item.name;
         description.text = inventoryItem.item.description;

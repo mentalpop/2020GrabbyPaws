@@ -6,25 +6,22 @@ using TMPro;
 
 public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
 {
-    public GameObject tooltipPrefab;
+    public ItemTooltip iTooltip;
+    public RectTransform ttRect;
+    public Vector2 ttOffset;
     public GameObject arrow;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQuantity;
     public Color colorNeutral;
     public Color colorMOver;
-    //public Vector2 tooltipOffset;
     public string singleItemInput;
     public string stackInput;
-    //public MenuNodeButton menuNodeCancel;
-    //public GameObject itemTooltip;
-    public float height = 52f;
 
     private HocksterScrollRect hocksterScrollRect;
     private InventoryItem iItem;
     private List<InventoryItem> myList;
     private List<InventoryItem> otherList;
     private HellaHockster hellaHockster;
-    private ItemTooltip iTooltip;
     private bool inputStackDown = false;
     private bool inputSingleDown = false;
 
@@ -34,9 +31,7 @@ public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
 
     private void OnDisable() {
         navButton.OnStateUpdate -= ButtonFormat;
-        if (iTooltip != null) {
-            Destroy(iTooltip.gameObject);
-        }
+        Destroy(iTooltip.gameObject);
     }
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
@@ -78,16 +73,11 @@ public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
     }
 
     public void HandleTooltip(bool doShow) {
-        if (iTooltip != null) {
-            //iTooltip.gameObject.SetActive(false);
-            Destroy(iTooltip.gameObject);
-            iTooltip = null;
-        }
-        if (doShow && iTooltip == null) {
-            iTooltip = Instantiate(tooltipPrefab, UI.Instance.inventoryDisplay.transform.parent, false).GetComponent<ItemTooltip>();
-            Vector2 vector2 = new Vector2(transform.position.x, transform.position.y + transform.GetSiblingIndex() * height);
-            Debug.Log("vector2: "+vector2);
-            iTooltip.Unpack(iItem, vector2);
+        if (doShow) {
+            iTooltip.gameObject.SetActive(true);
+            iTooltip.Unpack(iItem);
+        } else {
+            iTooltip.gameObject.SetActive(false);
         }
     }
 
@@ -121,6 +111,10 @@ public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
             if (Input.GetButtonDown(singleItemInput) && !inputSingleDown) {
                 inputSingleDown = true;
             }
+        //Reposition the tooltip every frame because it randomly changes position for no reason
+            iTooltip.transform.parent = transform;
+            ttRect.anchoredPosition = ttOffset;
+            iTooltip.transform.parent = hocksterScrollRect.transform.parent;
         }
     }
 
