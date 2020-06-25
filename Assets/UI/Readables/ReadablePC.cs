@@ -14,15 +14,16 @@ public class ReadablePC : MonoBehaviour
     public RectTransform windowContent;
     public ListUnpacker listUnpacker;
     public Scrollbar contentScrollbar;
-    public MenuNavigator menuNavigator;
+    public MenuNode menuOnEnable;
 
     private ReadablePCData rData;
 
     private void OnEnable() {
+        UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
         clickToClose.OnClick += Close;
         container.OnEffectComplete += Container_OnEffectComplete;
         listUnpacker.listController.OnSelect += ListController_OnSelect;
-        menuNavigator.OnClose += MenuNavigator_OnClose;
+        UI.Instance.menuNavigator.OnClose += MenuNavigator_OnClose;
         float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
     }
@@ -31,7 +32,7 @@ public class ReadablePC : MonoBehaviour
         clickToClose.OnClick -= Close;
         container.OnEffectComplete -= Container_OnEffectComplete;
         listUnpacker.listController.OnSelect -= ListController_OnSelect;
-        menuNavigator.OnClose -= MenuNavigator_OnClose;
+        UI.Instance.menuNavigator.OnClose -= MenuNavigator_OnClose;
     }
 
     public void Unpack(ReadablePCData _rData) {

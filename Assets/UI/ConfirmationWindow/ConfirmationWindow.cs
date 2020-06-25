@@ -5,12 +5,13 @@ using TMPro;
 
 public class ConfirmationWindow : MonoBehaviour
 {
+    public MenuNode menuOnEnable;
     public TextMeshProUGUI header;
     public TextMeshProUGUI description;
     public TextMeshProUGUI buttonA;
     public TextMeshProUGUI buttonB;
-    public ButtonGeneric buttonOK;
-    public ButtonGeneric buttonNo;
+    public NavButton buttonOK;
+    public NavButton buttonNo;
     public UI UIRef;
     public ClickToClose clickToClose;
     [HideInInspector] public ConfirmationPromptData promptData;
@@ -19,23 +20,29 @@ public class ConfirmationWindow : MonoBehaviour
     public event ConfirmationEvent OnChoiceMade = delegate { };
 
     private void OnEnable() {
-        buttonOK.OnClick += OnClickOK;
-        buttonNo.OnClick += OnClickNo;
-		clickToClose.OnClick += OnClickNo;
+        buttonOK.OnSelect += OnClickOK;
+        buttonNo.OnSelect += OnClickNo;
+		clickToClose.OnClick += OnClickCancel;
+        UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
     }
 
     private void OnDisable() {
-        buttonOK.OnClick -= OnClickOK;
-        buttonNo.OnClick -= OnClickNo;
-		clickToClose.OnClick -= OnClickNo;
+        buttonOK.OnSelect -= OnClickOK;
+        buttonNo.OnSelect -= OnClickNo;
+		clickToClose.OnClick -= OnClickCancel;
     }
 
-    public void OnClickOK() {
+    public void OnClickOK(ButtonStateData _buttonStateData) {
         OnChoiceMade(true);
         Close();
     }
 
-    public void OnClickNo() {
+    public void OnClickNo(ButtonStateData _buttonStateData) {
+        OnChoiceMade(false);
+        Close();
+    }
+
+    public void OnClickCancel() {
         OnChoiceMade(false);
         Close();
     }

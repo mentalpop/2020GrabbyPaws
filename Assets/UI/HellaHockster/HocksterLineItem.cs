@@ -112,9 +112,9 @@ public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
                 inputSingleDown = true;
             }
         //Reposition the tooltip every frame because it randomly changes position for no reason
-            iTooltip.transform.parent = transform;
+            iTooltip.transform.SetParent(transform);
             ttRect.anchoredPosition = ttOffset;
-            iTooltip.transform.parent = hocksterScrollRect.transform.parent;
+            iTooltip.transform.SetParent(hocksterScrollRect.transform.parent);
         }
     }
 

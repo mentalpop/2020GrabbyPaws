@@ -408,8 +408,10 @@ GameObject:
   - component: {fileID: 1049288192608963887}
   - component: {fileID: 3457430737127499066}
   - component: {fileID: 2892026072413317975}
-  - component: {fileID: 4078137099095519520}
-  - component: {fileID: 7069132099656778456}
+  - component: {fileID: 6981173429468430757}
+  - component: {fileID: 7134995731165659326}
+  - component: {fileID: 1316198008266818454}
+  - component: {fileID: 6893872472639588500}
   m_Layer: 5
   m_Name: ConfirmationButton
   m_TagString: Untagged
@@ -476,7 +478,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4078137099095519520
+--- !u!114 &6981173429468430757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,31 +487,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850849257959359917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e9ceb599ddc4f747b654d48ae79584f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasToggleState: 0
-  stateActive: 0
-  myImage: {fileID: 2892026072413317975}
-  onHover: {fileID: 3582725168822863896}
-  spriteDefaultNeutral: {fileID: 0}
-  spriteDefaultHover: {fileID: 0}
-  spriteDefaultSelected: {fileID: 0}
-  spriteToggleNeutral: {fileID: 0}
-  spriteToggleHover: {fileID: 0}
-  spriteToggleSelected: {fileID: 0}
-  spriteUnavailable: {fileID: 0}
-  doSetNativeSize: 1
-  available: 1
-  doChangeColor: 0
-  onUnavailableChangeColor: 0
-  colorNeutral: {r: 1, g: 1, b: 1, a: 0.7}
-  colorHover: {r: 1, g: 1, b: 1, a: 1}
-  colorSelected: {r: 1, g: 1, b: 1, a: 1}
-  colorAvailable: {r: 1, g: 1, b: 1, a: 1}
-  colorUnavailable: {r: 1, g: 1, b: 1, a: 0.3}
-  alwaysHover: 0
---- !u!114 &7069132099656778456
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
+--- !u!114 &7134995731165659326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -518,7 +506,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850849257959359917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22389ecc700943c4fb9312cd8aa1b00b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threeStateButton: {fileID: 4078137099095519520}
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 0}
+  mDown: {fileID: 0}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  validSelection: 1
+  navButton: {fileID: 6981173429468430757}
+--- !u!114 &1316198008266818454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850849257959359917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b194338c3a141a5409089dc8c46a3cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 6981173429468430757}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  goNeutral: {fileID: 0}
+  goFocus: {fileID: 3582725168822863896}
+  goSelected: {fileID: 0}
+  goActive: {fileID: 0}
+  goActiveFocus: {fileID: 0}
+  goActiveSelected: {fileID: 0}
+  goUnavailable: {fileID: 0}
+--- !u!114 &6893872472639588500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850849257959359917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 6981173429468430757}

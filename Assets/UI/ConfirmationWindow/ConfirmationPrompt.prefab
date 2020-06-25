@@ -634,8 +634,8 @@ MonoBehaviour:
   description: {fileID: 393678863057258616}
   buttonA: {fileID: 6342516354053857351}
   buttonB: {fileID: 531321195896615547}
-  buttonOK: {fileID: 6528519431874343019}
-  buttonNo: {fileID: 415299837348225623}
+  buttonOK: {fileID: 0}
+  buttonNo: {fileID: 0}
   UIRef: {fileID: 0}
   clickToClose: {fileID: 4663065405716555448}
   promptData: {fileID: 0}
@@ -950,6 +950,26 @@ PrefabInstance:
       propertyPath: m_text
       value: OKAY
       objectReference: {fileID: 0}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mLeft
+      value: 
+      objectReference: {fileID: 350563752589877297}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mRight
+      value: 
+      objectReference: {fileID: 350563752589877297}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mForward
+      value: 
+      objectReference: {fileID: 350563752589877297}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mBackward
+      value: 
+      objectReference: {fileID: 350563752589877297}
     - target: {fileID: 8850849257959359917, guid: cf2d6ef56d647af4b97f1f5732cddc71,
         type: 3}
       propertyPath: m_Name
@@ -963,16 +983,16 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4072221520502485683}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6528519431874343019 stripped
+--- !u!114 &6595511987223835149 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7069132099656778456, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+  m_CorrespondingSourceObject: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
     type: 3}
   m_PrefabInstance: {fileID: 4072221520502485683}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22389ecc700943c4fb9312cd8aa1b00b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6342516354053857351 stripped
@@ -1099,6 +1119,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mBackward
+      value: 
+      objectReference: {fileID: 6595511987223835149}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mForward
+      value: 
+      objectReference: {fileID: 6595511987223835149}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mLeft
+      value: 
+      objectReference: {fileID: 6595511987223835149}
+    - target: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+        type: 3}
+      propertyPath: mRight
+      value: 
+      objectReference: {fileID: 6595511987223835149}
     - target: {fileID: 8850849257959359917, guid: cf2d6ef56d647af4b97f1f5732cddc71,
         type: 3}
       propertyPath: m_Name
@@ -1112,16 +1152,16 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7483270850032017551}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &415299837348225623 stripped
+--- !u!114 &350563752589877297 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7069132099656778456, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+  m_CorrespondingSourceObject: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
     type: 3}
   m_PrefabInstance: {fileID: 7483270850032017551}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22389ecc700943c4fb9312cd8aa1b00b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &531321195896615547 stripped

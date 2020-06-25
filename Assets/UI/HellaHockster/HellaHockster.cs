@@ -7,18 +7,17 @@ using TMPro;
 public class HellaHockster : MonoBehaviour
 {
     public Inventory inventory;
-	public MenuNavigator menuNavigator;
 	public MenuNode menuOnEnable;
 
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
-    public ButtonOmni hocksterCallButton;
+    public NavButton hocksterCallButton;
 	public int availableHocksters = 2;
 	public List<GameObject> hocksterImages = new List<GameObject>();
 	public HocksterScrollRect inventoryRect;
 	public HocksterScrollRect hocksterRect;
-	public ButtonOmni dumpTrash;
-	public ButtonOmni recoverTrash;
+	public NavButton dumpTrash;
+	public NavButton recoverTrash;
     public TextMeshProUGUI playerFunds;
     public TextMeshProUGUI estimatedValue;
 
@@ -30,14 +29,14 @@ public class HellaHockster : MonoBehaviour
 	private bool awaitingConfirmation = false;
 
 	private void OnEnable() {
-		hocksterCallButton.OnClick += HocksterCallButton_OnClick;
+		hocksterCallButton.OnSelect += HocksterCallButton_OnClick;
 		clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
-		dumpTrash.OnClick += DumpAllTrash;
-		recoverTrash.OnClick += RecoverAllTrash;
+		dumpTrash.OnSelect += DumpAllTrash;
+		recoverTrash.OnSelect += RecoverAllTrash;
         //inventory.OnItemChanged += UpdateDisplay;
 		UpdateHockstersAvailable();
-		menuNavigator.MenuFocus(menuOnEnable);
+		UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
 	//Player Funds
 		Currency.instance.OnCashChanged += CurrencyCashUpdate;
 		CurrencyCashUpdate();
@@ -56,12 +55,12 @@ public class HellaHockster : MonoBehaviour
 	}
 
 	private void OnDisable() {
-		hocksterCallButton.OnClick -= HocksterCallButton_OnClick;
+		hocksterCallButton.OnSelect -= HocksterCallButton_OnClick;
         clickToClose.OnClick -= Close;
         //inventory.OnItemChanged -= UpdateDisplay;
 		closeButton.OnClick -= Close;
-		dumpTrash.OnClick -= DumpAllTrash;
-		recoverTrash.OnClick -= RecoverAllTrash;
+		dumpTrash.OnSelect -= DumpAllTrash;
+		recoverTrash.OnSelect -= RecoverAllTrash;
 		Currency.instance.OnCashChanged -= CurrencyCashUpdate;
 		if (awaitingConfirmation) {
 			awaitingConfirmation = false;
@@ -73,9 +72,9 @@ public class HellaHockster : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	private void HocksterCallButton_OnClick(bool _stateActive) {
+	private void HocksterCallButton_OnClick(ButtonStateData _buttonStateData) {
 //SELL ITEMS
-		if (hocksterCallButton.available) {
+		if (_buttonStateData.available) {
 			confirmationWindow = UI.RequestConfirmation(promptData);
 			confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
@@ -91,8 +90,7 @@ public class HellaHockster : MonoBehaviour
 			availableHocksters--;
 			UpdateHockstersAvailable();
 			if (availableHocksters < 1) {
-				hocksterCallButton.available = false;
-				hocksterCallButton.UpdateGO();
+				hocksterCallButton.SetAvailable(false);
 			}
 		//Remove sold items from Inventory
 			foreach (var iItem in hocksterInventory) {
@@ -167,7 +165,7 @@ public class HellaHockster : MonoBehaviour
         }
     }
 
-	public void DumpAllTrash(bool _state) {
+	public void DumpAllTrash(ButtonStateData _buttonStateData) {
 //Move ALL items out of list
 		foreach (var item in playerInventory) {
 			Add(item.item, item.quantity, hocksterInventory);
@@ -176,7 +174,7 @@ public class HellaHockster : MonoBehaviour
 		UpdateDisplay();
 	}
 
-	public void RecoverAllTrash(bool _state) {
+	public void RecoverAllTrash(ButtonStateData _buttonStateData) {
 //Move ALL items out of list
 		foreach (var item in hocksterInventory) {
 			Add(item.item, item.quantity, playerInventory);

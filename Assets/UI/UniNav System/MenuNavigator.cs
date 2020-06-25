@@ -32,8 +32,10 @@ public class MenuNavigator : MonoBehaviour
 
     public void MenuFocus(MenuNode _mNode) {
         if (_mNode != null) {
-            activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
-            activeMenuNode.MenuUnfocus();
+            if (activeMenuNode != null) {
+                activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
+                activeMenuNode.MenuUnfocus();
+            }
             activeMenuNode = _mNode;
             activeMenuNode.MenuFocus();
             activeMenuNode.OnSelectionAbort += ActiveMenuNode_OnSelectionAbort;

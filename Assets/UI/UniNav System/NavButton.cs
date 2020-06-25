@@ -38,6 +38,13 @@ public class NavButton : MonoBehaviour
         buttonStateData.inputPressed = false;
         StateUpdate();
     }
+
+    public void SetAvailable(bool _isAvailable) {
+        buttonStateData.available = _isAvailable;
+        buttonStateData.stateActive = false;
+        buttonStateData.inputPressed = false;
+        StateUpdate();
+    }
 }
 
 [System.Serializable]

@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaveAsTabs: 1
-  elements: []
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
@@ -192,6 +191,7 @@ MonoBehaviour:
   mDown: {fileID: 0}
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
+  validSelection: 1
   listController: {fileID: 1186467345762593546}
   navigationType: 0
   menuSize: {x: 0, y: 0}
@@ -702,7 +702,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5096666707617027187}
   - component: {fileID: 9107393122185362665}
-  - component: {fileID: 7286212452383376385}
   - component: {fileID: 5159981143259196045}
   m_Layer: 5
   m_Name: ReadablePC
@@ -751,20 +750,7 @@ MonoBehaviour:
   windowContent: {fileID: 4798017152511290973}
   listUnpacker: {fileID: 7246027013793531332}
   contentScrollbar: {fileID: 4798017151024553115}
-  menuNavigator: {fileID: 7286212452383376385}
---- !u!114 &7286212452383376385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5096666707617027186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeMenuNode: {fileID: 2867577034513772681}
+  menuOnEnable: {fileID: 2867577034513772681}
 --- !u!114 &5159981143259196045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,12 +758,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5096666707617027186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bed411084635a0a43b29457c6ec0f436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuNavigator: {fileID: 7286212452383376385}
+  menuNavigator: {fileID: 0}
   inputActivate: A
   inputHorizontal: LeftAnalogHorizontal
   inputVertical: LeftAnalogVertical
