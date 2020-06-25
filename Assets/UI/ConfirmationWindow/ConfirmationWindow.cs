@@ -12,9 +12,11 @@ public class ConfirmationWindow : MonoBehaviour
     public TextMeshProUGUI buttonB;
     public NavButton buttonOK;
     public NavButton buttonNo;
-    public UI UIRef;
+    //public UI UIRef;
     public ClickToClose clickToClose;
     [HideInInspector] public ConfirmationPromptData promptData;
+
+    private MenuNode menuOnDisable;
 
     public delegate void ConfirmationEvent(bool result);
     public event ConfirmationEvent OnChoiceMade = delegate { };
@@ -30,6 +32,7 @@ public class ConfirmationWindow : MonoBehaviour
         buttonOK.OnSelect -= OnClickOK;
         buttonNo.OnSelect -= OnClickNo;
 		clickToClose.OnClick -= OnClickCancel;
+        UI.Instance.menuNavigator.MenuFocus(menuOnDisable);
     }
 
     public void OnClickOK(ButtonStateData _buttonStateData) {
@@ -51,12 +54,13 @@ public class ConfirmationWindow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Unpack(ConfirmationPromptData _data) {
+    public void Unpack(ConfirmationPromptData _data, MenuNode _menuOnDisable) {
         promptData = _data;
         //Debug.Log("_data: "+_data);
         header.text = _data.header.ToUpper();
         description.text = _data.description.ToUpper();
         buttonA.text = _data.buttonA.ToUpper();
         buttonB.text = _data.buttonB.ToUpper();
+        menuOnDisable = _menuOnDisable;
     }
 }

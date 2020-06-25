@@ -66,7 +66,8 @@ public class LappyMenu : MonoBehaviour
     }
     
     private void MenuNavigator_OnClose(MenuNode menuNode) {
-        Close();
+        if (menuNode == null)
+            Close();
     }
 
     public void Close() {
@@ -121,17 +122,17 @@ public class LappyMenu : MonoBehaviour
                 optionsMenu.gameObject.SetActive(true);
                 break;
             case 6: //Save Game
-                confirmationWindow = UI.RequestConfirmation(promptSave);
+                confirmationWindow = UI.RequestConfirmation(promptSave, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
 			    awaitingConfirmation = true;
                 break;
             case 7: //Quit to Title
-                confirmationWindow = UI.RequestConfirmation(promptQuitTitle);
+                confirmationWindow = UI.RequestConfirmation(promptQuitTitle, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
 			    awaitingConfirmation = true;
                 break;
             case 8: //Quit Game
-                confirmationWindow = UI.RequestConfirmation(promptQuitGame);
+                confirmationWindow = UI.RequestConfirmation(promptQuitGame, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
 			    awaitingConfirmation = true;
                 break;

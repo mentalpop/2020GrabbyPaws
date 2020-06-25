@@ -2273,8 +2273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
-  menuNavigator: {fileID: 0}
   menuOnEnable: {fileID: 2116567108001178679}
+  confirmationMenu: {fileID: 4789515888899276425}
   closeButton: {fileID: 6881530354714267588}
   clickToClose: {fileID: 184765423343149161}
   hocksterCallButton: {fileID: 1985919068496774789}

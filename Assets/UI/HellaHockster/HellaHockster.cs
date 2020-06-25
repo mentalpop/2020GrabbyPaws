@@ -8,6 +8,7 @@ public class HellaHockster : MonoBehaviour
 {
     public Inventory inventory;
 	public MenuNode menuOnEnable;
+	public MenuNode confirmationMenu;
 
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
@@ -75,7 +76,7 @@ public class HellaHockster : MonoBehaviour
 	private void HocksterCallButton_OnClick(ButtonStateData _buttonStateData) {
 //SELL ITEMS
 		if (_buttonStateData.available) {
-			confirmationWindow = UI.RequestConfirmation(promptData);
+			confirmationWindow = UI.RequestConfirmation(promptData, confirmationMenu);
 			confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
 		} else {

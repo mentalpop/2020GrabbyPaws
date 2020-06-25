@@ -83,7 +83,7 @@ public class WishListGadget : MonoBehaviour
 	private void BuildButton_OnClick(bool _stateActive) {
 		if (canBuildGadget) {
 	//Make a confirmation request
-			confirmationWindow = UI.RequestConfirmation(promptGadget);
+			confirmationWindow = UI.RequestConfirmation(promptGadget, null);
 			confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
 		}

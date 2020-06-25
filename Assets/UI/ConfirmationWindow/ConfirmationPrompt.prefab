@@ -630,12 +630,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996e9c985c01beb4d941240cf43bbf24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuOnEnable: {fileID: 6595511987223835149}
   header: {fileID: 7900372105018293702}
   description: {fileID: 393678863057258616}
   buttonA: {fileID: 6342516354053857351}
   buttonB: {fileID: 531321195896615547}
-  buttonOK: {fileID: 0}
-  buttonNo: {fileID: 0}
+  buttonOK: {fileID: 6368498731215287062}
+  buttonNo: {fileID: 521281828589216042}
   UIRef: {fileID: 0}
   clickToClose: {fileID: 4663065405716555448}
   promptData: {fileID: 0}
@@ -983,6 +984,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4072221520502485683}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6368498731215287062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6981173429468430757, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+    type: 3}
+  m_PrefabInstance: {fileID: 4072221520502485683}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6595511987223835149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,
@@ -1142,7 +1155,7 @@ PrefabInstance:
     - target: {fileID: 8850849257959359917, guid: cf2d6ef56d647af4b97f1f5732cddc71,
         type: 3}
       propertyPath: m_Name
-      value: ConfirmationButton
+      value: ConfirmationButtonNo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf2d6ef56d647af4b97f1f5732cddc71, type: 3}
@@ -1152,6 +1165,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7483270850032017551}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &521281828589216042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6981173429468430757, guid: cf2d6ef56d647af4b97f1f5732cddc71,
+    type: 3}
+  m_PrefabInstance: {fileID: 7483270850032017551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &350563752589877297 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7134995731165659326, guid: cf2d6ef56d647af4b97f1f5732cddc71,

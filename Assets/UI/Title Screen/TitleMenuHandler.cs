@@ -37,7 +37,7 @@ public class TitleMenuHandler : MonoBehaviour
 
     private void OnClickNewGame() {
         if (saveFileExists) {
-            confirmationWindow = UI.RequestConfirmation(promptNewGame);
+            confirmationWindow = UI.RequestConfirmation(promptNewGame, null);
             confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
         } else {
@@ -50,7 +50,7 @@ public class TitleMenuHandler : MonoBehaviour
     }
     
     private void OnClickQuit() {
-        confirmationWindow = UI.RequestConfirmation(promptQuit);
+        confirmationWindow = UI.RequestConfirmation(promptQuit, null);
         confirmationWindow.OnChoiceMade += OnConfirm;
 		awaitingConfirmation = true;
     }
