@@ -21,6 +21,8 @@ public class MenuInputLegacy : MonoBehaviour
     //*/
 
     private void Update() {
+        if (menuNavigator.useMouse) //Ignore Input if user is using Mouse
+            return;
         Vector2 inputVector = new Vector2(Input.GetAxis(inputHorizontal), Input.GetAxis(inputVertical));
         if (axisDown) {
             if (inputVector.magnitude < axisThreshold) {

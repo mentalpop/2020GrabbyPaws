@@ -7,7 +7,7 @@ using TMPro;
 public class HellaHockster : MonoBehaviour
 {
     public Inventory inventory;
-	public MenuNode menuOnEnable;
+	public MenuHub menuHub;
 	public MenuNode confirmationMenu;
 
     public ButtonGeneric closeButton;
@@ -37,7 +37,6 @@ public class HellaHockster : MonoBehaviour
 		recoverTrash.OnSelect += RecoverAllTrash;
         //inventory.OnItemChanged += UpdateDisplay;
 		UpdateHockstersAvailable();
-		UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
 	//Player Funds
 		Currency.instance.OnCashChanged += CurrencyCashUpdate;
 		CurrencyCashUpdate();
@@ -49,9 +48,14 @@ public class HellaHockster : MonoBehaviour
 			playerInventory.Add(new InventoryItem(iItem.item, iItem.quantity));
 		}
 		UpdateDisplay();
+        menuHub.OnMenuClose += MenuNavigator_OnClose;
 	}
 
-	private void CurrencyCashUpdate() {
+    private void MenuNavigator_OnClose() {
+        Close();
+    }
+
+    private void CurrencyCashUpdate() {
 		playerFunds.text = Currency.instance.Cash.ToString();
 	}
 
@@ -67,6 +71,7 @@ public class HellaHockster : MonoBehaviour
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
 		}
+        menuHub.OnMenuClose -= MenuNavigator_OnClose;
 	}
 
 	private void Close() {

@@ -5,7 +5,7 @@ using TMPro;
 
 public class ConfirmationWindow : MonoBehaviour
 {
-    public MenuNode menuOnEnable;
+    public MenuHub menuHub;
     public TextMeshProUGUI header;
     public TextMeshProUGUI description;
     public TextMeshProUGUI buttonA;
@@ -25,14 +25,20 @@ public class ConfirmationWindow : MonoBehaviour
         buttonOK.OnSelect += OnClickOK;
         buttonNo.OnSelect += OnClickNo;
 		clickToClose.OnClick += OnClickCancel;
-        UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
+        menuHub.OnMenuClose += OnClickCancel;
     }
+
+    /*
+    private void Instance_OnClose() { //MenuNode menuNode
+        OnClickCancel();
+    }
+    //*/
 
     private void OnDisable() {
         buttonOK.OnSelect -= OnClickOK;
         buttonNo.OnSelect -= OnClickNo;
 		clickToClose.OnClick -= OnClickCancel;
-        UI.Instance.menuNavigator.MenuFocus(menuOnDisable);
+        menuHub.OnMenuClose -= OnClickCancel;
     }
 
     public void OnClickOK(ButtonStateData _buttonStateData) {
@@ -61,6 +67,6 @@ public class ConfirmationWindow : MonoBehaviour
         description.text = _data.description.ToUpper();
         buttonA.text = _data.buttonA.ToUpper();
         buttonB.text = _data.buttonB.ToUpper();
-        menuOnDisable = _menuOnDisable;
+        menuHub.menuOnDisable = _menuOnDisable;
     }
 }

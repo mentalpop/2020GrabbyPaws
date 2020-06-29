@@ -5,6 +5,8 @@ using UnityEngine;
 public class MenuNavigator : MonoBehaviour
 {
     public MenuNode activeMenuNode;
+    public bool useMouse = true;
+    //public MenuNode activeCancelNode;
     //public MenuNode defaultMenuNode;
 
     public delegate void MenuEvent(MenuNode menuNode);
@@ -13,6 +15,18 @@ public class MenuNavigator : MonoBehaviour
 
     protected NavButton activeButton;
     protected NavButton heldButton;
+
+    public static MenuNavigator Instance { get; private set; }
+
+    private void Awake() {
+    //Singleton Pattern
+        if (Instance != null && Instance != this) { 
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     /*
     private void Awake() {
@@ -23,9 +37,8 @@ public class MenuNavigator : MonoBehaviour
     //*/
 
     public void MenuCancel(MenuNode _mNode) {
-        if (_mNode == null) {
-            OnClose(activeMenuNode);
-        } else {
+        OnClose(activeMenuNode);
+        if (_mNode != null) {
             MenuFocus(_mNode);
         }
     }
@@ -34,10 +47,12 @@ public class MenuNavigator : MonoBehaviour
         if (_mNode != null) {
             if (activeMenuNode != null) {
                 activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
-                activeMenuNode.MenuUnfocus();
+                if (!useMouse)
+                    activeMenuNode.MenuUnfocus();
             }
             activeMenuNode = _mNode;
-            activeMenuNode.MenuFocus();
+            if (!useMouse)
+                activeMenuNode.MenuFocus();
             activeMenuNode.OnSelectionAbort += ActiveMenuNode_OnSelectionAbort;
             OnMenuFocus(_mNode);
         }

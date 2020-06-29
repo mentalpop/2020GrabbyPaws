@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LappyMenu : MonoBehaviour
 {
-	public MenuNode menuOnEnable;
+    public MenuHub menuHub;
     public AnimatedUIContainer container;
     public SneakDiary sneakDiary;
     public NotSecrets notSecrets;
@@ -39,9 +39,8 @@ public class LappyMenu : MonoBehaviour
         clickToClose.OnClick += Close;
         startButton.OnClick += OnClickStart;
         container.OnEffectComplete += Container_OnEffectComplete;
-        UI.Instance.menuNavigator.OnClose += MenuNavigator_OnClose;
+        menuHub.OnMenuClose += MenuNavigator_OnClose;
         SetBackground(lappySelectedBG.Read());
-        UI.Instance.menuNavigator.MenuFocus(menuOnEnable);
     }
 
     private void OnDisable() {
@@ -49,7 +48,7 @@ public class LappyMenu : MonoBehaviour
         clickToClose.OnClick -= Close;
 		startButton.OnClick -= OnClickStart;
         container.OnEffectComplete -= Container_OnEffectComplete;
-        UI.Instance.menuNavigator.OnClose -= MenuNavigator_OnClose;
+        menuHub.OnMenuClose -= MenuNavigator_OnClose;
 		if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
@@ -65,9 +64,8 @@ public class LappyMenu : MonoBehaviour
         }
     }
     
-    private void MenuNavigator_OnClose(MenuNode menuNode) {
-        if (menuNode == null)
-            Close();
+    private void MenuNavigator_OnClose() {
+        Close();
     }
 
     public void Close() {

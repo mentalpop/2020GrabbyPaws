@@ -702,7 +702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5096666707617027187}
   - component: {fileID: 9107393122185362665}
-  - component: {fileID: 5159981143259196045}
+  - component: {fileID: 2307491648918698738}
   m_Layer: 5
   m_Name: ReadablePC
   m_TagString: Untagged
@@ -743,6 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53a0696c65889f44b33aacdeb276d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuHub: {fileID: 2307491648918698738}
   container: {fileID: 5250287896008838756}
   clickToClose: {fileID: 5096666707569721962}
   header: {fileID: 5096666708173483591}
@@ -750,27 +751,22 @@ MonoBehaviour:
   windowContent: {fileID: 4798017152511290973}
   listUnpacker: {fileID: 7246027013793531332}
   contentScrollbar: {fileID: 4798017151024553115}
-  menuOnEnable: {fileID: 2867577034513772681}
---- !u!114 &5159981143259196045
+--- !u!114 &2307491648918698738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5096666707617027186}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed411084635a0a43b29457c6ec0f436, type: 3}
+  m_Script: {fileID: 11500000, guid: f74f6855dde841543bcc54306055ad10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuNavigator: {fileID: 0}
-  inputActivate: A
-  inputHorizontal: LeftAnalogHorizontal
-  inputVertical: LeftAnalogVertical
-  axisThreshold: 0.9
-  inputForward: RB
-  inputBackward: LB
-  inputCancel: B
+  menuOnEnable: {fileID: 2867577034513772681}
+  menuOnDisable: {fileID: 0}
+  nodes:
+  - {fileID: 2867577034513772681}
 --- !u!1 &5096666707752505959
 GameObject:
   m_ObjectHideFlags: 0

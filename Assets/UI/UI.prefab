@@ -264,6 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1874946249202494015}
   - component: {fileID: 1874946249202494012}
+  - component: {fileID: 8440036961688051355}
   m_Layer: 5
   m_Name: LappyMenu
   m_TagString: Untagged
@@ -304,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dd67398ffab2f43aff96a8af681c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuOnEnable: {fileID: 6220181618831938254}
+  menuHub: {fileID: 8440036961688051355}
   container: {fileID: 4712535770345171408}
   sneakDiary: {fileID: 5819588754031229839}
   notSecrets: {fileID: 5819588753388215562}
@@ -332,6 +333,22 @@ MonoBehaviour:
   promptSave: {fileID: 11400000, guid: a4e640dc04fbc3748a40788afa525517, type: 2}
   promptQuitTitle: {fileID: 11400000, guid: da0359165af4b424a8a7e0bc5da866fd, type: 2}
   promptQuitGame: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
+--- !u!114 &8440036961688051355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874946249202494014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74f6855dde841543bcc54306055ad10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuOnEnable: {fileID: 6220181618831938254}
+  menuOnDisable: {fileID: 0}
+  nodes:
+  - {fileID: 6220181618831938254}
 --- !u!1 &1875333519144590653
 GameObject:
   m_ObjectHideFlags: 0
@@ -4939,6 +4956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeMenuNode: {fileID: 0}
+  useMouse: 0
 --- !u!114 &1536072457079159744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6188,7 +6206,7 @@ MonoBehaviour:
   behaveAsTabs: 0
   activeIndex: 0
   focusIndex: 0
-  listHasFocus: 1
+  listHasFocus: 0
 --- !u!114 &3214433912011948990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6703,6 +6721,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5819588753377720033}
     m_Modifications:
+    - target: {fileID: 4078265936955038863, guid: e99dd8bcdae65404c85c6fdb6cd2082b,
+        type: 3}
+      propertyPath: menuOnDisable
+      value: 
+      objectReference: {fileID: 6220181618831938254}
     - target: {fileID: 6881530353596349546, guid: e99dd8bcdae65404c85c6fdb6cd2082b,
         type: 3}
       propertyPath: m_LocalPosition.x

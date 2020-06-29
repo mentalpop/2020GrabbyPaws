@@ -10,28 +10,39 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
     public NavButton navButton;
 		
 	public void OnPointerEnter(PointerEventData evd) {
-        navButton.buttonStateData.hasFocus = true;
-        navButton.StateUpdate();
+        ButtonSetFocus(true);
     }
 
 	public void OnPointerExit (PointerEventData evd) {
-        navButton.buttonStateData.hasFocus = false;
-        navButton.StateUpdate();
+        ButtonSetFocus(false);
+    }
+    private void ButtonSetFocus(bool _focus) {
+        if (MenuNavigator.Instance.useMouse) {
+            navButton.buttonStateData.hasFocus = _focus;
+            navButton.StateUpdate();
+        }
     }
 		
 	public void OnPointerClick (PointerEventData evd) {
-        if (navButton.buttonStateData.hasToggleState)
-            navButton.buttonStateData.stateActive = !navButton.buttonStateData.stateActive;
-        navButton.Select();
+        if (MenuNavigator.Instance.useMouse) {
+            if (navButton.buttonStateData.hasToggleState)
+                navButton.buttonStateData.stateActive = !navButton.buttonStateData.stateActive;
+            navButton.Select();
+        }
 	}
 
 	public void OnPointerDown(PointerEventData eventData) {
-        navButton.buttonStateData.inputPressed = true;
-        navButton.StateUpdate();
+        ButtonSetPressed(true);
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-        navButton.buttonStateData.inputPressed = false;
-        navButton.StateUpdate();
+        ButtonSetPressed(false);
+    }
+
+    private void ButtonSetPressed(bool _pressed) {
+        if (MenuNavigator.Instance.useMouse) {
+            navButton.buttonStateData.inputPressed = _pressed;
+            navButton.StateUpdate();
+        }
     }
 }
