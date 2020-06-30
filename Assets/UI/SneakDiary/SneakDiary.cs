@@ -8,7 +8,7 @@ public class SneakDiary : MonoBehaviour
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
 
-	public DropDownMenu timeSelector;
+	public ListControllerDropDown timeSelector;
 	public Image timeOfNightIndicator;
 	public List<Sprite> nightPhaseSprites = new List<Sprite>();
 	
@@ -31,7 +31,7 @@ public class SneakDiary : MonoBehaviour
 	private void OnEnable() {
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
-		timeSelector.OnChoiceMade += TimeSelector_OnChoiceMade;
+		timeSelector.OnSelect += TimeSelector_OnChoiceMade;
 	}
 
 	private void TimeSelector_OnChoiceMade(int choiceMade) {
@@ -43,7 +43,7 @@ public class SneakDiary : MonoBehaviour
 	private void OnDisable() {
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
-		timeSelector.OnChoiceMade -= TimeSelector_OnChoiceMade;
+		timeSelector.OnSelect -= TimeSelector_OnChoiceMade;
 	}
 
 	private void Close() {

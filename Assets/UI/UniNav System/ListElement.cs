@@ -5,10 +5,6 @@ using UnityEngine;
 public class ListElement : MonoBehaviour
 {
     public NavButton navButton;
-    /*
-    public GameObject contents;
-    public bool active = false;
-    //*/
 
     [HideInInspector] public ListController listController;
     [HideInInspector] public int listIndex;
@@ -22,6 +18,7 @@ public class ListElement : MonoBehaviour
     }
 
     private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
+        Debug.Log("NavButton_OnSelect: "+_buttonStateData);
         listController.SetActiveIndex(listIndex);
     }
 

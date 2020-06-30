@@ -4775,12 +4775,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5819588752494907391}
+  - component: {fileID: 4311098172652755225}
   - component: {fileID: 5819588752494907388}
   - component: {fileID: 5819588752494907362}
   - component: {fileID: 5819588752494907363}
   - component: {fileID: 5819588752494907360}
   - component: {fileID: 3421369858925345733}
-  - component: {fileID: 4311098172652755225}
   - component: {fileID: 1536072457079159744}
   m_Layer: 5
   m_Name: UI
@@ -4806,6 +4806,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4311098172652755225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819588752494907390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeMenuNode: {fileID: 0}
+  useMouse: 0
 --- !u!114 &5819588752494907388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4818,7 +4832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eab7df523ea2f441b9917265221d609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuNavigator: {fileID: 4311098172652755225}
   sonosAudio: {fileID: 8846785370091901141}
   HUD: {fileID: 5819588754087773053}
   lappy: {fileID: 1874946249202494012}
@@ -4943,20 +4956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: 0
   spawnManager: {fileID: 0}
---- !u!114 &4311098172652755225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819588752494907390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeMenuNode: {fileID: 0}
-  useMouse: 0
 --- !u!114 &1536072457079159744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9185,6 +9184,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6596529926470672311, guid: d01dd0e65431d624fb46c74a6d0eff30,
+        type: 3}
+      propertyPath: menuOnDisable
+      value: 
+      objectReference: {fileID: 6220181618831938254}
     - target: {fileID: 7064492041004574167, guid: d01dd0e65431d624fb46c74a6d0eff30,
         type: 3}
       propertyPath: m_SizeDelta.x

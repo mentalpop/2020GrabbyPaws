@@ -1850,6 +1850,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TabAudio
       objectReference: {fileID: 0}
+    - target: {fileID: 294411904431682164, guid: 6e4717862ad60cc46a4a15c65b6f9e78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 471542152061064021, guid: 6e4717862ad60cc46a4a15c65b6f9e78,
         type: 3}
       propertyPath: m_LocalPosition.x

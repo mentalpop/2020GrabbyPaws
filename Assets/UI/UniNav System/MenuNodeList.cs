@@ -7,7 +7,7 @@ public class MenuNodeList : MenuNode
     public ListController listController;
     public NavigationType navigationType;
     public Vector2Int menuSize;
-    public bool outOfBoundsLoop = false;
+    public bool outOfBoundsLoop = true;
     public enum NavigationType
     {
         Vertical,

@@ -24,10 +24,9 @@ public class ListUnpacker : MonoBehaviour
             var buttonClone = Instantiate(listObject, targetTransform, false);
             lineItems.Add(buttonClone);
             ListElement liEl = buttonClone.GetComponent<ListElement>();
-            //liEl.Unpack(listController, i);
             _elements.Add(liEl);
-            NavButton _NavButton = buttonClone.GetComponent<NavButton>();
-            _NavButton.Unpack(buttonData[i]);
+            //NavButton _NavButton = buttonClone.GetComponent<NavButton>();
+            liEl.navButton.Unpack(buttonData[i]);
         }
         listController.Elements = _elements;
         if (listController.behaveAsTabs) {

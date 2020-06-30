@@ -36,16 +36,20 @@ public class ListController : MonoBehaviour
     }
     //*/
 
-    public void SetActiveIndex(int _index) {
-        activeIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
-        focusIndex = activeIndex;
-        OnSelect(activeIndex);
+    public virtual void SetActiveIndex(int _index) {
+        OnSelectEvent(_index);
         for (int i = 0; i < elements.Count; i++) {
             elements[i].navButton.SetFocus(i == activeIndex);
             if (behaveAsTabs) {
                 elements[i].navButton.SetActive(i == activeIndex);
             }
         }
+    }
+
+    protected void OnSelectEvent(int _index) {
+        activeIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
+        focusIndex = activeIndex;
+        OnSelect(activeIndex);
     }
 
     public void SetFocus(int _index) {

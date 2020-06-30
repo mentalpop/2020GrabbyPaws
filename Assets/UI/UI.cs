@@ -49,7 +49,6 @@ public class UI : MonoBehaviour
 {
     public static string saveFileName = "grabby.paws";
 
-    public MenuNavigator menuNavigator;
     public Sonos sonosAudio;
     public GameObject HUD;
     public LappyMenu lappy;
