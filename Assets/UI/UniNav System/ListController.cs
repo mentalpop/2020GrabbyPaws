@@ -59,12 +59,12 @@ public class ListController : MonoBehaviour
         }
     }
 
-    public void Focus() {
+    public virtual void Focus() {
         listHasFocus = true;
         SetFocus(focusIndex);
     }
     
-    public void Unfocus() {
+    public virtual void Unfocus() {
         listHasFocus = false;
         for (int i = 0; i < elements.Count; i++) {
             elements[i].navButton.SetFocus(false);
@@ -79,15 +79,15 @@ public class ListController : MonoBehaviour
     }
     //*/
 
-    public void FirstIndex() {
+    public virtual void FirstIndex() {
         SetFocus(0);
     }
 
-    public void LastIndex() {
+    public virtual void LastIndex() {
         SetFocus(elements.Count - 1);
     }
 
-    public bool IncrementIndex() {
+    public virtual bool IncrementIndex() {
         if (focusIndex < elements.Count - 1) {
             SetFocus(focusIndex + 1);
             return true;
@@ -95,7 +95,7 @@ public class ListController : MonoBehaviour
         return false;
     }
 
-    public bool DecrementIndex() {
+    public virtual bool DecrementIndex() {
         if (focusIndex > 0) {
             SetFocus(focusIndex - 1);
             return true;

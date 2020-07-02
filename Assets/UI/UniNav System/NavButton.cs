@@ -27,7 +27,7 @@ public class NavButton : MonoBehaviour
     }
 
     public void SetFocus(bool _hasFocus) {
-        //Debug.Log("_hasFocus: "+gameObject.name);
+        //Debug.Log(gameObject.name+"; "+_hasFocus);
         buttonStateData.hasFocus = _hasFocus;
         buttonStateData.inputPressed = false;
         StateUpdate();

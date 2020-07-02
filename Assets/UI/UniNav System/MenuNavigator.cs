@@ -38,7 +38,10 @@ public class MenuNavigator : MonoBehaviour
 
     public void MenuCancel(MenuNode _mNode) {
         OnClose(activeMenuNode);
-        if (_mNode != null) {
+        if (_mNode == null) {
+            Debug.Log("MenuCancel; _mNode is null");
+        } else {
+            //Debug.Log("MenuCancel: "+_mNode.name);
             MenuFocus(_mNode);
         }
     }
@@ -63,30 +66,37 @@ public class MenuNavigator : MonoBehaviour
     }
 
     public void MenuPress() {
-        activeButton = activeMenuNode.GetButtonInFocus();
-        heldButton = activeButton;//activeMenuNode.listController.focusIndex;
-        activeButton.buttonStateData.inputPressed = true;
-        activeButton.StateUpdate();
+        //activeButton = activeMenuNode.GetButtonInFocus();
+        heldButton = activeMenuNode.GetButtonInFocus();//activeButton;//activeMenuNode.listController.focusIndex;
+        heldButton.buttonStateData.inputPressed = true;
+        heldButton.StateUpdate();
     }
 
     public void MenuRelease() {
         activeButton = activeMenuNode.GetButtonInFocus();
+        //Debug.Log("heldButton: "+heldButton.name+", activeButton: "+activeButton.name);
         if (activeButton != null && activeButton == heldButton) {
             activeButton.buttonStateData.inputPressed = false;
+            if (activeButton.buttonStateData.hasToggleState)
+                activeButton.buttonStateData.stateActive = !activeButton.buttonStateData.stateActive;
+            activeButton.Select();
+            /*
             if (activeMenuNode.mAccept == null) {
-                if (activeButton.buttonStateData.hasToggleState)
-                    activeButton.buttonStateData.stateActive = !activeButton.buttonStateData.stateActive;
-                activeButton.Select();
-            } else {
                 MenuNavigate(MenuNode.NavDir.Accept);
+                //Debug.Log("MenuNode.NavDir.Accept: "+MenuNode.NavDir.Accept);
                 activeButton.StateUpdate();
+                //Debug.Log("activeButton.buttonStateData.inputPressed: "+activeButton.buttonStateData.inputPressed);
+            } else {
+                
             }
+            //*/
         }
         heldButton = null;
     }
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
         activeMenuNode.MenuNavigate(navDir, this);
+        //Debug.Log("activeMenuNode: "+activeMenuNode.name);
     }
 
     /*

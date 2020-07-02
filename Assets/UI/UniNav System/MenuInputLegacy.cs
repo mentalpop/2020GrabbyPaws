@@ -110,12 +110,13 @@ public class MenuInputLegacy : MonoBehaviour
         if (inputActivate != "") {
             //menuNavigator.MenuActivate();
             if (Input.GetButtonDown(inputActivate)) {
+                //Debug.Log("MenuPress");
                 menuNavigator.MenuPress();
                 //Debug.Log("MenuNode.NavDir.MenuActivate");
             }
             if (Input.GetButtonUp(inputActivate)) {
+                //Debug.Log("MenuRelease");
                 menuNavigator.MenuRelease();
-                //Debug.Log("MenuNode.NavDir.MenuActivate");
             }
         }
             

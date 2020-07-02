@@ -6,6 +6,14 @@ public class MenuNodeButton : MenuNode
 {
     public NavButton navButton;
 
+    private void OnEnable() {
+        navButton.OnSelect += NavButton_OnSelect;
+    }
+
+    private void OnDisable() {
+        navButton.OnSelect -= NavButton_OnSelect;
+    }
+
     public override void MenuUnfocus() {
         navButton.SetFocus(false);
     }
@@ -18,7 +26,14 @@ public class MenuNodeButton : MenuNode
         return navButton;
     }
 
+    private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
+        if (mAccept != null) {
+            MenuNavigator.Instance.MenuNavigate(NavDir.Accept);
+        }
+    }
+
     public override void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
+        //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
@@ -32,5 +47,8 @@ public class MenuNodeButton : MenuNode
         }
         if (_mNode != null && _mNode.validSelection)
             menuNavigator.MenuFocus(_mNode);
+        else {
+            Debug.LogWarning("_mNode is null");
+        }
     }
 }

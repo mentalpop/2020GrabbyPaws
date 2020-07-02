@@ -40,6 +40,7 @@ public class MenuNodeList : MenuNode
     }
 
     public override void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
+        //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
