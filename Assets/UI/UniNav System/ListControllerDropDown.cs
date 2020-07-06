@@ -99,12 +99,16 @@ public class ListControllerDropDown : ListController
 
     private void Header_OnSelect(ButtonStateData _buttonStateData) {
         //Debug.Log("Header_OnSelect: "+_buttonStateData);
-        Toggle(-1); //Open
+        Open();
     }
 
     public override void SetActiveIndex(int _index) {
         base.SetActiveIndex(_index);
-        Toggle(_index);
+        activeIndex = _index;
+        //OnSelectEvent(activeIndex);
+        SetHeader(activeIndex);
+        //Toggle(_index);
+        Close();
     }
 
     public void SetHeader(int _index) {
@@ -125,6 +129,48 @@ public class ListControllerDropDown : ListController
         deltaHeight = 0f;
     }
 
+    public void Open() {
+        if (isExpanded) {
+            Debug.Log("Redundant call to Open: "+gameObject.name);
+        } else {
+            isExpanded = true;
+            background.SetActive(true);
+        //OnOpen
+            mySine.Reset();
+            foreach (ListElement liEl in Elements) {
+                if (liEl.listIndex == activeIndex)
+                    liEl.gameObject.SetActive(false);
+                else
+                    liEl.gameObject.SetActive(true);
+            }
+            SetFocus(focusIndex);
+            SetDeltaHeight();
+            header.SetActive(true);
+            if (masterContainer != null) {
+                transform.SetParent(masterContainer);
+            }
+            OnOpen();
+        }
+    }
+
+    public void Close() {
+        if (isExpanded) {
+            isExpanded = false;
+            background.SetActive(true);
+            mySine.Max();
+            header.SetActive(false);
+            if (listHasFocus)
+                mNodeList.MenuNavigate(MenuNode.NavDir.Cancel, MenuNavigator.Instance);
+            if (parentTransform != null) {
+                transform.SetParent(parentTransform);
+                myRect.anchoredPosition = originPosition;
+            }
+        } else {
+            Debug.Log("Redundant call to Close: "+gameObject.name);
+        }
+    }
+
+    /*
     public void Toggle(int _newIndex) {
         //Debug.Log("Toggle: "+_newIndex);
         isExpanded = !isExpanded;
@@ -163,6 +209,7 @@ public class ListControllerDropDown : ListController
             }
         }
     }
+    //*/
 
     public override void Focus() {
         listHasFocus = true;
@@ -180,6 +227,8 @@ public class ListControllerDropDown : ListController
     public override void Unfocus() {
         //Toggle(-1);
         base.Unfocus();
+        Close();
+        /*
         isExpanded = false;
         background.SetActive(true);
         header.SetActive(false);
@@ -188,6 +237,7 @@ public class ListControllerDropDown : ListController
             transform.SetParent(parentTransform);
             myRect.anchoredPosition = originPosition;
         }
+        //*/
     }
 
     public override void FirstIndex() {

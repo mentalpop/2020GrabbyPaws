@@ -39,7 +39,7 @@ public class ListController : MonoBehaviour
     public virtual void SetActiveIndex(int _index) {
         OnSelectEvent(_index);
         for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(i == activeIndex);
+            elements[i].navButton.SetFocus(listHasFocus && i == activeIndex);
             if (behaveAsTabs) {
                 elements[i].navButton.SetActive(i == activeIndex);
             }
@@ -53,9 +53,14 @@ public class ListController : MonoBehaviour
     }
 
     public void SetFocus(int _index) {
-        focusIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(i == focusIndex);
+        if (elements == null) {
+            OnListEmpty(true);
+            Debug.Log("Tried to SetFocus on elements, but elements list is null; "+gameObject.name);
+        } else {
+            focusIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
+            for (int i = 0; i < elements.Count; i++) {
+                elements[i].navButton.SetFocus(i == focusIndex);
+            }
         }
     }
 
@@ -66,8 +71,10 @@ public class ListController : MonoBehaviour
     
     public virtual void Unfocus() {
         listHasFocus = false;
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(false);
+        if (elements != null) {
+            for (int i = 0; i < elements.Count; i++) {
+                elements[i].navButton.SetFocus(false);
+            }
         }
     }
 

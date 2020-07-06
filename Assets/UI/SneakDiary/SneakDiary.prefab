@@ -1077,7 +1077,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ddm: {fileID: 5804933854689092547}
   clickToClose: {fileID: 6883572390040207694}
-  myMenuNode: {fileID: 8832917122792208681}
 --- !u!114 &8832917122792208681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,8 +1157,8 @@ MonoBehaviour:
   mCancel: {fileID: 0}
   mLeft: {fileID: 0}
   mRight: {fileID: 0}
-  mUp: {fileID: 0}
-  mDown: {fileID: 0}
+  mUp: {fileID: 5952836286257568107}
+  mDown: {fileID: 5952836286257568107}
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
   validSelection: 1
@@ -1977,6 +1976,8 @@ GameObject:
   - component: {fileID: 3090711176006594456}
   - component: {fileID: 3090711176006594457}
   - component: {fileID: 6596529926470672311}
+  - component: {fileID: 7204548215214941051}
+  - component: {fileID: 5952836286257568107}
   m_Layer: 5
   m_Name: SneakDiary
   m_TagString: Untagged
@@ -2021,6 +2022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dee4dc11e480194382dfcca2f005ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listController: {fileID: 7204548215214941051}
+  menuHub: {fileID: 6596529926470672311}
+  NPCListMenuNode: {fileID: 5952836286257568107}
   closeButton: {fileID: 3090711175419638211}
   clickToClose: {fileID: 8643561320706982972}
   timeSelector: {fileID: 5804933854689092547}
@@ -2054,10 +2058,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74f6855dde841543bcc54306055ad10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuOnEnable: {fileID: 5855818904500162582}
+  menuOnEnable: {fileID: 0}
   menuOnDisable: {fileID: 0}
   nodes:
+  - {fileID: 5952836286257568107}
   - {fileID: 5855818904500162582}
+--- !u!114 &7204548215214941051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3090711176006594461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf2b470e1712d144ad6fd9579953ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaveAsTabs: 0
+  activeIndex: 0
+  focusIndex: 0
+  listHasFocus: 0
+--- !u!114 &5952836286257568107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3090711176006594461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 5855818904500162582}
+  mDown: {fileID: 5855818904500162582}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  validSelection: 1
+  listController: {fileID: 7204548215214941051}
+  navigationType: 0
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 0
 --- !u!1 &3090711176093814791
 GameObject:
   m_ObjectHideFlags: 0

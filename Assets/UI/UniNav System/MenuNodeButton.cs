@@ -48,7 +48,7 @@ public class MenuNodeButton : MenuNode
         if (_mNode != null && _mNode.validSelection)
             menuNavigator.MenuFocus(_mNode);
         else {
-            Debug.LogWarning("_mNode is null");
+            Debug.Log("_mNode is null");
         }
     }
 }

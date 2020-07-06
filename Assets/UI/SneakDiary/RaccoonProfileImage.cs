@@ -27,19 +27,34 @@ public class RaccoonProfileImage : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
+    public void GainFocus() {
+        //Debug.Log("GainFocus");
         if (tooltip == null) {
             tooltip = sneakDiaryRef.TooltipOpenSmall(profileData.rName, false);
             CorrectTransformPosition(tooltip.transform, tooltip.myRect);
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData) {
+    public void LoseFocus() {
+        //Debug.Log("LoseFocus: "+tooltip);
         if (tooltip != null) {
             Destroy(tooltip.gameObject);
             tooltip = null;
         }
     }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (MenuNavigator.Instance.useMouse) {
+            GainFocus();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        if (MenuNavigator.Instance.useMouse) {
+            LoseFocus();
+        }
+    }
+
     private void CorrectTransformPosition(Transform _tooltip, RectTransform _tRect) {
         _tooltip.SetParent(transform);
         _tRect.anchoredPosition = tooltipOffset;
