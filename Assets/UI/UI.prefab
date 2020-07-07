@@ -4819,7 +4819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeMenuNode: {fileID: 0}
-  useMouse: 0
+  useMouse: 1
 --- !u!114 &5819588752494907388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6206,6 +6206,7 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
+  scrollRect: {fileID: 0}
 --- !u!114 &3214433912011948990
 MonoBehaviour:
   m_ObjectHideFlags: 0

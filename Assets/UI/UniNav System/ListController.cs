@@ -66,7 +66,6 @@ public class ListController : MonoBehaviour
                 elements[i].navButton.SetFocus(i == focusIndex);
             }
             if (scrollRect != null) {
-                //scrollRect.content.localPosition = scrollRect.GetSnapToPositionToBringChildIntoView(elements[_index].GetComponent<RectTransform>());
                 SnapTo(elements[_index].GetComponent<RectTransform>());
             }
         }
@@ -74,21 +73,13 @@ public class ListController : MonoBehaviour
 
     public void SnapTo(RectTransform target) {
         Canvas.ForceUpdateCanvases();
-        //Debug.Log("scrollRect.viewport.rect.height: "+scrollRect.viewport.rect.height);
-        float newY = Mathf.Clamp(target.rect.height * target.GetSiblingIndex(), 0f, scrollRect.content.rect.height - scrollRect.viewport.rect.height);
-        Debug.Log("newY: "+newY);
-        scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY);
-        /*
-        contentPanel.anchoredPosition = new Vector2(contentPanel.anchoredPosition.x, 
-            scrollRect.transform.InverseTransformPoint(contentPanel.position).y
-            - scrollRect.transform.InverseTransformPoint(target.position).y);
-        //*/
-            
-        /*
-        contentPanel.anchoredPosition =
-            (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
-            - (Vector2)scrollRect.transform.InverseTransformPoint(target.position);
-        //*/
+        float targetPosition = 0f; //The "targetPosition" will be the summed height of all elements that come before this list element
+        for (int i = 0; i < target.GetSiblingIndex(); i++) {
+            targetPosition += scrollRect.content.transform.GetChild(i).GetComponent<RectTransform>().rect.height;
+        }
+        float newY = Mathf.Clamp(targetPosition, 0f,
+            scrollRect.content.rect.height - scrollRect.viewport.rect.height); //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect
+        scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY); //Shift the content
     }
 
     public virtual void Focus() {
