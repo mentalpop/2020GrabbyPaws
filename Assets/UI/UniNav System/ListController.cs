@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ListController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class ListController : MonoBehaviour
     public int activeIndex = 0;
     public int focusIndex = 0;
     public bool listHasFocus = false;
+    public ScrollRect scrollRect;
+    //public RectTransform contentPanel;
 
     public delegate void ListElementEvent (int index);
 	public event ListElementEvent OnSelect = delegate { };
@@ -38,8 +41,9 @@ public class ListController : MonoBehaviour
 
     public virtual void SetActiveIndex(int _index) {
         OnSelectEvent(_index);
+        bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
         for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(listHasFocus && i == activeIndex);
+            elements[i].navButton.SetFocus(_focusOrMouseUse && i == activeIndex);
             if (behaveAsTabs) {
                 elements[i].navButton.SetActive(i == activeIndex);
             }
@@ -61,7 +65,30 @@ public class ListController : MonoBehaviour
             for (int i = 0; i < elements.Count; i++) {
                 elements[i].navButton.SetFocus(i == focusIndex);
             }
+            if (scrollRect != null) {
+                //scrollRect.content.localPosition = scrollRect.GetSnapToPositionToBringChildIntoView(elements[_index].GetComponent<RectTransform>());
+                SnapTo(elements[_index].GetComponent<RectTransform>());
+            }
         }
+    }
+
+    public void SnapTo(RectTransform target) {
+        Canvas.ForceUpdateCanvases();
+        //Debug.Log("scrollRect.viewport.rect.height: "+scrollRect.viewport.rect.height);
+        float newY = Mathf.Clamp(target.rect.height * target.GetSiblingIndex(), 0f, scrollRect.content.rect.height - scrollRect.viewport.rect.height);
+        Debug.Log("newY: "+newY);
+        scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY);
+        /*
+        contentPanel.anchoredPosition = new Vector2(contentPanel.anchoredPosition.x, 
+            scrollRect.transform.InverseTransformPoint(contentPanel.position).y
+            - scrollRect.transform.InverseTransformPoint(target.position).y);
+        //*/
+            
+        /*
+        contentPanel.anchoredPosition =
+            (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+            - (Vector2)scrollRect.transform.InverseTransformPoint(target.position);
+        //*/
     }
 
     public virtual void Focus() {

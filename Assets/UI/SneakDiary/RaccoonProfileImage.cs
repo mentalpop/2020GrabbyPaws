@@ -44,13 +44,13 @@ public class RaccoonProfileImage : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
             GainFocus();
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
             LoseFocus();
         }
     }

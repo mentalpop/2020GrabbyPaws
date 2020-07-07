@@ -99,6 +99,10 @@ public class MenuNavigator : MonoBehaviour
         //Debug.Log("activeMenuNode: "+activeMenuNode.name);
     }
 
+    public static bool MouseIsUsing() {
+        return Instance.useMouse;
+    }
+
     /*
     public bool IsActiveMenu(MenuNode _mCheck) {
 

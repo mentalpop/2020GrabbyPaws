@@ -527,7 +527,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 8
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1042,6 +1042,7 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
+  scrollRect: {fileID: 0}
   mNodeList: {fileID: 8832917122792208681}
   header: {fileID: 2919439993270114807}
   background: {fileID: 4481659201357408633}
@@ -2079,6 +2080,7 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
+  scrollRect: {fileID: 2122234271669668077}
 --- !u!114 &5952836286257568107
 MonoBehaviour:
   m_ObjectHideFlags: 0

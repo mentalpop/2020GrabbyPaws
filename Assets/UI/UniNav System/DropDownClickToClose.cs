@@ -25,7 +25,7 @@ public class DropDownClickToClose : MonoBehaviour
         ddm.OnOpen -= Ddm_OnOpen;
     }
     private void Activate() {
-        if (!isActive && MenuNavigator.Instance.useMouse) {
+        if (!isActive && MenuNavigator.MouseIsUsing()) {
             clickToClose.gameObject.SetActive(true);
             clickToClose.OnClick += Close;
             isActive = true;

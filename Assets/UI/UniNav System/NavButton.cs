@@ -28,6 +28,11 @@ public class NavButton : MonoBehaviour
         OnStateUpdate(buttonStateData);
     }
 
+    public void SetPressed(bool _pressed) {
+        buttonStateData.inputPressed = _pressed;
+        StateUpdate();
+    }
+
     public void SetFocus(bool _hasFocus) {
         //Debug.Log(gameObject.name+"; "+_hasFocus);
         buttonStateData.hasFocus = _hasFocus;
@@ -35,8 +40,9 @@ public class NavButton : MonoBehaviour
             OnFocusGain(buttonStateData);
         } else {
             OnFocusLost(buttonStateData);
+            buttonStateData.inputPressed = false;
         }
-        buttonStateData.inputPressed = false;
+        //buttonStateData.inputPressed = false;
         StateUpdate();
     }
 

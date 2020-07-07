@@ -4819,7 +4819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeMenuNode: {fileID: 0}
-  useMouse: 1
+  useMouse: 0
 --- !u!114 &5819588752494907388
 MonoBehaviour:
   m_ObjectHideFlags: 0
