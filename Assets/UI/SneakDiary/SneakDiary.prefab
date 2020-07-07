@@ -1042,7 +1042,6 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
-  scrollRect: {fileID: 0}
   mNodeList: {fileID: 8832917122792208681}
   header: {fileID: 2919439993270114807}
   background: {fileID: 4481659201357408633}
@@ -1979,6 +1978,7 @@ GameObject:
   - component: {fileID: 6596529926470672311}
   - component: {fileID: 7204548215214941051}
   - component: {fileID: 1864174911380514461}
+  - component: {fileID: 4909032999130895065}
   m_Layer: 5
   m_Name: SneakDiary
   m_TagString: Untagged
@@ -2080,7 +2080,6 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
-  scrollRect: {fileID: 2122234271669668077}
 --- !u!114 &1864174911380514461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,8 +2102,28 @@ MonoBehaviour:
   mBackward: {fileID: 0}
   validSelection: 1
   listController: {fileID: 7204548215214941051}
-  menuSize: {x: 0, y: 0}
   outOfBoundsLoop: 0
+--- !u!114 &4909032999130895065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3090711176006594461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80afab2c14be4164399aa8e27036349c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listController: {fileID: 7204548215214941051}
+  scrollRect: {fileID: 2122234271669668077}
+  scrollRate: 0.25
+  gTween:
+    tweenDuration: 0
+    tweenStartVal: 0
+    tweenTargetVal: 0
+    effectActive: 0
+    doReverse: 0
 --- !u!1 &3090711176093814791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,12 +3481,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 799d8012f06df5e4c89f36310b8cb61e, type: 3}
---- !u!224 &8643561320706982975 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6705983307396553177, guid: 799d8012f06df5e4c89f36310b8cb61e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3090711174176169446}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8643561320706982972 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6705983307396553178, guid: 799d8012f06df5e4c89f36310b8cb61e,
@@ -3480,3 +3493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf87aafddcc9c04dbd43678049d860e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8643561320706982975 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6705983307396553177, guid: 799d8012f06df5e4c89f36310b8cb61e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3090711174176169446}
+  m_PrefabAsset: {fileID: 0}

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ListController : MonoBehaviour
 {
@@ -20,11 +19,11 @@ public class ListController : MonoBehaviour
     public int activeIndex = 0;
     public int focusIndex = 0;
     public bool listHasFocus = false;
-    public ScrollRect scrollRect;
     //public RectTransform contentPanel;
 
     public delegate void ListElementEvent (int index);
 	public event ListElementEvent OnSelect = delegate { };
+	public event ListElementEvent OnFocus = delegate { };
 
     public delegate void ListEmptyEvent (bool _isEmpty);
 	public event ListEmptyEvent OnListEmpty = delegate { };
@@ -65,22 +64,8 @@ public class ListController : MonoBehaviour
             for (int i = 0; i < elements.Count; i++) {
                 elements[i].navButton.SetFocus(i == focusIndex);
             }
-            if (scrollRect != null) {
-                Debug.Log("SnapTo _index: "+_index);
-                SnapTo(elements[_index].GetComponent<RectTransform>());
-            }
+            OnFocus(focusIndex);
         }
-    }
-
-    public void SnapTo(RectTransform target) {
-        Canvas.ForceUpdateCanvases();
-        float targetPosition = 0f; //The "targetPosition" will be the summed height of all elements that come before this list element
-        for (int i = 0; i < target.GetSiblingIndex(); i++) {
-            targetPosition += scrollRect.content.transform.GetChild(i).GetComponent<RectTransform>().rect.height;
-        }
-        float newY = Mathf.Clamp(targetPosition, 0f,
-            Mathf.Max(0f, scrollRect.content.rect.height - scrollRect.viewport.rect.height)); //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect, but it shouldn't be less than 0
-        scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY); //Shift the content
     }
 
     public virtual void Focus() {
