@@ -100,7 +100,6 @@ public class SneakDiaryProfile : MonoBehaviour
                 timeInterval.Unpack(timeIntervalData, sneakDiaryRef, i > faceRightCount);
             }
         }
-		//if (_elements.Count > 0)
         listController.Elements = _elements;
     }
 

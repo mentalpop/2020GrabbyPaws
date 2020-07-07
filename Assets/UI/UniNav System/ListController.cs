@@ -78,7 +78,7 @@ public class ListController : MonoBehaviour
             targetPosition += scrollRect.content.transform.GetChild(i).GetComponent<RectTransform>().rect.height;
         }
         float newY = Mathf.Clamp(targetPosition, 0f,
-            scrollRect.content.rect.height - scrollRect.viewport.rect.height); //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect
+            Mathf.Max(0f, scrollRect.content.rect.height - scrollRect.viewport.rect.height)); //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect, but it shouldn't be less than 0
         scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY); //Shift the content
     }
 

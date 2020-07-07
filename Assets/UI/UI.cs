@@ -28,7 +28,9 @@ public enum QuestNames {
 
 public enum Secrets {
     s001Test,
-    s002Test
+    s002Test,
+    s003Test,
+    s004Test
 }
 
 public enum NPCLocations {

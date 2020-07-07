@@ -20,21 +20,10 @@ public class TimeInterval : MonoBehaviour
     private TooltipTextContainer tooltipLarge;
 
     private void OnEnable() {
-        //navButton.OnStateUpdate += NavButton_OnStateUpdate;
         navButton.OnFocusGain += NavButton_OnFocusGain;
         navButton.OnFocusLost += NavButton_OnFocusLost;
         navButton.OnSelect += NavButton_OnSelect;
     }
-
-    /*
-    private void NavButton_OnStateUpdate(ButtonStateData _buttonStateData) {
-        if (_buttonStateData.hasFocus) {
-
-        } else {
-
-        }
-    }
-    //*/
 
     private void OnDisable() {
         navButton.OnFocusGain -= NavButton_OnFocusGain;
@@ -54,7 +43,6 @@ public class TimeInterval : MonoBehaviour
     }
 
     private void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
-        //Debug.Log("NavButton_OnFocusLost");
         if (tooltipLarge != null) {
             Destroy(tooltipLarge.gameObject);
             tooltipLarge = null;
@@ -70,7 +58,6 @@ public class TimeInterval : MonoBehaviour
     }
 
     public void TooltipExpand() {
-        //Debug.Log("TooltipExpand: "+tooltipLarge);
         if (tooltipLarge == null) {
             tooltipLarge = sneakDiaryRef.TooltipOpenLarge(timeIntervalData, faceLeft);
             CorrectTransformPosition(tooltipLarge.transform, tooltipLarge.myRect);

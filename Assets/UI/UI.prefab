@@ -4819,7 +4819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeMenuNode: {fileID: 0}
-  useMouse: 1
+  useMouse: 0
 --- !u!114 &5819588752494907388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7979,6 +7979,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6384502382124172003, guid: c55bdfac03fbb0348b5a5c3f1fc45887,
+        type: 3}
+      propertyPath: menuOnDisable
+      value: 
+      objectReference: {fileID: 6220181618831938254}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c55bdfac03fbb0348b5a5c3f1fc45887, type: 3}
 --- !u!224 &5819588753388215557 stripped

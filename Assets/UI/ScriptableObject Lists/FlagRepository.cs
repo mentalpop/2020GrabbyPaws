@@ -83,9 +83,6 @@ public class FlagRepository : MonoBehaviour
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
-    //Debug
-        SecretKeyFound(Secrets.s001Test.ToString());
-        SecretKeyFound(Secrets.s002Test.ToString());
     }
 
     private void OnDisable() {

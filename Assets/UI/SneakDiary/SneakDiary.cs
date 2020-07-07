@@ -86,7 +86,6 @@ public class SneakDiary : MonoBehaviour
             _elements.Add(liEl);
 			sneakDiaryProfile.Unpack(npc, this, NPCListMenuNode);
 		}
-		//if (_elements.Count > 0)
 		listController.Elements = _elements;
 		menuHub.menuOnEnable = NPCListMenuNode;
 		MenuNavigator.Instance.MenuFocus(NPCListMenuNode);

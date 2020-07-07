@@ -12,6 +12,11 @@ public class UITest : MonoBehaviour
         UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
         //UI.Instance.ShowInventoryDisplay();
         //UI.Instance.DisplayPC(samplePC);
+    //Unlock Secrets so they become visible in the Not Secrets window
+        FlagRepository.SecretKeyFound(Secrets.s001Test.ToString());
+        FlagRepository.SecretKeyFound(Secrets.s002Test.ToString());
+        FlagRepository.SecretKeyFound(Secrets.s003Test.ToString());
+        FlagRepository.SecretKeyFound(Secrets.s004Test.ToString());
     }
 
     void Update() {
