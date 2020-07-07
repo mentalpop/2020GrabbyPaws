@@ -36,7 +36,7 @@ public class MenuNode : MonoBehaviour
         
     }
 
-    public virtual void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
+    public virtual void MenuNavigate(NavDir navDir) {
 
     }
 

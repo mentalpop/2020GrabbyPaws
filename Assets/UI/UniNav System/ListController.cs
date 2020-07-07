@@ -66,6 +66,7 @@ public class ListController : MonoBehaviour
                 elements[i].navButton.SetFocus(i == focusIndex);
             }
             if (scrollRect != null) {
+                Debug.Log("SnapTo _index: "+_index);
                 SnapTo(elements[_index].GetComponent<RectTransform>());
             }
         }

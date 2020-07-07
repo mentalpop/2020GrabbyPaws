@@ -39,12 +39,12 @@ public class MenuNodeList : MenuNode
         listController.Focus();
     }
 
-    public override void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
+    public override void MenuNavigate(NavDir navDir) {
         //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
-            case NavDir.Cancel: menuNavigator.MenuCancel(mCancel); break;
+            case NavDir.Cancel: MenuNavigator.Instance.MenuCancel(mCancel); break;
             case NavDir.Left:
                 switch (navigationType) {
                     case NavigationType.Horizontal:
@@ -142,7 +142,7 @@ public class MenuNodeList : MenuNode
         }
         //Debug.Log("_mNode.validSelection: "+_mNode.validSelection);
         if (_mNode != null && _mNode.validSelection) {
-            menuNavigator.MenuFocus(_mNode);
+            MenuNavigator.Instance.MenuFocus(_mNode);
         }
     }
 

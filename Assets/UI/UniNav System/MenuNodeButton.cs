@@ -32,12 +32,12 @@ public class MenuNodeButton : MenuNode
         }
     }
 
-    public override void MenuNavigate(NavDir navDir, MenuNavigator menuNavigator) {
+    public override void MenuNavigate(NavDir navDir) {
         //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
-            case NavDir.Cancel: menuNavigator.MenuCancel(mCancel); break;
+            case NavDir.Cancel: MenuNavigator.Instance.MenuCancel(mCancel); break;
             case NavDir.Left: _mNode = mLeft; break;
             case NavDir.Right: _mNode = mRight; break;
             case NavDir.Up: _mNode = mUp; break;
@@ -46,7 +46,7 @@ public class MenuNodeButton : MenuNode
             case NavDir.Backward: _mNode = mBackward; break;
         }
         if (_mNode != null && _mNode.validSelection)
-            menuNavigator.MenuFocus(_mNode);
+            MenuNavigator.Instance.MenuFocus(_mNode);
         else {
             Debug.Log("_mNode is null");
         }

@@ -20,7 +20,7 @@ public class SneakDiaryProfile : MonoBehaviour
     public Image badgeImage;
     public Sprite spriteBadgeComplete;
 
-    private MenuNodeList NPCListNode;
+    private MenuNodeSneakDiaryList NPCListNode;
     private NPCProfileUIData profileData;
     private SneakDiary sneakDiaryRef;
     private bool dataHasBeenUnpacked = false;
@@ -29,7 +29,7 @@ public class SneakDiaryProfile : MonoBehaviour
         dataHasBeenUnpacked = true;
         sneakDiaryRef = _sneakDiaryRef;
         profileData = _profileData;
-        NPCListNode = _NPCListNode as MenuNodeList;
+        NPCListNode = _NPCListNode as MenuNodeSneakDiaryList;
         NPCListNode.listController.OnSelect += ListController_OnSelect;
         timeIntervalListNode.mCancel = _NPCListNode; //Pass along reference to Cancel node
 //The profile Image
@@ -67,6 +67,7 @@ public class SneakDiaryProfile : MonoBehaviour
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;
         NPCListNode.listController.OnSelect -= ListController_OnSelect;
+        raccoonProfileImage.LoseFocus();
     }
 
     private void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {

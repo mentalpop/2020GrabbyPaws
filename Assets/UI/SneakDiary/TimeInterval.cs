@@ -29,6 +29,7 @@ public class TimeInterval : MonoBehaviour
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;
         navButton.OnSelect -= NavButton_OnSelect;
+        CloseTooltip();
     }
 
     private void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
@@ -43,6 +44,10 @@ public class TimeInterval : MonoBehaviour
     }
 
     private void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
+        CloseTooltip();
+    }
+
+    private void CloseTooltip() {
         if (tooltipLarge != null) {
             Destroy(tooltipLarge.gameObject);
             tooltipLarge = null;

@@ -36,6 +36,7 @@ public class SneakDiary : MonoBehaviour
 		closeButton.OnClick += Close;
 		timeSelector.OnSelect += TimeSelector_OnChoiceMade;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
+		Unpack();
 	}
 
 	private void OnDisable() {
@@ -59,10 +60,10 @@ public class SneakDiary : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	private void Start() {
+	//private void Start() {
 	//Debug
 		//FlagRepository.WriteQuestKey(QuestNames.q001TwilightCottonCandyEndFlag.ToString(), true);
-		Unpack();
+		
 	//Profiles will need access to the list of Quests, so collect them here for cached reference
         /*
         quests = QuestLog.GetAllQuests(QuestState.Abandoned | QuestState.Active | QuestState.Failure | QuestState.Success | QuestState.Unassigned, false);
@@ -71,9 +72,10 @@ public class SneakDiary : MonoBehaviour
             Debug.Log("quest: "+quest);
         }
 		//*/
-	}
+	//}
 
 	public void Unpack() {
+		Debug.Log("Sneak Diary List Repopulated");
 		foreach (Transform child in profileListTransform) {
 			Destroy(child.gameObject);
 		}

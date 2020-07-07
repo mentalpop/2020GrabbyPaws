@@ -160,7 +160,7 @@ public class ListControllerDropDown : ListController
             mySine.Max();
             header.SetActive(false);
             if (listHasFocus)
-                mNodeList.MenuNavigate(MenuNode.NavDir.Cancel, MenuNavigator.Instance);
+                mNodeList.MenuNavigate(MenuNode.NavDir.Cancel);
             if (parentTransform != null) {
                 transform.SetParent(parentTransform);
                 myRect.anchoredPosition = originPosition;

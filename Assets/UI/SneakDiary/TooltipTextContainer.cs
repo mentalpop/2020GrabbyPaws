@@ -17,6 +17,7 @@ public class TooltipTextContainer : MonoBehaviour
 
     //private bool myBool;
 
+    /*
     private void OnEnable() {
         Debug.Log("TooltipTextContainer OnEnable");
     }
@@ -24,6 +25,7 @@ public class TooltipTextContainer : MonoBehaviour
     private void OnDisable() {
         Debug.Log("TooltipTextContainer OnDisable");
     }
+    //*/
 
     public void Unpack(TimeIntervalData timeIntervalData, bool faceLeft) {
         if (faceLeft) {

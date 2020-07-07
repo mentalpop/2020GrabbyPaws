@@ -481,7 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd547f275d5f57841a78957739277015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeIntervalListNode: {fileID: 3530784758492441222}
+  timeIntervalListNode: {fileID: 2464779709768862947}
   navButton: {fileID: 1956199497305736676}
   listController: {fileID: 6647204760112780056}
   listElement: {fileID: 1907189456857764801}
@@ -562,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1266592055300316858}
   - component: {fileID: 6647204760112780056}
-  - component: {fileID: 3530784758492441222}
+  - component: {fileID: 2464779709768862947}
   m_Layer: 5
   m_Name: TimelineListContainer
   m_TagString: Untagged
@@ -606,7 +606,7 @@ MonoBehaviour:
   focusIndex: 0
   listHasFocus: 0
   scrollRect: {fileID: 0}
---- !u!114 &3530784758492441222
+--- !u!114 &2464779709768862947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266592055300316863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
+  m_Script: {fileID: 11500000, guid: dcddf1a43f8ea5e4bae43d449ab3736e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mAccept: {fileID: 0}
@@ -628,9 +628,7 @@ MonoBehaviour:
   mBackward: {fileID: 0}
   validSelection: 1
   listController: {fileID: 6647204760112780056}
-  navigationType: 1
-  menuSize: {x: 0, y: 0}
-  outOfBoundsLoop: 1
+  outOfBoundsLoop: 0
 --- !u!1 &2448489235831086729
 GameObject:
   m_ObjectHideFlags: 0
