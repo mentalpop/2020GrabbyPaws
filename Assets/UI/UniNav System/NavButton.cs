@@ -11,6 +11,8 @@ public class NavButton : MonoBehaviour
 	public event ButtonEvent OnSelect = delegate { };
 	public event ButtonEvent OnStateUpdate = delegate { };
 	public event ButtonEvent OnUnpack = delegate { };
+	public event ButtonEvent OnFocusGain = delegate { };
+	public event ButtonEvent OnFocusLost = delegate { };
 
     public virtual void Unpack(NavButtonData _navButtonData) {
         navButtonData = _navButtonData;
@@ -26,10 +28,21 @@ public class NavButton : MonoBehaviour
         OnStateUpdate(buttonStateData);
     }
 
+    public void SetPressed(bool _pressed) {
+        buttonStateData.inputPressed = _pressed;
+        StateUpdate();
+    }
+
     public void SetFocus(bool _hasFocus) {
-        //Debug.Log("_hasFocus: "+gameObject.name);
+        //Debug.Log(gameObject.name+"; "+_hasFocus);
         buttonStateData.hasFocus = _hasFocus;
-        buttonStateData.inputPressed = false;
+        if (_hasFocus) {
+            OnFocusGain(buttonStateData);
+        } else {
+            OnFocusLost(buttonStateData);
+            buttonStateData.inputPressed = false;
+        }
+        //buttonStateData.inputPressed = false;
         StateUpdate();
     }
 

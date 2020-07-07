@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SneakDiary : MonoBehaviour
 {
+    public ListController listController;
+	public MenuHub menuHub;
+	public MenuNode NPCListMenuNode;
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
 
@@ -32,18 +35,24 @@ public class SneakDiary : MonoBehaviour
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 		timeSelector.OnSelect += TimeSelector_OnChoiceMade;
-	}
-
-	private void TimeSelector_OnChoiceMade(int choiceMade) {
-		timeOfNightIndicator.sprite = nightPhaseSprites[choiceMade];
-		nightPhase = (NightPhases)choiceMade;
-		Unpack();
+        menuHub.OnMenuClose += MenuHub_OnMenuClose;
 	}
 
 	private void OnDisable() {
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
 		timeSelector.OnSelect -= TimeSelector_OnChoiceMade;
+        menuHub.OnMenuClose -= MenuHub_OnMenuClose;
+	}
+
+    private void MenuHub_OnMenuClose() {
+        Close();
+    }
+
+    private void TimeSelector_OnChoiceMade(int choiceMade) {
+		timeOfNightIndicator.sprite = nightPhaseSprites[choiceMade];
+		nightPhase = (NightPhases)choiceMade;
+		Unpack();
 	}
 
 	private void Close() {
@@ -69,11 +78,18 @@ public class SneakDiary : MonoBehaviour
 			Destroy(child.gameObject);
 		}
 	//Spawn list of NPCs
+        List<ListElement> _elements = new List<ListElement>();
 		foreach (var npc in npcList.npcList) {
 			GameObject npcProfile = Instantiate(npcProfilePrefab, profileListTransform, false);
 			SneakDiaryProfile sneakDiaryProfile = npcProfile.GetComponent<SneakDiaryProfile>();
-			sneakDiaryProfile.Unpack(npc, this);
+			ListElement liEl = npcProfile.GetComponent<ListElement>();
+            _elements.Add(liEl);
+			sneakDiaryProfile.Unpack(npc, this, NPCListMenuNode);
 		}
+		//if (_elements.Count > 0)
+		listController.Elements = _elements;
+		menuHub.menuOnEnable = NPCListMenuNode;
+		MenuNavigator.Instance.MenuFocus(NPCListMenuNode);
 	//Timeline Stick
 		timelineStickOrigin = timelineStick.transform.position;
 	}

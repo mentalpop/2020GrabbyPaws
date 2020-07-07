@@ -27,6 +27,7 @@ public class ButtonFormatterSevenState : ButtonStateFormatter
     }
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
+        //Debug.Log("_buttonStateData.hasFocus: "+_buttonStateData.hasFocus+", "+gameObject.name);
         if (_buttonStateData.available) {
             if (!_buttonStateData.stateActive || (_buttonStateData.stateActive && allowSelectionWhileActive)) {
                 if (_buttonStateData.inputPressed) {

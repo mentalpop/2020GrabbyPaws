@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ListController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class ListController : MonoBehaviour
     public int activeIndex = 0;
     public int focusIndex = 0;
     public bool listHasFocus = false;
+    public ScrollRect scrollRect;
+    //public RectTransform contentPanel;
 
     public delegate void ListElementEvent (int index);
 	public event ListElementEvent OnSelect = delegate { };
@@ -38,8 +41,9 @@ public class ListController : MonoBehaviour
 
     public virtual void SetActiveIndex(int _index) {
         OnSelectEvent(_index);
+        bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
         for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(i == activeIndex);
+            elements[i].navButton.SetFocus(_focusOrMouseUse && i == activeIndex);
             if (behaveAsTabs) {
                 elements[i].navButton.SetActive(i == activeIndex);
             }
@@ -53,21 +57,42 @@ public class ListController : MonoBehaviour
     }
 
     public void SetFocus(int _index) {
-        focusIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(i == focusIndex);
+        if (elements == null) {
+            OnListEmpty(true);
+            Debug.Log("Tried to SetFocus on elements, but elements list is null; "+gameObject.name);
+        } else {
+            focusIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
+            for (int i = 0; i < elements.Count; i++) {
+                elements[i].navButton.SetFocus(i == focusIndex);
+            }
+            if (scrollRect != null) {
+                SnapTo(elements[_index].GetComponent<RectTransform>());
+            }
         }
     }
 
-    public void Focus() {
+    public void SnapTo(RectTransform target) {
+        Canvas.ForceUpdateCanvases();
+        float targetPosition = 0f; //The "targetPosition" will be the summed height of all elements that come before this list element
+        for (int i = 0; i < target.GetSiblingIndex(); i++) {
+            targetPosition += scrollRect.content.transform.GetChild(i).GetComponent<RectTransform>().rect.height;
+        }
+        float newY = Mathf.Clamp(targetPosition, 0f,
+            scrollRect.content.rect.height - scrollRect.viewport.rect.height); //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect
+        scrollRect.content.anchoredPosition = new Vector2(scrollRect.content.anchoredPosition.x, newY); //Shift the content
+    }
+
+    public virtual void Focus() {
         listHasFocus = true;
         SetFocus(focusIndex);
     }
     
-    public void Unfocus() {
+    public virtual void Unfocus() {
         listHasFocus = false;
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(false);
+        if (elements != null) {
+            for (int i = 0; i < elements.Count; i++) {
+                elements[i].navButton.SetFocus(false);
+            }
         }
     }
 
@@ -79,15 +104,15 @@ public class ListController : MonoBehaviour
     }
     //*/
 
-    public void FirstIndex() {
+    public virtual void FirstIndex() {
         SetFocus(0);
     }
 
-    public void LastIndex() {
+    public virtual void LastIndex() {
         SetFocus(elements.Count - 1);
     }
 
-    public bool IncrementIndex() {
+    public virtual bool IncrementIndex() {
         if (focusIndex < elements.Count - 1) {
             SetFocus(focusIndex + 1);
             return true;
@@ -95,7 +120,7 @@ public class ListController : MonoBehaviour
         return false;
     }
 
-    public bool DecrementIndex() {
+    public virtual bool DecrementIndex() {
         if (focusIndex > 0) {
             SetFocus(focusIndex - 1);
             return true;

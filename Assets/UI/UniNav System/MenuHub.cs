@@ -12,8 +12,10 @@ public class MenuHub : MonoBehaviour
     public event MenuCloseEvent OnMenuClose = delegate { };
 
     private void OnEnable() {
-        if (menuOnEnable != null)
+        if (menuOnEnable != null) {
+            //Debug.Log("menuOnEnable: "+menuOnEnable);
             MenuNavigator.Instance.MenuFocus(menuOnEnable);
+        }
         MenuNavigator.Instance.OnClose += MenuNavigator_OnClose;
     }
 

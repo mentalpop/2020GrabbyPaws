@@ -17,14 +17,17 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
         ButtonSetFocus(false);
     }
     private void ButtonSetFocus(bool _focus) {
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
+            navButton.SetFocus(_focus);
+            /*
             navButton.buttonStateData.hasFocus = _focus;
             navButton.StateUpdate();
+            //*/
         }
     }
 		
 	public void OnPointerClick (PointerEventData evd) {
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
             if (navButton.buttonStateData.hasToggleState)
                 navButton.buttonStateData.stateActive = !navButton.buttonStateData.stateActive;
             navButton.Select();
@@ -40,9 +43,12 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     private void ButtonSetPressed(bool _pressed) {
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
+            navButton.SetPressed(_pressed);
+            /*
             navButton.buttonStateData.inputPressed = _pressed;
             navButton.StateUpdate();
+            //*/
         }
     }
 }

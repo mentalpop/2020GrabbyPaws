@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class ListUnpacker : MonoBehaviour
 {
     public ListController listController;
@@ -32,6 +33,7 @@ public class ListUnpacker : MonoBehaviour
         if (listController.behaveAsTabs) {
             listController.SetActiveIndex(listController.activeIndex);
         } else if (listController.listHasFocus) {
+            Debug.Log("listController.listHasFocus: "+listController.listHasFocus);
             listController.SetFocus(listController.focusIndex);
         }
     }

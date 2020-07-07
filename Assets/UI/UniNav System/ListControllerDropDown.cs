@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ListControllerDropDown : ListController
 {
+    public MenuNodeList mNodeList;
     public NavButton header;
     public GameObject background;
     public Transform parentTransform;
@@ -27,6 +28,9 @@ public class ListControllerDropDown : ListController
     private bool doChangePosition = false;
     private float deltaHeight = 0f;
 
+    public delegate void DropDownEvent();
+    public event DropDownEvent OnOpen = delegate { };
+
     private void OnEnable() {
         header.OnSelect += Header_OnSelect;
     }
@@ -35,7 +39,7 @@ public class ListControllerDropDown : ListController
         header.OnSelect -= Header_OnSelect;
     }
 
-    void Start() {
+    void Awake() {
     //Populate Header Button
         myRect = GetComponent<RectTransform>();
     //Instantiate Options
@@ -94,12 +98,17 @@ public class ListControllerDropDown : ListController
     }
 
     private void Header_OnSelect(ButtonStateData _buttonStateData) {
-        Toggle(-1); //Open
+        //Debug.Log("Header_OnSelect: "+_buttonStateData);
+        Open();
     }
 
     public override void SetActiveIndex(int _index) {
         base.SetActiveIndex(_index);
-        Toggle(_index);
+        activeIndex = _index;
+        //OnSelectEvent(activeIndex);
+        SetHeader(activeIndex);
+        //Toggle(_index);
+        Close();
     }
 
     public void SetHeader(int _index) {
@@ -120,8 +129,50 @@ public class ListControllerDropDown : ListController
         deltaHeight = 0f;
     }
 
+    public void Open() {
+        if (isExpanded) {
+            Debug.Log("Redundant call to Open: "+gameObject.name);
+        } else {
+            isExpanded = true;
+            background.SetActive(true);
+        //OnOpen
+            mySine.Reset();
+            foreach (ListElement liEl in Elements) {
+                if (liEl.listIndex == activeIndex)
+                    liEl.gameObject.SetActive(false);
+                else
+                    liEl.gameObject.SetActive(true);
+            }
+            SetFocus(focusIndex);
+            SetDeltaHeight();
+            header.SetActive(true);
+            if (masterContainer != null) {
+                transform.SetParent(masterContainer);
+            }
+            OnOpen();
+        }
+    }
+
+    public void Close() {
+        if (isExpanded) {
+            isExpanded = false;
+            background.SetActive(true);
+            mySine.Max();
+            header.SetActive(false);
+            if (listHasFocus)
+                mNodeList.MenuNavigate(MenuNode.NavDir.Cancel, MenuNavigator.Instance);
+            if (parentTransform != null) {
+                transform.SetParent(parentTransform);
+                myRect.anchoredPosition = originPosition;
+            }
+        } else {
+            Debug.Log("Redundant call to Close: "+gameObject.name);
+        }
+    }
+
+    /*
     public void Toggle(int _newIndex) {
-        Debug.Log("_newIndex: "+_newIndex);
+        //Debug.Log("Toggle: "+_newIndex);
         isExpanded = !isExpanded;
         background.SetActive(true);
         //scrollBar.SetActive(false); //Hide the Bar graphic
@@ -134,11 +185,13 @@ public class ListControllerDropDown : ListController
                 else
                     liEl.gameObject.SetActive(true);
             }
+            SetFocus(focusIndex);
             SetDeltaHeight();
             header.SetActive(true);
             if (masterContainer != null) {
                 transform.SetParent(masterContainer);
             }
+            OnOpen();
         } else {
     //OnClose
             mySine.Max();
@@ -148,10 +201,92 @@ public class ListControllerDropDown : ListController
                 SetHeader(activeIndex);
             }
             header.SetActive(false);
+            if (listHasFocus)
+                mNodeList.MenuNavigate(MenuNode.NavDir.Cancel, MenuNavigator.Instance);
             if (parentTransform != null) {
                 transform.SetParent(parentTransform);
                 myRect.anchoredPosition = originPosition;
             }
         }
+    }
+    //*/
+
+    public override void Focus() {
+        listHasFocus = true;
+        if (activeIndex == focusIndex) {
+            if (activeIndex == 0) {
+                SetFocus(1);
+            } else {
+                FirstIndex();
+            }
+        } else {
+            SetFocus(focusIndex);
+        }
+    }
+
+    public override void Unfocus() {
+        //Toggle(-1);
+        base.Unfocus();
+        Close();
+        /*
+        isExpanded = false;
+        background.SetActive(true);
+        header.SetActive(false);
+        mySine.Max();
+        if (parentTransform != null) {
+            transform.SetParent(parentTransform);
+            myRect.anchoredPosition = originPosition;
+        }
+        //*/
+    }
+
+    public override void FirstIndex() {
+        int _tryIndex = 0;
+        if (activeIndex == _tryIndex) {
+            SetFocus(_tryIndex + 1);
+        } else {
+            SetFocus(_tryIndex);
+        }
+    }
+
+    public override void LastIndex() {
+        int _tryIndex = Elements.Count - 1;
+        if (activeIndex == _tryIndex) {
+            SetFocus(_tryIndex - 1);
+        } else {
+            SetFocus(_tryIndex);
+        }
+    }
+
+    public override bool IncrementIndex() {
+        int _tryIndex = focusIndex + 1;
+        if (focusIndex < Elements.Count - 1) {
+            if (activeIndex == _tryIndex) {
+                if (_tryIndex < Elements.Count - 1) {
+                    SetFocus(_tryIndex + 1);
+                    return true;
+                }
+            } else {
+                SetFocus(_tryIndex);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public override bool DecrementIndex() {
+        int _tryIndex = focusIndex - 1;
+        if (focusIndex > 0) {
+            if (activeIndex == _tryIndex) {
+                if (_tryIndex > 0) {
+                    SetFocus(_tryIndex - 1);
+                    return true;
+                }
+            } else {
+                SetFocus(_tryIndex);
+                return true;
+            }
+        }
+        return false;
     }
 }

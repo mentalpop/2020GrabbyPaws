@@ -18,7 +18,7 @@ public class ListElement : MonoBehaviour
     }
 
     private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
-        Debug.Log("NavButton_OnSelect: "+_buttonStateData);
+        //Debug.Log("NavButton_OnSelect: "+name);
         listController.SetActiveIndex(listIndex);
     }
 
