@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gold
+  m_Shader: {fileID: 4800000, guid: d06cfaddc32c2044691ea4c16e662523, type: 3}
+  m_ShaderKeywords: ALPHA FADE RIM _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 2e1d301485bd191438d842f628f320a3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExtraTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: b01980ff2ae464fadaac446f66f5558f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 686af0b2fe9655a4586469048109cdeb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RampS:
+        m_Texture: {fileID: 2800000, guid: 4560b954ffde6804fa11d8e8196627f4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - DISTORTMAIN: 0
+    - _ALPHA: 1
+    - _BumpAmt: 17.3
+    - _BumpScale: 1
+    - _Cutoff: 0.69
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _Extrude: 0.07
+    - _FADE: 1
+    - _GRID: 0
+    - _GlitchSegment: 0.38
+    - _GlitchTime: 1.99
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _InvFade: 0.52
+    - _LineWidth: 0.732
+    - _LinesGlow: -0.75
+    - _MainDistort: 0.07
+    - _MainScroll: 0.19
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Offset: 0.46
+    - _OffsetT: 1
+    - _Outline: 0.002
+    - _Parallax: 0.02
+    - _RIM: 1
+    - _RimBrightness: 3.32
+    - _RimStrength: 1.8
+    - _SmoothnessTextureChannel: 0
+    - _SpecOffset: 0.569
+    - _SpecSize: 0.746
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _TopBottomOffset: 4
+    - _UVSec: 0
+    - _WorldScale: 30
+    - _XDistort: 1
+    - _XSpeed: 1
+    - _YDistort: 0
+    - _YSpeed: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BottomColor: {r: 1, g: 0.6920006, b: 0.34901962, a: 1}
+    - _Color: {r: 0.764151, g: 0.67036885, b: 0.19103774, a: 1}
+    - _ColorA: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorB: {r: 1, g: 1, b: 1, a: 1}
+    - _Emis: {r: 1, g: 1, b: 1, a: 1}
+    - _EmisMask: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.0647167, g: 0.9023639, b: 0.97794116, a: 1}
+    - _RimColor: {r: 0.7924528, g: 0.75219566, b: 0.1981132, a: 0.684}
+    - _SColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TColor: {r: 0.9056604, g: 0.76787716, b: 0.16660735, a: 1}
+    - _TintA: {r: 1, g: 1, b: 1, a: 1}
+    - _TintB: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.625, g: 0.9224137, b: 1, a: 0.322}
