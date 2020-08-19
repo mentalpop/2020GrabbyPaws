@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21ab9a525a605af499950ee0f6cfee2d
+guid: 718ed545e4134514992c93bc09286d76
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -12,18 +12,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BusinessWindow Light
-    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+      name: Denn
+    second: {fileID: 2100000, guid: 265960776f9dbc94ca6fd6b62933ff48, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Darkness
-    second: {fileID: 2100000, guid: 16506ff0b75008e40af1c7e36e3863f6, type: 2}
+      name: Floor04
+    second: {fileID: 2100000, guid: ed9c31fc504840e4886892b9b5796058, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass
-    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+      name: Gold
+    second: {fileID: 2100000, guid: 19b6e846c12a76d43ba3c33268eaca79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GreenLight
+    second: {fileID: 2100000, guid: 133b663de5c34dc40ad6fb15f5e70e89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paintings
+    second: {fileID: 2100000, guid: 8b55a2894b76ac445b9a6db607d235b3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -32,8 +42,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Palette Specials
     second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Photos
+    second: {fileID: 2100000, guid: 8b55a2894b76ac445b9a6db607d235b3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -44,36 +64,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: SaleSigns03
     second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Screen
-    second: {fileID: 2100000, guid: cc487427856e9ae4cbc5db9062e21734, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Sign01
-    second: {fileID: 2100000, guid: 0817b98f16d73604ebfdbafe2fe88a0b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SnackBar
-    second: {fileID: 2100000, guid: f0c4bdea7d05cf843966856461ecce17, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SnackBarDirty
-    second: {fileID: 2100000, guid: 5b608b70308e84246a53158531af1b25, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: StreetSigns01
-    second: {fileID: 2100000, guid: 0c67cbacd9c878b44b64a4b9cc8dbf3f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Water
-    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

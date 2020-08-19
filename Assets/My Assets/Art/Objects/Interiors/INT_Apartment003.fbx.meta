@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21ab9a525a605af499950ee0f6cfee2d
+guid: 161e09db419eaac438ad3ee883f451dc
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ads04
-    second: {fileID: 2100000, guid: c384f9a6c8c81114fa8c87b57887ca3b, type: 2}
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -17,13 +17,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Darkness
-    second: {fileID: 2100000, guid: 16506ff0b75008e40af1c7e36e3863f6, type: 2}
+      name: Floor01
+    second: {fileID: 2100000, guid: c54dcd4abcebf4245be136707f36c40d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass
-    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+      name: GreenLight
+    second: {fileID: 2100000, guid: 133b663de5c34dc40ad6fb15f5e70e89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paintings
+    second: {fileID: 2100000, guid: 8b55a2894b76ac445b9a6db607d235b3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -32,8 +37,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Reds
+    second: {fileID: 2100000, guid: 5ec6c00fff0b69c4db2ad83be706ded3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Palette Specials
     second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pink Light
+    second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -42,8 +67,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: SaleSigns03
-    second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
+      name: PurpleDerpleLight
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -52,33 +77,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Sign01
-    second: {fileID: 2100000, guid: 0817b98f16d73604ebfdbafe2fe88a0b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SnackBar
-    second: {fileID: 2100000, guid: f0c4bdea7d05cf843966856461ecce17, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SnackBarDirty
-    second: {fileID: 2100000, guid: 5b608b70308e84246a53158531af1b25, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: StreetSigns01
-    second: {fileID: 2100000, guid: 0c67cbacd9c878b44b64a4b9cc8dbf3f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Water
-    second: {fileID: 2100000, guid: 20d5f04d779657044aa2ff36b9afcf37, type: 2}
+      name: WarmLight
+    second: {fileID: 2100000, guid: 4d8113ac92356954fad13610d8eb0005, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: White Neon
     second: {fileID: 2100000, guid: 3c6655b05f79fa84ca9fb140d031124e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
