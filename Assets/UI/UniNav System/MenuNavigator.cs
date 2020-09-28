@@ -95,6 +95,7 @@ public class MenuNavigator : MonoBehaviour
     }
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
+        Debug.Log("activeMenuNode: "+activeMenuNode);
         activeMenuNode.MenuNavigate(navDir);
         //Debug.Log("activeMenuNode: "+activeMenuNode.name);
     }

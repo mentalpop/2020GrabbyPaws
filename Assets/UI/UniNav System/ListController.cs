@@ -50,6 +50,7 @@ public class ListController : MonoBehaviour
     }
 
     protected void OnSelectEvent(int _index) {
+        //Debug.Log("_index: "+_index);
         activeIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
         focusIndex = activeIndex;
         OnSelect(activeIndex);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class HocksterLineItem : ButtonFormatterSevenState, IPointerClickHandler
+public class HocksterLineItem : ButtonFormatterEightState, IPointerClickHandler
 {
     public ItemTooltip iTooltip;
     public RectTransform ttRect;

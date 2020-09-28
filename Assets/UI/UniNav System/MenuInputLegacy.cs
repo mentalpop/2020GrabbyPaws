@@ -32,7 +32,7 @@ public class MenuInputLegacy : MonoBehaviour
             if (inputVector.magnitude > axisThreshold) {
                 float inputDirection = UI.Direction(Vector2.zero, inputVector) + 180f;
                 axisDown = true;
-                Debug.Log("inputDirection: "+inputDirection);
+                //Debug.Log("inputDirection: "+inputDirection);
                 if (inputDirection >= 45 && inputDirection < 135) {
                     menuNavigator.MenuNavigate(MenuNode.NavDir.Up);
                     //Debug.Log("MenuNode.NavDir.Up");

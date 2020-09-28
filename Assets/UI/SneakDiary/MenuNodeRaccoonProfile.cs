@@ -2,35 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuNodeRaccoonProfile : MenuNode
+public class MenuNodeRaccoonProfile : MenuNodeList
 {
-    public ListController listController;
-    public bool outOfBoundsLoop = true;
-    private void OnEnable() {
-        listController.OnListEmpty += ListController_OnListEmpty;
-    }
-
-    private void OnDisable() {
-        listController.OnListEmpty -= ListController_OnListEmpty;
-    }
-
-    private void ListController_OnListEmpty(bool _isEmpty) {
-        if (_isEmpty) {
-            SelectionAbort(mCancel);
-            validSelection = false;
-        } else {
-            validSelection = true;
-        }
-    }
-
-    public override void MenuUnfocus() {
-        listController.Unfocus();
-    }
-
-    public override void MenuFocus() {
-        listController.Focus();
-    }
-
     public override void MenuNavigate(NavDir navDir) {
         //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
@@ -81,9 +54,5 @@ public class MenuNodeRaccoonProfile : MenuNode
         if (_mNode != null && _mNode.validSelection) {
             MenuNavigator.Instance.MenuFocus(_mNode);
         }
-    }
-
-    public override NavButton GetButtonInFocus() {
-        return listController.Elements[listController.focusIndex].navButton;
     }
 }

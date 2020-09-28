@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using TMPro;
 
-public class WishListScrapPart : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class WishListScrapPart : MonoBehaviour
 {
+    public NavButton navButton;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI quantity;
     public Color colorHasEnough = Color.white;
@@ -26,6 +27,14 @@ public class WishListScrapPart : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (myItem != null) {
             UpdateQuantity();
         }
+        navButton.OnFocusGain += NavButton_OnFocusGain;
+        navButton.OnFocusLost += NavButton_OnFocusLost;
+    }
+
+    private void OnDisable() {
+        navButton.OnFocusGain -= NavButton_OnFocusGain;
+        navButton.OnFocusLost -= NavButton_OnFocusLost;
+        CloseTooltip();
     }
 
     public void UpdateQuantity() {
@@ -34,14 +43,19 @@ public class WishListScrapPart : MonoBehaviour, IPointerEnterHandler, IPointerEx
         quantity.color = (quantityHas >= myItem.quantity) ? colorHasEnough : colorNeedsMore;
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
+    public void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
         GameObject newGO = Instantiate(tooltipPrefab, UI.Instance.lappy.transform, false);
         newGO.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
         wishlistTooltip = newGO.GetComponent<WishListTooltip>();
         wishlistTooltip.inventorySlot.Unpack(new InventoryItem(myItem.item, (int)Inventory.instance.InventoryCount(myItem.item.name)));
     }
 
-    public void OnPointerExit(PointerEventData eventData) {
+    public void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
+        Debug.Log("NavButton_OnFocusLost");
+        CloseTooltip();
+    }
+
+    public void CloseTooltip() {
         if (wishlistTooltip != null) {
             Destroy(wishlistTooltip.gameObject);
         }

@@ -6206,7 +6206,6 @@ MonoBehaviour:
   activeIndex: 0
   focusIndex: 0
   listHasFocus: 0
-  scrollRect: {fileID: 0}
 --- !u!114 &3214433912011948990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7500,6 +7499,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 5210419992238800629, guid: 951203c63bfa7784fa8155ba47ce43ca,
+        type: 3}
+      propertyPath: menuOnDisable
+      value: 
+      objectReference: {fileID: 6220181618831938254}
     - target: {fileID: 5301913682735977379, guid: 951203c63bfa7784fa8155ba47ce43ca,
         type: 3}
       propertyPath: m_AnchorMax.x

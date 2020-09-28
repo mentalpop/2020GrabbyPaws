@@ -51,8 +51,8 @@ public class ListControllerAutoScroller : MonoBehaviour
             _unclampedPosition += scrollRect.content.transform.GetChild(i).GetComponent<RectTransform>().rect.height;
         }
     //Clamp upper limit is based on the delta between the Viewport (container) and the height of the content rect, but it shouldn't be less than 0
-        Debug.Log("scrollRect.content.rect.height: "+scrollRect.content.rect.height);
-        Debug.Log("scrollRect.viewport.rect.height: "+scrollRect.viewport.rect.height);
+        //Debug.Log("scrollRect.content.rect.height: "+scrollRect.content.rect.height);
+        //Debug.Log("scrollRect.viewport.rect.height: "+scrollRect.viewport.rect.height);
         targetPosition = Mathf.Clamp(_unclampedPosition, 0f, Mathf.Max(0f, scrollRect.content.rect.height - scrollRect.viewport.rect.height));
         gTween.Reset();
     }

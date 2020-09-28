@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonFormatterGO : ButtonFormatterSevenState
+public class ButtonFormatterGO : ButtonFormatterEightState
 {
     public GameObject goNeutral;
     public GameObject goFocus;
@@ -11,6 +11,7 @@ public class ButtonFormatterGO : ButtonFormatterSevenState
     public GameObject goActiveFocus;
     public GameObject goActiveSelected;
     public GameObject goUnavailable;
+    public GameObject goUnavailableFocus;
     //[HideInInspector] public bool permanentFocus = false;
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
@@ -23,6 +24,7 @@ public class ButtonFormatterGO : ButtonFormatterSevenState
         TrySetActive(goActiveFocus, false);
         TrySetActive(goActiveSelected, false);
         TrySetActive(goUnavailable, false);
+        TrySetActive(goUnavailableFocus, false);
         switch (buttonState) {
             case BState.Neutral: TrySetActive(goNeutral, true); break;
             case BState.Focus: TrySetActive(goFocus, true); break;
@@ -31,6 +33,7 @@ public class ButtonFormatterGO : ButtonFormatterSevenState
             case BState.ActiveFocus: TrySetActive(goActiveFocus, true); break;
             case BState.ActiveSelected: TrySetActive(goActiveSelected, true); break;
             case BState.Unavailable: TrySetActive(goUnavailable, true); break;
+            case BState.UnavailableFocus: TrySetActive(goUnavailableFocus, true); break;
         }
     }
 

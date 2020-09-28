@@ -33,7 +33,6 @@ public class MenuNodeButton : MenuNode
     }
 
     public override void MenuNavigate(NavDir navDir) {
-        //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
@@ -45,6 +44,7 @@ public class MenuNodeButton : MenuNode
             case NavDir.Forward: _mNode = mForward; break;
             case NavDir.Backward: _mNode = mBackward; break;
         }
+        //Debug.Log("_mNode: "+_mNode);
         if (_mNode != null && _mNode.validSelection)
             MenuNavigator.Instance.MenuFocus(_mNode);
         else {

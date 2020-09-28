@@ -186,6 +186,10 @@ GameObject:
   - component: {fileID: 1938088789770077795}
   - component: {fileID: 4987316938059460941}
   - component: {fileID: 5826522626550978732}
+  - component: {fileID: 3992033074017214422}
+  - component: {fileID: 4926717662640099602}
+  - component: {fileID: 4727232995436478583}
+  - component: {fileID: 1680215355454206100}
   m_Layer: 5
   m_Name: PartContainer
   m_TagString: Untagged
@@ -263,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70893c0f5d77aad44817ef3ec6b158ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navButton: {fileID: 3992033074017214422}
   itemName: {fileID: 2835224293157014450}
   quantity: {fileID: 4054487570048318530}
   colorHasEnough: {r: 1, g: 1, b: 1, a: 1}
@@ -270,6 +275,76 @@ MonoBehaviour:
   tooltipPrefab: {fileID: 4303914953600349955, guid: 7037e9899df01ab499d6f40e056eae67,
     type: 3}
   tooltipOffset: {x: 0.25, y: 0}
+--- !u!114 &3992033074017214422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185914368926138899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
+--- !u!114 &4926717662640099602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185914368926138899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b826b1b99d32644390beb12505a056f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 3992033074017214422}
+  listController: {fileID: 0}
+  listIndex: 0
+--- !u!114 &4727232995436478583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185914368926138899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 3992033074017214422}
+--- !u!114 &1680215355454206100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185914368926138899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a5583975e8914db058989450bcbb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 3992033074017214422}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  text: {fileID: 2835224293157014450}
+  fontStyleNeutral: 0
+  fontStyleFocus: 1
+  fontStyleSelected: 0
+  fontStyleActive: 0
+  fontStyleActiveFocus: 1
+  fontStyleActiveSelected: 0
+  fontStyleUnavailable: 2
 --- !u!1 &1621008771143451288
 GameObject:
   m_ObjectHideFlags: 0

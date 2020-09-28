@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonFormatterTintImage : ButtonFormatterSevenState
+public class ButtonFormatterTintImage : ButtonFormatterEightState
 {
     public Image image;
     public Color colorNeutral = Color.white;

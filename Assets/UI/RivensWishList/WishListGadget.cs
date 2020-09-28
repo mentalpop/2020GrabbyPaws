@@ -6,10 +6,13 @@ using TMPro;
 
 public class WishListGadget : MonoBehaviour
 {
+    public MenuNode listNode;
+	public ListElement listElement;
     public TextMeshProUGUI gadgetName;
+    public TextMeshProUGUI gadgetNameFocus;
     public TextMeshProUGUI description;
 	public Image bluePrintImage;
-	public ButtonOmni buildButton;
+	public NavButton buildButton;
 	public WishListScrapList wishListScrapList;
 	public GameObject checkMark;
 	public GameObject scrapPartsContainer;
@@ -25,9 +28,13 @@ public class WishListGadget : MonoBehaviour
 	public ConfirmationPromptData promptGadget;
 	private ConfirmationWindow confirmationWindow;
 	private bool awaitingConfirmation = false;
+	private RivensWishListMenuNodeList wishList; //Different list!
 	
-	public void Unpack(int _gadgetIndex, WishListWindow _wishListWindow) {
+	public void Unpack(int _gadgetIndex, WishListWindow _wishListWindow, MenuNode rivensWishListMenuNodeList) {
 		gadgetIndex = _gadgetIndex;
+		wishList = rivensWishListMenuNodeList as RivensWishListMenuNodeList;
+        wishList.listController.OnSelect += ListController_OnSelect;
+        listNode.mCancel = rivensWishListMenuNodeList; //Pass along reference to Cancel node
 		inventory = Inventory.instance;
 		gadgetData = inventory.gadgetList.gadgets[gadgetIndex];
 		EvaluateCanBuild();
@@ -36,24 +43,54 @@ public class WishListGadget : MonoBehaviour
 			checkMark.SetActive(true); //Show Checkmark
 			textUnavailable.text = "BUILT"; //Set button to built
 			gadgetName.fontStyle = FontStyles.Strikethrough; //Strike out header
+			gadgetNameFocus.fontStyle = FontStyles.Strikethrough; //Strike out header
 		} else if (canBuildGadget) {
-			buildButton.available = true;
-			buildButton.UpdateGO();
+			buildButton.SetAvailable(true);
+			//buildButton.UpdateGO();
 		}
 		wishListWindow = _wishListWindow;
 		gadgetName.text = gadgetData.gadgetName;
+		gadgetNameFocus.text = gadgetData.gadgetName;
 		description.text = gadgetData.description;
 		bluePrintImage.sprite = gadgetData.blueprintSprite;
 		wishListScrapList.Unpack(gadgetData.items);
 	}
 
 	private void OnEnable() {
-		buildButton.OnClick += BuildButton_OnClick;
+        buildButton.OnSelect += BuildButton_OnSelect;
 		if (wishListWindow != null)
 			EvaluateCanBuild();
 	}
 
-	public void EvaluateCanBuild() {
+	private void OnDisable() {
+		buildButton.OnSelect -= BuildButton_OnSelect;
+		if (awaitingConfirmation) {
+			awaitingConfirmation = false;
+			confirmationWindow.OnChoiceMade -= OnConfirm;
+		}
+		wishList.listController.OnSelect -= ListController_OnSelect;
+	}
+
+	private void ListController_OnSelect(int index) {
+        //Debug.Log("listElement.listIndex: "+listElement.listIndex);
+        if (index == listElement.listIndex) {
+            if (listNode.validSelection) {
+                //NPCListNode.listController.Unfocus();
+                MenuNavigator.Instance.MenuFocus(listNode);
+            }
+        }
+    }
+
+    private void BuildButton_OnSelect(ButtonStateData _buttonStateData) {
+        if (canBuildGadget) {
+	//Make a confirmation request
+			confirmationWindow = UI.RequestConfirmation(promptGadget, null);
+			confirmationWindow.OnChoiceMade += OnConfirm;
+			awaitingConfirmation = true;
+		}
+    }
+
+    public void EvaluateCanBuild() {
 //Evaluate canBuildGadget; Iterate throught required scrap items to see if the player has all they need
 		unlocked = inventory.gadgetUnlocked[gadgetIndex];
 		if (unlocked) {
@@ -67,19 +104,12 @@ public class WishListGadget : MonoBehaviour
 			}
 		}
 		if (!canBuildGadget) {
-			buildButton.available = false;
-			buildButton.UpdateGO();
+			buildButton.SetAvailable(false);
+			//buildButton.UpdateGO();
 		}
 	}
 
-	private void OnDisable() {
-		buildButton.OnClick -= BuildButton_OnClick;
-		if (awaitingConfirmation) {
-			awaitingConfirmation = false;
-			confirmationWindow.OnChoiceMade -= OnConfirm;
-		}
-	}
-
+	/*
 	private void BuildButton_OnClick(bool _stateActive) {
 		if (canBuildGadget) {
 	//Make a confirmation request
@@ -88,6 +118,7 @@ public class WishListGadget : MonoBehaviour
 			awaitingConfirmation = true;
 		}
 	}
+	//*/
 
 	private void OnConfirm(bool _choice) {
 		awaitingConfirmation = false;
