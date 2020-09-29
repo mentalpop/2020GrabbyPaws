@@ -16,7 +16,7 @@ public class ConfirmationWindow : MonoBehaviour
     public ClickToClose clickToClose;
     [HideInInspector] public ConfirmationPromptData promptData;
 
-    private MenuNode menuOnDisable;
+    //private MenuNode menuOnDisable;
 
     public delegate void ConfirmationEvent(bool result);
     public event ConfirmationEvent OnChoiceMade = delegate { };
@@ -39,6 +39,10 @@ public class ConfirmationWindow : MonoBehaviour
         buttonNo.OnSelect -= OnClickNo;
 		clickToClose.OnClick -= OnClickCancel;
         menuHub.OnMenuClose -= OnClickCancel;
+        /*
+        buttonOK.SetFocus(false);
+        buttonNo.SetFocus(false);
+        //*/
     }
 
     public void OnClickOK(ButtonStateData _buttonStateData) {
@@ -68,5 +72,13 @@ public class ConfirmationWindow : MonoBehaviour
         buttonA.text = _data.buttonA.ToUpper();
         buttonB.text = _data.buttonB.ToUpper();
         menuHub.menuOnDisable = _menuOnDisable;
+        if (MenuNavigator.Instance.useMouse) {
+    //Only apply a style if using Controller
+            buttonOK.SetFocus(false);
+            buttonNo.SetFocus(false);
+        }
+        buttonOK.StateUpdate();
+        buttonNo.StateUpdate();
+        
     }
 }

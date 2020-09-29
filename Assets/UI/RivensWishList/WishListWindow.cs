@@ -13,9 +13,11 @@ public class WishListWindow : MonoBehaviour
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
 
+    /*
     private void Awake() {
         Unpack();
     }
+    //*/
 
     public void Unpack() {
     //Clear gadgets
@@ -40,6 +42,7 @@ public class WishListWindow : MonoBehaviour
 		closeButton.OnClick += Close;
 		clickToClose.OnClick += Close;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
+        Unpack();
 	}
 
 	private void OnDisable() {

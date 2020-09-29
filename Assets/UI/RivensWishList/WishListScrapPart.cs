@@ -44,14 +44,15 @@ public class WishListScrapPart : MonoBehaviour
     }
 
     public void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
-        GameObject newGO = Instantiate(tooltipPrefab, UI.Instance.lappy.transform, false);
-        newGO.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
-        wishlistTooltip = newGO.GetComponent<WishListTooltip>();
-        wishlistTooltip.inventorySlot.Unpack(new InventoryItem(myItem.item, (int)Inventory.instance.InventoryCount(myItem.item.name)));
+        if (wishlistTooltip == null) { //Don't create a Tooltip if one already exists
+            GameObject newGO = Instantiate(tooltipPrefab, UI.Instance.lappy.transform, false);
+            newGO.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
+            wishlistTooltip = newGO.GetComponent<WishListTooltip>();
+            wishlistTooltip.inventorySlot.Unpack(new InventoryItem(myItem.item, (int)Inventory.instance.InventoryCount(myItem.item.name)));
+        }
     }
 
     public void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
-        Debug.Log("NavButton_OnFocusLost");
         CloseTooltip();
     }
 

@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listNode: {fileID: 7518244963733129933}
+  buttonNode: {fileID: 1554818310432324945}
   listElement: {fileID: 2601373928697447280}
   gadgetName: {fileID: 7156058352623209775}
   gadgetNameFocus: {fileID: 1799917173218650264}
@@ -809,6 +810,7 @@ MonoBehaviour:
   checkMark: {fileID: 6823224339649937878}
   scrapPartsContainer: {fileID: 2792341733272226946}
   textUnavailable: {fileID: 5452219392752753899}
+  textUnavailableFocus: {fileID: 9012257494942013035}
   promptGadget: {fileID: 11400000, guid: 1b26f2d97c485c44fbb48646d78b9bff, type: 2}
 --- !u!114 &2601373928697447280
 MonoBehaviour:
@@ -840,7 +842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5334951520362764554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2744,8 +2746,8 @@ MonoBehaviour:
   goActive: {fileID: 0}
   goActiveFocus: {fileID: 0}
   goActiveSelected: {fileID: 0}
-  goUnavailable: {fileID: 0}
-  goUnavailableFocus: {fileID: 0}
+  goUnavailable: {fileID: 8886350595240223762}
+  goUnavailableFocus: {fileID: 3476215170627041567}
 --- !u!1 &8402635409783815359
 GameObject:
   m_ObjectHideFlags: 0

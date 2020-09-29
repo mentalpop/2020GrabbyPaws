@@ -6,6 +6,11 @@ public class NavButton : MonoBehaviour
 {
     public ButtonStateData buttonStateData;
     public NavButtonData navButtonData;
+
+    public bool Available {
+        get => buttonStateData.available;
+        //set { }
+    }
     
     public delegate void ButtonEvent (ButtonStateData _buttonStateData);
 	public event ButtonEvent OnSelect = delegate { };
