@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public LappyMenu lappyMenu;
+	public MenuHub menuHub;
 	public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
     [Header("Video Tab")]
@@ -23,6 +24,7 @@ public class OptionsMenu : MonoBehaviour
     //[Header("Controls Tab")]
 
 	private void OnEnable() {
+        menuHub.OnMenuClose += MenuHub_OnMenuClose;
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 	//Set Screen Mode drop-down
@@ -70,6 +72,7 @@ public class OptionsMenu : MonoBehaviour
 	}
 
     private void OnDisable() {
+        menuHub.OnMenuClose -= MenuHub_OnMenuClose;
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
 		screenMode.OnChoiceMade -= ScreenMode_OnChoiceMade;
@@ -112,6 +115,10 @@ public class OptionsMenu : MonoBehaviour
 	private void ScreenMode_OnChoiceMade(int choiceMade) {
 		UI.SetWindowMode(choiceMade);
 	}
+
+    private void MenuHub_OnMenuClose() {
+        Close();
+    }
 
 	private void Close() {
 		gameObject.SetActive(false);

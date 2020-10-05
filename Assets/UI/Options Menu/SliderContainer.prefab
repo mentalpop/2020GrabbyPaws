@@ -170,11 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e326b6d639e7e1c4782ad5677d2ccfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handleFontResize: 0
-  fSizeMin: 10
-  fSizeMax: 18
   handleFontChange: 1
   fontData: {fileID: 11400000, guid: 290e02563cd53f0408f87d961cf2857a, type: 2}
+  handleFontResize: 0
+  fSizeMax: 18
 --- !u!1 &239286638177941456
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +183,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 239286638177941455}
+  - component: {fileID: 5574449628205744232}
+  - component: {fileID: 2512104092327658705}
+  - component: {fileID: 244851454433094500}
   m_Layer: 5
   m_Name: SliderContainer
   m_TagString: Untagged
@@ -213,6 +215,70 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &5574449628205744232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239286638177941456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 0}
+  mDown: {fileID: 0}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  validSelection: 1
+  navButton: {fileID: 2512104092327658705}
+--- !u!114 &2512104092327658705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239286638177941456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
+--- !u!114 &244851454433094500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239286638177941456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a5583975e8914db058989450bcbb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 2512104092327658705}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  text: {fileID: 239286637465076739}
+  fontStyleNeutral: 0
+  fontStyleFocus: 1
+  fontStyleSelected: 0
+  fontStyleActive: 0
+  fontStyleActiveFocus: 1
+  fontStyleActiveSelected: 0
+  fontStyleUnavailable: 2
 --- !u!1 &3580660723370472823
 GameObject:
   m_ObjectHideFlags: 0
