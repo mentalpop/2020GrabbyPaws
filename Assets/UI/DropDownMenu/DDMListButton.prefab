@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 3750645046658257867}
   - component: {fileID: 1626414323153146948}
   - component: {fileID: 4214018151560796401}
+  - component: {fileID: 3825477472663902948}
   m_Layer: 5
   m_Name: DDMListButton
   m_TagString: Untagged
@@ -371,6 +372,7 @@ MonoBehaviour:
   goActiveFocus: {fileID: 0}
   goActiveSelected: {fileID: 0}
   goUnavailable: {fileID: 0}
+  goUnavailableFocus: {fileID: 0}
 --- !u!114 &1626414323153146948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,3 +401,26 @@ MonoBehaviour:
   navButton: {fileID: 5501622708147654657}
   listController: {fileID: 0}
   listIndex: 0
+--- !u!114 &3825477472663902948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868314792813545464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a5583975e8914db058989450bcbb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 5501622708147654657}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  text: {fileID: 3104308789317246273}
+  fontStyleNeutral: 0
+  fontStyleFocus: 1
+  fontStyleSelected: 0
+  fontStyleActive: 0
+  fontStyleActiveFocus: 1
+  fontStyleActiveSelected: 0
+  fontStyleUnavailable: 2
