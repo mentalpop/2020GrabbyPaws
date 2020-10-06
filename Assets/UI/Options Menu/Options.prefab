@@ -383,14 +383,14 @@ MonoBehaviour:
   menuHub: {fileID: 8299881189552072771}
   closeButton: {fileID: 2089700679917195681}
   clickToClose: {fileID: 4616308347923385824}
-  screenMode: {fileID: 415726354285397007}
-  resolution: {fileID: 5941219792603298663}
-  quality: {fileID: 5941219792808608849}
-  uiScale: {fileID: 5941219792927016747}
-  fontChoice: {fileID: 2434722078042313192}
-  textSize: {fileID: 8775787691279607130}
-  printSpeed: {fileID: 7560497119977800952}
-  lappyBG: {fileID: 253200850059889903}
+  screenMode: {fileID: 165757378971874090}
+  resolution: {fileID: 6195656161704021058}
+  quality: {fileID: 6195656161364489076}
+  uiScale: {fileID: 6195656161280716814}
+  fontChoice: {fileID: 2756705771272333005}
+  textSize: {fileID: 9097776984527786623}
+  printSpeed: {fileID: 8026645496482477021}
+  lappyBG: {fileID: 291497349448088522}
   mouseSensitivity: {fileID: 2184815778427350438}
 --- !u!114 &8299881189552072771
 MonoBehaviour:
@@ -409,7 +409,8 @@ MonoBehaviour:
   nodes:
   - {fileID: 3565598627930314841}
   - {fileID: 4059023856911296028}
-  - {fileID: 0}
+  - {fileID: 8502254451407058131}
+  - {fileID: 306280145775512724}
 --- !u!1 &2089700680169343509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,12 +2271,14 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d8709277551ab4e4ea845dc7943d0a4f,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: c17edfa8aedf979468c83a6b696b3605,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[3]
@@ -2285,7 +2288,8 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 46b486a4cc3a64944bcd8e00b38aff02,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -2460,16 +2464,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5941219792808608849 stripped
+--- !u!114 &6195656161364489076 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 2089700678500493070}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2089700678684763252
@@ -2539,17 +2543,20 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d8709277551ab4e4ea845dc7943d0a4f,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 0152e5349fb38b245bd66c3bd5f17759,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: a93485b313e32cd4fa762a649044128c,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -2802,16 +2809,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5941219792927016747 stripped
+--- !u!114 &6195656161280716814 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 2089700678684763252}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2089700678697556024
@@ -2929,27 +2936,32 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 5439a65c002ad19478b9466a4597815d,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 030cd6da3f8f68b478ff3730033e72fd,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ff2d536df823e4148ade5c06936a17b8,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 8d994765d3128af40a45cce7107ff44c,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 3954c7095cec8984b88dd1448c22f539,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -3127,16 +3139,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946f62c6cbf03234ea2942bdb44a8f5b, type: 3}
---- !u!114 &5941219792603298663 stripped
+--- !u!114 &6195656161704021058 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 2089700678697556024}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &225385453726964069 stripped
@@ -3845,7 +3857,9 @@ PrefabInstance:
     - target: {fileID: 239286637465076739, guid: a0c573980043aba4aa95f3894388d3b5,
         type: 3}
       propertyPath: m_text
-      value: HOW SENSITIVE THE MOUSE'S FEELINGS ARE
+      value: 'HOW SENSITIVE THE
+
+        MOUSE''S FEELINGS ARE'
       objectReference: {fileID: 0}
     - target: {fileID: 239286637465076739, guid: a0c573980043aba4aa95f3894388d3b5,
         type: 3}
@@ -4522,17 +4536,20 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d8709277551ab4e4ea845dc7943d0a4f,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 8104d77a0e0e0d547bbe39f58a7e3197,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: da47c3d971ec6d643a7d728c8752de9b,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -4779,16 +4796,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7560497119977800952 stripped
+--- !u!114 &8026645496482477021 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 2855036202781681575}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6749367304898235076 stripped
@@ -4864,17 +4881,20 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d8709277551ab4e4ea845dc7943d0a4f,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 0152e5349fb38b245bd66c3bd5f17759,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: a93485b313e32cd4fa762a649044128c,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -5109,16 +5129,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946f62c6cbf03234ea2942bdb44a8f5b, type: 3}
---- !u!114 &8775787691279607130 stripped
+--- !u!114 &9097776984527786623 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 3943662571176707589}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2925674429834544984 stripped
@@ -5234,12 +5254,14 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 759776f0f9dde2a419626767f0cda58a,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d5bce462bc435904683c98a7630801bb,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -5379,16 +5401,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &415726354285397007 stripped
+--- !u!114 &165757378971874090 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 5383944179958785872}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5544182425110654896
@@ -5458,27 +5480,32 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 7d6bc196b8a1810489d9b59402fd0975,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 3a8216e5f2956d54ba3c3fb9ca1041f8,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: fdf0d72a5bab92948a89d353e8b1a2dd,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 7f7cf74b24445d74090926e8ec00f72a,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ec839566dd8a3f145aec25555e663450,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -5731,16 +5758,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &253200850059889903 stripped
+--- !u!114 &291497349448088522 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 5544182425110654896}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7978890397865341623
@@ -5810,12 +5837,14 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonData.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d8709277551ab4e4ea845dc7943d0a4f,
+        type: 2}
     - target: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 5a71b246fb92bcb4da54f5a89c077431,
+        type: 2}
     - target: {fileID: 5725034304546336767, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -6050,16 +6079,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946f62c6cbf03234ea2942bdb44a8f5b, type: 3}
---- !u!114 &2434722078042313192 stripped
+--- !u!114 &2756705771272333005 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5725034306234655583, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+  m_CorrespondingSourceObject: {fileID: 5258937460758221946, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
     type: 3}
   m_PrefabInstance: {fileID: 7978890397865341623}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ffef7cb8341a24ca2660af56f70a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8113823897973912554 stripped

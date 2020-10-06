@@ -10,62 +10,54 @@ public class OptionsMenu : MonoBehaviour
 	public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
     [Header("Video Tab")]
-	public DropDownMenu screenMode;
-	public DropDownMenu resolution;
-	public DropDownMenu quality;
+	public ListControllerDropDown screenMode;
+	public ListControllerDropDown resolution;
+	public ListControllerDropDown quality;
     [Header("Misc Tab")]
-    public DropDownMenu uiScale;
-    public DropDownMenu fontChoice;
-    public DropDownMenu textSize;
-    public DropDownMenu printSpeed;
-    public DropDownMenu lappyBG;
+    public ListControllerDropDown uiScale;
+    public ListControllerDropDown fontChoice;
+    public ListControllerDropDown textSize;
+    public ListControllerDropDown printSpeed;
+    public ListControllerDropDown lappyBG;
     public Slider mouseSensitivity;
 
-    //[Header("Controls Tab")]
+    //[Header("Controls Tab")]SetActiveIndex
 
 	private void OnEnable() {
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 	//Set Screen Mode drop-down
-		screenMode.chosenIndex = Screen.fullScreen ? 1 : 0; //Fullscreen / Windowed
-		screenMode.SetHeader(screenMode.chosenIndex);
-		screenMode.OnChoiceMade += ScreenMode_OnChoiceMade;
+		screenMode.SetActiveIndex(Screen.fullScreen ? 1 : 0); //Fullscreen / Windowed
+		screenMode.OnSelect += ScreenMode_OnChoiceMade;
 	//Screen Resolution
 		switch (Screen.width) {
-			case 1920: resolution.chosenIndex = 0; break;
-			case 1600: resolution.chosenIndex = 1; break;
-			case 1366: case 1360: resolution.chosenIndex = 2; break;
-			case 1280: resolution.chosenIndex = 3; break;
-			default: resolution.chosenIndex = 4; break;
+			case 1920: resolution.SetActiveIndex(0); break;
+			case 1600: resolution.SetActiveIndex(1); break;
+			case 1366: case 1360: resolution.SetActiveIndex(2); break;
+			case 1280: resolution.SetActiveIndex(3); break;
+			default: resolution.SetActiveIndex(4); break;
 		}
-		resolution.SetHeader(resolution.chosenIndex);
-		resolution.OnChoiceMade += Resolution_OnChoiceMade;
+		resolution.OnSelect += Resolution_OnChoiceMade;
 	//Quality
-		quality.chosenIndex = UI.Instance.quality.value;
-		quality.SetHeader(quality.chosenIndex);
-		quality.OnChoiceMade += Quality_OnChoiceMade;
+		quality.SetActiveIndex(UI.Instance.quality.value);
+		quality.OnSelect += Quality_OnChoiceMade;
 //Misc Tab
     //UI Scale
-		uiScale.chosenIndex = UI.Instance.uiScale.value;
-		uiScale.SetHeader(uiScale.chosenIndex);
-        uiScale.OnChoiceMade += UI.SetUIScale;
+		uiScale.SetActiveIndex(UI.Instance.uiScale.value);
+        uiScale.OnSelect += UI.SetUIScale;
     //fontChoice
-		fontChoice.chosenIndex = UI.Instance.fontChoice.value;
-		fontChoice.SetHeader(fontChoice.chosenIndex);
-        fontChoice.OnChoiceMade += UI.SetFontChoice;
+		fontChoice.SetActiveIndex(UI.Instance.fontChoice.value);
+        fontChoice.OnSelect += UI.SetFontChoice;
     //textSize
-		textSize.chosenIndex = UI.Instance.textSize.value;
-		textSize.SetHeader(textSize.chosenIndex);
-        textSize.OnChoiceMade += UI.SetTextSize;
+		textSize.SetActiveIndex(UI.Instance.textSize.value);
+        textSize.OnSelect += UI.SetTextSize;
     //printSpeed
-		printSpeed.chosenIndex = UI.Instance.textPrintSpeed.value;
-		printSpeed.SetHeader(printSpeed.chosenIndex);
-        printSpeed.OnChoiceMade += UI.SetPrintSpeed;
+		printSpeed.SetActiveIndex(UI.Instance.textPrintSpeed.value);
+        printSpeed.OnSelect += UI.SetPrintSpeed;
 	//Lappy BG
-		lappyBG.chosenIndex = lappyMenu.chosenBGIndex;
-		lappyBG.SetHeader(lappyBG.chosenIndex);
-		lappyBG.OnChoiceMade += LappyBG_OnChoiceMade;
+		lappyBG.SetActiveIndex(lappyMenu.chosenBGIndex);
+		lappyBG.OnSelect += LappyBG_OnChoiceMade;
 	//mouseSensitivity
         mouseSensitivity.value = UI.Instance.mouseSensitivity.value;
         mouseSensitivity.onValueChanged.AddListener (delegate {mouseSensitivity_onValueChanged();});
@@ -75,14 +67,14 @@ public class OptionsMenu : MonoBehaviour
         menuHub.OnMenuClose -= MenuHub_OnMenuClose;
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
-		screenMode.OnChoiceMade -= ScreenMode_OnChoiceMade;
-		resolution.OnChoiceMade -= Resolution_OnChoiceMade;
-		quality.OnChoiceMade -= Quality_OnChoiceMade;
-		uiScale.OnChoiceMade -= UI.SetUIScale;
-        fontChoice.OnChoiceMade -= UI.SetFontChoice;
-		textSize.OnChoiceMade -= UI.SetTextSize;
-		printSpeed.OnChoiceMade -= UI.SetPrintSpeed;
-		lappyBG.OnChoiceMade -= LappyBG_OnChoiceMade;
+		screenMode.OnSelect -= ScreenMode_OnChoiceMade;
+		resolution.OnSelect -= Resolution_OnChoiceMade;
+		quality.OnSelect -= Quality_OnChoiceMade;
+		uiScale.OnSelect -= UI.SetUIScale;
+        fontChoice.OnSelect -= UI.SetFontChoice;
+		textSize.OnSelect -= UI.SetTextSize;
+		printSpeed.OnSelect -= UI.SetPrintSpeed;
+		lappyBG.OnSelect -= LappyBG_OnChoiceMade;
         mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged();});
 	}
 
