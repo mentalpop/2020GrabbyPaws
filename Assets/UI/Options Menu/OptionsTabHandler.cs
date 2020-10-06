@@ -4,28 +4,52 @@ using UnityEngine;
 
 public class OptionsTabHandler : MonoBehaviour
 {
-    public ButtonGeneric tabMisc;
-    public ButtonGeneric tabControls;
+    public NavButton tabMisc;
+    public NavButton tabControls;
 
     public GameObject tabMiscContents;
     public GameObject tabControlsContents;
 
     private void OnEnable() {
-        tabMisc.OnClick += tabMisc_OnClick;
-        tabControls.OnClick += tabControls_OnClick;
+        tabMisc.OnSelect += TabMisc_OnSelect;
+        tabMisc.OnFocusGain += TabMisc_OnFocusGain;
+        tabControls.OnSelect += TabControls_OnSelect;
+        tabControls.OnFocusGain += TabControls_OnFocusGain;
     }
 
     private void OnDisable() {
-        tabMisc.OnClick -= tabMisc_OnClick;
-        tabControls.OnClick -= tabControls_OnClick;
+        tabMisc.OnSelect -= TabMisc_OnSelect;
+        tabMisc.OnFocusGain -= TabMisc_OnFocusGain;
+        tabControls.OnSelect -= TabControls_OnSelect;
+        tabControls.OnFocusGain -= TabControls_OnFocusGain;
     }
 
-    public void tabMisc_OnClick() {
+    private void TabControls_OnSelect(ButtonStateData _buttonStateData) {
+        SetActiveControls();
+    }
+
+    private void TabMisc_OnSelect(ButtonStateData _buttonStateData) {
+        SetActiveMisc();
+    }
+
+    private void TabControls_OnFocusGain(ButtonStateData _buttonStateData) {
+        if (!MenuNavigator.Instance.useMouse) {
+            SetActiveControls();
+        }
+    }
+
+    private void TabMisc_OnFocusGain(ButtonStateData _buttonStateData) {
+        if (!MenuNavigator.Instance.useMouse) {
+            SetActiveMisc();
+        }
+    }
+
+    private void SetActiveMisc() {
         tabMiscContents.SetActive(true);
         tabControlsContents.SetActive(false);
     }
-    
-    public void tabControls_OnClick() {
+
+    private void SetActiveControls() {
         tabMiscContents.SetActive(false);
         tabControlsContents.SetActive(true);
     }
