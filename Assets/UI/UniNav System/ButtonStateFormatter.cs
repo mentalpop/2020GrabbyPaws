@@ -13,6 +13,7 @@ public class ButtonStateFormatter : MonoBehaviour
 
     private void OnDisable() {
         navButton.OnStateUpdate -= ButtonFormat;
+        ButtonFormat(new ButtonStateData()); //A default state without focus
     }
 
     protected virtual void ButtonFormat(ButtonStateData _buttonStateData) {

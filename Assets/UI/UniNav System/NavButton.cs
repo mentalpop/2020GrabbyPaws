@@ -73,4 +73,20 @@ public class ButtonStateData
     public bool stateActive = false; //If this button has a toggled state, should it use that sprite set?
     public bool hasFocus = false;
     [HideInInspector] public bool inputPressed = false;
+
+    public ButtonStateData() {
+        this.available = true;
+        this.hasToggleState = false;
+        this.stateActive = false;
+        this.hasFocus = false;
+        this.inputPressed = false;
+    }
+
+    public ButtonStateData(bool available, bool hasToggleState, bool stateActive, bool hasFocus, bool inputPressed) {
+        this.available = available;
+        this.hasToggleState = hasToggleState;
+        this.stateActive = stateActive;
+        this.hasFocus = hasFocus;
+        this.inputPressed = inputPressed;
+    }
 }
