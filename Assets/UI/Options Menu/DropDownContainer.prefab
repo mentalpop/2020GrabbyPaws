@@ -457,11 +457,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4313364266155632520}
-  - component: {fileID: 5258937460758221946}
   - component: {fileID: 1013701712409539746}
   - component: {fileID: 7124949727923293840}
   m_Layer: 5
-  m_Name: ListControllerDDM
+  m_Name: MenuNodeList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,39 +486,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 320, y: 70}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &5258937460758221946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4313364266155632521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaveAsTabs: 0
-  activeIndex: 0
-  focusIndex: 0
-  listHasFocus: 0
-  mNodeList: {fileID: 7124949727923293840}
-  header: {fileID: 3528522344281927246}
-  background: {fileID: 2757951299866074816}
-  parentTransform: {fileID: 0}
-  masterContainer: {fileID: 0}
-  mySine:
-    div: 30
-    magnitude: 0.5
-    value: 0
-    duration: 0.5
-    durationElapsed: 0
-  elementHeight: 70
-  layoutGroup: {fileID: 1099167121222124020}
-  targetTransform: {fileID: 4313364264853434550}
-  listObject: {fileID: 6868314792813545464, guid: c13b493daf51cba4ebce5818ba0349d0,
-    type: 3}
-  buttonData: []
 --- !u!114 &1013701712409539746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea32b3a4128049549a0b0f070910d800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ddm: {fileID: 5258937460758221946}
+  ddm: {fileID: 4858072237223159539}
   clickToClose: {fileID: 5184601713768953591}
 --- !u!114 &7124949727923293840
 MonoBehaviour:
@@ -555,7 +521,7 @@ MonoBehaviour:
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
   validSelection: 1
-  listController: {fileID: 5258937460758221946}
+  listController: {fileID: 4858072237223159539}
   navigationType: 0
   menuSize: {x: 0, y: 0}
   outOfBoundsLoop: 1
@@ -568,8 +534,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4313364266541497367}
+  - component: {fileID: 4858072237223159539}
   m_Layer: 5
-  m_Name: DDMenuNode
+  m_Name: DDMenuList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,6 +564,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 320, y: 70}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &4858072237223159539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4313364266541497360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f87c2deaf86b7140a12e935576cf65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaveAsTabs: 0
+  activeIndex: 0
+  focusIndex: 0
+  listHasFocus: 0
+  mNodeList: {fileID: 7124949727923293840}
+  header: {fileID: 3528522344281927246}
+  background: {fileID: 2757951299866074816}
+  parentTransform: {fileID: 8806139815691480419}
+  masterContainer: {fileID: 0}
+  mySine:
+    div: 30
+    magnitude: 0.5
+    value: 0
+    duration: 0.5
+    durationElapsed: 0
+  elementHeight: 70
+  layoutGroup: {fileID: 1099167121222124020}
+  targetTransform: {fileID: 4313364264853434550}
+  listObject: {fileID: 6868314792813545464, guid: c13b493daf51cba4ebce5818ba0349d0,
+    type: 3}
+  buttonData: []
 --- !u!1 &5184601713768953589
 GameObject:
   m_ObjectHideFlags: 0

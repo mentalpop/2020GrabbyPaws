@@ -146,6 +146,12 @@ public class DropDownMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 backgroundRect.sizeDelta = isExpanded ? sizeExpanded : sizeRetracted;
                 if (doChangePosition)
                     myRect.anchoredPosition = isExpanded ? new Vector2(originPosition.x, originPosition.y - deltaHeight) : originPosition;
+                if (!isExpanded) {
+                    if (parentTransform != null) {
+                        transform.SetParent(parentTransform);
+                        myRect.anchoredPosition = originPosition;
+                    }
+                }
             } else {
                 if (doChangePosition)
                     myRect.anchoredPosition = new Vector2(originPosition.x, originPosition.y - deltaHeight * mySine.GetSine()); //Handle sizing
@@ -181,10 +187,6 @@ public class DropDownMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 SetHeader(chosenIndex);
             }
             buttonState.SetActiveState(false);
-            if (parentTransform != null) {
-                transform.SetParent(parentTransform);
-                myRect.anchoredPosition = originPosition;
-            }
         }
     }
 

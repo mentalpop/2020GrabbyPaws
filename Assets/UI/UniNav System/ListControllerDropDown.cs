@@ -18,6 +18,7 @@ public class ListControllerDropDown : ListController
     public GameObject listObject;
     public List<NavButtonData> buttonData = new List<NavButtonData>();
 
+    //public bool ElementsDefined { get; private set; } //Have elements been set?
     private bool isExpanded = false;
     private RectTransform myRect;
     private Vector2 originPosition;
@@ -30,6 +31,7 @@ public class ListControllerDropDown : ListController
 
     public delegate void DropDownEvent();
     public event DropDownEvent OnOpen = delegate { };
+    //public event DropDownEvent OnElementsDefined = delegate { };
 
     private void OnEnable() {
         header.OnSelect += Header_OnSelect;
@@ -58,6 +60,10 @@ public class ListControllerDropDown : ListController
         }
         Elements = _elements;
         SetHeader(activeIndex);
+        /*
+        ElementsDefined = true;
+        OnElementsDefined();
+        //*/
     //Handle Background height
         backgroundRect = background.GetComponent<RectTransform>();
         sizeRetracted = backgroundRect.rect.size;
@@ -89,6 +95,12 @@ public class ListControllerDropDown : ListController
                 backgroundRect.sizeDelta = isExpanded ? sizeExpanded : sizeRetracted;
                 if (doChangePosition)
                     myRect.anchoredPosition = isExpanded ? new Vector2(originPosition.x, originPosition.y - deltaHeight) : originPosition;
+                if (!isExpanded) {
+                    if (parentTransform != null) {
+                        transform.SetParent(parentTransform);
+                        myRect.anchoredPosition = originPosition;
+                    }
+                }
             } else {
                 if (doChangePosition)
                     myRect.anchoredPosition = new Vector2(originPosition.x, originPosition.y - deltaHeight * mySine.GetSine()); //Handle sizing
@@ -161,10 +173,6 @@ public class ListControllerDropDown : ListController
             header.SetActive(false);
             if (listHasFocus)
                 mNodeList.MenuNavigate(MenuNode.NavDir.Cancel);
-            if (parentTransform != null) {
-                transform.SetParent(parentTransform);
-                myRect.anchoredPosition = originPosition;
-            }
         } else {
             Debug.Log("Redundant call to Close: "+gameObject.name);
         }
