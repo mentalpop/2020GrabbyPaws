@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuNodeSlider : MenuNode
+public class MenuNodeSlider : MenuNodeButton
 {
     public Slider slider;
     public float sliderDelta = 0.1f;
 
     private float valueOriginal = 0f;
 
+    /*
     private void Awake() {
         if (mAccept != null) {
     //Inherit directions
@@ -19,6 +20,7 @@ public class MenuNodeSlider : MenuNode
             mBackward = mAccept.mBackward;
         }
     }
+    //*/
     /*
     private void OnEnable() {
         navButton.OnSelect += NavButton_OnSelect;
@@ -39,6 +41,7 @@ public class MenuNodeSlider : MenuNode
 
 
     public override void MenuFocus() {
+        navButton.SetFocus(true);
         valueOriginal = slider.value;
         slider.Select();
     }
