@@ -68,8 +68,12 @@ public class MenuNavigator : MonoBehaviour
     public void MenuPress() {
         //activeButton = activeMenuNode.GetButtonInFocus();
         heldButton = activeMenuNode.GetButtonInFocus();//activeButton;//activeMenuNode.listController.focusIndex;
-        heldButton.buttonStateData.inputPressed = true;
-        heldButton.StateUpdate();
+        if (heldButton == null) {
+            MenuNavigate(MenuNode.NavDir.Accept);
+        } else {
+            heldButton.buttonStateData.inputPressed = true;
+            heldButton.StateUpdate();
+        }
     }
 
     public void MenuRelease() {
@@ -95,7 +99,7 @@ public class MenuNavigator : MonoBehaviour
     }
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
-        Debug.Log("activeMenuNode: "+activeMenuNode);
+        //Debug.Log("activeMenuNode: "+activeMenuNode);
         activeMenuNode.MenuNavigate(navDir);
         //Debug.Log("activeMenuNode: "+activeMenuNode.name);
     }
