@@ -33,13 +33,13 @@ public class OptionsTabHandler : MonoBehaviour
     }
 
     private void TabControls_OnFocusGain(ButtonStateData _buttonStateData) {
-        if (!MenuNavigator.Instance.useMouse) {
+        if (!MenuNavigator.MouseIsUsing()) {
             SetActiveControls();
         }
     }
 
     private void TabMisc_OnFocusGain(ButtonStateData _buttonStateData) {
-        if (!MenuNavigator.Instance.useMouse) {
+        if (!MenuNavigator.MouseIsUsing()) {
             SetActiveMisc();
         }
     }

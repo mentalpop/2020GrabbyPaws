@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7ade5d2a2ff71554bba90c8f2198fae3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - scrollRect: {instanceID: 0}
+  - scrollbar: {instanceID: 0}
+  - blockerPrefab: {fileID: 8491533245025076059, guid: f396ba5b76569a543b891cf2ec9c376b,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

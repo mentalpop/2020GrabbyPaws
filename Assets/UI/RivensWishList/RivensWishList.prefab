@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOnEnable: {fileID: 0}
+  rememberLastMenu: 0
   menuOnDisable: {fileID: 0}
   nodes:
   - {fileID: 2960860717061808834}
@@ -284,12 +285,6 @@ MonoBehaviour:
   listController: {fileID: 3093748157034588074}
   scrollRect: {fileID: 9177606342182755845}
   scrollRate: 0.25
-  gTween:
-    tweenDuration: 0
-    tweenStartVal: 0
-    tweenTargetVal: 0
-    effectActive: 0
-    doReverse: 0
 --- !u!1 &3637951761298476888
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +385,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -608,6 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1534651291550234372}
   - component: {fileID: 9177606342182755845}
+  - component: {fileID: 7759273375411667540}
   m_Layer: 5
   m_Name: ScrollRect
   m_TagString: Untagged
@@ -667,6 +663,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7759273375411667540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751327531507778820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ade5d2a2ff71554bba90c8f2198fae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 9177606342182755845}
+  blockerPrefab: {fileID: 8491533245025076059, guid: f396ba5b76569a543b891cf2ec9c376b,
+    type: 3}
 --- !u!1 &6819291896677065692
 GameObject:
   m_ObjectHideFlags: 0

@@ -397,7 +397,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -617,6 +617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2122234271669668050}
   - component: {fileID: 2122234271669668077}
+  - component: {fileID: 6273790590624761255}
   m_Layer: 5
   m_Name: ScrollRect
   m_TagString: Untagged
@@ -676,6 +677,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6273790590624761255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122234271669668051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ade5d2a2ff71554bba90c8f2198fae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 2122234271669668077}
+  blockerPrefab: {fileID: 8491533245025076059, guid: f396ba5b76569a543b891cf2ec9c376b,
+    type: 3}
 --- !u!1 &3090711174050635166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +1589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOnEnable: {fileID: 0}
+  rememberLastMenu: 0
   menuOnDisable: {fileID: 0}
   nodes:
   - {fileID: 1864174911380514461}
@@ -1633,12 +1650,6 @@ MonoBehaviour:
   listController: {fileID: 7204548215214941051}
   scrollRect: {fileID: 2122234271669668077}
   scrollRate: 0.25
-  gTween:
-    tweenDuration: 0
-    tweenStartVal: 0
-    tweenTargetVal: 0
-    effectActive: 0
-    doReverse: 0
 --- !u!1 &3090711176093814791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,10 +1987,10 @@ MonoBehaviour:
     duration: 0.5
     durationElapsed: 0
   optionDataList:
-  - {fileID: 11400000, guid: 1f0611378158538478147b02059edf2f, type: 2}
-  - {fileID: 11400000, guid: 0aca59c637b5c9b4abffbbbb64c141dd, type: 2}
-  - {fileID: 11400000, guid: e568a6a5b0f15c84e87875a2452424f5, type: 2}
-  - {fileID: 11400000, guid: 12af19d55befe75419e9746a143fc062, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   chosenIndex: 0
   elementHeight: 70
   buttonState: {fileID: 8388271012180972761}

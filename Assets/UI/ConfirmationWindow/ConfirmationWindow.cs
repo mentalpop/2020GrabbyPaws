@@ -72,7 +72,7 @@ public class ConfirmationWindow : MonoBehaviour
         buttonA.text = _data.buttonA.ToUpper();
         buttonB.text = _data.buttonB.ToUpper();
         menuHub.menuOnDisable = _menuOnDisable;
-        if (MenuNavigator.Instance.useMouse) {
+        if (MenuNavigator.MouseIsUsing()) {
     //Only apply a style if using Controller
             buttonOK.SetFocus(false);
             buttonNo.SetFocus(false);

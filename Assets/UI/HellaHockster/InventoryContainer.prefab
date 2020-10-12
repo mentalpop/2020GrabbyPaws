@@ -176,7 +176,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -333,6 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3744477606924766228}
   - component: {fileID: 3744477606924766251}
+  - component: {fileID: 227902171017364118}
   m_Layer: 5
   m_Name: ScrollRect
   m_TagString: Untagged
@@ -392,6 +393,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &227902171017364118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3744477606924766229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ade5d2a2ff71554bba90c8f2198fae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 3744477606924766251}
+  blockerPrefab: {fileID: 8491533245025076059, guid: f396ba5b76569a543b891cf2ec9c376b,
+    type: 3}
 --- !u!1 &3744477607069954121
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,18 +1000,6 @@ PrefabInstance:
       objectReference: {fileID: 4818735017421786728}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36096226a3f9827429e7d87ecfb5fd6e, type: 3}
---- !u!114 &4818735017421786728 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8126313271719875997, guid: 36096226a3f9827429e7d87ecfb5fd6e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3610166346417871861}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8471399590780127425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5154816319070688052, guid: 36096226a3f9827429e7d87ecfb5fd6e,
@@ -1012,6 +1016,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4818735017421786728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8126313271719875997, guid: 36096226a3f9827429e7d87ecfb5fd6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3610166346417871861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e54e82e8683c434b897a5ca9a48220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6179573521862643411 stripped

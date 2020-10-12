@@ -26,7 +26,7 @@ public class NavButtonAutoScroller : MonoBehaviour
     }
 
     private void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
-        if (scrollRect != null) {
+        if (scrollRect != null && !MenuNavigator.MouseIsUsing()) {
     //Deduce rectSnapTo
             int i = 0;
             foreach (var navButton in navButtons) {

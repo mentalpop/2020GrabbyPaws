@@ -13,6 +13,9 @@ public class MenuNavigator : MonoBehaviour
     public event MenuEvent OnClose = delegate { };
     public event MenuEvent OnMenuFocus = delegate { };
 
+    public delegate void InputMethodEvent(bool isUsingMouse);
+    public event InputMethodEvent OnInputMethodSet = delegate { };
+
     protected NavButton activeButton;
     protected NavButton heldButton;
 

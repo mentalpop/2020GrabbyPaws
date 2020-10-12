@@ -31,7 +31,7 @@ public class ListControllerAutoScroller : MonoBehaviour
     }
 
     private void ListController_OnFocus(int index) {
-        if (scrollRect != null) {
+        if (scrollRect != null && !MenuNavigator.MouseIsUsing()) {
             indexToSnapTo = index;
             runningCoroutine = StartCoroutine(SnapInOneFrame());
         }

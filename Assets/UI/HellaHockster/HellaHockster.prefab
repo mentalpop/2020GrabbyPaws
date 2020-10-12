@@ -591,6 +591,7 @@ MonoBehaviour:
   goActiveFocus: {fileID: 0}
   goActiveSelected: {fileID: 0}
   goUnavailable: {fileID: 0}
+  goUnavailableFocus: {fileID: 0}
 --- !u!1 &4642397753972405461
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,6 +984,7 @@ MonoBehaviour:
   goActiveFocus: {fileID: 0}
   goActiveSelected: {fileID: 0}
   goUnavailable: {fileID: 0}
+  goUnavailableFocus: {fileID: 0}
 --- !u!114 &3063514820226940393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2303,6 +2305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOnEnable: {fileID: 2116567108001178679}
+  rememberLastMenu: 0
   menuOnDisable: {fileID: 0}
   nodes:
   - {fileID: 2116567108001178679}
@@ -3723,6 +3726,7 @@ MonoBehaviour:
   goActiveFocus: {fileID: 0}
   goActiveSelected: {fileID: 0}
   goUnavailable: {fileID: 6536922181516914376}
+  goUnavailableFocus: {fileID: 0}
 --- !u!114 &6328238614112443566
 MonoBehaviour:
   m_ObjectHideFlags: 0
