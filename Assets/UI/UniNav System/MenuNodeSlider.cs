@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MenuNodeSlider : MenuNodeButton
@@ -10,40 +11,16 @@ public class MenuNodeSlider : MenuNodeButton
 
     private float valueOriginal = 0f;
 
-    /*
-    private void Awake() {
-        if (mAccept != null) {
-    //Inherit directions
-            mUp = mAccept.mUp;
-            mDown = mAccept.mDown;
-            mForward = mAccept.mForward;
-            mBackward = mAccept.mBackward;
-        }
-    }
-    //*/
-    /*
-    private void OnEnable() {
-        navButton.OnSelect += NavButton_OnSelect;
-    }
-
-    private void OnDisable() {
-        navButton.OnSelect -= NavButton_OnSelect;
-    }
-
-    private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
-        if (mAccept != null) {
-            MenuNavigator.Instance.MenuNavigate(NavDir.Accept);
-        }
-    }
-    public override void MenuUnfocus() {
-    }
-    //*/
-
 
     public override void MenuFocus() {
         navButton.SetFocus(true);
         valueOriginal = slider.value;
         slider.Select();
+    }
+
+    public override void MenuUnfocus() {
+        navButton.SetFocus(false);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public override void MenuNavigate(NavDir navDir) {
