@@ -8190,8 +8190,8 @@ MonoBehaviour:
         y: 854.2643
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.73600006
+    canvasScrollPosition: {x: 0, y: 121.53712}
+    canvasZoom: 0.6160002
   - id: 4
     fields:
     - title: Title
@@ -93603,11 +93603,11 @@ MonoBehaviour:
       type: 0
       typeString: CustomFieldType_Text
     - title: Actor
-      value: 8
+      value: 1
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: -1
+      value: 8
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -93645,11 +93645,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 8
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: -1
+        value: 8
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -93717,11 +93717,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
@@ -93788,11 +93788,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
@@ -93859,11 +93859,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: i'm so <shake>cooooold</shake>
@@ -93930,11 +93930,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
@@ -94010,7 +94010,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 8
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -94081,7 +94081,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 8
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -94149,11 +94149,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
@@ -94220,11 +94220,11 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Actor
         value: 8
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
         value: 1
-        type: 5
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
@@ -94290,12 +94290,12 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 1
-        type: 5
+        value: 8
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 8
-        type: 5
+        value: 1
+        type: 0
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: bye
@@ -94340,8 +94340,8 @@ MonoBehaviour:
         y: 515.7184
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 17.699024}
-    canvasZoom: 1.03
+    canvasScrollPosition: {x: 0, y: 142.55316}
+    canvasZoom: 0.47000012
   syncInfo:
     syncActors: 0
     syncItems: 0

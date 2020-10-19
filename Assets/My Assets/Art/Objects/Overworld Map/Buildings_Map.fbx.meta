@@ -35479,6 +35479,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BusinessSigns04
+    second: {fileID: 2100000, guid: 41cdcc10664b7b74a8560253ffbf5a64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
     second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
   - first:
@@ -35594,8 +35599,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: SaleSigns03
+    second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Screen
     second: {fileID: 2100000, guid: 8ba79373ae9f21948b027cd81966a25c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign01
+    second: {fileID: 2100000, guid: 0817b98f16d73604ebfdbafe2fe88a0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign02
+    second: {fileID: 2100000, guid: 8b6333a941cd1de4ca1f6dd2c9cf1af7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -35621,6 +35641,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Signs05
     second: {fileID: 2100000, guid: 07eda77099599614abad4352c43dca26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar02
+    second: {fileID: 2100000, guid: 825ad6030dee5c94684ef9af797283f1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -32,6 +32,7 @@ TagManager:
   - AIAction
   - NPC
   - Targets
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -51,7 +52,7 @@ TagManager:
   - BodyPart
   - BlockAIRayCast
   - Theftables
-  - 
+  - NPC
   - 
   - 
   - 
