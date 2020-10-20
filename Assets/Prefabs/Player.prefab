@@ -498,8 +498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vThirdPersonInput: {fileID: 8551294124530700067}
-  cameraTarget: {fileID: 0}
-  dropTarget: {fileID: 0}
+  cameraTarget: {fileID: 8551294124528195133}
+  dropTarget: {fileID: 673289111563440180}
 --- !u!114 &8551294124530700065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,8 +564,9 @@ MonoBehaviour:
     subtitlePanelNumber: 0
     customSubtitlePanel: {fileID: 0}
     customSubtitlePanelOffset: {x: 0, y: 0, z: 0}
-    menuPanelNumber: 0
-    customMenuPanel: {fileID: 0}
+    menuPanelNumber: 1
+    customMenuPanel: {fileID: 8058031902071679141, guid: 5398cd7e44b88c548ad528e8d21296a6,
+      type: 3}
     customMenuPanelOffset: {x: 0, y: 0, z: 0}
     useMenuPanelFor: 0
     portraitAnimatorController: {fileID: 0}
