@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//[DefaultExecutionOrder(200)]
 public class FontHandler : MonoBehaviour
 {
 [Header("Fonts")]
@@ -19,7 +20,13 @@ public class FontHandler : MonoBehaviour
 
 	private void Awake() {
         UIRef = UI.Instance;
-        //UIRef = FindObjectOfType<UI>();
+        if (UIRef == null) {
+            UIRef = FindObjectOfType<UI>();
+        }
+        /*
+        var _UIRef = FindObjectOfType<UI>();
+        Debug.Log("_UIRef: "+_UIRef);
+        //*/
         myTMPElement = gameObject.GetComponent<TextMeshProUGUI>();
         initialFont = myTMPElement.font;
         fSizeInitial = myTMPElement.fontSize;

@@ -122,6 +122,7 @@ public class UI : MonoBehaviour
             return;
         }
         Instance = this;
+        Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
     }
@@ -320,6 +321,7 @@ public class UI : MonoBehaviour
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
             if (lockControls) {
+                Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;

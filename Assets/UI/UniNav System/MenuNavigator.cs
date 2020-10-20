@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-500)]
 public class MenuNavigator : MonoBehaviour
 {
     public MenuNode activeMenuNode;
