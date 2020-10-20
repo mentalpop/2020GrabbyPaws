@@ -39,9 +39,10 @@ public class SpawnManager : MonoBehaviour
             player = Instantiate(prefabPlayer, pointToSpawnPlayer.transform.position, pointToSpawnPlayer.transform.localRotation);
             //vGenericAction gAction = player.GetComponent<vGenericAction>();
             PlayerBehaviour _player = player.GetComponent<PlayerBehaviour>();
-            UI.Instance.player = _player;
+            //UI.Instance.player = _player;
         //TP Camera Setup
             GameObject _tpCamera = Instantiate(prefabTPCamera, pointToSpawnPlayer.transform.position, Quaternion.identity);
+            UI.AssignPlayerAndCamera(_player, _tpCamera.GetComponent<CinemachineBrain>());
             //vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
             //gAction.mainCamera = tpCamera.GetComponent<Camera>();
             _player.vThirdPersonInput.cameraMain = _tpCamera.GetComponent<Camera>();

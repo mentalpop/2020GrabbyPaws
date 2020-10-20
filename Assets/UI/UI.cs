@@ -74,6 +74,8 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref quality;
 [Header("MISC Options")]
     public ConstrainedFloatPref mouseSensitivity;
+    public Vector2 cameraSpeedMin;
+    public Vector2 cameraSpeedMax;
     public ConstrainedIntPref uiScale;
     public ConstrainedIntPref textSize;
     public ConstrainedIntPref fontChoice;
@@ -96,8 +98,7 @@ public class UI : MonoBehaviour
 
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
-    private float cameraVelocityX;
-    private float cameraVelocityY;
+    private CinemachineBrain cBrain;
 
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
 
@@ -109,6 +110,9 @@ public class UI : MonoBehaviour
 
     private void OnDisable() {
         currency.OnCashChanged -= OnCurrencyChanged;
+        if (cBrain != null) {
+            cBrain.m_CameraActivatedEvent.RemoveListener(delegate {OnCameraActivated();});
+        }
     }
 
     private void Awake() {
@@ -165,8 +169,18 @@ public class UI : MonoBehaviour
     public static void SetMouseSensitivity(float _val) {
         Instance.mouseSensitivity.Write(_val);
     //Set Mouse Sensitivity
-        //TODO
+        Instance.UpdateCameraSensitivity();
     }
+
+    private void UpdateCameraSensitivity() {
+        if (cBrain != null) {
+            cFreeLook.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
+            cFreeLook.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+        } else {
+            Debug.Log("Tried to update cFreeLook, but cBrain is null");
+        }
+    }
+
     public static void SetUIScale(int choiceMade) {
         Instance.uiScale.Write(choiceMade); //Set and Save
         float _uiScale = GetUIScale();
@@ -258,6 +272,21 @@ public class UI : MonoBehaviour
         SetControlState(menuIsActive, inventoryDisplay.gameObject);
     }
 
+    public static void AssignPlayerAndCamera(PlayerBehaviour playerBehaviour, CinemachineBrain cinemachineBrain) {
+        Instance.AssignPlayer_AndCamera(playerBehaviour, cinemachineBrain);
+    }
+
+    private void AssignPlayer_AndCamera(PlayerBehaviour playerBehaviour, CinemachineBrain cinemachineBrain) {
+        player = playerBehaviour;
+        cBrain = cinemachineBrain;
+        cBrain.m_CameraActivatedEvent.AddListener(delegate {OnCameraActivated();});
+    }
+
+    private void OnCameraActivated() {
+        cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
+        UpdateCameraSensitivity();
+    }
+
     public static void SetControlState(bool lockMouse, GameObject gameObject) {
         if (lockMouse) {
             Instance.mouseCursorUsers.Add(gameObject);
@@ -293,17 +322,19 @@ public class UI : MonoBehaviour
             if (lockControls) {
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
-                Instance.cameraVelocityX = Instance.cFreeLook.m_XAxis.m_MaxSpeed;
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
             //Y Axis
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
-                Instance.cameraVelocityY = Instance.cFreeLook.m_YAxis.m_MaxSpeed;
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
-                Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                Instance.cFreeLook.m_XAxis.m_MaxSpeed = Instance.cameraVelocityX;
-                Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-                Instance.cFreeLook.m_YAxis.m_MaxSpeed = Instance.cameraVelocityY;
+                if (MenuNavigator.MouseIsUsing()) {
+                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                } else {
+                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
+                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
+                }
+                Instance.UpdateCameraSensitivity();
             }
         }
         /*

@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOnEnable: {fileID: 6220181618831938254}
+  rememberLastMenu: 0
   menuOnDisable: {fileID: 0}
   nodes:
   - {fileID: 6220181618831938254}
@@ -4865,9 +4866,11 @@ MonoBehaviour:
   mouseSensitivity:
     key: mouseSensitivity
     defaultValue: 1
-    minValue: -1
+    minValue: 0
     maxValue: 1
     value: 0
+  cameraSpeedMin: {x: 20, y: 1}
+  cameraSpeedMax: {x: 200, y: 10}
   uiScale:
     key: uiScale
     defaultValue: 0
