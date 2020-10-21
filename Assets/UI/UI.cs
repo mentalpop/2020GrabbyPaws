@@ -175,8 +175,21 @@ public class UI : MonoBehaviour
 
     private void UpdateCameraSensitivity() {
         if (cBrain != null) {
+            switch(cBrain.ActiveVirtualCamera) {
+                /*
+                case CinemachineVirtualCamera cVc:
+                    cVc.m_
+                    break;
+                //*/
+                case CinemachineFreeLook cFc:
+                    cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
+                    cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+                    break;
+            }
+            /*
             cFreeLook.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
             cFreeLook.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+            //*/
         } else {
             Debug.Log("Tried to update cFreeLook, but cBrain is null");
         }
@@ -285,6 +298,16 @@ public class UI : MonoBehaviour
 
     private void OnCameraActivated() {
         cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
+        switch(cBrain.ActiveVirtualCamera) {
+                case CinemachineVirtualCamera cVc:
+                    cVc.m_LookAt = player.cameraTarget;
+                    cVc.m_Follow = player.cameraTarget;
+                    break;
+                /*
+                case CinemachineFreeLook cFc:
+                    break;
+                //*/
+            }
         UpdateCameraSensitivity();
     }
 
