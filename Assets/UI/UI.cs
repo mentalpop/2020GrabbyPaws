@@ -301,7 +301,7 @@ public class UI : MonoBehaviour
         switch(cBrain.ActiveVirtualCamera) {
                 case CinemachineVirtualCamera cVc:
                     cVc.m_LookAt = player.cameraTarget;
-                    cVc.m_Follow = player.cameraTarget;
+                    //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
                     break;
                 /*
                 case CinemachineFreeLook cFc:
