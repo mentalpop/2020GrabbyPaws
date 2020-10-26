@@ -4,6 +4,7 @@ using UnityEngine;
 using Invector.vCamera;
 //using Invector.vCharacterController.vActions;
 using Invector.vCharacterController;
+using PixelCrushers.DialogueSystem;
 using Cinemachine;
 
 public class SpawnManager : MonoBehaviour
@@ -39,6 +40,13 @@ public class SpawnManager : MonoBehaviour
             player = Instantiate(prefabPlayer, pointToSpawnPlayer.transform.position, pointToSpawnPlayer.transform.localRotation);
             //vGenericAction gAction = player.GetComponent<vGenericAction>();
             PlayerBehaviour _player = player.GetComponent<PlayerBehaviour>();
+        //DS Trigger actor set
+            var DSTs = FindObjectsOfType<DialogueSystemTrigger>();
+            if (DSTs.Length > 0) {
+                foreach (var _dst in DSTs) {
+                    _dst.conversationActor = _player.transform;
+                }
+            }
             //UI.Instance.player = _player;
         //TP Camera Setup
             GameObject _tpCamera = Instantiate(prefabTPCamera, pointToSpawnPlayer.transform.position, Quaternion.identity);

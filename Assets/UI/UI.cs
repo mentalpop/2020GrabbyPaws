@@ -303,10 +303,10 @@ public class UI : MonoBehaviour
                     cVc.m_LookAt = player.cameraTarget;
                     //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
                     break;
-                /*
                 case CinemachineFreeLook cFc:
+                    cFc.m_LookAt = player.cameraTarget;
+                    cFc.m_Follow = player.cameraTarget;
                     break;
-                //*/
             }
         UpdateCameraSensitivity();
     }
