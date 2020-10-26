@@ -53,7 +53,9 @@ public class SpawnManager : MonoBehaviour
             UI.AssignPlayerAndCamera(_player, _tpCamera.GetComponent<CinemachineBrain>());
             //vThirdPersonCamera tpCamera = _tpCamera.GetComponent<vThirdPersonCamera>();
             //gAction.mainCamera = tpCamera.GetComponent<Camera>();
-            _player.vThirdPersonInput.cameraMain = _tpCamera.GetComponent<Camera>();
+            var _camera = _tpCamera.GetComponent<Camera>();
+            _player.vThirdPersonInput.cameraMain = _camera;
+            
             //tpCamera.SetTarget(player.transform);
             //UI.Instance.thirdPersonCamera = tpCamera;
         //Spawn Cinemachine Camera
