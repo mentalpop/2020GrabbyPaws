@@ -80,6 +80,7 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref textSize;
     public ConstrainedIntPref fontChoice;
     public ConstrainedIntPref textPrintSpeed;
+    public ConstrainedIntPref cameraInversion;
 
     [HideInInspector] public PlayerBehaviour player;
 
@@ -167,13 +168,17 @@ public class UI : MonoBehaviour
     }
 
 //MISC OPTIONS
-    public static void SetMouseSensitivity(float _val) {
-        Instance.mouseSensitivity.Write(_val);
-    //Set Mouse Sensitivity
-        Instance.UpdateCameraSensitivity();
+    public static void SetCameraSensitivity(float _cameraSensitivity) {
+        Instance.mouseSensitivity.Write(_cameraSensitivity);
+        Instance.UpdateCameraSettings();
     }
 
-    private void UpdateCameraSensitivity() {
+    public static void SetCameraInversion(int _cameraInversion) {
+        Instance.cameraInversion.Write(_cameraInversion);
+        Instance.UpdateCameraSettings();
+    }
+
+    private void UpdateCameraSettings() {
         if (cBrain != null) {
             switch(cBrain.ActiveVirtualCamera) {
                 /*
@@ -183,7 +188,9 @@ public class UI : MonoBehaviour
                 //*/
                 case CinemachineFreeLook cFc:
                     cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
+                    cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+                    cFc.m_YAxis.m_InvertInput = Instance.cameraInversion.value == 1 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     break;
             }
             /*
@@ -308,7 +315,7 @@ public class UI : MonoBehaviour
                     cFc.m_Follow = player.cameraTarget;
                     break;
             }
-        UpdateCameraSensitivity();
+        UpdateCameraSettings();
     }
 
     public static void SetControlState(bool lockMouse, GameObject gameObject) {
@@ -359,7 +366,7 @@ public class UI : MonoBehaviour
                     Instance.cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
                     Instance.cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
                 }
-                Instance.UpdateCameraSensitivity();
+                Instance.UpdateCameraSettings();
             }
         }
         /*
@@ -415,7 +422,8 @@ public class UI : MonoBehaviour
         SetQuality(quality.Read());
         SetWindowMode(screenMode.Read());
         SetResolution(resolution.Read());
-        SetMouseSensitivity(mouseSensitivity.Read());
+        SetCameraSensitivity(mouseSensitivity.Read());
+        SetCameraInversion(cameraInversion.Read());
         SetUIScale(uiScale.Read());
         SetTextSize(textSize.Read());
         SetFontChoice(fontChoice.Read());

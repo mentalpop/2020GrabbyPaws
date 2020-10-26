@@ -10,6 +10,9 @@ public class OptionsTabHandler : MonoBehaviour
     public GameObject tabMiscContents;
     public GameObject tabControlsContents;
 
+    public delegate void TabSelectEvent(bool controlsTabActive);
+    public event TabSelectEvent OnTabSelected = delegate { }; //Whether or not this tab is active
+
     private void OnEnable() {
         tabMisc.OnSelect += TabMisc_OnSelect;
         tabMisc.OnFocusGain += TabMisc_OnFocusGain;
@@ -26,10 +29,12 @@ public class OptionsTabHandler : MonoBehaviour
 
     private void TabControls_OnSelect(ButtonStateData _buttonStateData) {
         SetActiveControls();
+        OnTabSelected(true);
     }
 
     private void TabMisc_OnSelect(ButtonStateData _buttonStateData) {
         SetActiveMisc();
+        OnTabSelected(false);
     }
 
     private void TabControls_OnFocusGain(ButtonStateData _buttonStateData) {

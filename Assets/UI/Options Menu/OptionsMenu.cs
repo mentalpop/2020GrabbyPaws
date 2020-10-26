@@ -19,17 +19,24 @@ public class OptionsMenu : MonoBehaviour
     public ListControllerDropDown textSize;
     public ListControllerDropDown printSpeed;
     public ListControllerDropDown lappyBG;
+    [Header("Controls Tab")]
+	public GameObject controlOptionsTab; //Controls Tab must be Active when Scene starts for events to fire
+	public OptionsTabHandler optionsTabHandler;
+    public ListControllerDropDown cameraInvertY;
     public Slider mouseSensitivity;
 
     //[Header("Controls Tab")]SetActiveIndex
 
+	private bool stateOfOptionsTab = false;
+
 	private void OnEnable() {
+        optionsTabHandler.OnTabSelected += OptionsTabHandler_OnTabSelected;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
         clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 	//Set Screen Mode drop-down
 		screenMode.SetActiveIndex(Screen.fullScreen ? 1 : 0); //Fullscreen / Windowed
-		screenMode.OnSelect += ScreenMode_OnChoiceMade;
+		screenMode.OnSelect += UI.SetWindowMode;
 	//Screen Resolution
 		switch (Screen.width) {
 			case 1920: resolution.SetActiveIndex(0); break;
@@ -38,10 +45,10 @@ public class OptionsMenu : MonoBehaviour
 			case 1280: resolution.SetActiveIndex(3); break;
 			default: resolution.SetActiveIndex(4); break;
 		}
-		resolution.OnSelect += Resolution_OnChoiceMade;
+		resolution.OnSelect += UI.SetResolution;
 	//Quality
 		quality.SetActiveIndex(UI.Instance.quality.value);
-		quality.OnSelect += Quality_OnChoiceMade;
+		quality.OnSelect += UI.SetQuality;
 //Misc Tab
     //UI Scale
 		uiScale.SetActiveIndex(UI.Instance.uiScale.value);
@@ -58,61 +65,50 @@ public class OptionsMenu : MonoBehaviour
 	//Lappy BG
 		lappyBG.SetActiveIndex(lappyMenu.chosenBGIndex);
 		lappyBG.OnSelect += LappyBG_OnChoiceMade;
+//Controls Tab
+		cameraInvertY.SetActiveIndex(UI.Instance.cameraInversion.value);
+        cameraInvertY.OnSelect += UI.SetCameraInversion;
 	//mouseSensitivity
         mouseSensitivity.value = UI.Instance.mouseSensitivity.value;
         mouseSensitivity.onValueChanged.AddListener (delegate {mouseSensitivity_onValueChanged();});
+		controlOptionsTab.SetActive(stateOfOptionsTab); //Hide the Options Tab
 	}
 
     private void OnDisable() {
         menuHub.OnMenuClose -= MenuHub_OnMenuClose;
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
-		screenMode.OnSelect -= ScreenMode_OnChoiceMade;
-		resolution.OnSelect -= Resolution_OnChoiceMade;
-		quality.OnSelect -= Quality_OnChoiceMade;
+		screenMode.OnSelect -= UI.SetWindowMode;
+		resolution.OnSelect -= UI.SetResolution;
+		quality.OnSelect -= UI.SetQuality;
+	//Misc Tab
 		uiScale.OnSelect -= UI.SetUIScale;
         fontChoice.OnSelect -= UI.SetFontChoice;
 		textSize.OnSelect -= UI.SetTextSize;
 		printSpeed.OnSelect -= UI.SetPrintSpeed;
 		lappyBG.OnSelect -= LappyBG_OnChoiceMade;
+	//Controls Tab
+		cameraInvertY.OnSelect -= UI.SetCameraInversion;
         mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged();});
 	}
-
-//MISC TAB
-    public void mouseSensitivity_onValueChanged() {
-        UI.SetMouseSensitivity(mouseSensitivity.value);
+	private void MenuHub_OnMenuClose() {
+        Close();
     }
 
-	private void LappyBG_OnChoiceMade(int choiceMade) {
-		lappyMenu.SetBackground(choiceMade);
-	}
-//VIDEO Tab
-	private void Quality_OnChoiceMade(int choiceMade) {
-		UI.SetQuality(choiceMade);
-	}
-
-	private void Resolution_OnChoiceMade(int choiceMade) {
-		UI.SetResolution(choiceMade);
-		/*
-		switch (choiceMade) {
-			case 0: Screen.SetResolution(1920, 1080, Screen.fullScreen); break;
-			case 1: Screen.SetResolution(1600, 900, Screen.fullScreen); break;
-			case 2: Screen.SetResolution(1366, 768, Screen.fullScreen); break;
-			case 3: Screen.SetResolution(1280, 720, Screen.fullScreen); break;
-			case 4: Screen.SetResolution(1176, 664, Screen.fullScreen); break;
-		}
-		//*/
-	}
-
-	private void ScreenMode_OnChoiceMade(int choiceMade) {
-		UI.SetWindowMode(choiceMade);
-	}
-
-    private void MenuHub_OnMenuClose() {
-        Close();
+    private void OptionsTabHandler_OnTabSelected(bool controlsTabActive) {
+        stateOfOptionsTab = controlsTabActive;
     }
 
 	private void Close() {
 		gameObject.SetActive(false);
+	}
+
+//MISC TAB
+    public void mouseSensitivity_onValueChanged() {
+        UI.SetCameraSensitivity(mouseSensitivity.value);
+    }
+
+	private void LappyBG_OnChoiceMade(int choiceMade) {
+		lappyMenu.SetBackground(choiceMade);
 	}
 }
