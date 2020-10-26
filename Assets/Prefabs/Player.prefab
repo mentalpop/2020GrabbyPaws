@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04017b2ab6f16ed4197f67a9325bbfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faceConversant: 0
+  faceConversant: 1
 --- !u!114 &8551294124530700069
 MonoBehaviour:
   m_ObjectHideFlags: 0
