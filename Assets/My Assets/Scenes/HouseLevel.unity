@@ -6982,6 +6982,12 @@ Transform:
   m_Father: {fileID: 268992736}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &626908027 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1318498378147004293, guid: 124f385f27baa7b45b1a47a482d8c6ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 7312627852639477512}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &637234902 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1905272388834890751, guid: ea396ecfecd0685459ec3033ed615642,
@@ -7644,6 +7650,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Priority
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391651551330800324, guid: 25b08d77462eb7d488ac69c39c97e247,
+        type: 3}
+      propertyPath: m_Transitions.m_InheritPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391651551330800324, guid: 25b08d77462eb7d488ac69c39c97e247,
+        type: 3}
+      propertyPath: m_YAxis.m_MaxSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4391651551330800326, guid: 25b08d77462eb7d488ac69c39c97e247,
         type: 3}
@@ -33795,11 +33811,11 @@ PrefabInstance:
         type: 3}
       propertyPath: conversationEvents.onConversationStart.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1694633630}
+      objectReference: {fileID: 1694633628}
     - target: {fileID: 7312627851871045152, guid: 124f385f27baa7b45b1a47a482d8c6ea,
         type: 3}
       propertyPath: conversationEvents.onConversationStart.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_Follow
+      value: LookAt
       objectReference: {fileID: 0}
     - target: {fileID: 7312627851871045152, guid: 124f385f27baa7b45b1a47a482d8c6ea,
         type: 3}
@@ -33810,7 +33826,7 @@ PrefabInstance:
         type: 3}
       propertyPath: conversationEvents.onConversationStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 626908027}
     - target: {fileID: 7312627851871045153, guid: 124f385f27baa7b45b1a47a482d8c6ea,
         type: 3}
       propertyPath: conversationActor
