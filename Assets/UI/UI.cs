@@ -81,6 +81,7 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref fontChoice;
     public ConstrainedIntPref textPrintSpeed;
     public ConstrainedIntPref cameraInversion;
+    public ConstrainedIntPref inputPreference;
 
     [HideInInspector] public PlayerBehaviour player;
 
@@ -107,10 +108,12 @@ public class UI : MonoBehaviour
     #region Unity Messages
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
+        MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
     }
 
     private void OnDisable() {
         currency.OnCashChanged -= OnCurrencyChanged;
+        MenuNavigator.Instance.OnInputMethodSet -= Instance_OnInputMethodSet;
         if (cBrain != null) {
             cBrain.m_CameraActivatedEvent.RemoveListener(delegate {OnCameraActivated();});
         }
@@ -187,9 +190,11 @@ public class UI : MonoBehaviour
                     break;
                 //*/
                 case CinemachineFreeLook cFc:
+            //Sensitivity
                     cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
-                    cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+            //Axis Inversion
+                    cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_InvertInput = Instance.cameraInversion.value == 1 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     break;
             }
@@ -249,6 +254,11 @@ public class UI : MonoBehaviour
             case 2: _speed = 4f; break;
         }
         return _speed;
+    }
+
+    public static void SetInputPreference(int choiceMade) {
+        Instance.inputPreference.Write(choiceMade);
+        MenuNavigator.SetControlPreferences(choiceMade == 1); //0 - Use Gamepad (if present), 1 - Use Mouse
     }
     #endregion
     
@@ -351,7 +361,7 @@ public class UI : MonoBehaviour
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
             if (lockControls) {
-                Debug.Log("lockControls: "+lockControls);
+                //Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
@@ -359,13 +369,8 @@ public class UI : MonoBehaviour
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
-                if (MenuNavigator.MouseIsUsing()) {
-                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-                } else {
-                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
-                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
-                }
+        //Control Preferences
+                Instance.CameraSetInputLabels();
                 Instance.UpdateCameraSettings();
             }
         }
@@ -376,6 +381,21 @@ public class UI : MonoBehaviour
         }
         //*/
         //*/
+    }
+
+    private void Instance_OnInputMethodSet(bool isUsingMouse) {
+        CameraSetInputLabels();
+    }
+
+    private void CameraSetInputLabels() {
+        Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
+        if (MenuNavigator.MouseIsUsing()) {
+            cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+            cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+        } else {
+            cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
+            cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
+        }
     }
 
     public static ConfirmationWindow RequestConfirmation(ConfirmationPromptData _data, MenuNode _menuOnDisable) {
@@ -428,6 +448,8 @@ public class UI : MonoBehaviour
         SetTextSize(textSize.Read());
         SetFontChoice(fontChoice.Read());
         SetPrintSpeed(textPrintSpeed.Read());
+        Debug.Log("Load inputPreference: "+inputPreference.Read());
+        SetInputPreference(inputPreference.Read());
     }
 
     public void SaveGameData(int fileNum) {

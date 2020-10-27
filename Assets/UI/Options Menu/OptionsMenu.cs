@@ -22,7 +22,8 @@ public class OptionsMenu : MonoBehaviour
     [Header("Controls Tab")]
 	public GameObject controlOptionsTab; //Controls Tab must be Active when Scene starts for events to fire
 	public OptionsTabHandler optionsTabHandler;
-    public ListControllerDropDown cameraInvertY;
+    public ListControllerDropDown cameraInversion;
+    public ListControllerDropDown inputPreference;
     public Slider mouseSensitivity;
 
     //[Header("Controls Tab")]SetActiveIndex
@@ -66,12 +67,17 @@ public class OptionsMenu : MonoBehaviour
 		lappyBG.SetActiveIndex(lappyMenu.chosenBGIndex);
 		lappyBG.OnSelect += LappyBG_OnChoiceMade;
 //Controls Tab
-		cameraInvertY.SetActiveIndex(UI.Instance.cameraInversion.value);
-        cameraInvertY.OnSelect += UI.SetCameraInversion;
+	//Camera Inversion
+		cameraInversion.SetActiveIndex(UI.Instance.cameraInversion.value);
+        cameraInversion.OnSelect += UI.SetCameraInversion;
 	//mouseSensitivity
         mouseSensitivity.value = UI.Instance.mouseSensitivity.value;
         mouseSensitivity.onValueChanged.AddListener (delegate {mouseSensitivity_onValueChanged();});
-		controlOptionsTab.SetActive(stateOfOptionsTab); //Hide the Options Tab
+	//inputPreference
+		inputPreference.SetActiveIndex(UI.Instance.inputPreference.value);
+		inputPreference.OnSelect += UI.SetInputPreference;
+	//Hide the Options Tab
+		controlOptionsTab.SetActive(stateOfOptionsTab);
 	}
 
     private void OnDisable() {
@@ -88,9 +94,11 @@ public class OptionsMenu : MonoBehaviour
 		printSpeed.OnSelect -= UI.SetPrintSpeed;
 		lappyBG.OnSelect -= LappyBG_OnChoiceMade;
 	//Controls Tab
-		cameraInvertY.OnSelect -= UI.SetCameraInversion;
+		cameraInversion.OnSelect -= UI.SetCameraInversion;
         mouseSensitivity.onValueChanged.RemoveListener (delegate {mouseSensitivity_onValueChanged();});
+		inputPreference.OnSelect -= UI.SetInputPreference;
 	}
+
 	private void MenuHub_OnMenuClose() {
         Close();
     }

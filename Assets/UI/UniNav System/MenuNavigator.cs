@@ -22,6 +22,9 @@ public class MenuNavigator : MonoBehaviour
 
     public static MenuNavigator Instance { get; private set; }
 
+    private bool gamepadDetected = false;
+    private Coroutine delayedGamepadCheckRoutine;
+
     private void Awake() {
     //Singleton Pattern
         if (Instance != null && Instance != this) { 
@@ -37,6 +40,9 @@ public class MenuNavigator : MonoBehaviour
         if (defaultMenuNode != null) {
             MenuFocus(defaultMenuNode);
         }
+    }
+    void Start() {
+        GamepadCoroutineUpkeep();
     }
     //*/
 
@@ -54,11 +60,11 @@ public class MenuNavigator : MonoBehaviour
         if (_mNode != null) {
             if (activeMenuNode != null) {
                 activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
-                if (!useMouse)
+                if (!MouseIsUsing())
                     activeMenuNode.MenuUnfocus();
             }
             activeMenuNode = _mNode;
-            if (!useMouse)
+            if (!MouseIsUsing())
                 activeMenuNode.MenuFocus();
             activeMenuNode.OnSelectionAbort += ActiveMenuNode_OnSelectionAbort;
             OnMenuFocus(_mNode);
@@ -109,12 +115,64 @@ public class MenuNavigator : MonoBehaviour
     }
 
     public static bool MouseIsUsing() {
-        return Instance.useMouse;
+        return !Instance.gamepadDetected; //Instance.useMouse &&
     }
 
-    /*
-    public bool IsActiveMenu(MenuNode _mCheck) {
-
+    public static void SetControlPreferences(bool useMouse) {
+        Instance.useMouse = useMouse;
+        Debug.Log("SetControlPreferences: "+useMouse);
+        Instance.GamepadCoroutineUpkeep();
+        /*
+        if (Instance.useMouse != useMouse) {
+            
+        }
+        //*/
     }
-    //*/
+
+//Input Control Preference
+    IEnumerator DelayedGamepadCheck()
+     {
+        while (!useMouse)
+        {
+            CheckForGamepad();
+            yield return new WaitForSecondsRealtime(2f);
+        }
+    }
+
+    private void GamepadCoroutineUpkeep() {
+        if (delayedGamepadCheckRoutine != null) {
+            StopCoroutine(delayedGamepadCheckRoutine);
+            delayedGamepadCheckRoutine = null;
+        }
+        if (useMouse) {
+            OnInputMethodSet(true);
+            Debug.Log("GamepadCoroutineUpkeep - OnInputMethodSet(true);");
+        } else {
+            delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
+            Debug.Log("GamepadCoroutineUpkeep - delayedGamepadCheckRoutine: "+delayedGamepadCheckRoutine);
+        }
+    }
+
+    public void CheckForGamepad() {
+        bool _gamepadWasDetected = gamepadDetected;
+        gamepadDetected = false;
+        string[] temp = Input.GetJoystickNames();
+        if (temp.Length > 0) { //Check whether array contains anything
+            for (int i =0; i < temp.Length; ++i) { //Iterate over every element
+                if (!string.IsNullOrEmpty(temp[i])) { //Check if the string is empty or not
+                    gamepadDetected = true;
+        //Not empty, controller temp[i] is connected
+                    //Debug.Log("Controller " + i + " is connected using: " + temp[i]);
+                } else {
+        //If it is empty, controller i is disconnected
+        //where i indicates the controller number
+                    //Debug.Log("Controller: " + i + " is disconnected.");
+                }
+            }
+            if (_gamepadWasDetected != gamepadDetected) {
+                Debug.Log("gamepadDetected: "+gamepadDetected);
+                OnInputMethodSet(!gamepadDetected);
+            }
+        }
+    }
 }
