@@ -98,6 +98,9 @@ public class UI : MonoBehaviour
     public delegate void PrintSpeedEvent(float speed);
     public event PrintSpeedEvent OnPrintSpeedSet = delegate { };
 
+    public delegate void UIScaleEvent(float scale);
+    public event UIScaleEvent OnUIScaled = delegate { };
+
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
     private CinemachineBrain cBrain;
@@ -221,7 +224,9 @@ public class UI : MonoBehaviour
         Instance.uiScale.Write(choiceMade); //Set and Save
         float _uiScale = GetUIScale();
         Instance.lappy.transform.localScale = new Vector2(_uiScale, _uiScale);
+        Instance.OnUIScaled(_uiScale);
     }
+
     public static float GetUIScale() {
         float _uiScale = 1f;
 		switch (Instance.uiScale.value) {

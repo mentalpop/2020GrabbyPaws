@@ -1255,7 +1255,7 @@ MonoBehaviour:
   mCancel: {fileID: 0}
   mLeft: {fileID: 8502254451407058131}
   mRight: {fileID: 3565598627930314841}
-  mUp: {fileID: 7853179876986335287}
+  mUp: {fileID: 1402685875070597993}
   mDown: {fileID: 3672931643841113239}
   mForward: {fileID: 0}
   mBackward: {fileID: 0}
@@ -1518,7 +1518,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mDown
       value: 
-      objectReference: {fileID: 7853179876986335287}
+      objectReference: {fileID: 306280145775512724}
     - target: {fileID: 3139313756004939416, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1721,7 +1721,7 @@ PrefabInstance:
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
@@ -1741,7 +1741,7 @@ PrefabInstance:
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_text
-      value: INPUT PREFERENCE
+      value: GAMEPAD PREFERENCE
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
@@ -2162,7 +2162,7 @@ PrefabInstance:
         type: 3}
       propertyPath: masterContainer
       value: 
-      objectReference: {fileID: 1984779723899056537}
+      objectReference: {fileID: 2089700679933686332}
     - target: {fileID: 4858072237223159539, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[0]
@@ -2894,7 +2894,7 @@ PrefabInstance:
         type: 3}
       propertyPath: masterContainer
       value: 
-      objectReference: {fileID: 1984779723899056537}
+      objectReference: {fileID: 2089700679933686332}
     - target: {fileID: 4858072237223159539, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[0]
@@ -4066,7 +4066,7 @@ PrefabInstance:
     - target: {fileID: 239286638177941456, guid: a0c573980043aba4aa95f3894388d3b5,
         type: 3}
       propertyPath: m_Name
-      value: MouseSensitivity
+      value: Slider_CameraSensitivity
       objectReference: {fileID: 0}
     - target: {fileID: 5574449628205744232, guid: a0c573980043aba4aa95f3894388d3b5,
         type: 3}
@@ -5165,12 +5165,12 @@ PrefabInstance:
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
@@ -5185,12 +5185,17 @@ PrefabInstance:
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_text
-      value: CAMERA Y AXIS
+      value: CAMERA AXIS
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8806139815230414511, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8806139815691480419, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
@@ -5958,7 +5963,7 @@ PrefabInstance:
         type: 3}
       propertyPath: masterContainer
       value: 
-      objectReference: {fileID: 1984779723899056537}
+      objectReference: {fileID: 2089700679933686332}
     - target: {fileID: 4858072237223159539, guid: 946f62c6cbf03234ea2942bdb44a8f5b,
         type: 3}
       propertyPath: buttonData.Array.data[0]

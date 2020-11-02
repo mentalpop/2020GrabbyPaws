@@ -81,6 +81,7 @@ public class OptionsMenu : MonoBehaviour
 	}
 
     private void OnDisable() {
+        optionsTabHandler.OnTabSelected -= OptionsTabHandler_OnTabSelected;
         menuHub.OnMenuClose -= MenuHub_OnMenuClose;
         clickToClose.OnClick -= Close;
 		closeButton.OnClick -= Close;
