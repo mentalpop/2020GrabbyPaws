@@ -130,7 +130,7 @@ public class UI : MonoBehaviour
             return;
         }
         Instance = this;
-        Debug.Log("Instance: "+Instance);
+        //Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
     }
@@ -180,10 +180,30 @@ public class UI : MonoBehaviour
 
     public static void SetQuality(int choiceMade) {
         Instance.quality.Write(choiceMade);
-        Debug.Log("quality: "+choiceMade);
+        //Debug.Log("quality: "+choiceMade);
     }
 
 //MISC OPTIONS
+    public void RestoreAllDefaults() {
+        SetWindowMode(screenMode.defaultValue);
+        SetResolution(resolution.defaultValue);
+        SetQuality(quality.defaultValue);
+        SetCameraSensitivity(mouseSensitivity.defaultValue);
+        SetCameraInversion(cameraInversion.defaultValue);
+        SetUIScale(uiScale.defaultValue);
+        SetFontChoice(fontChoice.defaultValue);
+        SetTextSize(textSize.defaultValue);
+        SetPrintSpeed(textPrintSpeed.defaultValue);
+        //SetInputPreference(inputPreference.defaultValue);
+        //method(variable.defaultValue);
+        lappy.SetBackground(lappy.lappySelectedBG.defaultValue);
+    //Audio
+        Sonos.SetVolume(AudioType.Effect, 1f);
+        Sonos.SetVolume(AudioType.Music, 1f);
+        Sonos.SetVolume(AudioType.Voice, 1f);
+        Sonos.VolumeMaster = 1f;
+    }
+
     public static void SetCameraSensitivity(float _cameraSensitivity) {
         Instance.mouseSensitivity.Write(_cameraSensitivity);
         Instance.UpdateCameraSettings();
