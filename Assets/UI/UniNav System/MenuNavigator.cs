@@ -24,6 +24,7 @@ public class MenuNavigator : MonoBehaviour
 
     private bool gamepadDetected = false;
     private Coroutine delayedGamepadCheckRoutine;
+    private WaitForSeconds shortWait = new WaitForSeconds(2f);
 
     private void Awake() {
     //Singleton Pattern
@@ -110,7 +111,9 @@ public class MenuNavigator : MonoBehaviour
 
     public void MenuNavigate(MenuNode.NavDir navDir) {
         //Debug.Log("activeMenuNode: "+activeMenuNode);
-        activeMenuNode.MenuNavigate(navDir);
+        if (activeMenuNode != null) {
+            activeMenuNode.MenuNavigate(navDir);
+        }
         //Debug.Log("activeMenuNode: "+activeMenuNode.name);
     }
 
@@ -135,13 +138,17 @@ public class MenuNavigator : MonoBehaviour
         while (!useMouse)
         {
             CheckForGamepad();
-            yield return new WaitForSecondsRealtime(2f);
+            yield return shortWait;
         }
     }
 
     private void GamepadCoroutineUpkeep() {
         if (delayedGamepadCheckRoutine != null) {
+            if (activeMenuNode != null) {
+                activeMenuNode.MenuUnfocus();
+            }
             StopCoroutine(delayedGamepadCheckRoutine);
+            gamepadDetected = false;
             delayedGamepadCheckRoutine = null;
         }
         if (useMouse) {

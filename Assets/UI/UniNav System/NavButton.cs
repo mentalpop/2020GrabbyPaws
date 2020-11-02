@@ -30,6 +30,7 @@ public class NavButton : MonoBehaviour
     }
 
     public void StateUpdate() {
+        //Debug.Log("StateUpdate: "+gameObject.name);
         OnStateUpdate(buttonStateData);
     }
 

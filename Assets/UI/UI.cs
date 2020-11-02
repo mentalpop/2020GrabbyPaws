@@ -103,6 +103,7 @@ public class UI : MonoBehaviour
     private CinemachineBrain cBrain;
 
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
+    private bool lockControls = false;
 
     public static UI Instance { get; private set; }
     #region Unity Messages
@@ -133,12 +134,21 @@ public class UI : MonoBehaviour
 
     void Update() {
         if (lockUI == null) { //No GameObject is currently locking the UI
-    //Open / Close menus
-            if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
-                ShowInventoryDisplay();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
-                ShowLappyMenu(false);
+            if (MenuNavigator.MouseIsUsing()) {
+        //Open / Close menus
+                if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
+                    ShowInventoryDisplay();
+                }
+                if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
+                    ShowLappyMenu(false);
+                }
+            } else {
+                if (Input.GetButtonDown("Back")) {
+                    ShowInventoryDisplay();
+                }
+                if (Input.GetButtonDown("Start")) {
+                    ShowLappyMenu(false);
+                }
             }
         }
     }
@@ -334,10 +344,10 @@ public class UI : MonoBehaviour
         } else {
             Instance.mouseCursorUsers.Remove(gameObject);
         }
-        bool lockControls = false;
+        Instance.lockControls = false;
         //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
-            lockControls = true;
+            Instance.lockControls = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         } else {
@@ -346,21 +356,36 @@ public class UI : MonoBehaviour
         }
     //Player
         if (Instance.player != null) {
-            Instance.player.SetLockState(lockControls);
+            Instance.player.SetLockState(Instance.lockControls);
         }
+    //Camera
+        Instance.CameraSetInputLabels();
         /*
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
         Debug.Log("Instance.cBrain: "+Instance.cBrain);
         //*/
         //*
         //if (Instance.thirdPersonCamera == null) {
-//Camera
+        /*
+        } else {
+    //Using thirdPersonCamera
+            Instance.thirdPersonCamera.enabled = !suppressCamera;
+        }
+        //*/
+    }
+
+    private void Instance_OnInputMethodSet(bool isUsingMouse) {
+        CameraSetInputLabels();
+    }
+
+    private void CameraSetInputLabels() {
+        
     //Using Cinemachine Freelook?
         if (Instance.cFreeLook != null) {
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
-            if (lockControls) {
+            if (Instance.lockControls) {
                 //Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
@@ -370,31 +395,16 @@ public class UI : MonoBehaviour
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
         //Control Preferences
-                Instance.CameraSetInputLabels();
+                Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
+                if (MenuNavigator.MouseIsUsing()) {
+                    cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                    cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                } else {
+                    cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
+                    cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
+                }
                 Instance.UpdateCameraSettings();
             }
-        }
-        /*
-        } else {
-    //Using thirdPersonCamera
-            Instance.thirdPersonCamera.enabled = !suppressCamera;
-        }
-        //*/
-        //*/
-    }
-
-    private void Instance_OnInputMethodSet(bool isUsingMouse) {
-        CameraSetInputLabels();
-    }
-
-    private void CameraSetInputLabels() {
-        Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
-        if (MenuNavigator.MouseIsUsing()) {
-            cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
-            cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-        } else {
-            cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
-            cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
         }
     }
 

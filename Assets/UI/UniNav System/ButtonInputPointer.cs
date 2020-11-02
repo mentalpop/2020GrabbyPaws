@@ -9,11 +9,13 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     public NavButton navButton;
 
+    /*
     private MenuNavigator menuNavigator;
 
     private void Awake() {
         menuNavigator = MenuNavigator.Instance;
     }
+    //*/
 
     public void OnPointerEnter(PointerEventData evd) {
         ButtonSetFocus(true);
@@ -51,7 +53,6 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void ButtonSetPressed(bool _pressed) {
         if (MenuNavigator.MouseIsUsing()) {
             navButton.SetPressed(_pressed);
-            menuNavigator.MenuPress();
             /*
             navButton.buttonStateData.inputPressed = _pressed;
             navButton.StateUpdate();
