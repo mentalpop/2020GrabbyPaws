@@ -22,6 +22,7 @@ public class Item : ScriptableObject {
 
     [TextArea(3,10)]
     public string description = "Item Description";
+    public string riven = "Riven's Comment";
 
     /*
     public virtual void Use() {
