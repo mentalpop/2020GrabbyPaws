@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             return;
         }
         instance = this;
+        Debug.Log("instance: "+instance);
         DontDestroyOnLoad(gameObject);
 //Set all Gadgets as locked initially
         for (int i = 0; i < gadgetList.gadgets.Count; i++) {

@@ -4,12 +4,13 @@ using UnityEngine;
 public class ItemPickup : Interactable
 {
     public Item item;
+    public GameObject pickupSphere;
+    
+    /*
     public float velocityThreshold = 0.01f;
     public float timeUntilDisable = 1f;
     public Rigidbody myRigidBody;
     public Collider myCollider;
-    public GameObject pickupSphere;
-
     private bool coroutineActive = false;
     private bool reactToDrop = false;
 
@@ -42,6 +43,7 @@ public class ItemPickup : Interactable
             }
         }
     }
+    //*/
 
     public override void Interact() {
         base.Interact();
@@ -53,11 +55,12 @@ public class ItemPickup : Interactable
         bool wasPickedUp = Inventory.instance.Add(item);
         if (wasPickedUp) {
             Instantiate(pickupSphere, transform.position, Quaternion.identity); //Drop a sphere at point of pick-up
-            Inventory.instance.OnPickUp();
+            Inventory.instance.OnPickUp?.Invoke(); //Currently; no instance subscribes to this method
             Destroy(gameObject);
         }
     }
 
+    /*
     private void Update() {
         if (!coroutineActive && myRigidBody.velocity.magnitude < velocityThreshold) {
             StartCoroutine(DisablePhyics());
@@ -74,4 +77,5 @@ public class ItemPickup : Interactable
             myCollider.enabled = false;
         }
     }
+    //*/
 }
