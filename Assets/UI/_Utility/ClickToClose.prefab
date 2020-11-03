@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6705983307396553172}
   - component: {fileID: 6705983307396553179}
   - component: {fileID: 6705983307396553178}
+  - component: {fileID: 1660640446847409766}
+  - component: {fileID: 1004993142647815215}
   m_Layer: 5
   m_Name: ClickToClose
   m_TagString: Untagged
@@ -87,3 +89,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf87aafddcc9c04dbd43678049d860e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 1004993142647815215}
+--- !u!114 &1660640446847409766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6705983307396553176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 1004993142647815215}
+--- !u!114 &1004993142647815215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6705983307396553176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}

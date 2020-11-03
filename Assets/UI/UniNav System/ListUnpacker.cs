@@ -23,6 +23,7 @@ public class ListUnpacker : MonoBehaviour
         List<ListElement> _elements = new List<ListElement>();
         for (int i = 0; i < buttonData.Count; i++) {
             var buttonClone = Instantiate(listObject, targetTransform, false);
+            buttonClone.name = "Button " + i.ToString();
             lineItems.Add(buttonClone);
             ListElement liEl = buttonClone.GetComponent<ListElement>();
             _elements.Add(liEl);

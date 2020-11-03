@@ -81,6 +81,7 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref fontChoice;
     public ConstrainedIntPref textPrintSpeed;
     public ConstrainedIntPref cameraInversion;
+    public ConstrainedIntPref inputPreference;
 
     [HideInInspector] public PlayerBehaviour player;
 
@@ -97,20 +98,26 @@ public class UI : MonoBehaviour
     public delegate void PrintSpeedEvent(float speed);
     public event PrintSpeedEvent OnPrintSpeedSet = delegate { };
 
+    public delegate void UIScaleEvent(float scale);
+    public event UIScaleEvent OnUIScaled = delegate { };
+
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
     private CinemachineBrain cBrain;
 
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
+    private bool lockControls = false;
 
     public static UI Instance { get; private set; }
     #region Unity Messages
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
+        MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
     }
 
     private void OnDisable() {
         currency.OnCashChanged -= OnCurrencyChanged;
+        MenuNavigator.Instance.OnInputMethodSet -= Instance_OnInputMethodSet;
         if (cBrain != null) {
             cBrain.m_CameraActivatedEvent.RemoveListener(delegate {OnCameraActivated();});
         }
@@ -123,19 +130,28 @@ public class UI : MonoBehaviour
             return;
         }
         Instance = this;
-        Debug.Log("Instance: "+Instance);
+        //Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
     }
 
     void Update() {
         if (lockUI == null) { //No GameObject is currently locking the UI
-    //Open / Close menus
-            if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
-                ShowInventoryDisplay();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
-                ShowLappyMenu(false);
+            if (MenuNavigator.MouseIsUsing()) {
+        //Open / Close menus
+                if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
+                    ShowInventoryDisplay();
+                }
+                if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
+                    ShowLappyMenu(false);
+                }
+            } else {
+                if (Input.GetButtonDown("Back")) {
+                    ShowInventoryDisplay();
+                }
+                if (Input.GetButtonDown("Start")) {
+                    ShowLappyMenu(false);
+                }
             }
         }
     }
@@ -164,10 +180,30 @@ public class UI : MonoBehaviour
 
     public static void SetQuality(int choiceMade) {
         Instance.quality.Write(choiceMade);
-        Debug.Log("quality: "+choiceMade);
+        //Debug.Log("quality: "+choiceMade);
     }
 
 //MISC OPTIONS
+    public void RestoreAllDefaults() {
+        SetWindowMode(screenMode.defaultValue);
+        SetResolution(resolution.defaultValue);
+        SetQuality(quality.defaultValue);
+        SetCameraSensitivity(mouseSensitivity.defaultValue);
+        SetCameraInversion(cameraInversion.defaultValue);
+        SetUIScale(uiScale.defaultValue);
+        SetFontChoice(fontChoice.defaultValue);
+        SetTextSize(textSize.defaultValue);
+        SetPrintSpeed(textPrintSpeed.defaultValue);
+        //SetInputPreference(inputPreference.defaultValue);
+        //method(variable.defaultValue);
+        lappy.SetBackground(lappy.lappySelectedBG.defaultValue);
+    //Audio
+        Sonos.SetVolume(AudioType.Effect, 1f);
+        Sonos.SetVolume(AudioType.Music, 1f);
+        Sonos.SetVolume(AudioType.Voice, 1f);
+        Sonos.VolumeMaster = 1f;
+    }
+
     public static void SetCameraSensitivity(float _cameraSensitivity) {
         Instance.mouseSensitivity.Write(_cameraSensitivity);
         Instance.UpdateCameraSettings();
@@ -187,9 +223,11 @@ public class UI : MonoBehaviour
                     break;
                 //*/
                 case CinemachineFreeLook cFc:
+            //Sensitivity
                     cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
-                    cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+            //Axis Inversion
+                    cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_InvertInput = Instance.cameraInversion.value == 1 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     break;
             }
@@ -206,7 +244,9 @@ public class UI : MonoBehaviour
         Instance.uiScale.Write(choiceMade); //Set and Save
         float _uiScale = GetUIScale();
         Instance.lappy.transform.localScale = new Vector2(_uiScale, _uiScale);
+        Instance.OnUIScaled(_uiScale);
     }
+
     public static float GetUIScale() {
         float _uiScale = 1f;
 		switch (Instance.uiScale.value) {
@@ -249,6 +289,11 @@ public class UI : MonoBehaviour
             case 2: _speed = 4f; break;
         }
         return _speed;
+    }
+
+    public static void SetInputPreference(int choiceMade) {
+        Instance.inputPreference.Write(choiceMade);
+        MenuNavigator.SetControlPreferences(choiceMade == 1); //0 - Use Gamepad (if present), 1 - Use Mouse
     }
     #endregion
     
@@ -324,10 +369,10 @@ public class UI : MonoBehaviour
         } else {
             Instance.mouseCursorUsers.Remove(gameObject);
         }
-        bool lockControls = false;
+        Instance.lockControls = false;
         //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
-            lockControls = true;
+            Instance.lockControls = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         } else {
@@ -336,22 +381,37 @@ public class UI : MonoBehaviour
         }
     //Player
         if (Instance.player != null) {
-            Instance.player.SetLockState(lockControls);
+            Instance.player.SetLockState(Instance.lockControls);
         }
+    //Camera
+        Instance.CameraSetInputLabels();
         /*
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
         Debug.Log("Instance.cBrain: "+Instance.cBrain);
         //*/
         //*
         //if (Instance.thirdPersonCamera == null) {
-//Camera
+        /*
+        } else {
+    //Using thirdPersonCamera
+            Instance.thirdPersonCamera.enabled = !suppressCamera;
+        }
+        //*/
+    }
+
+    private void Instance_OnInputMethodSet(bool isUsingMouse) {
+        CameraSetInputLabels();
+    }
+
+    private void CameraSetInputLabels() {
+        
     //Using Cinemachine Freelook?
         if (Instance.cFreeLook != null) {
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
-            if (lockControls) {
-                Debug.Log("lockControls: "+lockControls);
+            if (Instance.lockControls) {
+                //Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
@@ -359,23 +419,18 @@ public class UI : MonoBehaviour
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
+        //Control Preferences
+                Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
                 if (MenuNavigator.MouseIsUsing()) {
-                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                    cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                    cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
                 } else {
-                    Instance.cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
-                    Instance.cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
+                    cFreeLook.m_XAxis.m_InputAxisName = "RightAnalogHorizontal";
+                    cFreeLook.m_YAxis.m_InputAxisName = "RightAnalogVertical";
                 }
                 Instance.UpdateCameraSettings();
             }
         }
-        /*
-        } else {
-    //Using thirdPersonCamera
-            Instance.thirdPersonCamera.enabled = !suppressCamera;
-        }
-        //*/
-        //*/
     }
 
     public static ConfirmationWindow RequestConfirmation(ConfirmationPromptData _data, MenuNode _menuOnDisable) {
@@ -428,6 +483,8 @@ public class UI : MonoBehaviour
         SetTextSize(textSize.Read());
         SetFontChoice(fontChoice.Read());
         SetPrintSpeed(textPrintSpeed.Read());
+        Debug.Log("Load inputPreference: "+inputPreference.Read());
+        SetInputPreference(inputPreference.Read());
     }
 
     public void SaveGameData(int fileNum) {

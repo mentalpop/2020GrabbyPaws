@@ -37,12 +37,29 @@ public class ListController : MonoBehaviour
         }
     }
     //*/
+    private void OnEnable() {
+        MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
+    }
+
+    private void OnDisable() {
+        MenuNavigator.Instance.OnInputMethodSet -= Instance_OnInputMethodSet;
+    }
+
+    private void Instance_OnInputMethodSet(bool isUsingMouse) {
+        if (elements.Count > 0) {
+            if (isUsingMouse) {
+                Unfocus();
+            } else {
+                SetActiveIndex(activeIndex);
+            }
+        }
+    }
 
     public virtual void SetActiveIndex(int _index) {
         OnSelectEvent(_index);
-        bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
+        //bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
         for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(_focusOrMouseUse && i == activeIndex);
+            elements[i].navButton.SetFocus(listHasFocus && i == activeIndex);//_focusOrMouseUse
             if (behaveAsTabs) {
                 elements[i].navButton.SetActive(i == activeIndex);
             }

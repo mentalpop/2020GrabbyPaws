@@ -8,8 +8,16 @@ using UnityEngine.UI;
 public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     public NavButton navButton;
-		
-	public void OnPointerEnter(PointerEventData evd) {
+
+    /*
+    private MenuNavigator menuNavigator;
+
+    private void Awake() {
+        menuNavigator = MenuNavigator.Instance;
+    }
+    //*/
+
+    public void OnPointerEnter(PointerEventData evd) {
         ButtonSetFocus(true);
     }
 

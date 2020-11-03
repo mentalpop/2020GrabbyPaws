@@ -22,5 +22,6 @@ public enum ConfirmationPromptID
     Load,
     QuitToTitle,
     QuitGame,
-    NewGame
+    NewGame,
+    RestoreDefaults
 }

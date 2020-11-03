@@ -4901,6 +4901,12 @@ MonoBehaviour:
     minValue: 0
     maxValue: 3
     value: 0
+  inputPreference:
+    key: inputPreference
+    defaultValue: 0
+    minValue: 0
+    maxValue: 1
+    value: 0
   player: {fileID: 0}
 --- !u!114 &5819588752494907362
 MonoBehaviour:

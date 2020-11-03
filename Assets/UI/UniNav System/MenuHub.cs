@@ -13,19 +13,19 @@ public class MenuHub : MonoBehaviour
     public event MenuCloseEvent OnMenuClose = delegate { };
 
     private MenuNode menuOnEnableOriginal;
+    private MenuNavigator menuNavigator;
 
     private void Awake() {
+        menuNavigator = MenuNavigator.Instance;
         if (rememberLastMenu && menuOnEnable != null) {
             menuOnEnableOriginal = menuOnEnable;
         }
     }
 
     private void OnEnable() {
-        if (menuOnEnable != null) {
-            //Debug.Log("menuOnEnable: "+menuOnEnable);
-            MenuNavigator.Instance.MenuFocus(menuOnEnable);
-        }
-        MenuNavigator.Instance.OnClose += MenuNavigator_OnClose;
+        MenuHubOnEnable();
+        menuNavigator.OnClose += MenuNavigator_OnClose;
+        menuNavigator.OnInputMethodSet += MenuNavigator_OnInputMethodSet;
     }
 
     private void OnDisable() {
@@ -35,14 +35,22 @@ public class MenuHub : MonoBehaviour
     //Try to remember the last menu the user had active if it's one of the menu's primary "Nodes"
             foreach (var menu in nodes) {
                 //Debug.Log("Checking menu: "+menu);
-                if (menu == MenuNavigator.Instance.activeMenuNode) {
+                if (menu == menuNavigator.activeMenuNode) {
                     menuOnEnable = menu;
                 }
             }
         }
         if (menuOnDisable != null)
-            MenuNavigator.Instance.MenuFocus(menuOnDisable);
-        MenuNavigator.Instance.OnClose -= MenuNavigator_OnClose;
+            menuNavigator.MenuFocus(menuOnDisable);
+        menuNavigator.OnClose -= MenuNavigator_OnClose;
+        menuNavigator.OnInputMethodSet -= MenuNavigator_OnInputMethodSet;
+    }
+
+    public void MenuHubOnEnable() {
+        if (menuOnEnable != null && !MenuNavigator.MouseIsUsing()) {
+            //Debug.Log("menuOnEnable: "+menuOnEnable);
+            menuNavigator.MenuFocus(menuOnEnable);
+        }
     }
 
     private void MenuNavigator_OnClose(MenuNode menuNode) {
@@ -51,6 +59,13 @@ public class MenuHub : MonoBehaviour
                 OnMenuClose();
                 break;
             }
+        }
+    }
+
+    private void MenuNavigator_OnInputMethodSet(bool isUsingMouse) {
+        if (!isUsingMouse) {
+    //Switched to Gamepad
+            MenuHubOnEnable();
         }
     }
 }

@@ -16,7 +16,7 @@ public class ButtonFormatterTintImage : ButtonFormatterEightState
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
         base.ButtonFormat(_buttonStateData);
-        //Debug.Log("buttonState: "+buttonState);
+        //Debug.Log(gameObject.name +": " +buttonState);
         switch (buttonState) {
             case BState.Neutral: image.color = colorNeutral; break;
             case BState.Focus: image.color = colorFocus; break;
