@@ -23,7 +23,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
-    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+    second: {fileID: 2100000, guid: 8ca26dd8b1332b04ebe00b2f4bb4e978, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -59,6 +59,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Palette Greens
     second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Reds
+    second: {fileID: 2100000, guid: 5ec6c00fff0b69c4db2ad83be706ded3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -108,7 +113,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: WarmLight
-    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+    second: {fileID: 2100000, guid: 79d56be46e9b3874e8b919083271cc6e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
