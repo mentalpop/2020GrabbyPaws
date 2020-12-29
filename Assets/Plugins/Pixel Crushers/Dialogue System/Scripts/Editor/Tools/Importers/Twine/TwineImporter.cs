@@ -21,7 +21,7 @@ namespace PixelCrushers.DialogueSystem.Twine
         protected DialogueDatabase database { get; set; }
         protected Template template { get; set; }
 
-        public virtual void ConvertStoryToConversation(DialogueDatabase database, Template template, TwineStory story, int actorID, int conversantID)
+        public virtual void ConvertStoryToConversation(DialogueDatabase database, Template template, TwineStory story, int actorID, int conversantID, bool splitPipesIntoEntries)
         {
             this.database = database;
             this.template = template;
@@ -160,6 +160,12 @@ namespace PixelCrushers.DialogueSystem.Twine
                         }
                     }
                 }
+            }
+
+            // Split pipes:
+            if (splitPipesIntoEntries)
+            {
+                conversation.SplitPipesIntoEntries();
             }
         }
 

@@ -19,7 +19,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
     {
 
         private List<string> textAreaFields = new List<string>() { "Description", "Success Description", "Failure Description" };
-        private static readonly string[] questStateStrings = { "(None)", "unassigned", "active", "success", "failure", "done", "abandoned", "grantable" };
+        private static readonly string[] questStateStrings = { "(None)", "unassigned", "active", "success", "failure", "done", "abandoned", "grantable", "returnToNPC" };
 
         private bool showStateFieldAsQuest = true;
 

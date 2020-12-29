@@ -6,6 +6,9 @@
  * [REMOVE THIS LINE] Then remove the lines that start with "[REMOVE THIS LINE]" and add your code
  * [REMOVE THIS LINE] where the comments indicate.
  * [REMOVE THIS LINE]
+ * [REMOVE THIS LINE] If your code references scripts or assets that are outside of the Plugins
+ * [REMOVE THIS LINE] folder, move this script outside of the Plugins folder, too.
+ * [REMOVE THIS LINE]
 
 
 

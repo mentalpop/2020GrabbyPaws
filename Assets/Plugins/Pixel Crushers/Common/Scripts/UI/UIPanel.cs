@@ -197,7 +197,7 @@ namespace PixelCrushers
         public virtual void Close()
         {
             PopFromPanelStack();
-            CancelInvoke();
+            if (gameObject.activeInHierarchy) CancelInvoke();
             if (panelState == PanelState.Closed || panelState == PanelState.Closing) return;
             panelState = PanelState.Closing;
             onClose.Invoke();

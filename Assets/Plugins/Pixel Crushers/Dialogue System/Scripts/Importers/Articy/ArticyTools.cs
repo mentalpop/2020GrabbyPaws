@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UnityEngine.UI;
 
 namespace PixelCrushers.DialogueSystem.Articy
 {
@@ -90,36 +91,46 @@ namespace PixelCrushers.DialogueSystem.Articy
         }
 
         /// <summary>
-        /// Selectively replaces HTML character codes that articy uses.
-        /// Used instead of HttpUtility.HtmlDecode() to prevent the .NET dependency.
+        /// Selectively replaces HTML character codes (numeric character references) that articy uses.
         /// </summary>
         public static string ReplaceHtmlCharacterCodes(string s)
         {
-            return s.Replace("&#33;", "!")
-                    .Replace("&#34;", "\"")
-                    .Replace("&#35;", "#")
-                    .Replace("&#36;", "$")
-                    .Replace("&#37;", "%")
-                    .Replace("&#38;", "&")
-                    .Replace("&#39;", "'")
-                    .Replace("&#96;", "`")
-                    .Replace("&#160;", " ")
-                    .Replace("&#162;", "¢")
-                    .Replace("&#163;", "£")
-                    .Replace("&#164;", "¤")
-                    .Replace("&#165;", "¥")
-                    .Replace("&#166;", "¦")
-                    .Replace("&#167;", "§")
-                    .Replace("&#168;", "¨")
-                    .Replace("&#169;", "©")
-                    .Replace("&#177;", "±")
-                    .Replace("&#178;", "²")
-                    .Replace("&#179;", "³")
-                    .Replace("&#180;", "´")
-                    .Replace("&#188;", "¼")
-                    .Replace("&#189;", "½")
-                    .Replace("&#190;", "¾")
-                    .Replace("&#191;", "¿");
+            var text = s;
+            Regex regex = new Regex(@"&#[0-9]+;");
+            text = regex.Replace(text, delegate (Match match)
+            {
+                string codeString = match.Value.Substring(2, match.Value.Length - 3);
+                int numericCode;
+                if (!int.TryParse(codeString, out numericCode)) return match.Value;
+                return char.ConvertFromUtf32(numericCode).ToString();
+            });
+            return text;
+
+            //return s.Replace("&#33;", "!")
+            //        .Replace("&#34;", "\"")
+            //        .Replace("&#35;", "#")
+            //        .Replace("&#36;", "$")
+            //        .Replace("&#37;", "%")
+            //        .Replace("&#38;", "&")
+            //        .Replace("&#39;", "'")
+            //        .Replace("&#96;", "`")
+            //        .Replace("&#160;", " ")
+            //        .Replace("&#162;", "¢")
+            //        .Replace("&#163;", "£")
+            //        .Replace("&#164;", "¤")
+            //        .Replace("&#165;", "¥")
+            //        .Replace("&#166;", "¦")
+            //        .Replace("&#167;", "§")
+            //        .Replace("&#168;", "¨")
+            //        .Replace("&#169;", "©")
+            //        .Replace("&#177;", "±")
+            //        .Replace("&#178;", "²")
+            //        .Replace("&#179;", "³")
+            //        .Replace("&#180;", "´")
+            //        .Replace("&#188;", "¼")
+            //        .Replace("&#189;", "½")
+            //        .Replace("&#190;", "¾")
+            //        .Replace("&#191;", "¿");
         }
 
         //==================================================================

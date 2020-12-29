@@ -130,6 +130,7 @@ namespace PixelCrushers.DialogueSystem
 
         private void SetActive(bool value)
         {
+            if (panel != null) panel.gameObject.SetActive(value);
             if (panel == null || value == true)
             {
                 label.SetActive(value);

@@ -28,7 +28,7 @@ namespace PixelCrushers
         [SerializeField]
         private bool m_debug;
 
-        private class SavedGameInfo
+        protected class SavedGameInfo
         {
             public string sceneName;
 
@@ -38,7 +38,16 @@ namespace PixelCrushers
             }
         }
 
-        private List<SavedGameInfo> m_savedGameInfo = new List<SavedGameInfo>();
+        protected List<SavedGameInfo> m_savedGameInfo = null;
+
+        protected List<SavedGameInfo> savedGameInfo
+        {
+            get
+            {
+                if (m_savedGameInfo == null) LoadSavedGameInfoFromFile();
+                return m_savedGameInfo;
+            }
+        }
 
         public bool debug
         {
@@ -63,6 +72,7 @@ namespace PixelCrushers
 
         public virtual void LoadSavedGameInfoFromFile()
         {
+            m_savedGameInfo = new List<SavedGameInfo>();
             var filename = GetSavedGameInfoFilename();
             if (string.IsNullOrEmpty(filename) || !File.Exists(filename)) return;
             if (debug) Debug.Log("Save System: DiskSavedGameDataStorer loading " + filename);
@@ -70,7 +80,6 @@ namespace PixelCrushers
             {
                 using (StreamReader streamReader = new StreamReader(filename))
                 {
-                    m_savedGameInfo.Clear();
                     int safeguard = 0;
                     while (!streamReader.EndOfStream && safeguard < 999)
                     {
@@ -89,20 +98,20 @@ namespace PixelCrushers
         public virtual void UpdateSavedGameInfoToFile(int slotNumber, SavedGameData savedGameData)
         {
             var slotIndex = slotNumber;
-            for (int i = m_savedGameInfo.Count; i <= slotIndex; i++)
+            for (int i = savedGameInfo.Count; i <= slotIndex; i++)
             {
-                m_savedGameInfo.Add(new SavedGameInfo(string.Empty));
+                savedGameInfo.Add(new SavedGameInfo(string.Empty));
             }
-            m_savedGameInfo[slotIndex].sceneName = (savedGameData != null) ? savedGameData.sceneName : string.Empty;
+            savedGameInfo[slotIndex].sceneName = (savedGameData != null) ? savedGameData.sceneName : string.Empty;
             var filename = GetSavedGameInfoFilename();
             if (debug) Debug.Log("Save System: DiskSavedGameDataStorer updating " + filename);
             try
             {
                 using (StreamWriter streamWriter = new StreamWriter(filename))
                 {
-                    for (int i = 0; i < m_savedGameInfo.Count; i++)
+                    for (int i = 0; i < savedGameInfo.Count; i++)
                     {
-                        streamWriter.WriteLine(m_savedGameInfo[i].sceneName.Replace("\n", "<cr>"));
+                        streamWriter.WriteLine(savedGameInfo[i].sceneName.Replace("\n", "<cr>"));
                     }
                 }
             }
@@ -115,7 +124,7 @@ namespace PixelCrushers
         public override bool HasDataInSlot(int slotNumber)
         {
             var slotIndex = slotNumber;
-            return 0 <= slotIndex && slotIndex < m_savedGameInfo.Count && !string.IsNullOrEmpty(m_savedGameInfo[slotIndex].sceneName);
+            return 0 <= slotIndex && slotIndex < savedGameInfo.Count && !string.IsNullOrEmpty(savedGameInfo[slotIndex].sceneName);
         }
 
         public override void StoreSavedGameData(int slotNumber, SavedGameData savedGameData)

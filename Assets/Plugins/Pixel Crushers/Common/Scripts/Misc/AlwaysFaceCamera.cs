@@ -46,7 +46,7 @@ namespace PixelCrushers
             {
                 if (yAxisOnly)
                 {
-                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (m_mainCamera.transform.rotation.eulerAngles + 180f * Vector3.up).y, transform.rotation.eulerAngles.x);
+                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (m_mainCamera.transform.rotation.eulerAngles + 180f * Vector3.up).y, transform.rotation.eulerAngles.z);
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace PixelCrushers
             {
                 if (yAxisOnly)
                 {
-                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_mainCamera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.x);
+                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_mainCamera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
                 }
                 else
                 {

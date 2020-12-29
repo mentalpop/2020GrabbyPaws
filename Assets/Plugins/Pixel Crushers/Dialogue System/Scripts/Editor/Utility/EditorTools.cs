@@ -207,6 +207,20 @@ namespace PixelCrushers.DialogueSystem
             AssetDatabase.ImportAsset("Assets/Plugins/Pixel Crushers/Dialogue System/Wrappers");
         }
 
+        public static string GetAssetName(Asset asset)
+        {
+            if (asset == null) return string.Empty;
+            return (asset is Conversation) ? (asset as Conversation).Title : asset.Name;
+        }
+
+        public static bool IsAssetInFilter(Asset asset, string filter)
+        {
+
+            if (asset == null || string.IsNullOrEmpty(filter)) return true;
+            var assetName = asset.Name;
+            return string.IsNullOrEmpty(assetName) ? false : (assetName.IndexOf(filter, System.StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
     }
 
 }

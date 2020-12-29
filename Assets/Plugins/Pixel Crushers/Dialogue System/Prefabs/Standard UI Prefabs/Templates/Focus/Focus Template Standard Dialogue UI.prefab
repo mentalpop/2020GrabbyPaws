@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 11472158}
   - component: {fileID: 11495648}
   - component: {fileID: 11411854}
+  - component: {fileID: 114310051658206592}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -848,6 +849,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -863,7 +865,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
   panel: {fileID: 11427446}
   label:
     m_uiText: {fileID: 11412920}
@@ -1171,6 +1172,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls:
@@ -1197,7 +1199,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
   panel: {fileID: 22446950}
   portraitImage: {fileID: 11440850}
   portraitName:
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   unfocusAnimationTrigger: Unfocus
   useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  clearTextOnClose: 1
   onFocus:
     m_PersistentCalls:
       m_Calls: []
@@ -1225,6 +1227,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_hasFocus: 0
+  m_actorOverridingPanel: {fileID: 0}
 --- !u!114 &11415250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1290,6 +1293,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 32
   buttonName: 
+  anyKeyOrButton: 0
+  skipIfBeingClickedBySubmit: 1
+  simulateButtonClick: 1
+  simulateButtonDownDuration: 0.1
 --- !u!114 &11420548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1821,7 +1828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: 128
-  m_MinHeight: -1
+  m_MinHeight: 24
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
@@ -2002,6 +2009,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls:
@@ -2028,7 +2036,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
   panel: {fileID: 11449928}
   pcImage: {fileID: 11420548}
   pcName:
@@ -2049,6 +2056,7 @@ MonoBehaviour:
     regularNumberHotkeys: 1
     numpadHotkeys: 0
     format: '{0}. {1}'
+  blockInputDuration: 0
   onContentChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2142,7 +2150,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
 --- !u!114 &11467002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2297,6 +2305,7 @@ MonoBehaviour:
     allowForceImmediate: 0
   conversationUIElements:
     mainPanel: {fileID: 11488902}
+    dontDeactivateMainPanel: 0
     subtitlePanels:
     - {fileID: 11413118}
     - {fileID: 11487664}
@@ -2306,6 +2315,7 @@ MonoBehaviour:
     menuPanels:
     - {fileID: 11462120}
     defaultMenuPanel: {fileID: 11462120}
+    useFirstResponseForMenuPortrait: 0
   QTEIndicatorElements:
     QTEIndicators:
     - {fileID: 165838}
@@ -2486,6 +2496,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls:
@@ -2512,7 +2523,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
   panel: {fileID: 22439022}
   portraitImage: {fileID: 11488448}
   portraitName:
@@ -2529,6 +2539,7 @@ MonoBehaviour:
   unfocusAnimationTrigger: Unfocus
   useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  clearTextOnClose: 1
   onFocus:
     m_PersistentCalls:
       m_Calls: []
@@ -2540,6 +2551,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_hasFocus: 0
+  m_actorOverridingPanel: {fileID: 0}
 --- !u!114 &11488448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2612,6 +2624,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -2627,7 +2640,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
 --- !u!114 &11490668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2646,6 +2658,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -2661,7 +2674,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_panelState: 0
 --- !u!114 &11491806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2918,6 +2930,8 @@ MonoBehaviour:
   dialogueUI: {fileID: 11477722}
   typewriterEffect: {fileID: 11447932}
   hideContinueButtonOnContinue: 0
+  continueSubtitlePanel: 1
+  continueAlertPanel: 1
 --- !u!114 &11497360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3229,7 +3243,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22425052
 RectTransform:
@@ -3517,7 +3531,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22467722
 RectTransform:
@@ -3906,3 +3920,22 @@ MonoBehaviour:
   scrollRect: {fileID: 11450396}
   scrollContent: {fileID: 22403558}
   scrollbar: {fileID: 11479520}
+--- !u!114 &114310051658206592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 100
+  m_MinHeight: 26
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1

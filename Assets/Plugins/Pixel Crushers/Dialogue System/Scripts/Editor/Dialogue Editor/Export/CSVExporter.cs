@@ -76,15 +76,17 @@ namespace PixelCrushers.DialogueSystem
 
         private static void CustomActorHeader(StringBuilder titles, StringBuilder types)
         {
-            titles.Append(",Portrait,AltPortraits");
-            types.Append(",Special,Special");
+            titles.Append(",Portrait,AltPortraits,SpritePortrait,AltSpritePortraits");
+            types.Append(",Special,Special,Special,Special");
         }
 
         private static void CustomActorValues(StringBuilder sb, Actor actor)
         {
-            sb.AppendFormat(",{0},{1}",
+            sb.AppendFormat(",{0},{1},{2},{3}",
                             ((actor.portrait != null) ? CleanField(AssetDatabase.GetAssetPath(actor.portrait)) : string.Empty),
-                            AltPortraitsField(actor.alternatePortraits));
+                            AltPortraitsField(actor.alternatePortraits),
+                            ((actor.spritePortrait != null) ? CleanField(AssetDatabase.GetAssetPath(actor.spritePortrait)) : string.Empty),
+                            AltSpritePortraitsField(actor.spritePortraits));
         }
 
         private static void CustomVariableHeader(StringBuilder titles, StringBuilder types)
@@ -282,6 +284,21 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (!first) sb.Append(";");
                 sb.Append(AssetDatabase.GetAssetPath(portrait));
+                first = false;
+            }
+            sb.Append("]");
+            return CleanField(sb.ToString());
+        }
+
+        private static string AltSpritePortraitsField(List<Sprite> spritePortraits)
+        {
+            if (spritePortraits == null || spritePortraits.Count == 0) return "[]";
+            StringBuilder sb = new StringBuilder("[");
+            bool first = true;
+            foreach (Sprite sprite in spritePortraits)
+            {
+                if (!first) sb.Append(";");
+                sb.Append(AssetDatabase.GetAssetPath(sprite));
                 first = false;
             }
             sb.Append("]");

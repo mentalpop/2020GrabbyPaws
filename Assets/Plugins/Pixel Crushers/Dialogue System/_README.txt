@@ -1,7 +1,7 @@
 /*
 ------------------------------
   Dialogue System for Unity  
-       Version 2.2.7
+       Version 2.2.14
         
   Copyright © Pixel Crushers
 ------------------------------
@@ -14,13 +14,6 @@ We want your project to be a success! If you have any questions or feature reque
 please contact us any time at support@pixelcrushers.com.
 
 
-Upgrade Notes:
---------------
-o IMPORTANT: If upgrading from version 1.x, please read the Upgrade Guide:
-  http://www.pixelcrushers.com/dialogue_system/manual2x/html/getting_started.html
-o Re-import any Third Party Support packages that you imported in a previous release.
-
-
 Getting Started:
 ----------------
 o Follow the 5 minute quick start guide in the Getting Started section of the manual.
@@ -28,6 +21,13 @@ o Read the documentation and/or watch the tutorial videos.
 o Play the scene in the Demo folder.
 o On Unity 2018+, if you want to use 2D physics you must define scripting symbol USE_PHYSICS2D.
   (Tools > Pixel Crushers > Dialogue System > Welcome Window)
+
+
+Upgrade Notes:
+--------------
+o Re-import any Third Party Support packages that you imported in a previous release.
+o If upgrading from version 1.x, please read the Upgrade Guide:
+  http://www.pixelcrushers.com/dialogue_system/manual2x/html/getting_started.html
 
 
 Documentation:

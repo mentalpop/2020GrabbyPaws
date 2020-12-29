@@ -97,6 +97,19 @@ namespace PixelCrushers.DialogueSystem
             conversationUIElements.standardMenuControls.ClearCache();
         }
 
+        public virtual bool AreAnyPanelsClosing()
+        {
+            foreach (var panel in conversationUIElements.subtitlePanels)
+            {
+                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            foreach (var panel in conversationUIElements.menuPanels)
+            {
+                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Update

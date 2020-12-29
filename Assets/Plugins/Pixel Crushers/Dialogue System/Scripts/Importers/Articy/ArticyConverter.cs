@@ -543,11 +543,21 @@ namespace PixelCrushers.DialogueSystem.Articy
 
             // Create START entry:
             DialogueEntry startEntry = template.CreateDialogueEntry(GetNextConversationEntryID(conversation), conversationID, "START");
+            SetDialogueEntryParticipants(startEntry, conversation.ActorID, conversation.ConversantID);
             Field.SetValue(startEntry.fields, ArticyIdFieldTitle, articyDialogue.id, FieldType.Text);
             IndexDialogueEntryByArticyId(startEntry, articyDialogue.id);
             //-- Pins are added to input and output entries instead: ConvertPinExpressionsToConditionsAndScripts(startEntry, articyDialogue.pins);
             startEntry.outgoingLinks = new List<Link>();
-            Field.SetValue(startEntry.fields, "Sequence", "Continue()", FieldType.Text);
+            var conversationSequenceField = Field.Lookup(conversation.fields, "Sequence");
+            if (conversationSequenceField != null && !string.IsNullOrEmpty(conversationSequenceField.value))
+            {
+                conversation.fields.Remove(conversationSequenceField);
+                Field.SetValue(startEntry.fields, "Sequence", conversationSequenceField.value, FieldType.Text);
+            }
+            else
+            {
+                Field.SetValue(startEntry.fields, "Sequence", "Continue()", FieldType.Text);
+            }
             conversation.dialogueEntries.Add(startEntry);
 
             // Convert dialogue's in and out pins to passthrough group entries:
@@ -558,6 +568,7 @@ namespace PixelCrushers.DialogueSystem.Articy
                 var entryID = GetNextConversationEntryID(conversation);
                 var title = (pin.semantic == ArticyData.SemanticType.Input) ? "input" : "output";
                 var entry = template.CreateDialogueEntry(entryID, conversationID, title);
+                SetDialogueEntryParticipants(entry, conversation.ConversantID, conversation.ActorID);
                 if (pin.semantic == ArticyData.SemanticType.Input)
                 {
                     ConvertPinExpressionsToConditionsAndScripts(entry, articyDialogue.pins, true, false);
@@ -593,6 +604,12 @@ namespace PixelCrushers.DialogueSystem.Articy
             return conversation;
         }
 
+        private void SetDialogueEntryParticipants(DialogueEntry startEntry, int actorID, int conversantID)
+        {
+            startEntry.ActorID = actorID;
+            startEntry.ConversantID = conversantID;
+        }
+
         private int GetDefaultActorID(Conversation conversation)
         {
             return (conversation != null) ? conversation.ActorID : (prefs.UseDefaultActorsIfNoneAssignedToDialogue ? 1 : -1);
@@ -626,6 +643,7 @@ namespace PixelCrushers.DialogueSystem.Articy
 
             // Create START entry:
             DialogueEntry startEntry = template.CreateDialogueEntry(GetNextConversationEntryID(conversation), conversationID, "START");
+            SetDialogueEntryParticipants(startEntry, conversation.ActorID, conversation.ConversantID);
             Field.SetValue(startEntry.fields, ArticyIdFieldTitle, articyFlowFragment.id, FieldType.Text);
             IndexDialogueEntryByArticyId(startEntry, articyFlowFragment.id);
             ConvertPinExpressionsToConditionsAndScripts(startEntry, articyFlowFragment.pins);
@@ -641,6 +659,7 @@ namespace PixelCrushers.DialogueSystem.Articy
                 var entryID = GetNextConversationEntryID(conversation);
                 var title = (pin.semantic == ArticyData.SemanticType.Input) ? "input" : "output";
                 var entry = template.CreateDialogueEntry(entryID, conversationID, title);
+                SetDialogueEntryParticipants(entry, conversation.ConversantID, conversation.ActorID);
                 entry.isGroup = true;
                 Field.SetValue(entry.fields, "Sequence", "Continue()", FieldType.Text);
                 Field.SetValue(entry.fields, ArticyIdFieldTitle, pin.id, FieldType.Text);
@@ -918,7 +937,7 @@ namespace PixelCrushers.DialogueSystem.Articy
             if (prefs.StageDirectionsAreSequences)
             {
                 var defaultSequenceText = fragment.stageDirections.DefaultText;
-                if (!string.IsNullOrEmpty(defaultSequenceText) && defaultSequenceText.Contains("("))
+                if (!string.IsNullOrEmpty(defaultSequenceText) && (defaultSequenceText.Contains("(") || defaultSequenceText.Contains("{{")))
                 {
                     ConvertLocalizableText(entry, "Sequence", fragment.stageDirections);
                 }
@@ -1187,6 +1206,7 @@ namespace PixelCrushers.DialogueSystem.Articy
                 return null;
             }
             DialogueEntry entry = template.CreateDialogueEntry(GetNextConversationEntryID(conversation), conversation.id, title);
+            SetDialogueEntryParticipants(entry, conversation.ConversantID, conversation.ActorID); // Assume speaker is conversant until changed.
             Field.SetValue(entry.fields, ArticyIdFieldTitle, articyId, FieldType.Text);
             IndexDialogueEntryByArticyId(entry, articyId);
             conversation.dialogueEntries.Add(entry);

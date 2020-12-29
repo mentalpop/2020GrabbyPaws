@@ -26,7 +26,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             set
             {
                 _inspectorSelection = value;
-                if ((value != null) && (instance != null)) Selection.activeObject = DialogueEditorWindow.instance.database;
+                if ((value != null) && (instance != null) && (EditorWindow.focusedWindow == instance))
+                {
+                    Selection.activeObject = DialogueEditorWindow.instance.database;
+                }
                 if (DialogueDatabaseEditor.instance != null) DialogueDatabaseEditor.instance.Repaint();
             }
         }
@@ -38,6 +41,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         [SerializeField]
         private DialogueDatabase database = null;
+        public static DialogueDatabase GetCurrentlyEditedDatabase() { return (instance != null) ? instance.database : null; }
 
         private SerializedObject serializedObject = null;
 
@@ -45,7 +49,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private bool debug = false;
 
         [SerializeField]
-        private bool registerCompleteObjectUndo = false;
+        private bool registerCompleteObjectUndo = true;
 
         private bool verboseDebug = false;
 
@@ -180,6 +184,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             toolbar.UpdateTabNames(template.treatItemsAsQuests);
             currentConversationState = null;
             currentRuntimeEntry = null;
+            actorPortraitCache = null;
+            UITools.ClearSpriteCache();
             ResetWatchSection();
             SetReorderableListInspectorSelection();
             SelectObject(database);
@@ -188,6 +194,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private void SetReorderableListInspectorSelection()
         {
             if (database == null) return;
+            if (EditorWindow.focusedWindow != instance) return;
             switch (toolbar.current)
             {
                 case Toolbar.Tab.Actors:
@@ -217,6 +224,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 var needToReset = (database != null) && (databaseID != newDatabaseID);
                 if (debug) Debug.Log("<color=yellow>Dialogue Editor: SelectDatabase " + newDatabase + "(ID=" + newDatabaseID + "), old=" + database + "(ID=" + databaseID + "), reset=" + needToReset + "</color>", newDatabase);
                 database = newDatabase;
+                ClearDatabaseNameStyle();
                 LoadTemplateFromDatabase();
                 serializedObject = new SerializedObject(database);
                 if (needToReset)
@@ -255,7 +263,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (Application.isPlaying)
             {
                 // At runtime, check if we need to update the display:
-                timeSinceLastRuntimeUpdate += Time.deltaTime;
+                timeSinceLastRuntimeUpdate += Time.unscaledDeltaTime;
                 if (timeSinceLastRuntimeUpdate > RuntimeUpdateFrequency)
                 {
                     timeSinceLastRuntimeUpdate = 0;
@@ -299,6 +307,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private Color proDatabaseNameColor = new Color(1, 1, 1, 0.2f);
         private Color freeDatabaseNameColor = new Color(0, 0, 0, 0.2f);
+        private Color proDatabaseBackupNameColor = new Color(1, 0, 0, 0.5f);
+        private Color freeDatabaseBackupNameColor = new Color(1, 0, 0, 0.5f);
 
         private GUIStyle _databaseNameStyle = null;
         private GUIStyle databaseNameStyle
@@ -311,13 +321,18 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     _databaseNameStyle.fontSize = 20;
                     _databaseNameStyle.fontStyle = FontStyle.Bold;
                     _databaseNameStyle.alignment = TextAnchor.LowerLeft;
-                    _databaseNameStyle.normal.textColor = EditorGUIUtility.isProSkin
-                        ? proDatabaseNameColor
+                    _databaseNameStyle.normal.textColor = database.name.EndsWith("(Auto-Backup)")
+                        ? EditorGUIUtility.isProSkin
+                            ? proDatabaseBackupNameColor
+                            : freeDatabaseBackupNameColor
+                        : EditorGUIUtility.isProSkin
+                            ? proDatabaseNameColor
                             : freeDatabaseNameColor;
                 }
                 return _databaseNameStyle;
             }
         }
+        private void ClearDatabaseNameStyle() { _databaseNameStyle = null; }
 
         private GUIStyle _conversationParticipantsStyle = null;
         private GUIStyle conversationParticipantsStyle

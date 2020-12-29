@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
@@ -242,19 +243,50 @@ namespace PixelCrushers.DialogueSystem
             if (DialogueDebug.LogInfo) Debug.Log(string.Format("{0}: Resetting Lua environment.", new System.Object[] { DialogueDebug.Prefix }));
             DialogueManager.ResetDatabase(databaseResetOptions);
             if (DialogueDebug.LogInfo) Debug.Log(string.Format("{0}: Updating Lua environment with saved data.", new System.Object[] { DialogueDebug.Prefix }));
+            ApplyLuaInternal(saveData);
+            Apply();
+        }
+
+        /// <summary>
+        /// Loads data into the Lua environment.
+        /// </summary>
+        /// <param name="saveData"></param>
+        /// <param name="allowExceptions"></param>
+        public static void ApplyLuaInternal(string saveData, bool allowExceptions = false)
+        {
             if (!string.IsNullOrEmpty(saveData))
             {
+                EnsureConversationTablesExistForAllSimX(saveData);
                 Lua.Run(saveData, DialogueDebug.LogInfo);
                 ExpandCompressedSimStatusData();
                 RefreshRelationshipAndStatusTablesFromLua();
                 if (initializeNewVariables)
                 {
                     InitializeNewVariablesFromDatabase();
+                    InitializeNewActorFieldsFromDatabase();
                     InitializeNewQuestEntriesFromDatabase();
                     InitializeNewSimStatusFromDatabase();
                 }
             }
-            Apply();
+        }
+
+        private static void EnsureConversationTablesExistForAllSimX(string saveData)
+        {
+            if (!(includeSimStatus && DialogueManager.Instance.includeSimStatus)) return;
+            var conversationTable = Lua.Environment.GetValue("Conversation") as Language.Lua.LuaTable;
+            if (conversationTable == null) return;
+
+            var preLength = "Conversation[".Length;
+            foreach (Match match in Regex.Matches(saveData, @"Conversation\[\d+\]"))
+            {
+                var idString = match.Value.Substring(preLength, match.Value.Length - (preLength + 1));
+                var key = new Language.Lua.LuaNumber(SafeConvert.ToInt(idString));
+                if (!conversationTable.ContainsKey(key))
+                {
+                    conversationTable.SetKeyValue(key, new Language.Lua.LuaTable());
+                }
+            }
+
         }
 
         /// <summary>
@@ -942,7 +974,7 @@ namespace PixelCrushers.DialogueSystem
 #if SAFE_SIMSTATUS
                     if (DialogueDebug.logInfo) Debug.Log("DEBUG: Add SimStatus for new conversation [" + conversationID + "]: " + conversation.Title);
 #endif
-                    DialogueLua.AddToConversationTable(conversationTable, conversation, true);
+                        DialogueLua.AddToConversationTable(conversationTable, conversation, true);
                 }
             }
         }
@@ -1048,7 +1080,7 @@ namespace PixelCrushers.DialogueSystem
 
 #endif
 
-                    private static char SimStatusToChar(string simStatus)
+        private static char SimStatusToChar(string simStatus)
         {
             switch (simStatus)
             {
@@ -1127,6 +1159,65 @@ namespace PixelCrushers.DialogueSystem
             catch (System.Exception e)
             {
                 Debug.LogError(string.Format("{0}: InitializeNewVariablesFromDatabase() failed to get variable data: {1}", new System.Object[] { DialogueDebug.Prefix, e.Message }));
+            }
+        }
+
+        /// <summary>
+        /// Adds any new actors or actor fields that were not in the saved data.
+        /// </summary>
+        public static void InitializeNewActorFieldsFromDatabase()
+        {
+            try
+            {
+                var database = DialogueManager.MasterDatabase;
+                if (database == null) return;
+
+                var actorTable = Lua.Run("return Actor").AsTable;
+                if (actorTable == null || !actorTable.IsValid) throw new System.Exception("Internal error: Can't access Actor table");
+
+                for (int i = 0; i < database.actors.Count; i++)
+                {
+                    var dbActor = database.actors[i];
+                    var actorName = dbActor.Name;
+                    var actorNameTableIndex = DialogueLua.StringToTableIndex(actorName);
+                    var fieldTable = actorTable.luaTable.GetValue(actorNameTableIndex) as Language.Lua.LuaTable;
+
+                    if (fieldTable == null)
+                    {
+                        // This is a new actor not in the save data. Add it:
+                        fieldTable = new Language.Lua.LuaTable();
+                        for (int j = 0; j < dbActor.fields.Count; j++)
+                        {
+                            var field = dbActor.fields[j];
+                            var fieldIndex = DialogueLua.StringToTableIndex(field.title);
+                            fieldTable.AddRaw(fieldIndex, DialogueLua.GetFieldLuaValue(field));
+                        }
+                        actorTable.luaTable.AddRaw(actorNameTableIndex, fieldTable);
+                    }
+                    else
+                    {
+                        // Existing actor. Add any missing fields:
+                        var existingFields = new HashSet<string>();
+                        foreach (var key in fieldTable.Keys)
+                        {
+                            existingFields.Add(key.ToString());
+                        }
+                        for (int j = 0; j < dbActor.fields.Count; j++)
+                        {
+                            var field = dbActor.fields[j];
+                            var fieldTableIndex = DialogueLua.StringToTableIndex(field.title);
+                            if (!existingFields.Contains(fieldTableIndex))
+                            {
+                                var fieldValue = DialogueLua.GetFieldLuaValue(field);
+                                fieldTable.AddRaw(fieldTableIndex, fieldValue);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(string.Format("{0}: InitializeNewActorFieldsFromDatabase() failed to get actor data: {1}", new System.Object[] { DialogueDebug.Prefix, e.Message }));
             }
         }
 

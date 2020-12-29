@@ -121,7 +121,10 @@ namespace PixelCrushers
         public static void TouchScriptsWithScriptingSymbol(string symbol)
         {
             var path = Application.dataPath + "/Plugins/Pixel Crushers/";
-            path = path.Replace("/", "\\");
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                path = path.Replace("/", "\\");
+            }
             string[] filenames = Directory.GetFiles(path, "*.cs", SearchOption.AllDirectories);
             var found = string.Empty;
             var recompileAtText = "// Recompile at " + DateTime.Now + "\r\n";

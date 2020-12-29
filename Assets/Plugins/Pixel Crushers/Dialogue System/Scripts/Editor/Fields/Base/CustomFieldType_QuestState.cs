@@ -9,7 +9,7 @@ namespace PixelCrushers.DialogueSystem
     [CustomFieldTypeService.Name("Quest State")]
     public class CustomFieldType_QuestState : CustomFieldType
     {
-        private static readonly string[] questStateStrings = { "(None)", "unassigned", "active", "success", "failure", "done", "abandoned" };
+        private static readonly string[] questStateStrings = { "(None)", "unassigned", "active", "success", "failure", "done", "abandoned", "grantable" };
 
         public override string Draw(string currentValue, DialogueDatabase dataBase)
         {

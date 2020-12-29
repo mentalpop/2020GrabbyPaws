@@ -43,6 +43,8 @@ namespace PixelCrushers.DialogueSystem
             public float floatValue2 = 0;
             public string[] conditionsQuestEntryNames = new string[0];
             public object[] customParamValues = null;
+            public string newVariableName = string.Empty;
+            public FieldType newVariableType = FieldType.Boolean;
 
             public ConditionItem()
             {
@@ -222,7 +224,20 @@ namespace PixelCrushers.DialogueSystem
             {
                 // Variable:
                 item.variableNamesIndex = EditorGUILayout.Popup(item.variableNamesIndex, variablePopupNames);
-                DrawRightHand(item, GetWizardVariableType(item.variableNamesIndex));
+                FieldType variableType;
+                if (item.variableNamesIndex == 0)
+                {
+                    // New variable:
+                    item.newVariableName = EditorGUILayout.TextField(item.newVariableName);
+                    item.newVariableType = (FieldType)EditorGUILayout.EnumPopup(item.newVariableType);
+                    variableType = item.newVariableType;
+                }
+                else
+                {
+                    // Existing variable:
+                    variableType = GetWizardVariableType(item.variableNamesIndex);
+                }
+                DrawRightHand(item, variableType);
 
                 s_lastVariableNameIndex = item.variableNamesIndex;
             }
@@ -395,7 +410,19 @@ namespace PixelCrushers.DialogueSystem
         public string AcceptConditionsWizard()
         {
             isOpen = false;
+            AddNewVariables();
             return ApplyConditionsWizard();
+        }
+
+        private void AddNewVariables()
+        {
+            foreach (var item in conditionItems)
+            {
+                if (item.conditionType == ConditionWizardResourceType.Variable && item.variableNamesIndex == 0)
+                {
+                    AddNewVariable(item.newVariableName, item.newVariableType);
+                }
+            }
         }
 
         private string openParen = string.Empty;
@@ -447,8 +474,20 @@ namespace PixelCrushers.DialogueSystem
                     {
 
                         // Variable:
-                        string variableName = variableNames[item.variableNamesIndex];
-                        switch (GetWizardVariableType(item.variableNamesIndex))
+                        item.variableNamesIndex = Mathf.Clamp(item.variableNamesIndex, 0, variableNames.Length - 1);
+                        string variableName;
+                        FieldType variableType;
+                        if (item.variableNamesIndex == 0)
+                        {
+                            variableName = item.newVariableName;
+                            variableType = item.newVariableType;
+                        }
+                        else
+                        {
+                            variableName = (0 <= item.variableNamesIndex && item.variableNamesIndex < variableNames.Length) ? variableNames[item.variableNamesIndex] : "Alert";
+                            variableType = GetWizardVariableType(item.variableNamesIndex);
+                        }
+                        switch (variableType)
                         {
                             case FieldType.Boolean:
                                 sb.AppendFormat("{0}Variable[\"{1}\"] {2} {3}{4}",
@@ -783,12 +822,12 @@ namespace PixelCrushers.DialogueSystem
             }
 
             EditorGUI.BeginDisabledGroup(conditionItems.Count <= 0);
-            rect = new Rect(position.x + position.width - 48 - 4 - 48, y, 48, EditorGUIUtility.singleLineHeight);
+            rect = new Rect(position.x + position.width - 52 - 4 - 56, y, 56, EditorGUIUtility.singleLineHeight);
             if (GUI.Button(rect, new GUIContent("Revert", "Cancel these settings."), EditorStyles.miniButton))
             {
                 luaCode = CancelConditionsWizard();
             }
-            rect = new Rect(position.x + position.width - 48, y, 48, EditorGUIUtility.singleLineHeight);
+            rect = new Rect(position.x + position.width - 52, y, 52, EditorGUIUtility.singleLineHeight);
             GUI.Box(rect, GUIContent.none);
             if (GUI.Button(rect, new GUIContent("Apply", "Apply these settings"), EditorStyles.miniButton))
             {

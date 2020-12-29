@@ -2720,7 +2720,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Caroni-Regular SDF Material
   m_Shader: {fileID: 4800000, guid: dd89cf5b9246416f84610a006f916af7, type: 3}
-  m_ShaderKeywords: GLOW_ON UNDERLAY_ON
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA GLOW_ON UNDERLAY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

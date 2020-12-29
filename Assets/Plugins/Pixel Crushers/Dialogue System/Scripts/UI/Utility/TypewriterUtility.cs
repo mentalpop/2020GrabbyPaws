@@ -12,9 +12,9 @@ namespace PixelCrushers.DialogueSystem
         {
             AbstractTypewriterEffect typewriter = null;
 #if TMP_PRESENT
-            if (textField.textMeshProUGUI != null) typewriter = textField.textMeshProUGUI.GetComponent<TextMeshProTypewriterEffect>();
+            if (textField.textMeshProUGUI != null) typewriter = textField.textMeshProUGUI.GetComponent<AbstractTypewriterEffect>();
 #endif
-            if (typewriter == null && textField.uiText != null) typewriter = textField.uiText.GetComponent<UnityUITypewriterEffect>();
+            if (typewriter == null && textField.uiText != null) typewriter = textField.uiText.GetComponent<AbstractTypewriterEffect>();
             return typewriter;
         }
 

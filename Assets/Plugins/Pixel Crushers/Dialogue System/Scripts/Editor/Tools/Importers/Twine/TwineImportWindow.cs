@@ -26,6 +26,7 @@ namespace PixelCrushers.DialogueSystem.Twine
             public string jsonFilename;
             public int actorID;
             public int conversantID;
+            public bool splitPipes = true;
         }
 
         [Serializable]
@@ -149,16 +150,23 @@ namespace PixelCrushers.DialogueSystem.Twine
             }
         }
 
+        private static GUIContent PipesCheckboxGUIContent = new GUIContent("Pipes", "Split dialogue entries at pipe characters.");
+        private const float PipesLabelWidth = 36;
+        private const float PipesCheckboxWidth = 16;
+
         protected void OnDrawFilenameListHeader(Rect rect)
         {
-            EditorGUI.LabelField(rect, "JSON Files");
+            //EditorGUI.LabelField(rect, "JSON Files");
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width - PipesLabelWidth, rect.height), "JSON Files");
+            EditorGUI.LabelField(new Rect(rect.x + rect.width - PipesLabelWidth, rect.y, PipesLabelWidth, rect.height), PipesCheckboxGUIContent);
         }
 
         protected void OnDrawFilenameListElement(Rect rect, int index, bool isActive, bool isFocused)
         {
             if (!(0 <= index && index < prefs.storyInfoList.Count)) return;
             const float ActorWidth = 80;
-            var rect4 = new Rect(rect.x + rect.width - ActorWidth, rect.y, ActorWidth, EditorGUIUtility.singleLineHeight);
+            var rect5 = new Rect(rect.x + rect.width - PipesCheckboxWidth, rect.y, PipesCheckboxWidth, EditorGUIUtility.singleLineHeight);
+            var rect4 = new Rect(rect.x + rect.width - ActorWidth - PipesCheckboxWidth, rect.y, ActorWidth, EditorGUIUtility.singleLineHeight);
             var rect3 = new Rect(rect4.x - ActorWidth, rect.y, ActorWidth, EditorGUIUtility.singleLineHeight);
             var rect2 = new Rect(rect3.x - 28, rect.y, 28, EditorGUIUtility.singleLineHeight);
             var rect1 = new Rect(rect.x, rect.y, rect2.x - rect.x, EditorGUIUtility.singleLineHeight);
@@ -174,6 +182,7 @@ namespace PixelCrushers.DialogueSystem.Twine
                 prefs.storyInfoList[index].actorID = DrawActorPopup(rect3, prefs.storyInfoList[index].actorID);
                 prefs.storyInfoList[index].conversantID = DrawActorPopup(rect4, prefs.storyInfoList[index].conversantID);
             }
+            prefs.storyInfoList[index].splitPipes = EditorGUI.Toggle(rect5, GUIContent.none, prefs.storyInfoList[index].splitPipes);
         }
 
         protected void OnAddFilenameToList(ReorderableList list)
@@ -270,7 +279,7 @@ namespace PixelCrushers.DialogueSystem.Twine
             if (string.IsNullOrEmpty(json)) throw new Exception("Unable to read Twine JSON from file.");
             var story = JsonUtility.FromJson<TwineStory>(json);
             if (story == null) throw new Exception("Unable to parse JSON.");
-            twineImporter.ConvertStoryToConversation(database, template, story, storyInfo.actorID, storyInfo.conversantID);
+            twineImporter.ConvertStoryToConversation(database, template, story, storyInfo.actorID, storyInfo.conversantID, storyInfo.splitPipes);
         }
 
         #endregion

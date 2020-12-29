@@ -112,6 +112,7 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void OnDisable()
         {
+            refreshCoroutine = null;
             UnregisterFromUpdateTrackerEvents();
         }
 

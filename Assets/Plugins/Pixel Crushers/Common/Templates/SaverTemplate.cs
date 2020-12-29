@@ -1,4 +1,6 @@
 ﻿/* [REMOVE THIS LINE]
+ * [REMOVE THIS LINE] If your code references scripts or assets that are outside of the Plugins
+ * [REMOVE THIS LINE] folder, move this script outside of the Plugins folder, too.
 
 using UnityEngine;
 

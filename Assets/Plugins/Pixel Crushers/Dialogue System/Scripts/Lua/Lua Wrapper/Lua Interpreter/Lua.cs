@@ -56,8 +56,9 @@ namespace PixelCrushers.DialogueSystem
             /// @endcond
         }
 
-        public static readonly Result noResult = new Result(null);
-        public static Result NoResult { get { return noResult; } }
+        private static Result m_noResult = new Result(null);
+        public static Result noResult { get { return m_noResult; } }
+        public static Result NoResult { get { return m_noResult; } }
 
         /// <summary>
         /// Lua.RunRaw sets this Boolean flag whenever it's invoked.
@@ -95,6 +96,7 @@ namespace PixelCrushers.DialogueSystem
         static void InitStaticVariables()
         {
             m_environment = Language.Lua.LuaInterpreter.CreateGlobalEnviroment();
+            m_noResult = new Result(null);
         }
 #endif
 

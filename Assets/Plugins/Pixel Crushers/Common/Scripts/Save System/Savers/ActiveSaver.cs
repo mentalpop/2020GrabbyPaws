@@ -49,6 +49,11 @@ namespace PixelCrushers
             if (data == null) return;
             m_data = data;
             var applyDataToOtherSavers = data.active && !gameObjectToWatch.activeSelf;
+            if (!data.active)
+            {
+                gameObjectToWatch.BroadcastMessage("OnBeforeSceneChange", SendMessageOptions.DontRequireReceiver);
+                gameObjectToWatch.BroadcastMessage("OnLevelWillBeUnloaded", SendMessageOptions.DontRequireReceiver);
+            }
             gameObjectToWatch.SetActive(data.active);
             if (applyDataToOtherSavers)
             {

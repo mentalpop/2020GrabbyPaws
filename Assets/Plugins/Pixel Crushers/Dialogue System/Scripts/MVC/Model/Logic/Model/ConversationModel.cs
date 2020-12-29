@@ -86,7 +86,7 @@ namespace PixelCrushers.DialogueSystem
         /// The current conversation ID. When this changes (in GotoState), the Lua environment
         /// needs to set the Dialog[] table to the new conversation's table.
         /// </summary>
-        private static int m_currentDialogTableConversationID = -1;
+        private int m_currentDialogTableConversationID = -1;
 
         /// <summary>
         /// Initializes a new ConversationModel.
@@ -185,6 +185,7 @@ namespace PixelCrushers.DialogueSystem
         /// </param>
         public void InformParticipants(string message, bool informDialogueManager = false)
         {
+            if (DialogueSystemController.isWarmingUp) return; // If warming up, don't send messages.
             Transform actor = (m_actorInfo == null) ? null : m_actorInfo.transform;
             Transform conversant = (m_conversantInfo == null) ? null : m_conversantInfo.transform;
             Transform target = null;
@@ -575,9 +576,13 @@ namespace PixelCrushers.DialogueSystem
                     character = CharacterInfo.GetRegisteredActorTransform(nameInDatabase);
                 }
                 var actorID = (actor != null) ? actor.id : id;
-                //CharacterInfo characterInfo = new CharacterInfo(actorID, nameInDatabase, character, m_database.GetCharacterType(id), GetPortrait(character, actor));
-                CharacterInfo characterInfo = new CharacterInfo(actorID, nameInDatabase, character, m_database.GetCharacterType(id), null);
-                if (actor != null) actor.AssignPortraitSprite((sprite) => { characterInfo.portrait = sprite; });
+                var portrait = (dialogueActor != null) ? dialogueActor.GetPortraitSprite() : null;
+                if (portrait == null) portrait = GetPortrait(character, actor);
+                CharacterInfo characterInfo = new CharacterInfo(actorID, nameInDatabase, character, m_database.GetCharacterType(id), portrait);
+                if (characterInfo.portrait == null && actor != null)
+                {
+                    actor.AssignPortraitSprite((sprite) => { characterInfo.portrait = sprite; });
+                }
                 m_characterInfoCache.Add(id, characterInfo);
             }
             return m_characterInfoCache[id];
@@ -609,48 +614,52 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        //private Sprite GetPortrait(Transform character, Actor actor)
-        //{
-        //    Sprite portrait = null;
-        //    if (character != null)
-        //    {
-        //        portrait = GetPortraitByActorName(DialogueActor.GetActorName(character), actor);
-        //    }
-        //    if ((portrait == null) && (actor != null))
-        //    {
-        //        portrait = GetPortraitByActorName(actor.Name, actor);
-        //        if (portrait == null) portrait = actor.GetPortraitSprite();
-        //    }
-        //    return portrait;
-        //}
+        // Handles the easy cases (without Addressables). May return null.
+        private Sprite GetPortrait(Transform character, Actor actor)
+        {
+            Sprite portrait = null;
+            if (character != null)
+            {
+                portrait = GetPortraitByActorName(DialogueActor.GetActorName(character), actor);
+            }
+            if ((portrait == null) && (actor != null))
+            {
+                portrait = GetPortraitByActorName(actor.Name, actor);
+                if (portrait == null) portrait = actor.GetPortraitSprite();
+            }
+            return portrait;
+        }
 
-        //private Sprite GetPortraitByActorName(string actorName, Actor actor)
-        //{
-        //    // Also suppress logging for Lua return Actor[].Current_Portrait.
-        //    var originalDebugLevel = DialogueDebug.level;
-        //    DialogueDebug.level = DialogueDebug.DebugLevel.Warning;
-        //    string imageName = DialogueLua.GetActorField(actorName, DialogueSystemFields.CurrentPortrait).asString;
-        //    DialogueDebug.level = originalDebugLevel;
-        //    if (string.IsNullOrEmpty(imageName))
-        //    {
-        //        return (actor != null) ? actor.GetPortraitSprite(): null;
-        //    }
-        //    else if (imageName.StartsWith("pic="))
-        //    {
-        //        if (actor == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            return actor.GetPortraitSprite(Tools.StringToInt(imageName.Substring("pic=".Length)));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return UITools.CreateSprite(DialogueManager.LoadAsset(imageName) as Texture2D);
-        //    }
-        //}
+        private Sprite GetPortraitByActorName(string actorName, Actor actor)
+        {
+            // Also suppress logging for Lua return Actor[].Current_Portrait.
+            var originalDebugLevel = DialogueDebug.level;
+            DialogueDebug.level = DialogueDebug.DebugLevel.Warning;
+            string imageName = DialogueLua.GetActorField(actorName, DialogueSystemFields.CurrentPortrait).asString;
+            DialogueDebug.level = originalDebugLevel;
+            if (string.IsNullOrEmpty(imageName))
+            {
+                return (actor != null) ? actor.GetPortraitSprite() : null;
+            }
+            else if (imageName.StartsWith("pic="))
+            {
+                if (actor == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return actor.GetPortraitSprite(Tools.StringToInt(imageName.Substring("pic=".Length)));
+                }
+            }
+            else
+            {
+                // Check if named image is already assigned to actor. Otherwise load as asset.
+                var sprite = actor.GetPortraitSprite(imageName);
+                return (sprite != null) ? sprite 
+                    : UITools.CreateSprite(DialogueManager.LoadAsset(imageName) as Texture2D);
+            }
+        }
 
         /// <summary>
         /// Updates the actor portrait sprite for any cached character info.

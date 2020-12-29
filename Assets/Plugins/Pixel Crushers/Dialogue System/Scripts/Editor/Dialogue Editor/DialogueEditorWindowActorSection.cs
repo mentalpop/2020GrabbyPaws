@@ -73,7 +73,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var descriptionControl = "ActorDescription" + index;
             var actor = database.actors[index];
             var fieldWidth = rect.width / 4;
-            EditorGUI.BeginDisabledGroup(!IsAssetInFilter(actor, actorFilter));
+            EditorGUI.BeginDisabledGroup(!EditorTools.IsAssetInFilter(actor, actorFilter));
             var actorName = actor.Name;
             EditorGUI.BeginChangeCheck();
             GUI.SetNextControlName(nameControl);
@@ -96,7 +96,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (!(0 <= index && index < database.actors.Count)) return;
             var actor = database.actors[index];
-            if (IsAssetInFilter(actor, actorFilter))
+            if (EditorTools.IsAssetInFilter(actor, actorFilter))
             {
                 ReorderableList.defaultBehaviours.DrawElementBackground(rect, index, isActive, isFocused, true);
             }
@@ -117,7 +117,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var actor = database.actors[list.index];
             if (actor == null) return;
             var deletedLastOne = list.count == 1;
-            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(actor)), "Are you sure you want to delete this actor?", "Delete", "Cancel"))
+            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", EditorTools.GetAssetName(actor)), "Are you sure you want to delete this actor?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
                 if (deletedLastOne) inspectorSelection = null;

@@ -37,6 +37,14 @@ namespace PixelCrushers.DialogueSystem
         public static bool includeSimStatus = true;
 
         /// <summary>
+        /// DANGEROUS: Version 2.2.5 introduced a fix that replaces "/" with "_" in table indices.
+        /// In some existing projects with many forward slashes, it may not be practical to globally
+        /// search and replace all variable names in Conditions and Script fields. In this case,
+        /// you can revert the fix (and not replace "/" with "_") by setting this bool to false.
+        /// </summary>
+        public static bool replaceSlashWithUnderscore = true;
+
+        /// <summary>
         /// The status table used by the Chat Mapper GetStatus() and SetStatus() Lua functions. 
         /// See the online Chat Mapper manual for more details: http://www.chatmapper.com
         /// </summary>
@@ -55,6 +63,8 @@ namespace PixelCrushers.DialogueSystem
             includeSimStatus = true;
             statusTable = new Dictionary<string, string>();
             relationshipTable = new Dictionary<string, float>();
+            if (DialogueManager.instance != null) DialogueManager.instance.StartCoroutine(RegisterLuaFunctionsAfterFrame());
+            else RegisterLuaFunctions();
         }
 #endif
 
@@ -64,9 +74,23 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         static DialogueLua()
         {
+            InitializeChatMapperVariables();
+            RegisterLuaFunctions();
+        }
+
+        public static void RegisterLuaFunctions()
+        {
+            var originalWarnValue = Lua.warnRegisteringExistingFunction;
+            Lua.warnRegisteringExistingFunction = false;
             RegisterChatMapperFunctions();
             RegisterDialogueSystemFunctions();
-            InitializeChatMapperVariables();
+            Lua.warnRegisteringExistingFunction = originalWarnValue;
+        }
+
+        static System.Collections.IEnumerator RegisterLuaFunctionsAfterFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            RegisterLuaFunctions();
         }
 
         /// <summary>
@@ -253,17 +277,65 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        private static HashSet<string> GetExistingAssetNames(string arrayName, List<DialogueDatabase> loadedDatabases)
+        {
+            if (loadedDatabases == null || loadedDatabases.Count == 0) return null;
+            HashSet<string> existingAssetNames = new HashSet<string>();
+            switch (arrayName)
+            {
+                case "Actor":
+                    foreach (var db in loadedDatabases)
+                    {
+                        foreach (var actor in db.actors)
+                        {
+                            existingAssetNames.Add(actor.Name);
+                        }
+                    }
+                    break;
+                case "Item":
+                    foreach (var db in loadedDatabases)
+                    {
+                        foreach (var item in db.items)
+                        {
+                            existingAssetNames.Add(item.Name);
+                        }
+                    }
+                    break;
+                case "Location":
+                    foreach (var db in loadedDatabases)
+                    {
+                        foreach (var location in db.locations)
+                        {
+                            existingAssetNames.Add(location.Name);
+                        }
+                    }
+                    break;
+                case "Variable":
+                    foreach (var db in loadedDatabases)
+                    {
+                        foreach (var variable in db.variables)
+                        {
+                            existingAssetNames.Add(variable.Name);
+                        }
+                    }
+                    break;
+            }
+            return existingAssetNames;
+        }
+
         private static void AddToTable<T>(string arrayName, List<T> assets, List<DialogueDatabase> loadedDatabases, bool addRaw) where T : Asset
         {
-            // Note: Optimized: Overwrite existing values.
+            // Note: No longer overwrite existing values.
             Lua.WasInvoked = true;
             LuaTable assetTable = Lua.Environment.GetValue(arrayName) as LuaTable;
             if (assetTable == null) return;
-
+            var existingAssetNames = GetExistingAssetNames(arrayName, loadedDatabases);
             for (int i = 0; i < assets.Count; i++)
             {
                 var asset = assets[i];
-                var assetIndex = StringToTableIndex(asset.Name);
+                var assetName = asset.Name;
+                if (existingAssetNames != null && existingAssetNames.Contains(assetName)) continue;
+                var assetIndex = StringToTableIndex(assetName);
                 LuaTable fieldTable = new LuaTable();
                 for (int j = 0; j < asset.fields.Count; j++)
                 {
@@ -284,14 +356,17 @@ namespace PixelCrushers.DialogueSystem
 
         private static void AddToVariableTable(List<Variable> variables, List<DialogueDatabase> loadedDatabases, bool addRaw)
         {
-            // Note: Optimized: Overwrite existing values.
+            // Note: No longer overwrite existing values.
             Lua.WasInvoked = true;
             LuaTable assetTable = Lua.Environment.GetValue("Variable") as LuaTable;
             if (assetTable == null) return;
+            var existingAssetNames = GetExistingAssetNames("Variable", loadedDatabases);
             for (int i = 0; i < variables.Count; i++)
             {
                 var variable = variables[i];
-                string variableIndex = StringToTableIndex(variable.Name);
+                var variableName = variable.Name;
+                if (existingAssetNames != null && existingAssetNames.Contains(variableName)) continue;
+                string variableIndex = StringToTableIndex(variableName);
                 if (addRaw)
                 {
                     assetTable.AddRaw(variableIndex, GetVariableLuaValue(variable));
@@ -363,7 +438,7 @@ namespace PixelCrushers.DialogueSystem
             return dialogTable;
         }
 
-        private static LuaValue GetFieldLuaValue(Field field)
+        public static LuaValue GetFieldLuaValue(Field field)
         {
             if (field == null) return LuaNil.Nil;
             switch (field.type)
@@ -783,9 +858,16 @@ namespace PixelCrushers.DialogueSystem
         /// </param>
         public static string StringToTableIndex(string s)
         {
-            //---Was: return string.IsNullOrEmpty(s) ? string.Empty : SpacesToUnderscores(DoubleQuotesToSingle(s)).Replace('-', '_');
-            return string.IsNullOrEmpty(s) ? string.Empty : SpacesToUnderscores(DoubleQuotesToSingle(s.Replace('\"', '_'))).Replace('-', '_').
-                Replace('(', '_').Replace(')', '_').Replace("/", "_");
+            if (replaceSlashWithUnderscore)
+            {
+                return string.IsNullOrEmpty(s) ? string.Empty : SpacesToUnderscores(DoubleQuotesToSingle(s.Replace('\"', '_'))).Replace('-', '_').
+                    Replace('(', '_').Replace(')', '_').Replace("/", "_");
+            }
+            else
+            {
+                return string.IsNullOrEmpty(s) ? string.Empty : SpacesToUnderscores(DoubleQuotesToSingle(s.Replace('\"', '_'))).Replace('-', '_').
+                    Replace('(', '_').Replace(')', '_');
+            }
         }
 
         /// <summary>

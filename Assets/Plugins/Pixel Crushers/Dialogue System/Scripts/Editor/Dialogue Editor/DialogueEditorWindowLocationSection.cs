@@ -64,7 +64,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var nameControl = "LocationName" + index;
             var descriptionControl = "LocationDescription" + index;
             var location = database.locations[index];
-            EditorGUI.BeginDisabledGroup(!IsAssetInFilter(location, locationFilter));
+            EditorGUI.BeginDisabledGroup(!EditorTools.IsAssetInFilter(location, locationFilter));
             var fieldWidth = rect.width / 4;
             var locationName = location.Name;
             EditorGUI.BeginChangeCheck();
@@ -88,7 +88,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (!(0 <= index && index < database.locations.Count)) return;
             var location = database.locations[index];
-            if (IsAssetInFilter(location, locationFilter))
+            if (EditorTools.IsAssetInFilter(location, locationFilter))
             {
                 ReorderableList.defaultBehaviours.DrawElementBackground(rect, index, isActive, isFocused, true);
             }
@@ -109,7 +109,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var location = database.locations[list.index];
             if (location == null) return;
             var deletedLastOne = list.count == 1;
-            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(location)), "Are you sure you want to delete this location?", "Delete", "Cancel"))
+            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", EditorTools.GetAssetName(location)), "Are you sure you want to delete this location?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
                 if (deletedLastOne) inspectorSelection = null;

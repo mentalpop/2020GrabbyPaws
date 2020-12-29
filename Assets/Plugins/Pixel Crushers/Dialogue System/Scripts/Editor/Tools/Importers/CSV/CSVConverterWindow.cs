@@ -39,8 +39,8 @@ namespace PixelCrushers.DialogueSystem
     /// The Actors section must contain:
     /// <pre>
     /// Actors
-    /// ID,Portrait,AltPortraits,Name,Pictures,Description,IsPlayer
-    /// Number,Special,Special,Text,Files,Text,Boolean
+    /// ID,Portrait,AltPortraits,SpritePortrait,AltSpritePortraits,Name,Pictures,Description,IsPlayer
+    /// Number,Special,Special,Special,SpecialText,Files,Text,Boolean
     /// (id),(texturename),[(texturenames)],(name),[(picturenames)],(description),(isplayer)
     /// ...
     /// </pre>
@@ -114,7 +114,7 @@ namespace PixelCrushers.DialogueSystem
         /// Portrait and AltPortraits are variables in the Actor class, not fields.
         /// </summary>
         private static List<string> ActorSpecialValues = new List<string>()
-        { "ID", "Portrait", "AltPortraits" };
+        { "ID", "Portrait", "AltPortraits", "SpritePortrait", "AltSpritePortraits" };
 
         /// <summary>
         /// The exporter manually places these columns at the front of dialogue entry rows, and the
@@ -354,7 +354,7 @@ namespace PixelCrushers.DialogueSystem
                     asset.fields = new List<Field>();
 
                     // Preprocess a couple extra values for actors:
-                    if (isActorSection) FindActorPortraits(asset as Actor, values[1], values[2]);
+                    if (isActorSection) FindActorPortraits(asset as Actor, values[1], values[2], values[3], values[4]);
 
                     // Read the remaining values and assign them to the asset's fields:
                     ReadAssetFields(fieldNames, fieldTypes, ignore, values, asset.fields);
@@ -406,8 +406,9 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void FindActorPortraits(Actor actor, string portraitName, string alternatePortraitNames)
+        private void FindActorPortraits(Actor actor, string portraitName, string alternatePortraitNames, string spritePortraitName, string altSpritePortraitNames)
         {
+            // Texture2D portraits:
             if (!string.IsNullOrEmpty(portraitName))
             {
                 actor.portrait = AssetDatabase.LoadAssetAtPath(portraitName, typeof(Texture2D)) as Texture2D;
@@ -423,6 +424,26 @@ namespace PixelCrushers.DialogueSystem
                     if (texture != null)
                     {
                         actor.alternatePortraits.Add(texture);
+                    }
+                }
+            }
+
+            // Sprite portraits:
+            if (!string.IsNullOrEmpty(spritePortraitName))
+            {
+                actor.spritePortrait = AssetDatabase.LoadAssetAtPath(spritePortraitName, typeof(Sprite)) as Sprite;
+            }
+            if (!(string.IsNullOrEmpty(altSpritePortraitNames) || string.Equals(altSpritePortraitNames, "[]")))
+            {
+                var inner = altSpritePortraitNames.Substring(1, altSpritePortraitNames.Length - 2);
+                var names = inner.Split(new char[] { ';' });
+                if (actor.spritePortraits == null) actor.spritePortraits= new List<Sprite>();
+                foreach (var altSpritePortraitName in names)
+                {
+                    var sprite = AssetDatabase.LoadAssetAtPath(altSpritePortraitName, typeof(Sprite)) as Sprite;
+                    if (sprite != null)
+                    {
+                        actor.spritePortraits.Add(sprite);
                     }
                 }
             }
@@ -650,6 +671,7 @@ namespace PixelCrushers.DialogueSystem
                     return FieldType.Number;
                 }
             }
+            if (string.Equals(typeSpecifier, "Special")) return FieldType.Text;
             return Field.StringToFieldType(typeSpecifier);
         }
 

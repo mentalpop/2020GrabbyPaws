@@ -82,8 +82,9 @@ namespace PixelCrushers
                 {
                     default:
                     case GameTimeMode.UnityStandard:
-                    case GameTimeMode.Realtime:
                         return Time.deltaTime;
+                    case GameTimeMode.Realtime:
+                        return Time.unscaledDeltaTime;
                     case GameTimeMode.Manual:
                         return s_manualDeltaTime;
                 }

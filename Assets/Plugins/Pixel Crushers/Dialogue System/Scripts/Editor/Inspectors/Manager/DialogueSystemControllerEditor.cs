@@ -402,6 +402,7 @@ namespace PixelCrushers.DialogueSystem
                         }
                     }
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("preloadResources"), true);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("warmUpConversationController"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("instantiateDatabase"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("includeSimStatus"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("allowSimultaneousConversations"), true);

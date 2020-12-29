@@ -52,6 +52,8 @@ namespace PixelCrushers.DialogueSystem
             public NetSetMode netSetMode = NetSetMode.Set;
             public string[] scriptQuestEntryNames = new string[0];
             public object[] customParamValues = null;
+            public string newVariableName = string.Empty;
+            public FieldType newVariableType = FieldType.Boolean;
 
             public ScriptItem()
             {
@@ -236,7 +238,19 @@ namespace PixelCrushers.DialogueSystem
             {
                 // Variable:
                 item.variableNamesIndex = EditorGUILayout.Popup(item.variableNamesIndex, variablePopupNames);
-                var variableType = GetWizardVariableType(item.variableNamesIndex);
+                FieldType variableType;
+                if (item.variableNamesIndex == 0)
+                {
+                    // New variable:
+                    item.newVariableName = EditorGUILayout.TextField(item.newVariableName);
+                    item.newVariableType = (FieldType)EditorGUILayout.EnumPopup(item.newVariableType);
+                    variableType = item.newVariableType;
+                }
+                else
+                {
+                    // Existing variable:
+                    variableType = GetWizardVariableType(item.variableNamesIndex);
+                }
                 DrawValueSetMode(item, variableType);
                 switch (variableType)
                 {
@@ -428,7 +442,19 @@ namespace PixelCrushers.DialogueSystem
         public string AcceptScriptWizard()
         {
             isOpen = false;
+            AddNewVariables();
             return ApplyScriptWizard();
+        }
+
+        private void AddNewVariables()
+        {
+            foreach (var item in scriptItems)
+            {
+                if (item.resourceType == ScriptWizardResourceType.Variable && item.variableNamesIndex == 0)
+                {
+                    AddNewVariable(item.newVariableName, item.newVariableType);
+                }
+            }
         }
 
         private string ApplyScriptWizard()
@@ -468,8 +494,19 @@ namespace PixelCrushers.DialogueSystem
                     {
 
                         // Variable:
-                        string variableName = (0 <= item.variableNamesIndex && item.variableNamesIndex < variableNames.Length) ? variableNames[item.variableNamesIndex] : "Alert";
-                        switch (GetWizardVariableType(item.variableNamesIndex))
+                        string variableName;
+                        FieldType variableType;
+                        if (item.variableNamesIndex == 0)
+                        {
+                            variableName = item.newVariableName;
+                            variableType = item.newVariableType;
+                        }
+                        else
+                        {
+                            variableName = (0 <= item.variableNamesIndex && item.variableNamesIndex < variableNames.Length) ? variableNames[item.variableNamesIndex] : "Alert";
+                            variableType = GetWizardVariableType(item.variableNamesIndex);
+                        }
+                        switch (variableType)
                         {
                             case FieldType.Boolean:
                                 if (item.netSetMode == NetSetMode.NetSet)
@@ -785,12 +822,12 @@ namespace PixelCrushers.DialogueSystem
             if (EditorGUI.EndChangeCheck()) ApplyScriptWizard();
 
             EditorGUI.BeginDisabledGroup(scriptItems.Count <= 0);
-            rect = new Rect(position.x + position.width - 48 - 4 - 48, y, 48, EditorGUIUtility.singleLineHeight);
+            rect = new Rect(position.x + position.width - 52 - 4 - 56, y, 56, EditorGUIUtility.singleLineHeight);
             if (GUI.Button(rect, new GUIContent("Revert", "Cancel these settings."), EditorStyles.miniButton))
             {
                 luaCode = CancelScriptWizard();
             }
-            rect = new Rect(position.x + position.width - 48, y, 48, EditorGUIUtility.singleLineHeight);
+            rect = new Rect(position.x + position.width - 52, y, 52, EditorGUIUtility.singleLineHeight);
             GUI.Box(rect, GUIContent.none);
             if (GUI.Button(rect, new GUIContent("Apply", "Apply these settings"), EditorStyles.miniButton))
             {

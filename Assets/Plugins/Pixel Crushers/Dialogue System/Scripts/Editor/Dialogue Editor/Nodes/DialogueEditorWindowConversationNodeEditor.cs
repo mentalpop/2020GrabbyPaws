@@ -119,6 +119,16 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
+        private Texture2D _eventIcon = null;
+        private Texture2D eventIcon
+        {
+            get
+            {
+                if (_eventIcon == null) _eventIcon = EditorGUIUtility.Load("Dialogue System/Event.png") as Texture2D;
+                return _eventIcon;
+            }
+        }
+
         private Vector2 ConvertScreenCoordsToZoomCoords(Rect _zoomArea, Vector2 screenCoords)
         {
             return (screenCoords - _zoomArea.TopLeft()) / _zoom + _zoomCoordsOrigin;
@@ -567,6 +577,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (actorIsPlayerCache == null) actorIsPlayerCache = new Dictionary<int, bool>();
                 if (actorCustomColorCache == null) actorCustomColorCache = new Dictionary<int, Color>();
                 if (!actorHasCustomColorCache.ContainsKey(actorID) || 
+                    !actorCustomColorCache.ContainsKey(actorID) || 
                     (actorCustomColorCache.ContainsKey(actorID) && (actorCustomColorCache[actorID].a == 0)))
                 {
                     var actor = database.GetActor(actorID);
@@ -600,7 +611,13 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     // Use actor's custom color:
                     isCustomColor = true;
                     customColor = actorCustomColorCache[actorID];
-                    if (m_customNodeStyle == null)
+                    if (customColor.a == 0)
+                    {
+                        actorHasCustomColorCache.Remove(actorID);
+                        actorCustomColorCache.Remove(actorID);
+                        customColor = Color.gray;
+                    }
+                    if (m_customNodeStyle == null || m_customNodeStyle.normal.background == null)
                     {
 #if UNITY_2019_3_OR_NEWER
                         m_customNodeStyle = new GUIStyle(GUI.skin.button);
@@ -638,6 +655,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             Color customColor;
             GetNodeStyle(entry, out nodeStyle, out isSelected, out isCustomColor, out customColor);
 
+            if (isCustomColor && customColor.a == 0) customColor = Color.gray; // Safeguard.
+
             string nodeLabel = GetDialogueEntryNodeText(entry);
             if (showQuickDialogueTextEntry && entry == currentEntry) nodeLabel = string.Empty;
 
@@ -664,7 +683,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             if (_zoom > 0.5f)
             {
-                // Draw icons for Sequence, Conditions, & Script:
+                // Draw icons for Sequence, Conditions, Script, & Event:
                 if (!string.IsNullOrEmpty(entry.Sequence) && !(entry.id == 0 && entry.Sequence == "None()"))
                 {
                     GUI.Label(new Rect((boxRect.x + boxRect.width) - 44, (boxRect.y + boxRect.height) - 15, 16, 16), new GUIContent(sequenceIcon, entry.Sequence));
@@ -678,6 +697,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (!string.IsNullOrEmpty(entry.userScript))
                 {
                     GUI.Label(new Rect((boxRect.x + boxRect.width) - 16, (boxRect.y + boxRect.height) - 15, 16, 16), new GUIContent(scriptIcon, entry.userScript));
+                }
+                if (eventIcon != null && DoesDialogueEntryHaveEvent(entry))
+                {
+                    GUI.DrawTexture(new Rect((boxRect.x + boxRect.width) - 58, (boxRect.y + boxRect.height) - 15, 16, 16), eventIcon);
                 }
             }
 
@@ -736,7 +759,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (!actorPortraitCache.ContainsKey(actorID))
             {
                 var actor = database.GetActor(actorID);
-                actorPortraitCache.Add(actorID, (actor != null) ? actor.GetPortraitSprite() : null);
+                actorPortraitCache.Add(actorID, (actor != null) ? actor.GetPortraitSprite(1) : null);
             }
             return actorPortraitCache[actorID];
         }
@@ -924,6 +947,18 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     {
                         PasteMultipleEntriesCallback(currentEntry);
                     }
+                    Event.current.Use();
+                }
+                else if (Event.current.keyCode == KeyCode.Comma && (Event.current.command || Event.current.control) && Event.current.shift)
+                {
+                    // Ctrl/Cmd+Shift+< key: (previous conversation)
+                    OpenPreviousConversation();
+                    Event.current.Use();
+                }
+                else if (Event.current.keyCode == KeyCode.Period && (Event.current.command || Event.current.control) && Event.current.shift)
+                {
+                    // Ctrl/Cmd+Shift+> key: (next conversation)
+                    OpenNextConversation();
                     Event.current.Use();
                 }
             }
@@ -1231,10 +1266,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     }
                     else if (newSelectedLink == null && Event.current.button != MiddleMouseButton)
                     {
-                        currentEntry = null;
-                        selectedLink = null;
-                        multinodeSelection.nodes.Clear();
-                        inspectorSelection = currentConversation;
+                        InspectConversationProperties();
                     }
                     break;
                 case EventType.MouseDrag:
@@ -1252,6 +1284,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     break;
             }
             if (Event.current.isMouse) e.Use();
+        }
+
+        private void InspectConversationProperties()
+        {
+            currentEntry = null;
+            selectedLink = null;
+            multinodeSelection.nodes.Clear();
+            inspectorSelection = currentConversation;
         }
 
         private void DrawLasso()

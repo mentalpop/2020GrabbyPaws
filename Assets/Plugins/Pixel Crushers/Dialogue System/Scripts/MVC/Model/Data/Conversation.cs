@@ -89,6 +89,7 @@ namespace PixelCrushers.DialogueSystem
         public Conversation(Conversation sourceConversation) : base(sourceConversation as Asset)
         {
             this.nodeColor = sourceConversation.nodeColor;
+            this.overrideSettings = sourceConversation.overrideSettings;
             this.dialogueEntries = CopyDialogueEntries(sourceConversation.dialogueEntries);
         }
 

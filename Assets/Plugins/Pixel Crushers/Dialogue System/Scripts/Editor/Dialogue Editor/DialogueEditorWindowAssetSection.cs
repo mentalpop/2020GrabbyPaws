@@ -58,17 +58,17 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             for (int index = 0; index < assets.Count; index++)
             {
                 T asset = assets[index];
-                if (!IsAssetInFilter(asset, filter)) continue;
+                if (!EditorTools.IsAssetInFilter(asset, filter)) continue;
                 EditorGUILayout.BeginHorizontal();
                 if (!foldouts.properties.ContainsKey(index)) foldouts.properties.Add(index, false);
-                foldouts.properties[index] = EditorGUILayout.Foldout(foldouts.properties[index], GetAssetName(asset));
+                foldouts.properties[index] = EditorGUILayout.Foldout(foldouts.properties[index], EditorTools.GetAssetName(asset));
                 EditorGUI.BeginDisabledGroup(index >= (assets.Count - 1));
                 if (GUILayout.Button(new GUIContent("↓", "Move down"), GUILayout.Width(16))) indexToMoveDown = index;
                 EditorGUI.EndDisabledGroup();
                 EditorGUI.BeginDisabledGroup(index == 0);
                 if (GUILayout.Button(new GUIContent("↑", "Move up"), GUILayout.Width(16))) indexToMoveUp = index;
                 EditorGUI.EndDisabledGroup();
-                if (GUILayout.Button(new GUIContent(" ", string.Format("Delete {0}.", GetAssetName(asset))), "OL Minus", GUILayout.Width(16))) assetToRemove = asset;
+                if (GUILayout.Button(new GUIContent(" ", string.Format("Delete {0}.", EditorTools.GetAssetName(asset))), "OL Minus", GUILayout.Width(16))) assetToRemove = asset;
                 EditorGUILayout.EndHorizontal();
                 if (foldouts.properties[index]) DrawAsset<T>(asset, index, foldouts);
             }
@@ -88,20 +88,13 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
             else if (assetToRemove != null)
             {
-                if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(assetToRemove)), "Are you sure you want to delete this?", "Delete", "Cancel"))
+                if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", EditorTools.GetAssetName(assetToRemove)), "Are you sure you want to delete this?", "Delete", "Cancel"))
                 {
                     assets.Remove(assetToRemove);
                     SetDatabaseDirty("Delete");
                 }
             }
             EditorWindowTools.EndIndentedSection();
-        }
-
-        private bool IsAssetInFilter(Asset asset, string filter)
-        {
-            if (asset == null || string.IsNullOrEmpty(filter)) return true;
-            var assetName = asset.Name;
-            return string.IsNullOrEmpty(assetName) ? false : (assetName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private string GetAssetName(Asset asset)
@@ -152,7 +145,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (foldouts.fields[index])
             {
                 GUILayout.FlexibleSpace();
-                if (GUILayout.Button(new GUIContent("Template", "Add any missing fields from the template."), EditorStyles.miniButton, GUILayout.Width(60)))
+                if (GUILayout.Button(new GUIContent("Template", "Add any missing fields from the template."), EditorStyles.miniButton, GUILayout.Width(68)))
                 {
                     ApplyTemplate(asset.fields, GetTemplateFields(asset));
                 }

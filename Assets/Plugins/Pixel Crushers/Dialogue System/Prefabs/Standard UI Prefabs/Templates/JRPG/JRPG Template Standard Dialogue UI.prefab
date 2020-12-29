@@ -5,13 +5,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22442274}
-  - 222: {fileID: 22238926}
-  - 114: {fileID: 11402552}
-  - 114: {fileID: 11409336}
-  - 114: {fileID: 11400748}
+  - component: {fileID: 22442274}
+  - component: {fileID: 22238926}
+  - component: {fileID: 11402552}
+  - component: {fileID: 11409336}
+  - component: {fileID: 11400748}
   m_Layer: 5
   m_Name: Portrait Name
   m_TagString: Untagged
@@ -24,14 +24,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22412366}
-  - 222: {fileID: 22230242}
-  - 114: {fileID: 11450276}
-  - 114: {fileID: 11443574}
-  - 114: {fileID: 11488680}
-  - 114: {fileID: 11487282}
+  - component: {fileID: 22412366}
+  - component: {fileID: 22230242}
+  - component: {fileID: 11450276}
+  - component: {fileID: 11443574}
+  - component: {fileID: 11488680}
+  - component: {fileID: 11487282}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -44,10 +44,10 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22423234}
-  - 114: {fileID: 11444082}
+  - component: {fileID: 22423234}
+  - component: {fileID: 11444082}
   m_Layer: 5
   m_Name: Text Field UI
   m_TagString: Untagged
@@ -60,9 +60,9 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22409610}
+  - component: {fileID: 22409610}
   m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
@@ -75,9 +75,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22405012}
+  - component: {fileID: 22405012}
   m_Layer: 5
   m_Name: QTEs
   m_TagString: Untagged
@@ -90,11 +90,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22408348}
-  - 222: {fileID: 22242658}
-  - 114: {fileID: 11490356}
+  - component: {fileID: 22408348}
+  - component: {fileID: 22242658}
+  - component: {fileID: 11490356}
   m_Layer: 5
   m_Name: Portrait Panel
   m_TagString: Untagged
@@ -107,11 +107,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22403738}
-  - 222: {fileID: 22203116}
-  - 114: {fileID: 11450084}
+  - component: {fileID: 22403738}
+  - component: {fileID: 22203116}
+  - component: {fileID: 11450084}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -124,11 +124,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22409560}
-  - 222: {fileID: 22260730}
-  - 114: {fileID: 11410614}
+  - component: {fileID: 22409560}
+  - component: {fileID: 22260730}
+  - component: {fileID: 11410614}
   m_Layer: 5
   m_Name: Main Panel
   m_TagString: Untagged
@@ -141,14 +141,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22482330}
-  - 222: {fileID: 22246046}
-  - 114: {fileID: 11487806}
-  - 114: {fileID: 11457860}
-  - 114: {fileID: 11451270}
-  - 114: {fileID: 11499272}
+  - component: {fileID: 22482330}
+  - component: {fileID: 22246046}
+  - component: {fileID: 11487806}
+  - component: {fileID: 11457860}
+  - component: {fileID: 11451270}
+  - component: {fileID: 11499272}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -161,14 +161,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22481208}
-  - 222: {fileID: 22289812}
-  - 114: {fileID: 11493274}
-  - 114: {fileID: 11490894}
-  - 114: {fileID: 11453522}
-  - 114: {fileID: 11442258}
+  - component: {fileID: 22481208}
+  - component: {fileID: 22289812}
+  - component: {fileID: 11493274}
+  - component: {fileID: 11490894}
+  - component: {fileID: 11453522}
+  - component: {fileID: 11442258}
   m_Layer: 5
   m_Name: Response Button Template
   m_TagString: Untagged
@@ -181,11 +181,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22499874}
-  - 222: {fileID: 22255086}
-  - 114: {fileID: 11485124}
+  - component: {fileID: 22499874}
+  - component: {fileID: 22255086}
+  - component: {fileID: 11485124}
   m_Layer: 5
   m_Name: QTE 1 Evil
   m_TagString: Untagged
@@ -198,13 +198,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22477508}
-  - 114: {fileID: 11424432}
-  - 222: {fileID: 22298390}
-  - 114: {fileID: 11494280}
-  - 114: {fileID: 11488176}
+  - component: {fileID: 22477508}
+  - component: {fileID: 11424432}
+  - component: {fileID: 22298390}
+  - component: {fileID: 11494280}
+  - component: {fileID: 11488176}
   m_Layer: 5
   m_Name: Response Menu Panel
   m_TagString: Untagged
@@ -217,11 +217,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22410280}
-  - 222: {fileID: 22215720}
-  - 114: {fileID: 11408796}
+  - component: {fileID: 22410280}
+  - component: {fileID: 22215720}
+  - component: {fileID: 11408796}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -234,15 +234,15 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22468042}
-  - 222: {fileID: 22219884}
-  - 114: {fileID: 11460670}
-  - 114: {fileID: 11431718}
-  - 114: {fileID: 11471872}
-  - 225: {fileID: 22586484}
-  - 95: {fileID: 9574904}
+  - component: {fileID: 22468042}
+  - component: {fileID: 22219884}
+  - component: {fileID: 11460670}
+  - component: {fileID: 11431718}
+  - component: {fileID: 11471872}
+  - component: {fileID: 22586484}
+  - component: {fileID: 9574904}
   m_Layer: 5
   m_Name: Text Field Panel
   m_TagString: Untagged
@@ -255,13 +255,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22489480}
-  - 222: {fileID: 22219068}
-  - 114: {fileID: 11448870}
-  - 114: {fileID: 11433980}
-  - 114: {fileID: 11418446}
+  - component: {fileID: 22489480}
+  - component: {fileID: 22219068}
+  - component: {fileID: 11448870}
+  - component: {fileID: 11433980}
+  - component: {fileID: 11418446}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -274,13 +274,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22419924}
-  - 114: {fileID: 11497304}
-  - 114: {fileID: 11472924}
-  - 222: {fileID: 22238578}
-  - 114: {fileID: 11423888}
+  - component: {fileID: 22419924}
+  - component: {fileID: 11497304}
+  - component: {fileID: 11472924}
+  - component: {fileID: 22238578}
+  - component: {fileID: 11423888}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -293,13 +293,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22401732}
-  - 222: {fileID: 22256644}
-  - 114: {fileID: 11461858}
-  - 114: {fileID: 11412200}
-  - 114: {fileID: 11499962}
+  - component: {fileID: 22401732}
+  - component: {fileID: 22256644}
+  - component: {fileID: 11461858}
+  - component: {fileID: 11412200}
+  - component: {fileID: 11499962}
   m_Layer: 5
   m_Name: Alert Text
   m_TagString: Untagged
@@ -312,10 +312,10 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22447588}
-  - 114: {fileID: 11494046}
+  - component: {fileID: 22447588}
+  - component: {fileID: 11494046}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -328,10 +328,10 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22435526}
-  - 114: {fileID: 11454534}
+  - component: {fileID: 22435526}
+  - component: {fileID: 11454534}
   m_Layer: 5
   m_Name: Subtitle Panel
   m_TagString: Untagged
@@ -344,12 +344,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22465240}
-  - 222: {fileID: 22279854}
-  - 114: {fileID: 11465704}
-  - 114: {fileID: 11470232}
+  - component: {fileID: 22465240}
+  - component: {fileID: 22279854}
+  - component: {fileID: 11465704}
+  - component: {fileID: 11470232}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -362,14 +362,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22430324}
-  - 222: {fileID: 22210384}
-  - 114: {fileID: 11401728}
-  - 114: {fileID: 11470262}
-  - 114: {fileID: 11456858}
-  - 114: {fileID: 11467904}
+  - component: {fileID: 22430324}
+  - component: {fileID: 22210384}
+  - component: {fileID: 11401728}
+  - component: {fileID: 11470262}
+  - component: {fileID: 11456858}
+  - component: {fileID: 11467904}
   m_Layer: 5
   m_Name: Subtitle Text
   m_TagString: Untagged
@@ -382,13 +382,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22490748}
-  - 222: {fileID: 22235298}
-  - 114: {fileID: 11409982}
-  - 114: {fileID: 11427672}
-  - 114: {fileID: 11453440}
+  - component: {fileID: 22490748}
+  - component: {fileID: 22235298}
+  - component: {fileID: 11409982}
+  - component: {fileID: 11427672}
+  - component: {fileID: 11453440}
+  - component: {fileID: 114542047287565802}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -401,11 +402,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22499608}
-  - 222: {fileID: 22252974}
-  - 114: {fileID: 11479458}
+  - component: {fileID: 22499608}
+  - component: {fileID: 22252974}
+  - component: {fileID: 11479458}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -418,12 +419,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22435554}
-  - 222: {fileID: 22235428}
-  - 114: {fileID: 11409994}
-  - 114: {fileID: 11452272}
+  - component: {fileID: 22435554}
+  - component: {fileID: 22235428}
+  - component: {fileID: 11409994}
+  - component: {fileID: 11452272}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -436,12 +437,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22464168}
-  - 222: {fileID: 22245414}
-  - 114: {fileID: 11450720}
-  - 114: {fileID: 11402982}
+  - component: {fileID: 22464168}
+  - component: {fileID: 22245414}
+  - component: {fileID: 11450720}
+  - component: {fileID: 11402982}
   m_Layer: 5
   m_Name: Portrait Image
   m_TagString: Untagged
@@ -454,11 +455,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22466764}
-  - 222: {fileID: 22274762}
-  - 114: {fileID: 11449154}
+  - component: {fileID: 22466764}
+  - component: {fileID: 22274762}
+  - component: {fileID: 11449154}
   m_Layer: 5
   m_Name: QTE 0 Good
   m_TagString: Untagged
@@ -471,9 +472,9 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22442628}
+  - component: {fileID: 22442628}
   m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
@@ -486,16 +487,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22400966}
-  - 222: {fileID: 22296148}
-  - 225: {fileID: 22529254}
-  - 114: {fileID: 11402608}
-  - 114: {fileID: 11482844}
-  - 114: {fileID: 11422950}
-  - 95: {fileID: 9565102}
-  - 114: {fileID: 11446322}
+  - component: {fileID: 22400966}
+  - component: {fileID: 22296148}
+  - component: {fileID: 22529254}
+  - component: {fileID: 11402608}
+  - component: {fileID: 11482844}
+  - component: {fileID: 11422950}
+  - component: {fileID: 9565102}
+  - component: {fileID: 11446322}
   m_Layer: 5
   m_Name: Alert Panel
   m_TagString: Untagged
@@ -508,10 +509,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22426882}
-  - 114: {fileID: 11457010}
+  - component: {fileID: 22426882}
+  - component: {fileID: 11457010}
   m_Layer: 5
   m_Name: JRPG Template Standard Dialogue UI
   m_TagString: Untagged
@@ -524,9 +525,9 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22424372}
+  - component: {fileID: 22424372}
   m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
@@ -539,11 +540,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22479810}
-  - 222: {fileID: 22249286}
-  - 114: {fileID: 11486966}
+  - component: {fileID: 22479810}
+  - component: {fileID: 22249286}
+  - component: {fileID: 11486966}
   m_Layer: 5
   m_Name: Text Panel
   m_TagString: Untagged
@@ -556,11 +557,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22401512}
-  - 222: {fileID: 22209364}
-  - 114: {fileID: 11495150}
+  - component: {fileID: 22401512}
+  - component: {fileID: 22209364}
+  - component: {fileID: 11495150}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -573,13 +574,13 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22418590}
-  - 222: {fileID: 22210242}
-  - 114: {fileID: 11499110}
-  - 114: {fileID: 11476742}
-  - 114: {fileID: 11494048}
+  - component: {fileID: 22418590}
+  - component: {fileID: 22210242}
+  - component: {fileID: 11499110}
+  - component: {fileID: 11476742}
+  - component: {fileID: 11494048}
   m_Layer: 5
   m_Name: Response Text
   m_TagString: Untagged
@@ -592,15 +593,15 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22473608}
-  - 222: {fileID: 22272110}
-  - 114: {fileID: 11452348}
-  - 225: {fileID: 22586048}
-  - 95: {fileID: 9524452}
-  - 114: {fileID: 11473374}
-  - 114: {fileID: 11450130}
+  - component: {fileID: 22473608}
+  - component: {fileID: 22272110}
+  - component: {fileID: 11452348}
+  - component: {fileID: 22586048}
+  - component: {fileID: 9524452}
+  - component: {fileID: 11473374}
+  - component: {fileID: 11450130}
   m_Layer: 5
   m_Name: Dialogue Panel
   m_TagString: Untagged
@@ -613,12 +614,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22457866}
-  - 222: {fileID: 22293180}
-  - 114: {fileID: 11426082}
-  - 114: {fileID: 11415686}
+  - component: {fileID: 22457866}
+  - component: {fileID: 22293180}
+  - component: {fileID: 11426082}
+  - component: {fileID: 11415686}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -631,12 +632,12 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22424750}
-  - 114: {fileID: 11403616}
-  - 222: {fileID: 22265360}
-  - 114: {fileID: 11432024}
+  - component: {fileID: 22424750}
+  - component: {fileID: 11403616}
+  - component: {fileID: 22265360}
+  - component: {fileID: 11432024}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -649,11 +650,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22403392}
-  - 222: {fileID: 22235856}
-  - 114: {fileID: 11424004}
+  - component: {fileID: 22403392}
+  - component: {fileID: 22235856}
+  - component: {fileID: 11424004}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -730,6 +731,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11401728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -841,6 +843,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11403616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -999,6 +1002,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11415686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1012,11 +1016,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: 128
-  m_MinHeight: -1
+  m_MinHeight: 24
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11418446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1051,6 +1056,8 @@ MonoBehaviour:
   m_Spacing: 8
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11423888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1165,7 +1172,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Input Field
@@ -1290,6 +1297,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11442258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,21 +1384,22 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   panel: {fileID: 11460670}
   label:
     m_uiText: {fileID: 11448870}
@@ -1402,13 +1411,13 @@ MonoBehaviour:
   onAccept:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11446322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1427,21 +1436,22 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11448870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1616,6 +1626,8 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11452272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1634,6 +1646,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11452348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1681,6 +1694,8 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11453522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1701,6 +1716,8 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11454534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1719,21 +1736,22 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   panel: {fileID: 0}
   portraitImage: {fileID: 11450720}
   portraitName:
@@ -1743,22 +1761,26 @@ MonoBehaviour:
   addSpeakerName: 0
   addSpeakerNameFormat: '{0}: {1}'
   accumulateText: 0
+  delayTypewriterUntilOpen: 0
   continueButton: {fileID: 11443574}
   visibility: 3
   focusAnimationTrigger: 
   unfocusAnimationTrigger: 
   useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  clearTextOnClose: 1
   onFocus:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onUnfocus:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  m_hasFocus: 1
+  m_actorOverridingPanel: {fileID: 0}
 --- !u!114 &11456858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1794,6 +1816,7 @@ MonoBehaviour:
     allowForceImmediate: 0
   conversationUIElements:
     mainPanel: {fileID: 11473374}
+    dontDeactivateMainPanel: 0
     subtitlePanels:
     - {fileID: 11454534}
     defaultNPCSubtitlePanel: {fileID: 0}
@@ -1802,6 +1825,7 @@ MonoBehaviour:
     menuPanels:
     - {fileID: 11488176}
     defaultMenuPanel: {fileID: 11488176}
+    useFirstResponseForMenuPortrait: 0
   QTEIndicatorElements:
     QTEIndicators:
     - {fileID: 166938}
@@ -1981,18 +2005,18 @@ MonoBehaviour:
   onBegin:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onCharacter:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11470232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2057,6 +2081,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11471872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2077,6 +2102,8 @@ MonoBehaviour:
   m_Spacing: 4
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11472924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2108,21 +2135,22 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11476742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2141,6 +2169,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11479458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2248,6 +2277,8 @@ MonoBehaviour:
   dialogueUI: {fileID: 11457010}
   typewriterEffect: {fileID: 11467904}
   hideContinueButtonOnContinue: 0
+  continueSubtitlePanel: 1
+  continueAlertPanel: 1
 --- !u!114 &11487806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2293,21 +2324,22 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   panel: {fileID: 11494280}
   pcImage: {fileID: 11450720}
   pcName:
@@ -2328,23 +2360,25 @@ MonoBehaviour:
     regularNumberHotkeys: 1
     numpadHotkeys: 0
     format: '{0}. {1}'
+  blockInputDuration: 0
   onContentChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   focusAnimationTrigger: 
   unfocusAnimationTrigger: 
   onFocus:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onUnfocus:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  m_hasFocus: 0
 --- !u!114 &11488680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2363,6 +2397,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &11490356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2600,6 +2635,8 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &11499110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2646,6 +2683,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 32
   buttonName: 
+  anyKeyOrButton: 0
+  skipIfBeingClickedBySubmit: 1
+  simulateButtonClick: 1
+  simulateButtonDownDuration: 0.1
 --- !u!114 &11499962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2843,12 +2884,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22401732}
   - {fileID: 22482330}
   m_Father: {fileID: 22426882}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2863,10 +2904,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22482330}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 36.5, y: -12}
@@ -2881,10 +2922,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22400966}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2899,10 +2940,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22424372}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2917,10 +2958,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22442628}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2935,12 +2976,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22466764}
   - {fileID: 22499874}
   m_Father: {fileID: 22426882}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2955,12 +2996,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22464168}
   - {fileID: 22442274}
   m_Father: {fileID: 22409560}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2975,12 +3016,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22408348}
   - {fileID: 22479810}
   m_Father: {fileID: 22473608}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 8}
@@ -2995,11 +3036,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22499608}
   m_Father: {fileID: 22447588}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: -5, y: 0}
@@ -3014,10 +3055,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22447588}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3032,11 +3073,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22435554}
   m_Father: {fileID: 22479810}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3051,10 +3092,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22481208}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3069,11 +3110,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22481208}
   m_Father: {fileID: 22424750}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3088,11 +3129,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22468042}
   m_Father: {fileID: 22473608}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 200}
@@ -3107,11 +3148,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22403392}
   m_Father: {fileID: 22447588}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3126,11 +3167,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22419924}
   m_Father: {fileID: 22477508}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3145,13 +3186,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22400966}
   - {fileID: 22473608}
   - {fileID: 22405012}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3166,10 +3207,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22435526}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3184,11 +3225,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22430324}
   m_Father: {fileID: 22479810}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3203,10 +3244,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22412366}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 36.5, y: -12}
@@ -3221,10 +3262,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22408348}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3239,11 +3280,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22403738}
   m_Father: {fileID: 22465240}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3258,13 +3299,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22410280}
   - {fileID: 22409610}
   - {fileID: 22424372}
   m_Father: {fileID: 22477508}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3279,10 +3320,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22490748}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3297,10 +3338,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22408348}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3315,11 +3356,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22442628}
   m_Father: {fileID: 22477508}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3334,10 +3375,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22405012}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 64, y: 64}
@@ -3352,12 +3393,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22489480}
   - {fileID: 22490748}
   m_Father: {fileID: 22423234}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 8}
@@ -3372,12 +3413,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22409560}
   - {fileID: 22423234}
   m_Father: {fileID: 22426882}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3392,13 +3433,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22424750}
   - {fileID: 22465240}
   - {fileID: 22447588}
   m_Father: {fileID: 22479810}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3413,13 +3454,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22435526}
   - {fileID: 22412366}
   - {fileID: 22477508}
   m_Father: {fileID: 22409560}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 64, y: 0}
@@ -3434,11 +3475,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22418590}
   m_Father: {fileID: 22419924}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3453,11 +3494,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22401512}
   m_Father: {fileID: 22400966}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 188.5, y: -20}
@@ -3472,10 +3513,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22468042}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3490,11 +3531,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22457866}
   m_Father: {fileID: 22468042}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3509,10 +3550,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22409610}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3527,10 +3568,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22405012}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -64, y: 64}
@@ -3580,3 +3621,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177140}
   m_IsPrefabParent: 1
+--- !u!114 &114542047287565802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 100
+  m_MinHeight: 26
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1

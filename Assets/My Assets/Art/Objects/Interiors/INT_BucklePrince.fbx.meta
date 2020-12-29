@@ -7,6 +7,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Ads01
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads01.001
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Ads04
     second: {fileID: 2100000, guid: c384f9a6c8c81114fa8c87b57887ca3b, type: 2}
   - first:
@@ -87,6 +97,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: SaleSigns03
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SaleSigns04
     second: {fileID: 2100000, guid: bde808f321d3f2f44baaa9bf512ca19a, type: 2}
   - first:
@@ -99,6 +114,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Signs02
     second: {fileID: 2100000, guid: 8b6333a941cd1de4ca1f6dd2c9cf1af7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar03
+    second: {fileID: 2100000, guid: fa0325bf8f1053442877113fd2c8111f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

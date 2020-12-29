@@ -97,7 +97,7 @@ namespace PixelCrushers.DialogueSystem
                 file.WriteLine(string.Empty);
                 file.WriteLine(string.Format("Conversation {0},{1}", conversation.id, CleanField(conversation.Title)));
                 file.WriteLine(string.Format("Description,{0}", CleanField(conversation.Description)));
-                StringBuilder sb = new StringBuilder("entrytag,Actor,");
+                StringBuilder sb = new StringBuilder("entrytag,Actor,Description,");
                 sb.Append(string.IsNullOrEmpty(language) ? "Dialogue Text" : CleanField(language));
                 file.WriteLine(sb.ToString());
                 foreach (var entry in conversation.dialogueEntries)
@@ -111,9 +111,10 @@ namespace PixelCrushers.DialogueSystem
                             actorNames.Add(entry.ActorID, (actor != null) ? CleanField(actor.Name) : "ActorNotFound");
                         }
                         string actorName = actorNames[entry.ActorID];
+                        string description = Field.LookupValue(entry.fields, "Description");
                         string entrytag = database.GetEntrytag(conversation, entry, entrytagFormat);
                         var lineText = string.IsNullOrEmpty(language) ? entry.subtitleText : Field.LookupValue(entry.fields, language);
-                        sb.AppendFormat("{0},{1},{2}", CleanField(entrytag), CleanField(actorName), CleanField(lineText));
+                        sb.AppendFormat("{0},{1},{2},{3}", CleanField(entrytag), CleanField(actorName), CleanField(description), CleanField(lineText));
                         file.WriteLine(sb.ToString());
                     }
                 }

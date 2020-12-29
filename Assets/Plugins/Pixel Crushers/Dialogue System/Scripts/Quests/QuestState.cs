@@ -40,7 +40,13 @@ namespace PixelCrushers.DialogueSystem
         /// Quest is available to be granted to the player. The Dialogue System does
         /// not use this state, but it's included for those who want to use it on their own
         /// </summary>
-        Grantable = 0x20
+        Grantable = 0x20,
+
+        /// <summary>
+        /// Quest is waiting for player to return to NPC. The Dialogue System does
+        /// not use this state, but it's included for those who want to use it on their own
+        /// </summary>
+        ReturnToNPC = 0x40
     }
 
 }

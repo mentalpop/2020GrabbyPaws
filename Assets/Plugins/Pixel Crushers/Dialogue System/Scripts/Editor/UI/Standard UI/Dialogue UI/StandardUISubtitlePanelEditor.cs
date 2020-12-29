@@ -42,6 +42,7 @@ namespace PixelCrushers.DialogueSystem
             EditorGUILayout.PropertyField(serializedObject.FindProperty("focusAnimationTrigger"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("unfocusAnimationTrigger"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_hasFocus"), true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("waitForClose"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_deactivateOnHidden"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("clearTextOnClose"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onOpen"), true);

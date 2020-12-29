@@ -80,7 +80,7 @@ namespace PixelCrushers.DialogueSystem
                 for (int i = 0; i < pcResponses.Length; i++)
                 {
                     if (pcResponses[i].formattedText.forceMenu) return false;
-                    if (pcResponses[i].formattedText.forceAuto) hasAuto = true;
+                    if (pcResponses[i].formattedText.forceAuto && pcResponses[i].enabled) hasAuto = true;
                 }
                 return hasAuto || (pcResponses.Length == 1);
             }
@@ -96,7 +96,7 @@ namespace PixelCrushers.DialogueSystem
                 if (pcResponses == null || pcResponses.Length == 0) return false;
                 for (int i = 0; i < pcResponses.Length; i++)
                 {
-                    if (pcResponses[i].formattedText.forceAuto) return true;
+                    if (pcResponses[i].enabled && pcResponses[i].formattedText.forceAuto) return true;
                 }
                 return false;
             }
@@ -115,7 +115,7 @@ namespace PixelCrushers.DialogueSystem
                 if (pcResponses == null || pcResponses.Length == 0) return null;
                 for (int i = 0; i < pcResponses.Length; i++)
                 {
-                    if (pcResponses[i].formattedText.forceAuto) return pcResponses[i];
+                    if (pcResponses[i].enabled && pcResponses[i].formattedText.forceAuto) return pcResponses[i];
                 }
                 return pcResponses[0];
             }

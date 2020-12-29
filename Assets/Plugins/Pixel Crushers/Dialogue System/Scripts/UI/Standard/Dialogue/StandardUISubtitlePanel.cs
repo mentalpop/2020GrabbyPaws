@@ -56,6 +56,9 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("If a player actor uses this panel, don't show player portrait name & image; keep previous NPC portrait visible instead.")]
         public bool onlyShowNPCPortraits = false;
 
+        [Tooltip("Wait for panels within this dialogue UI (not external panels) to close before showing.")]
+        public bool waitForClose = false;
+
         [Tooltip("Clear text when closing panel, including when hiding using SetDialoguePanel().")]
         public bool clearTextOnClose = true;
 
@@ -105,7 +108,7 @@ namespace PixelCrushers.DialogueSystem
         private string m_accumulatedText = string.Empty;
         public string accumulatedText { get { return m_accumulatedText; } set { m_accumulatedText = value; } }
         private Animator m_animator = null;
-        private Animator animator { get { if (m_animator == null && portraitImage != null) m_animator = portraitImage.GetComponent<Animator>(); return m_animator; } }
+        protected Animator animator { get { if (m_animator == null && portraitImage != null) m_animator = portraitImage.GetComponent<Animator>(); return m_animator; } }
         private bool m_isDefaultNPCPanel = false;
         public bool isDefaultNPCPanel { get { return m_isDefaultNPCPanel; } set { m_isDefaultNPCPanel = value; } }
         private bool m_isDefaultPCPanel = false;
@@ -114,8 +117,33 @@ namespace PixelCrushers.DialogueSystem
         public int panelNumber { get { return m_panelNumber; } set { m_panelNumber = value; } }
         public Transform m_actorOverridingPanel = null;
         public Transform actorOverridingPanel { get { return m_actorOverridingPanel; } set { m_actorOverridingPanel = value; } }
+        protected int frameLastSetContent = -1; // Frame when we last set this panel's content.
+        protected bool shouldShowContinueButton = false;
+        protected const float WaitForCloseTimeoutDuration = 8f;
+        private StandardDialogueUI m_dialogueUI = null;
+        protected StandardDialogueUI dialogueUI
+        {
+            get
+            {
+                if (m_dialogueUI == null) m_dialogueUI = GetComponentInParent<StandardDialogueUI>();
+                return m_dialogueUI;
+            }
+        }
 
         private Coroutine m_focusWhenOpenCoroutine = null;
+
+        #endregion
+
+        #region Initialization
+
+        protected virtual void Awake()
+        {
+            if (addSpeakerName)
+            {
+                addSpeakerNameFormat = addSpeakerNameFormat.Replace("\\n", "\n").Replace("\\t", "\t");
+            }
+            if (waitForClose) clearTextOnClose = false;
+        }
 
         #endregion
 
@@ -181,9 +209,12 @@ namespace PixelCrushers.DialogueSystem
             OpenOnStartConversation(UITools.CreateSprite(portraitTexture), portraitName, dialogueActor);
         }
 
-        public virtual void OnConversationEnd(Transform actor)
+        public virtual void OnConversationStart(Transform actor)
         {
-            ClearText();
+            if (frameLastSetContent < (Time.frameCount - 1)) // If we just set content, don't clear the text.
+            {
+                ClearText();
+            }
         }
 
         /// <summary>
@@ -191,12 +222,36 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void ShowSubtitle(Subtitle subtitle)
         {
+            if (waitForClose && dialogueUI.AreAnyPanelsClosing())
+            {
+                DialogueManager.instance.StartCoroutine(ShowSubtitleAfterClosing(subtitle));
+            }
+            else
+            {
+                ShowSubtitleNow(subtitle);
+            }
+        }
+
+        protected virtual void ShowSubtitleNow(Subtitle subtitle)
+        {
             SetUIElementsActive(true);
             if (!isOpen) hasFocus = false;
             Open();
             Focus();
             SetContent(subtitle);
             actorOverridingPanel = null;
+        }
+
+        protected virtual IEnumerator ShowSubtitleAfterClosing(Subtitle subtitle)
+        {
+            shouldShowContinueButton = false;
+            float safeguardTime = Time.realtimeSinceStartup + WaitForCloseTimeoutDuration;
+            while (dialogueUI.AreAnyPanelsClosing() && Time.realtimeSinceStartup < safeguardTime)
+            {
+                yield return null;
+            }
+            ShowSubtitleNow(subtitle);
+            if (shouldShowContinueButton) ShowContinueButton();
         }
 
         /// <summary>
@@ -311,15 +366,15 @@ namespace PixelCrushers.DialogueSystem
             onUnfocus.Invoke();
         }
 
-        protected void ActivateUIElements()
+        public virtual void ActivateUIElements()
         {
             SetUIElementsActive(true);
         }
 
-        protected void DeactivateUIElements()
+        public virtual void DeactivateUIElements()
         {
             SetUIElementsActive(false);
-            ClearText();
+            if (clearTextOnClose) ClearText();
         }
 
         protected virtual void SetUIElementsActive(bool value)
@@ -354,6 +409,7 @@ namespace PixelCrushers.DialogueSystem
                     continueButton.onClick.AddListener(OnContinue);
                 }
             }
+            shouldShowContinueButton = true;
         }
 
         public virtual void HideContinueButton()
@@ -424,6 +480,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 TypewriterUtility.StartTyping(subtitleText, subtitleText.text, previousChars);
             }
+            frameLastSetContent = Time.frameCount;
         }
 
         protected virtual IEnumerator StartTypingWhenFocused(UITextField subtitleText, string text, int fromIndex)

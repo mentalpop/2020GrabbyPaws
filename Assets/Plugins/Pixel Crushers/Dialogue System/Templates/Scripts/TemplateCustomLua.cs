@@ -2,6 +2,9 @@
  * [REMOVE THIS LINE] To use this template, make a copy and remove the lines that start
  * [REMOVE THIS LINE] with "[REMOVE THIS LINE]". Then add your code where the comments indicate.
  * [REMOVE THIS LINE]
+ * [REMOVE THIS LINE] If your code references scripts or assets that are outside of the Plugins
+ * [REMOVE THIS LINE] folder, move this script outside of the Plugins folder, too.
+ * [REMOVE THIS LINE]
 
 
 
@@ -21,7 +24,7 @@ using PixelCrushers.DialogueSystem;
 // You can use these functions as models and then replace them with your own.
 public class TemplateCustomLua : MonoBehaviour // Rename this class.
 {
-    [Tooltip("Typically leave unticked so temporary Dialogue Manager's don't unregister your functions.")]
+    [Tooltip("Typically leave unticked so temporary Dialogue Managers don't unregister your functions.")]
     public bool unregisterOnDisable = false;
 
     void OnEnable()

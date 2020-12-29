@@ -60,6 +60,9 @@ namespace PixelCrushers.DialogueSystem
         private QueuedSequencerCommand ParseCommand(StringReader reader)
         {
             ParseOptionalWhitespace(reader, true);
+
+            CheckParseComment(reader);
+
             var required = false;
             var s = ParseWord(reader);
             if (string.Equals(s, SequencerKeywords.Required, System.StringComparison.OrdinalIgnoreCase) || string.Equals(s, SequencerKeywords.Require, System.StringComparison.OrdinalIgnoreCase))
@@ -82,6 +85,10 @@ namespace PixelCrushers.DialogueSystem
             ParsePostParameters(reader, out atTime, out atMessage, out sendMessage);
             ParseOptionalWhitespace(reader);
             ParseSemicolonOrEnd(reader);
+
+            ParseOptionalWhitespace(reader);
+            CheckParseComment(reader);
+
             return new QueuedSequencerCommand(command, parameters, atTime, atMessage, sendMessage, required);
         }
 
@@ -297,7 +304,6 @@ namespace PixelCrushers.DialogueSystem
 
         private void ParseSemicolonOrEnd(StringReader reader)
         {
-
             if (!HasNextChar(reader) || (char)reader.Peek() == ';')
             {
                 ReadNextChar(reader);
@@ -306,6 +312,20 @@ namespace PixelCrushers.DialogueSystem
             {
                 throw new ParserException("Expected semicolon or end of sequence");
             }
+        }
+
+        private bool CheckParseComment(StringReader reader)
+        {
+            if (!HasNextChar(reader) || (char)reader.Peek() == '/')
+            {
+                reader.Read();
+                if (!HasNextChar(reader) || (char)reader.Peek() == '/')
+                {
+                    reader.ReadLine();
+                    return true;
+                }
+            }
+            return false;
         }
 
     }

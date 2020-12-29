@@ -20,10 +20,13 @@ namespace PixelCrushers.DialogueSystem
             public byte[] bytes;
         }
 
+        [Tooltip("If data was restored immediately after loading a scene, don't apply it again after save system waits specified number of frames for other scripts to initialize.")]
+        public bool skipApplyDataAfterFramesIfApplyImmediate = true;
+
         [Tooltip("Save using raw data dump. If your database is extremely large, this method is faster but generates larger saved game data. If you use this option, use BinaryDataSerializer instead of JsonDataSerializer or data will be ridiculously large.")]
         public bool saveRawData = false;
 
-        private bool m_changingScenes = false;
+        private bool m_appliedImmediate = false;
 
         public override void Reset()
         {
@@ -47,19 +50,33 @@ namespace PixelCrushers.DialogueSystem
 
         public override void ApplyDataImmediate()
         {
-            if (!m_changingScenes)
+            // Immediately restore Lua in case other scripts'
+            // Start() methods need to read values from it.
+            var data = SaveSystem.currentSavedGameData.GetData(key);
+            if (string.IsNullOrEmpty(data)) return;
+            if (saveRawData)
             {
-                // If loading a saved game, immediately restore Lua in case other scripts'
-                // Start() methods need to read values from it.
-                var data = SaveSystem.currentSavedGameData.GetData(key);
-                if (string.IsNullOrEmpty(data)) return;
-                Lua.Run(data, DialogueDebug.logInfo, false);
+                var rawData = SaveSystem.Deserialize<RawData>(data);
+                if (rawData != null && rawData.bytes != null) PersistentDataManager.ApplyRawData(rawData.bytes);
             }
-            m_changingScenes = false;
+            else
+            {
+                PersistentDataManager.ApplyLuaInternal(data, false);
+            }
+            m_appliedImmediate = true;
         }
 
         public override void ApplyData(string data)
         {
+            if (m_appliedImmediate)
+            {
+                m_appliedImmediate = false;
+                if (skipApplyDataAfterFramesIfApplyImmediate)
+                {
+                    PersistentDataManager.Apply();
+                    return;
+                }
+            }
             if (saveRawData)
             {
                 var rawData = SaveSystem.Deserialize<RawData>(data);
@@ -74,7 +91,6 @@ namespace PixelCrushers.DialogueSystem
         public override void OnBeforeSceneChange()
         {
             PersistentDataManager.LevelWillBeUnloaded();
-            m_changingScenes = true;
         }
 
         public override void OnRestartGame()

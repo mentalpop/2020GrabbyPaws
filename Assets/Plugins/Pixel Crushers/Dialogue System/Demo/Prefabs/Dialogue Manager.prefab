@@ -289,7 +289,7 @@ MonoBehaviour:
 
     LMB fires, Escape opens menu'
   menuKey: 27
-  guiSkin: {fileID: 11400000, guid: da7d07211b2105241991553fee8e07aa, type: 2}
+  guiSkin: {fileID: 11400000, guid: dbe874f440d0cf84cb5c28fd70e8123c, type: 2}
   closeWhenQuestLogOpen: 1
   lockCursorDuringPlay: 1
   onOpen:
@@ -391,6 +391,7 @@ MonoBehaviour:
   joystickAxisThreshold: 0.5
   keyButtonsToCheck: []
   keyCodesToCheck: 1b000000
+  keyInputSwitchesModeTo: 1
   alwaysAutoFocus: 0
   detectMouseControl: 1
   mouseMoveThreshold: 0.1
@@ -434,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_saveCurrentScene: 1
-  m_framesToWaitBeforeApplyData: 4
+  m_framesToWaitBeforeApplyData: 0
   m_debug: 1
 --- !u!114 &114937748117785014
 MonoBehaviour:
@@ -467,6 +468,12 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      cancelSubtitle:
+        key: 27
+        buttonName: 
+      cancelConversation:
+        key: 27
+        buttonName: 
     dialogueUI: {fileID: 161038, guid: 5c56f58e2d14e894c96171a7540a6a1d, type: 2}
     localizationSettings:
       language: 
@@ -531,8 +538,9 @@ MonoBehaviour:
     initializeNewVariables: 1
   allowSimultaneousConversations: 0
   includeSimStatus: 0
-  preloadResources: 1
   instantiateDatabase: 0
+  preloadResources: 1
+  warmUpConversationController: 0
   dontDestroyOnLoad: 1
   allowOnlyOneInstance: 1
   dialogueTimeMode: 0
@@ -552,6 +560,7 @@ MonoBehaviour:
   m_appendSaverTypeToKey: 0
   m_saveAcrossSceneChanges: 1
   m_restoreStateOnStart: 0
+  skipApplyDataAfterFramesIfApplyImmediate: 1
   saveRawData: 0
 --- !u!222 &222864669892175608
 CanvasRenderer:

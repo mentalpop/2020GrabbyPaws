@@ -7,6 +7,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
 
     /// <summary>
     /// Implements sequencer command: Delay(seconds)
+    /// NOTE: This command is now implemented directly in Sequencer.
     /// </summary>
     [AddComponentMenu("")] // Hide from menu.
     public class SequencerCommandDelay : SequencerCommand

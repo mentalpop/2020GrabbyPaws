@@ -52,7 +52,10 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (!m_initializedAnimator && value == false)
                 {
-                    panel.gameObject.SetActive(false);
+                    if (panel.deactivateOnHidden)
+                    {
+                        panel.gameObject.SetActive(false);
+                    }
                 }
                 else
                 {

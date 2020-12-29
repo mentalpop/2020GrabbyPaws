@@ -53,8 +53,19 @@ namespace PixelCrushers
         {
             if (gameObjectsToWatch == null || string.IsNullOrEmpty(s)) return;
             var data = SaveSystem.Deserialize<Data>(s, m_data);
-            if (data == null|| data.active == null) return;
+            if (data == null || data.active == null) return;
             m_data = data;
+            // First issue OnBeforeSceneChange/OnLevelWillBeUnloaded in case targets include nested GOs:
+            for (int i = 0; i < Mathf.Min(data.active.Length, gameObjectsToWatch.Length); i++)
+            {
+                if (gameObjectsToWatch[i] == null) continue;
+                if (!data.active[i])
+                {
+                    gameObjectsToWatch[i].BroadcastMessage("OnBeforeSceneChange", SendMessageOptions.DontRequireReceiver);
+                    gameObjectsToWatch[i].BroadcastMessage("OnLevelWillBeUnloaded", SendMessageOptions.DontRequireReceiver);
+                }
+            }
+            // Then activate/deactivate:
             for (int i = 0; i < Mathf.Min(data.active.Length, gameObjectsToWatch.Length); i++)
             {
                 if (gameObjectsToWatch[i] == null) continue;

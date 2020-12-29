@@ -142,7 +142,10 @@ namespace PixelCrushers.DialogueSystem
         /// Gets the current usable.
         /// </summary>
         /// <value>The usable.</value>
-        public Usable CurrentUsable { get { return currentUsable; } }
+        public Usable CurrentUsable { 
+            get { return currentUsable; } 
+            set { SetCurrentUsable(value); }
+        }
 
         /// <summary>
         /// Gets the GUI style.
@@ -207,7 +210,7 @@ namespace PixelCrushers.DialogueSystem
             //--- Replaced by OnConversationStart: if (DialogueManager.isConversationActive) timeToEnableUseButton = Time.time + MinTimeBetweenUseButton;
 
             // If the currentUsable went missing (was destroyed, deactivated, or we changed scene), tell listeners:
-            if (toldListenersHaveUsable && (currentUsable == null || !currentUsable.gameObject.activeInHierarchy))
+            if (toldListenersHaveUsable && (currentUsable == null || !currentUsable.enabled || !currentUsable.gameObject.activeInHierarchy))
             {
                 SetCurrentUsable(null);
                 OnDeselectedUsableObject(null);
@@ -237,7 +240,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void UseCurrentSelection()
         {
-            if ((currentUsable != null) && (currentUsable.gameObject != null) && (Time.time >= timeToEnableUseButton))
+            if ((currentUsable != null) && currentUsable.enabled && (currentUsable.gameObject != null) && (Time.time >= timeToEnableUseButton))
             {
                 currentUsable.OnUseUsable();
                 var fromTransform = (actorTransform != null) ? actorTransform : this.transform;
@@ -382,7 +385,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected virtual void SetCurrentUsable(Usable usable)
+        public virtual void SetCurrentUsable(Usable usable)
         {
             currentUsable = usable;
             if (usable != null)

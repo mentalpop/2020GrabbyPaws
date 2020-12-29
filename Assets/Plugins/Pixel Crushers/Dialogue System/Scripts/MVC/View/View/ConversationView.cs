@@ -109,12 +109,12 @@ namespace PixelCrushers.DialogueSystem
 
         private bool IsSubtitleCancelKeyDown()
         {
-            return settings.inputSettings.cancel.isDown;
+            return settings.GetCancelSubtitleInput().isDown;
         }
 
         private bool IsConversationCancelKeyDown()
         {
-            return settings.inputSettings.cancelConversation.isDown;
+            return settings.GetCancelConversationInput().isDown;
         }
 
         /// <summary>
@@ -325,7 +325,9 @@ namespace PixelCrushers.DialogueSystem
         {
             if ((subtitle != null) && (settings != null) && (settings.subtitleSettings != null))
             {
-                if (subtitle.formattedText.noSubtitle || string.Equals(subtitle.sequence, "None()") || string.Equals(subtitle.sequence, "None();"))
+                if (subtitle.formattedText.noSubtitle || 
+                    string.Equals(subtitle.sequence, "None()") || string.Equals(subtitle.sequence, "None();") ||
+                    string.Equals(subtitle.sequence, "Continue()") || string.Equals(subtitle.sequence, "Continue();"))
                 {
                     return false;
                 }
@@ -484,14 +486,15 @@ namespace PixelCrushers.DialogueSystem
         /// </param>
         public string GetDefaultSequence(Subtitle subtitle)
         {
+            float duration = m_sequencer.subtitleEndTime;
             var isPlayerLine = (subtitle.speakerInfo.characterType == CharacterType.PC);
             if (isPlayerLine && (!settings.GetShowPCSubtitlesDuringLine() || (_lastModeWasResponseMenu && settings.GetSkipPCSubtitleAfterResponseMenu())))
             {
-                return settings.GetDefaultPlayerSequence();
+                var playerSequence = settings.GetDefaultPlayerSequence();
+                return Sequencer.ReplaceShortcuts(playerSequence).Replace(SequencerKeywords.End, duration.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
             else
             {
-                float duration = m_sequencer.subtitleEndTime;
                 var line = settings.GetDefaultSequence();
                 if (isPlayerLine && !string.IsNullOrEmpty(settings.GetDefaultPlayerSequence()))
                 {

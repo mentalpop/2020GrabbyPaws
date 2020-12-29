@@ -465,7 +465,7 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
   m_Transitions:
     m_BlendHint: 0
-    m_InheritPosition: 0
+    m_InheritPosition: 1
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []

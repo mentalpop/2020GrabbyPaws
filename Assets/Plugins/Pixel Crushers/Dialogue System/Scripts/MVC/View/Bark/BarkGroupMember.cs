@@ -44,7 +44,7 @@ namespace PixelCrushers.DialogueSystem
         public string currentIdValue { get { return m_currentIdValue; } }
 
         private IBarkUI m_barkUI = null;
-        private bool m_ignoreOnDisable = false;
+        private bool m_applicationIsQuitting = false;
 
         private IBarkUI barkUI
         {
@@ -67,17 +67,12 @@ namespace PixelCrushers.DialogueSystem
 
         private void OnApplicationQuit()
         {
-            m_ignoreOnDisable = true;
-        }
-
-        private void OnLevelWillBeUnloaded()
-        {
-            m_ignoreOnDisable = true;
+            m_applicationIsQuitting = true;
         }
 
         private void OnDisable()
         {
-            if (m_ignoreOnDisable || BarkGroupManager.instance == null) return;
+            if (m_applicationIsQuitting || BarkGroupManager.instance == null) return;
             BarkGroupManager.instance.RemoveFromGroup(m_currentIdValue, this);
         }
 

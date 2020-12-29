@@ -363,7 +363,7 @@ namespace PixelCrushers.DialogueSystem
                     control.text = GetCurrentText(current, openTokenTypes, tokens);
 
                     // Handle auto-scrolling:
-                    HandleAutoScroll();
+                    HandleAutoScroll(false);
 
                     //---Uncomment the line below to debug: 
                     //Debug.Log(control.text.Replace("<", "[").Replace(">", "]") + " " + name + " " + Time.frameCount, this);
@@ -689,7 +689,7 @@ namespace PixelCrushers.DialogueSystem
                 Sequencer.Message(SequencerMessages.Typed);
             }
             StopTypewriterCoroutine();
-            if (control != null) control.text = UITools.StripRPGMakerCodes(frontSkippedText + original);
+            if (control != null && original != null) control.text = UITools.StripRPGMakerCodes(frontSkippedText + original);
             original = null;
             if (autoScrollSettings.autoScrollEnabled)
             {
@@ -698,10 +698,10 @@ namespace PixelCrushers.DialogueSystem
                     current = new StringBuilder(control.text);
                     if (enabled && gameObject.activeInHierarchy)
                     {
-                        StartCoroutine(HandleAutoScrollAfterOneFrame()); // Need to give Unity UI one frame to update.
+                        StartCoroutine(HandleAutoScrollAfterOneFrame(true)); // Need to give Unity UI one frame to update.
                     }
                 }
-                HandleAutoScroll();
+                HandleAutoScroll(true);
             }
         }
 
@@ -714,7 +714,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected void HandleAutoScroll()
+        protected void HandleAutoScroll(bool jumpToEnd)
         {
             if (!autoScrollSettings.autoScrollEnabled) return;
             if (autoScrollSettings.sizerText != null)
@@ -723,18 +723,29 @@ namespace PixelCrushers.DialogueSystem
             }
             if (autoScrollSettings.scrollRect != null)
             {
-                autoScrollSettings.scrollRect.normalizedPosition = Vector2.zero;
+                if (!jumpToEnd && autoScrollSettings.scrollbarEnabler != null && autoScrollSettings.scrollbarEnabler.smoothScroll)
+                {
+                    if (autoScrollSettings.scrollRect.verticalNormalizedPosition > 0)
+                    {
+                        autoScrollSettings.scrollRect.verticalNormalizedPosition = Mathf.Max(0, autoScrollSettings.scrollRect.verticalNormalizedPosition - autoScrollSettings.scrollbarEnabler.smoothScrollSpeed * DialogueTime.deltaTime);
+                    }
+                }
+                else
+                {
+                    autoScrollSettings.scrollRect.normalizedPosition = Vector2.zero;
+                    autoScrollSettings.scrollbarEnabler.CheckScrollbar();
+                }
             }
-            if (autoScrollSettings.scrollbarEnabler != null)
+            else if (autoScrollSettings.scrollbarEnabler != null)
             {
                 autoScrollSettings.scrollbarEnabler.CheckScrollbar();
             }
         }
 
-        protected IEnumerator HandleAutoScrollAfterOneFrame()
+        protected IEnumerator HandleAutoScrollAfterOneFrame(bool jumpToEnd)
         {
             yield return null;
-            HandleAutoScroll();
+            HandleAutoScroll(jumpToEnd);
         }
 
     }

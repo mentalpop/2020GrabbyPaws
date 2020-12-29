@@ -123,6 +123,9 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        /// <summary>
+        /// Returns the actor's current portrait sprite.
+        /// </summary>
         public Sprite GetPortraitSprite()
         {
             //--- Was: return UITools.GetSprite(portrait, spritePortrait);
@@ -141,12 +144,31 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-                return UITools.CreateSprite(DialogueManager.LoadAsset(imageName) as Texture2D);
+                var sprite = GetPortraitSprite(imageName);
+                return (sprite != null) ? sprite 
+                    : UITools.CreateSprite(DialogueManager.LoadAsset(imageName) as Texture2D);
             }
+        }
+
+        /// <summary>
+        /// Checks if a named image is assigned to the actor. If so, returns it.
+        /// Otherwise returns null.
+        /// </summary>
+        public Sprite GetPortraitSprite(string imageName)
+        {
+            if (string.IsNullOrEmpty(imageName)) return null;
+            if (spritePortrait != null && spritePortrait.name == imageName) return spritePortrait;
+            if (portrait != null && portrait.name == imageName) return UITools.CreateSprite(portrait);
+            var sprite = spritePortraits.Find(x => x != null && x.name == imageName);
+            if (sprite != null) return sprite;
+            var texture = alternatePortraits.Find(x => x != null && x.name == imageName);
+            if (texture != null) return UITools.CreateSprite(texture);
+            return null;
         }
 
         public delegate void AssignSpriteDelegate(Sprite sprite);
 
+        // Called by async operations such as DialogueManager.LoadAsset.
         public void AssignPortraitSprite(AssignSpriteDelegate assignSprite)
         {
             var originalDebugLevel = DialogueDebug.level; // Suppress logging for Lua return Actor[].Current_Portrait.

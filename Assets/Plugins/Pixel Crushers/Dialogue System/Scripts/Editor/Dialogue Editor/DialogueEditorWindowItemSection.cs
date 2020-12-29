@@ -122,7 +122,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var item = database.items[index];
             var itemName = item.Name;
             var description = item.Description;
-            EditorGUI.BeginDisabledGroup(!IsAssetInFilter(item, itemFilter));
+            EditorGUI.BeginDisabledGroup(!EditorTools.IsAssetInFilter(item, itemFilter));
             if (template.treatItemsAsQuests)
             {
                 var fieldWidth = (rect.width - ItemReorderableListTypeWidth) / 4;
@@ -160,7 +160,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (!(0 <= index && index < database.items.Count)) return;
             var item = database.items[index];
-            if (IsAssetInFilter(item, itemFilter))
+            if (EditorTools.IsAssetInFilter(item, itemFilter))
             {
                 ReorderableList.defaultBehaviours.DrawElementBackground(rect, index, isActive, isFocused, true);
             }
@@ -189,7 +189,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var actor = database.items[list.index];
             if (actor == null) return;
             var deletedLastOne = list.count == 1;
-            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", GetAssetName(actor)), "Are you sure you want to delete this?", "Delete", "Cancel"))
+            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", EditorTools.GetAssetName(actor)), "Are you sure you want to delete this?", "Delete", "Cancel"))
             {
                 ReorderableList.defaultBehaviours.DoRemoveButton(list);
                 if (deletedLastOne) inspectorSelection = null;

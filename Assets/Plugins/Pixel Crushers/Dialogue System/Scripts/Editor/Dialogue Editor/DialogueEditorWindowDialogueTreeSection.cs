@@ -48,6 +48,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private Dictionary<int, string> dialogueEntryText = new Dictionary<int, string>();
         private Dictionary<int, string> dialogueEntryNodeText = new Dictionary<int, string>();
         private Dictionary<int, bool> dialogueEntryFoldouts = new Dictionary<int, bool>();
+        private Dictionary<int, bool> dialogueEntryHasEvent = new Dictionary<int, bool>();
         private DialogueNode dialogueTree = null;
         private List<DialogueNode> orphans = new List<DialogueNode>();
         private Field currentEntryActor = null;
@@ -117,6 +118,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             dialogueEntryText.Clear();
             dialogueEntryNodeText.Clear();
+            dialogueEntryHasEvent.Clear();
         }
 
         public void ResetDialogueEntryText(DialogueEntry entry)
@@ -124,6 +126,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (entry == null) return;
             if (dialogueEntryText.ContainsKey(entry.id)) dialogueEntryText[entry.id] = null;
             if (dialogueEntryNodeText.ContainsKey(entry.id)) dialogueEntryNodeText[entry.id] = null;
+            dialogueEntryHasEvent[entry.id] = FullCheckDoesDialogueEntryHaveEvent(entry);
         }
 
         private void ResetDialogueTreeCurrentEntryParticipants()
@@ -359,6 +362,23 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
             if ((entry.outgoingLinks == null) || (entry.outgoingLinks.Count == 0)) text += " [END]";
             return text.Substring(0, Mathf.Min(text.Length, canvasRectWidthMultiplier * MaxNodeTextLength + extraLength));
+        }
+
+        private bool DoesDialogueEntryHaveEvent(DialogueEntry entry)
+        {
+            if (!dialogueEntryHasEvent.ContainsKey(entry.id))
+            {
+                dialogueEntryHasEvent[entry.id] = FullCheckDoesDialogueEntryHaveEvent(entry);
+            }
+            return dialogueEntryHasEvent[entry.id];
+        }
+
+        private bool FullCheckDoesDialogueEntryHaveEvent(DialogueEntry entry)
+        {
+            if (entry == null) return false;
+            if (entry.onExecute != null && entry.onExecute.GetPersistentEventCount() > 0) return true;
+            if (!string.IsNullOrEmpty(entry.sceneEventGuid)) return true;
+            return false;
         }
 
         private void DrawDialogueTree()
@@ -670,7 +690,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (entryFieldsFoldout)
                 {
                     GUILayout.FlexibleSpace();
-                    if (GUILayout.Button(new GUIContent("Template", "Add any missing fields from the template."), EditorStyles.miniButton, GUILayout.Width(60)))
+                    if (GUILayout.Button(new GUIContent("Template", "Add any missing fields from the template."), EditorStyles.miniButton, GUILayout.Width(68)))
                     {
                         ApplyDialogueEntryTemplate(entry.fields);
                     }

@@ -19,13 +19,17 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Typically leave unticked so temporary Dialogue Manager's don't unregister your functions.")]
         public bool unregisterOnDisable = false;
 
-        private static Stack<DialogueEntry> m_stack = new Stack<DialogueEntry>();
+        [Tooltip("Push current dialogue entry instead of its follow-up entry. Use care if ticked; can cause to loop back on itself infinitely.")]
+        public bool pushCurrentEntry = false;
+
+        private static Stack<DialogueEntry> s_stack = new Stack<DialogueEntry>();
+        public static bool s_pushCurrentEntry = false;
 
 #if UNITY_2019_3_OR_NEWER
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void InitStaticVariables()
         {
-            m_stack = new Stack<DialogueEntry>();
+            s_stack = new Stack<DialogueEntry>();
         }
 #endif
 
@@ -34,6 +38,7 @@ namespace PixelCrushers.DialogueSystem
             Lua.RegisterFunction("PushConversationPosition", null, SymbolExtensions.GetMethodInfo(() => PushConversationPosition()));
             Lua.RegisterFunction("PopConversationPosition", null, SymbolExtensions.GetMethodInfo(() => PopConversationPosition()));
             Lua.RegisterFunction("ClearConversationPositionStack", null, SymbolExtensions.GetMethodInfo(() => ClearConversationPositionStack()));
+            s_pushCurrentEntry = pushCurrentEntry;
         }
 
         private void OnDisable()
@@ -61,17 +66,18 @@ namespace PixelCrushers.DialogueSystem
                 }
                 else
                 {
-
                     var state = DialogueManager.currentConversationState;
-                    var entry = state.hasNPCResponse ? state.firstNPCResponse.destinationEntry
-                            : state.hasPCResponses ? state.pcResponses[0].destinationEntry : null;
+                    var entry = s_pushCurrentEntry ? state.subtitle.dialogueEntry
+                        : state.hasNPCResponse ? state.firstNPCResponse.destinationEntry
+                        : state.hasPCResponses ? state.pcResponses[0].destinationEntry 
+                        : null;
                     if (entry == null)
                     {
                         if (DialogueDebug.logWarnings) Debug.LogWarning("Dialogue System: PushConversationPosition() Lua function can't save the current conversation position because it's invalid.");
                     }
                     else
                     {
-                        m_stack.Push(entry);
+                        s_stack.Push(entry);
                         if (DialogueDebug.logInfo) Debug.Log("Dialogue System: PushConversationPosition() Lua function saved entry " + entry.conversationID + ":" + entry.id + ": '" + entry.currentDialogueText + "'.");
                     }
                 }
@@ -91,13 +97,13 @@ namespace PixelCrushers.DialogueSystem
                 {
                     if (DialogueDebug.logWarnings) Debug.LogWarning("Dialogue System: PopConversationPosition() Lua function can't restore a saved conversation position because no conversation is active.");
                 }
-                else if (m_stack.Count == 0)
+                else if (s_stack.Count == 0)
                 {
                     if (DialogueDebug.logWarnings) Debug.LogWarning("Dialogue System: PopConversationPosition() Lua function can't restore a saved conversation position no positions are saved on the stack.");
                 }
                 else
                 {
-                    var entry = m_stack.Pop();
+                    var entry = s_stack.Pop();
                     if (DialogueDebug.logInfo) Debug.Log("Dialogue System: PopConversationPosition() Lua function is returning to entry " + entry.conversationID + ":" + entry.id + ": '" + entry.currentDialogueText + "'.");
                     DialogueManager.conversationModel.ForceNextStateToLinkToEntry(entry);
                 }
@@ -112,7 +118,7 @@ namespace PixelCrushers.DialogueSystem
         public static void ClearConversationPositionStack()
         {
             if (DialogueDebug.logInfo) Debug.Log("Dialogue System: ClearConversationPosition() Lua function is clearing the conversation position stack.");
-            m_stack.Clear();
+            s_stack.Clear();
         }
     }
 }

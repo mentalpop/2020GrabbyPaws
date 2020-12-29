@@ -370,7 +370,16 @@ namespace PixelCrushers.DialogueSystem
 
         private static string AddCommandToSequence(string sequence, string newCommand)
         {
-            return sequence + (string.IsNullOrEmpty(sequence) ? string.Empty : ";\n") + newCommand;
+            var s = sequence;
+            if (!string.IsNullOrEmpty(sequence) && !sequence.TrimEnd().EndsWith(";"))
+            {
+                s += ";\n";
+            }
+            else if (!string.IsNullOrEmpty(sequence) && !sequence.EndsWith("\n"))
+            {
+                s += "\n";
+            }
+            return s + newCommand;
         }
 
         private static string GetResourceName(string path)
@@ -477,6 +486,11 @@ namespace PixelCrushers.DialogueSystem
                 Replace("{{default}}", "None()").
                 Replace("{{end}}", "0");
             sequenceToCheck = Regex.Replace(sequenceToCheck, @"\{\{.+\}\}", string.Empty);
+            if (string.IsNullOrEmpty(sequenceToCheck) ||
+                string.IsNullOrEmpty(sequenceToCheck.Replace(";", string.Empty).Trim()))
+            {
+                return SequenceSyntaxState.Valid;
+            }
             var parser = new SequenceParser();
             var result = parser.Parse(sequenceToCheck);
             return (result == null || result.Count == 0) ? SequenceSyntaxState.Error : SequenceSyntaxState.Valid; 

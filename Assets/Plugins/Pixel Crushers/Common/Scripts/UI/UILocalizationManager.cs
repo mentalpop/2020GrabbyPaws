@@ -21,6 +21,10 @@ namespace PixelCrushers
         [SerializeField]
         private TextTable m_textTable = null;
 
+        [Tooltip("When starting, set current language to value saved in PlayerPrefs.")]
+        [SerializeField]
+        private bool m_saveLanguageInPlayerPrefs = true;
+
         private string m_currentLanguage = string.Empty;
 
         private static UILocalizationManager m_instance = null;
@@ -85,12 +89,21 @@ namespace PixelCrushers
             set { m_currentLanguagePlayerPrefsKey = value; }
         }
 
+        public bool saveLanguageInPlayerPrefs
+        {
+            get { return m_saveLanguageInPlayerPrefs; }
+            set { m_saveLanguageInPlayerPrefs = value; }
+        }
+
         private void Awake()
         {
             if (m_instance == null) m_instance = this;
-            if (!string.IsNullOrEmpty(currentLanguagePlayerPrefsKey) && PlayerPrefs.HasKey(currentLanguagePlayerPrefsKey))
+            if (saveLanguageInPlayerPrefs)
             {
-                m_currentLanguage = PlayerPrefs.GetString(currentLanguagePlayerPrefsKey);
+                if (!string.IsNullOrEmpty(currentLanguagePlayerPrefsKey) && PlayerPrefs.HasKey(currentLanguagePlayerPrefsKey))
+                {
+                    m_currentLanguage = PlayerPrefs.GetString(currentLanguagePlayerPrefsKey);
+                }
             }
         }
 
@@ -107,9 +120,12 @@ namespace PixelCrushers
         public void UpdateUIs(string language)
         {
             m_currentLanguage = language;
-            if (!string.IsNullOrEmpty(currentLanguagePlayerPrefsKey))
+            if (saveLanguageInPlayerPrefs)
             {
-                PlayerPrefs.SetString(currentLanguagePlayerPrefsKey, language);
+                if (!string.IsNullOrEmpty(currentLanguagePlayerPrefsKey))
+                {
+                    PlayerPrefs.SetString(currentLanguagePlayerPrefsKey, language);
+                }
             }
             var localizeUIs = FindObjectsOfType<LocalizeUI>();
             for (int i = 0; i < localizeUIs.Length; i++)

@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 #endif
-// NOTE: Support for the new Input System is not implemented yet.
 
 namespace PixelCrushers
 {
@@ -47,6 +46,11 @@ namespace PixelCrushers
 
         [Tooltip("If any of these keys are pressed, current device is keyboard (unless device is currently mouse).")]
         public KeyCode[] keyCodesToCheck = new KeyCode[] { KeyCode.Escape };
+
+        public enum KeyInputSwitchesModeTo { Keyboard, Mouse }
+
+        [Tooltip("Which mode to switch to if user presses Key Buttons/Codes To Check.")]
+        public KeyInputSwitchesModeTo keyInputSwitchesModeTo = KeyInputSwitchesModeTo.Mouse;
 
         [Tooltip("Always enable joystick/keyboard navigation even in Mouse mode.")]
         public bool alwaysAutoFocus = false;
@@ -217,6 +221,7 @@ namespace PixelCrushers
         public void SetInputDevice(InputDevice newDevice)
         {
             inputDevice = newDevice;
+            m_lastMousePosition = GetMousePosition();
             SetCursor(deviceUsesCursor);
             SetGraphicRaycasters(deviceUsesCursor);
             switch (inputDevice)
@@ -255,7 +260,7 @@ namespace PixelCrushers
             {
                 case InputDevice.Joystick:
                     if (IsUsingMouse()) SetInputDevice(InputDevice.Mouse);
-                    else if (IsUsingKeyboard()) SetInputDevice(InputDevice.Mouse);
+                    else if (IsUsingKeyboard()) SetInputDevice((keyInputSwitchesModeTo == KeyInputSwitchesModeTo.Keyboard) ? InputDevice.Keyboard : InputDevice.Mouse);
                     break;
                 case InputDevice.Keyboard:
                     if (IsUsingMouse()) SetInputDevice(InputDevice.Mouse);
@@ -263,6 +268,7 @@ namespace PixelCrushers
                     break;
                 case InputDevice.Mouse:
                     if (IsUsingJoystick()) SetInputDevice(InputDevice.Joystick);
+                    else if (keyInputSwitchesModeTo == KeyInputSwitchesModeTo.Keyboard && IsUsingKeyboard()) SetInputDevice(InputDevice.Keyboard);
                     break;
                 case InputDevice.Touch:
                     if (IsUsingMouse()) SetInputDevice(InputDevice.Mouse);
@@ -393,6 +399,7 @@ namespace PixelCrushers
         {
             Cursor.visible = visible;
             Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+            m_lastMousePosition = GetMousePosition();
             StartCoroutine(ForceCursorAfterOneFrameCoroutine(visible));
         }
 

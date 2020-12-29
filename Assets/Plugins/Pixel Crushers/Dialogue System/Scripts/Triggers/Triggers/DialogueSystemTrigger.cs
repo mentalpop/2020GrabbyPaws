@@ -251,7 +251,7 @@ namespace PixelCrushers.DialogueSystem
         /// don't start the conversation.
         /// </summary>
         [Tooltip("Only trigger if at least one entry's Conditions are currently true.")]
-        public bool skipIfNoValidEntries = true;
+        public bool skipIfNoValidEntries = false;
 
         /// <summary>
         /// Set <c>true</c> to stop the conversation if the actor leaves the trigger area.
@@ -259,7 +259,7 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Stop conversation if actor leaves trigger area.")]
         public bool stopConversationOnTriggerExit = false;
 
-        [Tooltip("Stop conversation if player exceeds Max Conversation Distance.")]
+        [Tooltip("Stop conversation if Conversation Actor exceeds Max Conversation Distance from this trigger.")]
         public bool stopConversationIfTooFar = false;
 
         [Tooltip("If Stop Conversation If Too Far is ticked, this is too far.")]
@@ -394,6 +394,10 @@ namespace PixelCrushers.DialogueSystem
                 StartCoroutine(StartAtEndOfFrame());
             }
             barkGroupMember = GetBarker(barkConversation).GetComponent<BarkGroupMember>();
+            if (cacheBarkLines && barkSource == BarkSource.Conversation && !string.IsNullOrEmpty(barkConversation))
+            {
+                PopulateCache(GetBarker(barkConversation), barkTarget);
+            }
         }
 
         public void OnBarkStart(Transform actor)
@@ -809,7 +813,7 @@ namespace PixelCrushers.DialogueSystem
                 if ((barkEntry == null) && DialogueDebug.logWarnings) Debug.Log(string.Format("{0}: Bark (speaker={1}, listener={2}): '{3}' bark entry is null", new System.Object[] { DialogueDebug.Prefix, speaker, listener, conversation }), speaker);
                 if (barkEntry != null)
                 {
-                    Subtitle subtitle = new Subtitle(cachedState.subtitle.listenerInfo, cachedState.subtitle.speakerInfo, new FormattedText(barkEntry.currentDialogueText), string.Empty, string.Empty, barkEntry);
+                    Subtitle subtitle = new Subtitle(cachedState.subtitle.listenerInfo, cachedState.subtitle.speakerInfo, new FormattedText(barkEntry.currentDialogueText), barkEntry.currentSequence, string.Empty, barkEntry);
                     if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Bark (speaker={1}, listener={2}): '{3}'", new System.Object[] { DialogueDebug.Prefix, speaker, listener, subtitle.formattedText.text }), speaker);
                     if (barkGroupMember != null)
                     {
@@ -849,7 +853,7 @@ namespace PixelCrushers.DialogueSystem
                 if (conversantTransform == null)
                 {
                     var conversationAsset = DialogueManager.MasterDatabase.GetConversation(conversation);
-                    var conversationConversantActor = DialogueManager.MasterDatabase.GetActor(conversationAsset.ConversantID);
+                    var conversationConversantActor = (conversationAsset != null) ? DialogueManager.MasterDatabase.GetActor(conversationAsset.ConversantID) : null;
                     var registeredTransform = (conversationConversantActor != null) ? CharacterInfo.GetRegisteredActorTransform(conversationConversantActor.Name) : null;
                     conversantTransform = (registeredTransform != null) ? registeredTransform : this.transform;
                 }

@@ -32,7 +32,8 @@ namespace PixelCrushers.DialogueSystem
         public bool alwaysForceResponseMenu = true;
         public bool includeInvalidEntries = false;
         public float responseTimeout = 0;
+        public InputTrigger cancelSubtitle = new InputTrigger(KeyCode.Escape);
+        public InputTrigger cancelConversation = new InputTrigger(KeyCode.Escape);
     }
-
 
 }

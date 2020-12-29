@@ -25,6 +25,7 @@ namespace PixelCrushers.DialogueSystem
                 EditorWindowTools.StartIndentedSection();
                 foreach (var member in kvp.Value)
                 {
+                    if (member == null) continue;
                     if (GUILayout.Button(member.name)) Selection.activeGameObject = member.gameObject;
                 }
                 EditorWindowTools.EndIndentedSection();

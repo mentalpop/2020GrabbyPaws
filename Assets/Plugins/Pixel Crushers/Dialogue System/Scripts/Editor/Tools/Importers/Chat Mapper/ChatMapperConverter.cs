@@ -75,6 +75,8 @@ namespace PixelCrushers.DialogueSystem
         private const string ChatMapperExeKey = "PixelCrushers.DialogueSystem.ChatMapperExe";
         public const string PrefsKey = "PixelCrushers.DialogueSystem.ChatMapperConverterPrefs";
 
+        public enum PortraitType { Texture, Sprite }
+
         /// <summary>
         /// This is the prefs (converter window settings) class. The converter
         /// window uses an instance of this class to store the user's current settings.
@@ -88,6 +90,7 @@ namespace PixelCrushers.DialogueSystem
             public List<string> projectFilenames = new List<string>();
             public List<bool> includeProjectFilenames = new List<bool>();
             public string portraitFolder = string.Empty;
+            public PortraitType portraitType = PortraitType.Texture;
             public bool putEndSequenceOnLastSplit = true;
             public bool resetNodePositions = false;
             public string outputFolder = "Assets";
@@ -268,7 +271,7 @@ namespace PixelCrushers.DialogueSystem
                 prefs.projectFilenames.RemoveAt(projectFilenameToDelete);
             }
 
-            // Portrait Folder:
+            // Portrait Folder, Format:
             EditorGUILayout.BeginHorizontal();
             prefs.portraitFolder = EditorGUILayout.TextField(new GUIContent("Portrait Folder", "Optional folder containing actor portrait textures. The converter will search this folder for textures matching any actor pictures defined in the Chat Mapper project."), prefs.portraitFolder);
             if (GUILayout.Button("...", EditorStyles.miniButtonRight, GUILayout.Width(22)))
@@ -278,6 +281,7 @@ namespace PixelCrushers.DialogueSystem
                 GUIUtility.keyboardControl = 0;
             }
             EditorGUILayout.EndHorizontal();
+            prefs.portraitType = (PortraitType)EditorGUILayout.EnumPopup(new GUIContent("Portait Type", "Are portrait images Default/Texture or Sprite?"), prefs.portraitType);
 
             // Piped sequences:
             prefs.putEndSequenceOnLastSplit = EditorGUILayout.Toggle(new GUIContent("Smart Split", "When splitting at pipes (|), put {{end}} sequences on the last entry."), prefs.putEndSequenceOnLastSplit);
@@ -542,7 +546,7 @@ namespace PixelCrushers.DialogueSystem
         {
             database.actors = new List<Actor>();
             chatMapperProject.Assets.Actors.ForEach(a => database.actors.Add(new Actor(a)));
-            database.actors.ForEach(a => FindPortraitTexture(a));
+            database.actors.ForEach(a => FindPortraitTextures(a));
         }
 
         private void ConvertItems(PixelCrushers.DialogueSystem.ChatMapper.ChatMapperProject chatMapperProject, DialogueDatabase database)
@@ -606,20 +610,59 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void FindPortraitTexture(Actor actor)
+        private void FindPortraitTextures(Actor actor)
         {
             if (actor == null) return;
-            string textureName = actor.textureName;
-            if (!string.IsNullOrEmpty(textureName))
+
+            var field = Field.Lookup(actor.fields, DialogueSystemFields.Pictures);
+            if ((field == null) || (field.value == null))
             {
-                string filename = Path.GetFileName(textureName).Replace('\\', '/');
-                string assetPath = string.Format("{0}/{1}", prefs.portraitFolder, filename);
-                Texture2D texture = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Texture2D)) as Texture2D;
-                if (texture == null)
+                return;
+            }
+            var names = new List<string>(field.value.Split(new char[] { '[', ';', ']' }));
+            names.RemoveAll(s => string.IsNullOrEmpty(s.Trim()));
+            for (int i = 0; i < names.Count; i++)
+            {
+                string textureName = names[i];
+                if (!string.IsNullOrEmpty(textureName.Trim()))
                 {
-                    Debug.LogWarning(string.Format("{0}: Can't find portrait texture {1} for {2}.", DialogueDebug.Prefix, assetPath, actor.Name));
+                    string filename = Path.GetFileName(textureName).Replace('\\', '/');
+                    string assetPath = string.Format("{0}/{1}", prefs.portraitFolder, filename);
+                    switch (prefs.portraitType)
+                    {
+                        default:
+                        case PortraitType.Texture:
+                            Texture2D texture = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Texture2D)) as Texture2D;
+                            if (texture == null)
+                            {
+                                Debug.LogWarning(string.Format("{0}: Can't find portrait texture {1} for {2}.", DialogueDebug.Prefix, assetPath, actor.Name));
+                            }
+                            else if (i == 0) // First portrait.
+                            {
+                                actor.portrait = texture;
+                            }
+                            else
+                            {
+                                actor.alternatePortraits.Add(texture);
+                            }
+                            break;
+                        case PortraitType.Sprite:
+                            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+                            if (sprite == null)
+                            {
+                                Debug.LogWarning(string.Format("{0}: Can't find portrait sprite {1} for {2}.", DialogueDebug.Prefix, assetPath, actor.Name));
+                            }
+                            else if (i == 0) // First portrait.
+                            {
+                                actor.spritePortrait = sprite;
+                            }
+                            else
+                            {
+                                actor.spritePortraits.Add(sprite);
+                            }
+                            break;
+                    }
                 }
-                actor.portrait = texture;
             }
         }
 

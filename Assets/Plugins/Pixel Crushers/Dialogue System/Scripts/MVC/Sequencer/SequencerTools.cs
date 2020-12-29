@@ -88,7 +88,10 @@ namespace PixelCrushers.DialogueSystem
             if (SpecifierSpecifiesTag(specifier))
             {
                 var tag = GetSpecifiedTag(specifier);
-                return GameObject.FindGameObjectWithTag(tag);
+                var taggedGO = GameObject.FindGameObjectWithTag(tag);
+                if (taggedGO != null) return taggedGO;
+                var results = Tools.FindGameObjectsWithTagHard(tag);
+                return (results.Length > 0) ? results[0] : null;
             }
 
             // Search registered actors:

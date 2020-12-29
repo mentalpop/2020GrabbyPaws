@@ -68,7 +68,7 @@ namespace PixelCrushers
         private bool IsBeingClickedBySubmit()
         {
             return EventSystem.current != null &&
-                EventSystem.current.currentSelectedGameObject != m_selectable.gameObject &&
+                EventSystem.current.currentSelectedGameObject == m_selectable.gameObject &&
                 InputDeviceManager.instance != null &&
                 InputDeviceManager.IsButtonDown(InputDeviceManager.instance.submitButton);
         }
@@ -76,7 +76,12 @@ namespace PixelCrushers
         IEnumerator SimulateButtonClick()
         {
             m_selectable.OnPointerDown(new PointerEventData(EventSystem.current));
-            yield return new WaitForSeconds(simulateButtonDownDuration);
+            var timeLeft = simulateButtonDownDuration;
+            while (timeLeft > 0)
+            {
+                yield return null;
+                timeLeft -= Time.unscaledDeltaTime;
+            }
             m_selectable.OnDeselect(null);
             ExecuteEvents.Execute(m_selectable.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
         }

@@ -495,6 +495,18 @@ namespace PixelCrushers.DialogueSystem
                 ((inputSettings != null) ? inputSettings.responseTimeout : 0);
         }
 
+        public InputTrigger GetCancelSubtitleInput()
+        {
+            return ShouldUseInputOverrides() ? conversationOverrideSettings.cancelSubtitle :
+                ((inputSettings != null) ? inputSettings.cancel : null);
+        }
+
+        public InputTrigger GetCancelConversationInput()
+        {
+            return ShouldUseInputOverrides() ? conversationOverrideSettings.cancelConversation :
+                ((inputSettings != null) ? inputSettings.cancelConversation : null);
+        }
+
     }
 
     /// <summary>

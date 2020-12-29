@@ -7,6 +7,7 @@ namespace PixelCrushers.DialogueSystem
 {
 
     public delegate QuestState StringToQuestStateDelegate(string s);
+    public delegate string QuestStateToStringDelegate(QuestState state);
     public delegate string CurrentQuestStateDelegate(string quest);
     public delegate void SetQuestStateDelegate(string quest, string state);
     public delegate void SetQuestEntryStateDelegate(string quest, int entryNumber, string state);
@@ -101,6 +102,12 @@ namespace PixelCrushers.DialogueSystem
         public const string GrantableStateString = "grantable";
 
         /// <summary>
+        /// Constant state string for quests that are waiting to return to NPC.
+        /// This state isn't used by the Dialogue System, but it's made available for those who want to use it.
+        /// </summary>
+        public const string ReturnToNPCStateString = "returnToNPC";
+
+        /// <summary>
         /// Constant state string for quests that are done, if you want to track done instead of success/failure.
         /// This is essentially the same as success, and corresponds to the same enum value, QuestState.Success
         /// </summary>
@@ -111,6 +118,8 @@ namespace PixelCrushers.DialogueSystem
         /// strings to QuestStates.
         /// </summary>
         public static StringToQuestStateDelegate StringToState = DefaultStringToState;
+
+        public static QuestStateToStringDelegate StateToString = DefaultStateToString;
 
         /// <summary>
         /// You can assign a method to override the default CurrentQuestState.
@@ -177,7 +186,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (!string.IsNullOrEmpty(questName))
             {
-                Lua.Run(string.Format("Item[\"{0}\"] = {{ Name = \"{1}\", Description = \"{2}\", Success_Description = \"{3}\", Failure_Description = \"{4}\", State = \"{5}\" }}",
+                Lua.Run(string.Format("Item[\"{0}\"] = {{ Name = \"{1}\", Is_Item = false, Description = \"{2}\", Success_Description = \"{3}\", Failure_Description = \"{4}\", State = \"{5}\" }}",
                                       new System.Object[] { DialogueLua.StringToTableIndex(questName),
                                       DialogueLua.DoubleQuotesToSingle(questName),
                                       DialogueLua.DoubleQuotesToSingle(description),
@@ -207,7 +216,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (!string.IsNullOrEmpty(questName))
             {
-                Lua.Run(string.Format("Item[\"{0}\"] = {{ Name = \"{1}\", Description = \"{2}\", State = \"{3}\" }}",
+                Lua.Run(string.Format("Item[\"{0}\"] = {{ Name = \"{1}\", Is_Item = false, Description = \"{2}\", State = \"{3}\" }}",
                                       new System.Object[] { DialogueLua.StringToTableIndex(questName),
                                       DialogueLua.DoubleQuotesToSingle(questName),
                                       DialogueLua.DoubleQuotesToSingle(description),
@@ -523,31 +532,48 @@ namespace PixelCrushers.DialogueSystem
             if (string.Equals(s, FailureStateString)) return QuestState.Failure;
             if (string.Equals(s, AbandonedStateString)) return QuestState.Abandoned;
             if (string.Equals(s, GrantableStateString)) return QuestState.Grantable;
+            if (string.Equals(s, ReturnToNPCStateString)) return QuestState.ReturnToNPC;
             return QuestState.Unassigned;
         }
 
-        /// <summary>
-        /// Converts a state to its string representation.
-        /// </summary>
-        /// <returns>
-        /// The string representation (e.g., "active").
-        /// </returns>
-        /// <param name='state'>
-        /// The state (e.g., <c>QuestState.Active</c>).
-        /// </param>
-        public static string StateToString(QuestState state)
+        public static string DefaultStateToString(QuestState state)
         {
             switch (state)
             {
+                default:
                 case QuestState.Unassigned: return UnassignedStateString;
                 case QuestState.Active: return ActiveStateString;
                 case QuestState.Success: return SuccessStateString;
                 case QuestState.Failure: return FailureStateString;
                 case QuestState.Abandoned: return AbandonedStateString;
                 case QuestState.Grantable: return GrantableStateString;
-                default: return UnassignedStateString;
+                case QuestState.ReturnToNPC: return ReturnToNPCStateString;
             }
         }
+
+        ///// <summary>
+        ///// Converts a state to its string representation.
+        ///// </summary>
+        ///// <returns>
+        ///// The string representation (e.g., "active").
+        ///// </returns>
+        ///// <param name='state'>
+        ///// The state (e.g., <c>QuestState.Active</c>).
+        ///// </param>
+        //public static string StateToString(QuestState state)
+        //{
+        //    switch (state)
+        //    {
+        //        case QuestState.Unassigned: return UnassignedStateString;
+        //        case QuestState.Active: return ActiveStateString;
+        //        case QuestState.Success: return SuccessStateString;
+        //        case QuestState.Failure: return FailureStateString;
+        //        case QuestState.Abandoned: return AbandonedStateString;
+        //        case QuestState.Grantable: return GrantableStateString;
+        //        case QuestState.ReturnToNPC: return ReturnToNPCStateString;
+        //        default: return UnassignedStateString;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the localized quest display name.

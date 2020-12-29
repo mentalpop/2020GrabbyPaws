@@ -14,6 +14,22 @@ namespace PixelCrushers.DialogueSystem
     {
 
         /// <summary>
+        /// Dialogue databases may use Texture2Ds or Sprites for actor portraits. Unity UI uses sprites.
+        /// The CreateSprite method converts textures to sprites. This dictionary contains
+        /// converted sprites so we don't need to reconvert them every time we want to show 
+        /// an actor's portrait.
+        /// </summary>
+        public static Dictionary<Texture2D, Sprite> spriteCache = new Dictionary<Texture2D, Sprite>();
+
+#if UNITY_2019_3_OR_NEWER
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void InitStaticVariables()
+        {
+            ClearSpriteCache();
+        }
+#endif
+
+        /// <summary>
         /// Ensures that the scene has an EventSystem.
         /// </summary>
         public static void RequireEventSystem()
@@ -22,8 +38,13 @@ namespace PixelCrushers.DialogueSystem
             if (eventSystem == null)
             {
                 if (DialogueDebug.logWarnings) Debug.LogWarning(DialogueDebug.Prefix + ": The scene is missing an EventSystem. Adding one.");
+#if USE_NEW_INPUT
+                new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem),
+                               typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule));
+#else
                 new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem),
                                typeof(UnityEngine.EventSystems.StandaloneInputModule));
+#endif
             }
         }
 
@@ -34,14 +55,6 @@ namespace PixelCrushers.DialogueSystem
         {
 			return animatorStateInfo.fullPathHash;
         }
-
-        /// <summary>
-        /// Dialogue databases may use Texture2Ds or Sprites for actor portraits. Unity UI uses sprites.
-        /// The CreateSprite method converts textures to sprites. This dictionary contains
-        /// converted sprites so we don't need to reconvert them every time we want to show 
-        /// an actor's portrait.
-        /// </summary>
-        public static Dictionary<Texture2D, Sprite> spriteCache = new Dictionary<Texture2D, Sprite>();
 
         /// <summary>
         /// Clears the sprite cache, forcing all textures to be converted to sprites
@@ -61,9 +74,13 @@ namespace PixelCrushers.DialogueSystem
         public static Sprite CreateSprite(Texture2D texture)
         {
             if (texture == null) return null;
-            if (spriteCache.ContainsKey(texture)) return spriteCache[texture];
+            if (spriteCache.ContainsKey(texture))
+            {
+                var cachedSprite = spriteCache[texture];
+                if (cachedSprite != null) return spriteCache[texture];
+            }
             var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            spriteCache.Add(texture, sprite);
+            spriteCache[texture] = sprite;
             return sprite;
         }
 
