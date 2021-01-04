@@ -17,8 +17,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Ads04
+    second: {fileID: 2100000, guid: c384f9a6c8c81114fa8c87b57887ca3b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
-    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+    second: {fileID: 2100000, guid: 8ca26dd8b1332b04ebe00b2f4bb4e978, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -37,13 +42,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Palette Specials.003
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Palette Stones
     second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: SaleSigns03
-    second: {fileID: 2100000, guid: bc5adfdb0122df34ebf4d391ef3a333b, type: 2}
+    second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SaleSigns04
+    second: {fileID: 2100000, guid: bde808f321d3f2f44baaa9bf512ca19a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -53,7 +68,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Sign02
-    second: {fileID: 2100000, guid: d5d3d7b4d753fee45b100ab81ed8c1bf, type: 2}
+    second: {fileID: 2100000, guid: 8b6333a941cd1de4ca1f6dd2c9cf1af7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
