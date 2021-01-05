@@ -420,6 +420,7 @@ MonoBehaviour:
   unfocusAnimationTrigger: 
   useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  waitForClose: 0
   clearTextOnClose: 1
   onFocus:
     m_PersistentCalls:
@@ -1224,6 +1225,12 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      cancelSubtitle:
+        key: 27
+        buttonName: 
+      cancelConversation:
+        key: 27
+        buttonName: 
     dialogueUI: {fileID: 2561004221758331280}
     localizationSettings:
       language: 
@@ -1287,9 +1294,11 @@ MonoBehaviour:
     asyncDialogueEntryBatchSize: 100
     initializeNewVariables: 1
   allowSimultaneousConversations: 0
+  interruptActiveConversations: 0
   includeSimStatus: 1
-  preloadResources: 1
   instantiateDatabase: 0
+  preloadResources: 1
+  warmUpConversationController: 0
   dontDestroyOnLoad: 1
   allowOnlyOneInstance: 1
   dialogueTimeMode: 0
@@ -1332,7 +1341,8 @@ MonoBehaviour:
   keyButtonsToCheck:
   - Steal
   keyCodesToCheck: 1b000000
-  alwaysAutoFocus: 0
+  keyInputSwitchesModeTo: 1
+  alwaysAutoFocus: 1
   detectMouseControl: 1
   mouseMoveThreshold: 0.1
   controlCursorState: 1
@@ -1371,6 +1381,7 @@ MonoBehaviour:
   m_appendSaverTypeToKey: 0
   m_saveAcrossSceneChanges: 1
   m_restoreStateOnStart: 0
+  skipApplyDataAfterFramesIfApplyImmediate: 1
   saveRawData: 0
 --- !u!114 &2561004222165722557
 MonoBehaviour:
@@ -2596,6 +2607,7 @@ MonoBehaviour:
         m_CallState: 2
   focusAnimationTrigger: 
   unfocusAnimationTrigger: 
+  waitForClose: 0
   onFocus:
     m_PersistentCalls:
       m_Calls: []
@@ -2618,6 +2630,8 @@ MonoBehaviour:
   scrollRect: {fileID: 2561004220339469848}
   scrollContent: {fileID: 2561004221616522571}
   scrollbar: {fileID: 2561004220942380351}
+  smoothScroll: 0
+  smoothScrollSpeed: 5
 --- !u!1 &2561004221296813945
 GameObject:
   m_ObjectHideFlags: 0
@@ -4875,6 +4889,7 @@ MonoBehaviour:
   unfocusAnimationTrigger: 
   useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  waitForClose: 0
   clearTextOnClose: 1
   onFocus:
     m_PersistentCalls:
