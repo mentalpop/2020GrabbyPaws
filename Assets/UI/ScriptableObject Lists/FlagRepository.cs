@@ -32,6 +32,7 @@ public class FlagRepository : MonoBehaviour
 
     #region Lua Functions
     private void RegisterLuaFunctions() {
+        //Debug.Log("FLAGS RegisterLuaFunctions");
         Lua.RegisterFunction("QuestRead", this, SymbolExtensions.GetMethodInfo(() => QuestRead(string.Empty)));
         Lua.RegisterFunction("QuestCompelete", this, SymbolExtensions.GetMethodInfo(() => QuestCompelete(string.Empty)));
         Lua.RegisterFunction("SecretRead", this, SymbolExtensions.GetMethodInfo(() => SecretRead(string.Empty)));
@@ -43,7 +44,7 @@ public class FlagRepository : MonoBehaviour
     public void QuestCompelete(string name) { WriteQuestKey(name, true); }
     public double SecretRead(string name) { return ReadSecretKey(name); }
     public void SecretFound(string name) { SecretKeyFound(name); }
-    public void SecretWrite(string name, int value) { WriteSecretKey(name, value); }
+    public void SecretWrite(string name, double value) { WriteSecretKey(name, value); }
 
     #endregion
 
@@ -76,8 +77,8 @@ public class FlagRepository : MonoBehaviour
         }
     }
 
-    public static void WriteSecretKey(string key, int value) {
-        instance.flags.secretFlags[key] = value;
+    public static void WriteSecretKey(string key, double value) {
+        instance.flags.secretFlags[key] = (int)value;
     }
 //Save / Load
     private void OnEnable() {

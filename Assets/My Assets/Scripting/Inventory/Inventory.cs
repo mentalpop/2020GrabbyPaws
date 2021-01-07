@@ -53,10 +53,11 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     }
     #region Lua Functions
     private void RegisterLuaFunctions() {
+        //Debug.Log("Inventory RegisterLuaFunctions");
         Lua.RegisterFunction("InventoryHas", this, SymbolExtensions.GetMethodInfo(() => InventoryHas(string.Empty)));
         Lua.RegisterFunction("InventoryCount", this, SymbolExtensions.GetMethodInfo(() => InventoryCount(string.Empty)));
-        Lua.RegisterFunction("InventoryAdd", this, SymbolExtensions.GetMethodInfo(() => InventoryAdd(string.Empty, 0)));
-        Lua.RegisterFunction("InventoryRemove", this, SymbolExtensions.GetMethodInfo(() => InventorySubtract(string.Empty, 0)));
+        Lua.RegisterFunction("InventoryAdd", this, SymbolExtensions.GetMethodInfo(() => InventoryAdd(string.Empty, 0f)));
+        Lua.RegisterFunction("InventoryRemove", this, SymbolExtensions.GetMethodInfo(() => InventorySubtract(string.Empty, 0f)));
         Lua.RegisterFunction("InventoryRemoveAllOf", this, SymbolExtensions.GetMethodInfo(() => InventoryRemove(string.Empty)));
     }
 
@@ -80,11 +81,11 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         return count;
     }
 
-    public void InventoryAdd(string name, int quantity) {
+    public void InventoryAdd(string name, double quantity) {
         foreach (var item in itemMetaList.items) { //Find the Item in the Meta list based on String reference, add X of it to the inventory
             if (item.name == name) {
                 //items.Add(new InventoryItem(item, quantity));
-                Add(item, quantity);
+                Add(item, (int)quantity);
                 Debug.Log("Adding to Inventory: " + item.name);
                 break;
             }
@@ -92,7 +93,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         OnItemChanged?.Invoke();
     }
 
-    public void InventorySubtract(string name, int quantity) {
+    public void InventorySubtract(string name, double _quantity) {
+        int quantity = (int)_quantity;
         while (quantity > 0) {
             foreach (var item in items) { //Try to remove an item if it exists in the inventory
                 if (item.item.name == name) {

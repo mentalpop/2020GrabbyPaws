@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 8644822409578762218}
   - component: {fileID: 4744622128889933642}
   - component: {fileID: 6264294645154717691}
+  - component: {fileID: 5800996381238443349}
+  - component: {fileID: 368964183743051531}
+  - component: {fileID: 1342478513787650397}
   m_Layer: 5
   m_Name: TabInventory
   m_TagString: Untagged
@@ -98,6 +101,61 @@ MonoBehaviour:
   myParentMenu: {fileID: 0}
   tabID: 0
   inventoryScrollRect: {fileID: 2498146075478083770}
+--- !u!114 &5800996381238443349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
+--- !u!114 &368964183743051531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 5800996381238443349}
+--- !u!114 &1342478513787650397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299d2ce5c6f4ed54cbbfc14849cd89f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 5800996381238443349}
+  allowSelectionWhileActive: 1
+  buttonState: 0
+  image: {fileID: 4744622128889933642}
+  colorNeutral: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorFocus: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorSelected: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorActive: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorActiveFocus: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorActiveSelected: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
+  colorUnavailable: {r: 0.14117648, g: 0.23921569, b: 0.52156866, a: 1}
 --- !u!1 &4513065594803914880
 GameObject:
   m_ObjectHideFlags: 0
