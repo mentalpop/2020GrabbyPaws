@@ -33,6 +33,7 @@ TagManager:
   - NPC
   - Targets
   - Door
+  - Theftable
   layers:
   - Default
   - TransparentFX
