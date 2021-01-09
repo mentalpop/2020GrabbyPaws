@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: Trash_TroutBones
   m_EditorClassIdentifier: 
+  ID: Trash_TroutBones
   name: Trout Bones (fallen comrade)
   category: 0
   icon: {fileID: 0}
@@ -28,3 +29,4 @@ MonoBehaviour:
   negativeValue: 0
   description: Some say you can still hear it flip-flap-floppin' around on the ground
     to this day.
+  riven: Riven's Comment

@@ -5,6 +5,7 @@ public enum CategoryItem { Trash, Scrap, Key}
 [CreateAssetMenu(fileName = "New Item", menuName = "Item")]
 public class Item : ScriptableObject {
 
+    public string ID = "Trash_";
     new public string name = "New Item";
     public CategoryItem category;
     public Sprite icon = null;

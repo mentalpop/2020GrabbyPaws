@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: Item_Null
   m_EditorClassIdentifier: 
+  ID: Item_Null
   name: One Empty Pocket
   category: 2
   icon: {fileID: 0}
@@ -26,3 +27,4 @@ MonoBehaviour:
   cursed: 0
   negativeValue: 0
   description: Better find something to put in here!
+  riven: Riven's Comment

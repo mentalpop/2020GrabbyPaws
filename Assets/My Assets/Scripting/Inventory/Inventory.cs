@@ -62,33 +62,46 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     }
 
     public bool InventoryHas(string name) {
+        Debug.Log("Looking for a: " + name);
         foreach (var item in items) { //Ensure the item exists in the inventory
-            if (item.item.name == name) {
+            //Debug.Log("Comparing against: " + item.item.name);
+            if (item.item.ID == name) {
+                Debug.Log("Found it");
                 return true;
             }
         }
+        Debug.Log("Did not find it");
         return false;
     }
 
     public double InventoryCount(string name) {
         int count = 0;
+        //Debug.Log("Counting: " + name);
         foreach (var item in items) { //Count occurrences of the item in the inventory
-            if (item.item.name == name) {
+            //Debug.Log("Comparing against: " + item.item.name);
+            if (item.item.ID == name) {
                 count = item.quantity;
                 break;
             }
         }
+        //Debug.Log("Found: " + name);
         return count;
     }
 
     public void InventoryAdd(string name, double quantity) {
+        Debug.Log("Attempting to add to Inventory: " + name);
+        bool _success = false;
         foreach (var item in itemMetaList.items) { //Find the Item in the Meta list based on String reference, add X of it to the inventory
-            if (item.name == name) {
+            if (item.ID == name) {
                 //items.Add(new InventoryItem(item, quantity));
                 Add(item, (int)quantity);
-                Debug.Log("Adding to Inventory: " + item.name);
+                Debug.Log("Successfully added to Inventory: " + item.ID);
+                _success = true;
                 break;
             }
+        }
+        if (!_success) {
+            Debug.LogWarning("Failed to add \""+name+ "\" to Inventory, are you sure it's in the ItemMetaList?");
         }
         OnItemChanged?.Invoke();
     }
@@ -97,7 +110,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         int quantity = (int)_quantity;
         while (quantity > 0) {
             foreach (var item in items) { //Try to remove an item if it exists in the inventory
-                if (item.item.name == name) {
+                if (item.item.ID == name) {
                     while (quantity > 0) {
                         if (item.quantity > 0)
                             Remove(item.item);
@@ -116,7 +129,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public void InventoryRemove(string name) {
 //Remove all occurrences of an item from the inventory, good if you don't want to be specific
         foreach (var item in items) { 
-            if (item.item.name == name) {
+            if (item.item.ID == name) {
                 RemoveAll(item.item);
                 break;
             }

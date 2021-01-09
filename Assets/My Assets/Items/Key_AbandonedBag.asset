@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: Key_AbandonedBag
   m_EditorClassIdentifier: 
+  ID: Key_AbandonedBag
   name: Abandoned Buckles
   category: 2
   icon: {fileID: 0}
