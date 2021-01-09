@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     public void SetLockState(bool doLock) {
-        vThirdPersonInput.lockInput = doLock;
+        //vThirdPersonInput.lockInput = doLock;
+        vThirdPersonInput.SetLockBasicInput(doLock);
     }
 }

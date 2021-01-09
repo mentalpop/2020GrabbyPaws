@@ -365,7 +365,17 @@ public class UI : MonoBehaviour
 
     public static void SetControlState(bool lockMouse, GameObject gameObject) {
         if (lockMouse) {
-            Instance.mouseCursorUsers.Add(gameObject);
+            bool _alreadyIn = false;
+        //Prevent redundant addition of locking objects
+            foreach (var item in Instance.mouseCursorUsers) {
+                if (item == gameObject) {
+                    _alreadyIn = true;
+                    break;
+                }
+            }
+            if (!_alreadyIn) {
+                Instance.mouseCursorUsers.Add(gameObject);
+            }
         } else {
             Instance.mouseCursorUsers.Remove(gameObject);
         }

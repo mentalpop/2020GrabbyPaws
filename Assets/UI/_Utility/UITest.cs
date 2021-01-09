@@ -9,7 +9,7 @@ public class UITest : MonoBehaviour
 
     private void Start() {
 //Debug; 
-        UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
+        //UI.Instance.ShowLappyMenu(true);  //open Lappy menu instantly to test
         //UI.Instance.ShowInventoryDisplay();
         //UI.Instance.DisplayPC(samplePC);
     //Unlock Secrets so they become visible in the Not Secrets window
