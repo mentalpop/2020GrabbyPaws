@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
+  m_Name: Key_LoanApplication
+  m_EditorClassIdentifier: 
+  ID: Key_LoanApplication
+  name: Loan Application
+  category: 2
+  icon: {fileID: 0}
+  value: 0
+  physicalItem: {fileID: 7689601147691585014, guid: b005f80222b753c43ad28793d69ccb29,
+    type: 3}
+  weight: 0
+  model: {fileID: -927199367670048503, guid: 25752f7a61454384caceec5d65d7943e, type: 3}
+  positionOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 0
+  consumable: 0
+  cursed: 0
+  negativeValue: 0
+  description: You'll need to borrow Riven's glasses to be able to read all this
+    fine print.
+  riven: 

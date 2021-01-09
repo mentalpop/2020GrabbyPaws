@@ -21,10 +21,10 @@ MonoBehaviour:
     bold: 0
     italic: 0
     underline: 0
-  - color: {r: 1, g: 0, b: 0, a: 1}
+  - color: {r: 0.78042614, g: 0.48584908, b: 1, a: 1}
     bold: 0
     italic: 0
-    underline: 0
+    underline: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     bold: 0
     italic: 0
@@ -68407,7 +68407,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: InventoryAdd("Item_Book", 1)
+      userScript: InventoryAdd("Trash_Book001", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -68542,7 +68542,7 @@ MonoBehaviour:
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
-      conditionsString: InventoryHas("Item_Book")  == true
+      conditionsString: InventoryHas("Trash_Book001")  == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -107998,7 +107998,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Here, take a novelty Buckle Prince stabby.
+        value: Here, take a novelty Buckle Prince pen.
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
@@ -108036,7 +108036,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: InventoryAdd("Trash_BPNoveltyPen", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -108069,7 +108069,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
-        value: Don't worry, it's fake.
+        value: Don't worry, I have a ton.
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
@@ -108322,7 +108322,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: InventoryAdd("Trash_CreepyPeeper", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -112785,7 +112785,7 @@ MonoBehaviour:
         y: 2574.1008
         width: 160
         height: 30
-    canvasScrollPosition: {x: 58.730164, y: 0}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.63
   - id: 38
     fields:
@@ -117261,7 +117261,7 @@ MonoBehaviour:
         y: 703.4374
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 0, y: 53.125}
     canvasZoom: 0.6400002
   syncInfo:
     syncActors: 0

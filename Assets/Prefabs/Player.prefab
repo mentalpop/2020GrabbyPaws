@@ -276,7 +276,7 @@ MonoBehaviour:
   ragdollVelocity: -15
   fallMinHeight: 6
   fallMinVerticalVelocity: -10
-  fallDamage: 10
+  fallDamage: 0
   useRollRootMotion: 1
   rollControl: 1
   rollSpeed: 0
@@ -617,7 +617,7 @@ MonoBehaviour:
   - tag: NPC
     defaultUseMessage: Chat with
     UIElements: {fileID: 0}
-  - tag: Theftable
+  - tag: Targets
     defaultUseMessage: Steal?
     UIElements: {fileID: 0}
   layerSpecificElements: []
