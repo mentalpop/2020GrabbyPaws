@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: TestCursedItem
   m_EditorClassIdentifier: 
+  ID: Test_Cursed
   name: Cursed Skull
   category: 2
   icon: {fileID: 0}
@@ -27,3 +28,4 @@ MonoBehaviour:
   cursed: 1
   negativeValue: 0
   description: Who would have expected the skull would be cursed?
+  riven: 

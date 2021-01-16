@@ -492,7 +492,8 @@ MonoBehaviour:
     customSubtitlePanel: {fileID: 8019451605134732352}
     customSubtitlePanelOffset: {x: 0, y: 0, z: 0}
     menuPanelNumber: 1
-    customMenuPanel: {fileID: 0}
+    customMenuPanel: {fileID: 8058031902071679141, guid: 5398cd7e44b88c548ad528e8d21296a6,
+      type: 3}
     customMenuPanelOffset: {x: 0, y: 0, z: 0}
     useMenuPanelFor: 0
     portraitAnimatorController: {fileID: 0}

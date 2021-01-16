@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Pink Mixtape
   category: 0
   icon: {fileID: 0}
-  value: 0
+  value: 6
   physicalItem: {fileID: 7061725930561354256, guid: abf9b50304e5f5340b7879775e93fe50,
     type: 3}
   weight: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   cursed: 0
   negativeValue: 0
   description: It smells a bit like sweet potato but is otherwise clean.
-  riven: Riven's Comment
+  riven: 

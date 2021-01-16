@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: TestScrapItem
   m_EditorClassIdentifier: 
+  ID: Test_Scrap
   name: Scrap Cash
   category: 1
   icon: {fileID: 0}
@@ -27,3 +28,4 @@ MonoBehaviour:
   cursed: 0
   negativeValue: 0
   description: It's a Scrap item
+  riven: 

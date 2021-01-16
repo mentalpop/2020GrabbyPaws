@@ -67452,7 +67452,7 @@ MonoBehaviour:
         y: 1405.1719
         width: 160
         height: 30
-    canvasScrollPosition: {x: 284.48257, y: 537.9308}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.5800003
   - id: 22
     fields:
@@ -108036,7 +108036,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: InventoryAdd("Trash_BPNoveltyPen", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -112785,8 +112785,8 @@ MonoBehaviour:
         y: 2574.1008
         width: 160
         height: 30
-    canvasScrollPosition: {x: 785.71423, y: 1579.3652}
-    canvasZoom: 0.63
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.51000005
   - id: 38
     fields:
     - title: Title
@@ -113655,7 +113655,7 @@ MonoBehaviour:
         width: 160
         height: 30
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 0.97
   - id: 40
     fields:
     - title: Title
@@ -114001,7 +114001,7 @@ MonoBehaviour:
         destinationDialogueID: 14
         isConnector: 0
         priority: 2
-      conditionsString: InventoryHas("Item_LostID")  == false
+      conditionsString: InventoryHas("Key_LostID")  == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -116185,7 +116185,7 @@ MonoBehaviour:
         destinationDialogueID: 35
         isConnector: 0
         priority: 2
-      conditionsString: 
+      conditionsString: InventoryHas("Key_LostID")  == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -117057,7 +117057,7 @@ MonoBehaviour:
     - id: 47
       fields:
       - title: Title
-        value: New Dialogue Entry
+        value: 
         type: 0
         typeString: CustomFieldType_Text
       - title: Pictures
@@ -117081,7 +117081,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Here's your ID back, and your [Weapon].
+        value: Here's your ID back, and your Stabby.
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -117115,7 +117115,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: InventoryAdd("Trash_BPStabby", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -117261,8 +117261,8 @@ MonoBehaviour:
         y: 703.4374
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 53.125}
-    canvasZoom: 0.6400002
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.61000025
   syncInfo:
     syncActors: 0
     syncItems: 0

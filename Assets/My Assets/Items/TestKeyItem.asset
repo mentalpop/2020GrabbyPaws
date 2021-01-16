@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: TestKeyItem
   m_EditorClassIdentifier: 
-  name: Key item
+  ID: Test_Key
+  name: Key Item
   category: 2
   icon: {fileID: 0}
   value: 1
@@ -27,3 +28,4 @@ MonoBehaviour:
   cursed: 0
   negativeValue: 0
   description: It's literally a key, what were you expecting?
+  riven: Riven's Comment
