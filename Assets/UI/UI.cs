@@ -351,14 +351,16 @@ public class UI : MonoBehaviour
     private void OnCameraActivated() {
         cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
         switch(cBrain.ActiveVirtualCamera) {
-                case CinemachineVirtualCamera cVc:
+            case CinemachineVirtualCamera cVc:
+                if (cVc.m_LookAt == null) {
                     cVc.m_LookAt = player.cameraTarget;
-                    //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
-                    break;
-                case CinemachineFreeLook cFc:
-                    cFc.m_LookAt = player.cameraTarget;
-                    cFc.m_Follow = player.cameraTarget;
-                    break;
+                //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
+                }
+                break;
+            case CinemachineFreeLook cFc:
+                cFc.m_LookAt = player.cameraTarget;
+                cFc.m_Follow = player.cameraTarget;
+                break;
             }
         UpdateCameraSettings();
     }
