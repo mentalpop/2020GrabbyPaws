@@ -1,5 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &5243537937162500099
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30885870422137004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.2509127
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1511347, z: 0}
+--- !u!95 &1767553845658106909
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30885870422137004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3211469890351849138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30885870422137004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1660eeab87ecf543be4a3ca42e6e836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 0
+  selectedToolbar: 0
+  actionEnter: 0
+  actionStay: 0
+  actionExit: 0
+  _doingAction: 0
+  OnDoAction:
+    m_PersistentCalls:
+      m_Calls: []
+  actionTag: Action
+  useRootMotion: 1
+  debugMode: 0
+  triggerAction: {fileID: 0}
+  _playingAnimation: 0
+  actionStarted: 0
+  isLockTriggerEvents: 0
+  colliders: []
+  mainCamera: {fileID: 0}
+  OnStartAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCancelAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4606981483927698128
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +85,7 @@ GameObject:
   - component: {fileID: 4606981483927698142}
   - component: {fileID: 4606981483927698137}
   - component: {fileID: 4606981483927698129}
+  - component: {fileID: 529015322569786794}
   m_Layer: 0
   m_Name: Riven_ChatWindow
   m_TagString: Untagged
@@ -98,6 +172,20 @@ MonoBehaviour:
     applyColorToPrependedName: 0
     prependActorNameSeparator: ': '
     subtitleColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &529015322569786794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4606981483927698128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205c6d4e7606f8d40b5d2763ea70a42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 0
+  ui: {fileID: 0}
 --- !u!1 &8247453853316265605
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,79 +282,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!136 &5243537937162500099
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30885870422137004}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.2509127
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.1511347, z: 0}
---- !u!95 &1767553845658106909
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30885870422137004}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3211469890351849138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30885870422137004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1660eeab87ecf543be4a3ca42e6e836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openCloseEvents: 0
-  openCloseWindow: 0
-  selectedToolbar: 0
-  actionEnter: 0
-  actionStay: 0
-  actionExit: 0
-  _doingAction: 0
-  OnDoAction:
-    m_PersistentCalls:
-      m_Calls: []
-  actionTag: Action
-  useRootMotion: 1
-  debugMode: 0
-  triggerAction: {fileID: 0}
-  _playingAnimation: 0
-  actionStarted: 0
-  isLockTriggerEvents: 0
-  colliders: []
-  mainCamera: {fileID: 0}
-  OnStartAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCancelAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &8308111755034771877
 PrefabInstance:
   m_ObjectHideFlags: 0
