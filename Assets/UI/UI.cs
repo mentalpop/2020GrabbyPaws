@@ -143,14 +143,14 @@ public class UI : MonoBehaviour
                     ShowInventoryDisplay();
                 }
                 if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
-                    ShowLappyMenu(false);
+                    LappyMenuToggle(false);
                 }
             } else {
                 if (Input.GetButtonDown("Back")) {
                     ShowInventoryDisplay();
                 }
                 if (Input.GetButtonDown("Start")) {
-                    ShowLappyMenu(false);
+                    LappyMenuToggle(false);
                 }
             }
         }
@@ -310,8 +310,16 @@ public class UI : MonoBehaviour
         pc.Unpack(pcData);
     }
 
-    public void ShowLappyMenu(bool _override) { //TODO: Make private
-    //Show / Hide the HUD
+    public void OpenConversationInLappy(string conversationID) {
+        if (!lappy.gameObject.activeSelf) {
+            SetControlState(true, lappy.gameObject);
+            lappy.gameObject.SetActive(true);
+        }
+        lappy.StartConversation(conversationID);
+    }
+
+    private void LappyMenuToggle(bool _override) {
+//Show / Hide the HUD
         bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
         if (menuIsActive) {
             SetControlState(true, lappy.gameObject);
@@ -322,7 +330,7 @@ public class UI : MonoBehaviour
     }
 
     public void ShowInventoryDisplay() { //TODO: Make private
-    //Show / Hide the HUD
+//Show / Hide the HUD
         bool menuIsActive = !inventoryDisplay.gameObject.activeSelf;
         if (menuIsActive) {
             inventoryDisplay.gameObject.SetActive(true);

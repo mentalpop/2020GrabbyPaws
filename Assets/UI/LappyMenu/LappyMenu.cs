@@ -13,7 +13,8 @@ public class LappyMenu : MonoBehaviour
     public OptionsMenu optionsMenu;
     public HellaHockster hellaHuckster;
     public WishListWindow wishList;
-    public GameObject rivenChatWindow;
+    public RivenChatWindow rivenChatWindow;
+    public string defaultConversation;
     public Image lappyBG;
     public ClickToClose clickToClose;
     public ConstrainedIntPref lappySelectedBG;
@@ -114,7 +115,7 @@ public class LappyMenu : MonoBehaviour
                 wishList.gameObject.SetActive(true);
                 break;
             case 4: //Chat
-                rivenChatWindow.SetActive(true);
+                StartConversation(defaultConversation);
                 break;
             case 5: //Options
                 optionsMenu.gameObject.SetActive(true);
@@ -135,6 +136,11 @@ public class LappyMenu : MonoBehaviour
 			    awaitingConfirmation = true;
                 break;
         }
+    }
+
+    public void StartConversation(string conversationID) {
+        rivenChatWindow.gameObject.SetActive(true);
+        rivenChatWindow.TriggerConversation(conversationID);
     }
 
     public void SetBackground(int _bgIndex) {

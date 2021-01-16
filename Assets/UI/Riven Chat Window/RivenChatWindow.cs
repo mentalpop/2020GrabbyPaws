@@ -7,6 +7,7 @@ public class RivenChatWindow : MonoBehaviour
 {
     public ButtonGeneric closeButton;
     public ClickToClose clickToClose;
+    public DialogueSystemTrigger dsTrigger;
 
     // Some of this code saves the chat text between uses so you can restore it 
     // when the conversation starts again.
@@ -69,5 +70,10 @@ public class RivenChatWindow : MonoBehaviour
         DialogueManager.StopConversation();
 
         gameObject.SetActive(false);
+    }
+
+    public void TriggerConversation(string conversationID) {
+        dsTrigger.conversation = conversationID;
+        dsTrigger.OnUse();
     }
 }
