@@ -5,7 +5,7 @@ public class ItemPickup : Interactable
 {
     public Item item;
     public GameObject pickupSphere;
-    
+
     /*
     public float velocityThreshold = 0.01f;
     public float timeUntilDisable = 1f;
@@ -44,6 +44,10 @@ public class ItemPickup : Interactable
         }
     }
     //*/
+
+    private void Awake() {
+        gameObject.AddComponent<cakeslice.Outline>();
+    }
 
     public override void Interact() {
         base.Interact();
