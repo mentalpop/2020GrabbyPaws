@@ -59,8 +59,9 @@ public class UI : MonoBehaviour
     //public FlagRepository flagRepository;
 [Header("Readables")]
     public Readable book;
+    public Readable sign;
     public ReadablePC pc;
-[Header("Currency")]
+    [Header("Currency")]
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
 [Header("Inventory")]
@@ -296,12 +297,18 @@ public class UI : MonoBehaviour
         MenuNavigator.SetControlPreferences(choiceMade == 1); //0 - Use Gamepad (if present), 1 - Use Mouse
     }
     #endregion
-    
+
     #region UI State
     public void DisplayBook(ReadableData rData) {
         book.gameObject.SetActive(true);
         SetControlState(true, book.gameObject);
         book.Unpack(rData);
+    }
+
+    public void DisplaySign(ReadableData rData) {
+        sign.gameObject.SetActive(true);
+        SetControlState(true, sign.gameObject);
+        sign.Unpack(rData);
     }
 
     public void DisplayPC(ReadablePCData pcData) {

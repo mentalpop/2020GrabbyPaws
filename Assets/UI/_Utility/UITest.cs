@@ -5,6 +5,7 @@ using UnityEngine;
 public class UITest : MonoBehaviour
 {
     public ReadableData sampleBook;
+    public ReadableData sampleSign;
     public ReadablePCData samplePC;
 
     private void Start() {
@@ -23,7 +24,10 @@ public class UITest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) { //B for Book
             UI.Instance.DisplayBook(sampleBook);
         }
-        if (Input.GetKeyDown(KeyCode.P)) { //P for PB
+        if (Input.GetKeyDown(KeyCode.N)) { //N for SigN
+            UI.Instance.DisplaySign(sampleSign);
+        }
+        if (Input.GetKeyDown(KeyCode.P)) { //P for PC
             UI.Instance.DisplayPC(samplePC);
         }
         /*
