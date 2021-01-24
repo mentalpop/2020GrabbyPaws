@@ -36,7 +36,7 @@ public class ReadablePC : MonoBehaviour
 
     public void Unpack(ReadablePCData _rData) {
         rData = _rData;
-        header.text = _rData.header;
+        header.text = _rData.title;
         //windowText.text = _rData.data[0].contents;
         List<NavButtonData> parentList = _rData.data.Cast<NavButtonData>().ToList();
         listUnpacker.Unpack(parentList);
