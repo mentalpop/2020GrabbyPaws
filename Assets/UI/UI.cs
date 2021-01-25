@@ -332,6 +332,7 @@ public class UI : MonoBehaviour
             SetControlState(true, lappy.gameObject);
             lappy.gameObject.SetActive(true);
         } else {
+            MenuNavigator.Instance.MenuClose();
             lappy.Close();
         }
     }

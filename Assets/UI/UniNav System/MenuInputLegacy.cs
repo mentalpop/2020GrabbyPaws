@@ -20,8 +20,15 @@ public class MenuInputLegacy : MonoBehaviour
     private bool vAxisDown = false;
     //*/
 
+    private void Start() {
+        if (menuNavigator == null) {
+            Debug.LogWarning("menuNavigator is null, attempting to use FindObjectOfType<MenuNavigator> but this should be fixed");
+            menuNavigator = FindObjectOfType<MenuNavigator>();
+        }
+    }
+
     private void Update() {
-        if (MenuNavigator.MouseIsUsing()) //Ignore Input if user is using Mouse
+        if (MenuNavigator.MouseIsUsing() || !MenuNavigator.IsActive) //Ignore Input if user is using Mouse or if the Menu is not active
             return;
         Vector2 inputVector = new Vector2(Input.GetAxis(inputHorizontal), Input.GetAxis(inputVertical));
         if (axisDown) {

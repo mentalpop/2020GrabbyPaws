@@ -14,6 +14,7 @@ public class MenuNavigator : MonoBehaviour
     public event MenuEvent OnClose = delegate { };
     public event MenuEvent OnMenuFocus = delegate { };
 
+
     public delegate void InputMethodEvent(bool isUsingMouse);
     public event InputMethodEvent OnInputMethodSet = delegate { };
 
@@ -21,6 +22,7 @@ public class MenuNavigator : MonoBehaviour
     protected NavButton heldButton;
 
     public static MenuNavigator Instance { get; private set; }
+    public static bool IsActive { get => Instance.activeMenuNode != null; set { } }
 
     private bool gamepadDetected = false;
     private Coroutine delayedGamepadCheckRoutine;
@@ -55,6 +57,17 @@ public class MenuNavigator : MonoBehaviour
             //Debug.Log("MenuCancel: "+_mNode.name);
             MenuFocus(_mNode);
         }
+    }
+
+    public void MenuClose() {
+        //if (activeMenuNode != null) {
+        //    OnClose(activeMenuNode);
+        //    activeMenuNode.OnSelectionAbort -= ActiveMenuNode_OnSelectionAbort;
+        //    if (!MouseIsUsing())
+        //        activeMenuNode.MenuUnfocus();
+        //    activeMenuNode = null;
+        //}
+        activeMenuNode = null;
     }
 
     public void MenuFocus(MenuNode _mNode) {
