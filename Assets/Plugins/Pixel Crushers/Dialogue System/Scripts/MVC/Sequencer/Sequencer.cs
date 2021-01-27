@@ -1913,7 +1913,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         private bool HandleClearSubtitleText(string commandName, string[] args)
         {
-            string panelID = SequencerTools.GetParameter(args, 1);
+            string panelID = SequencerTools.GetParameter(args, 0);
             var all = string.Equals(panelID, "all", StringComparison.OrdinalIgnoreCase);
             var panelNumber = all ? 0 : Tools.StringToInt(panelID);
             if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: ClearSubtitleText({1})", new System.Object[] { DialogueDebug.Prefix, panelID }));
@@ -1922,11 +1922,12 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (all)
                 {
-                    for (int i = 0; i < standardDialogueUI.conversationUIElements.subtitlePanels.Length; i++)
-                    {
-                        if (standardDialogueUI.conversationUIElements.subtitlePanels[i] == null) continue;
-                        standardDialogueUI.conversationUIElements.subtitlePanels[i].ClearText();
-                    }
+                    standardDialogueUI.conversationUIElements.ClearAllSubtitleText();
+                    //for (int i = 0; i < standardDialogueUI.conversationUIElements.subtitlePanels.Length; i++)
+                    //{
+                    //    if (standardDialogueUI.conversationUIElements.subtitlePanels[i] == null) continue;
+                    //    standardDialogueUI.conversationUIElements.subtitlePanels[i].ClearText();
+                    //}
                 }
                 else if (0 <= panelNumber && panelNumber < standardDialogueUI.conversationUIElements.subtitlePanels.Length &&
                     standardDialogueUI.conversationUIElements.subtitlePanels[panelNumber] != null)

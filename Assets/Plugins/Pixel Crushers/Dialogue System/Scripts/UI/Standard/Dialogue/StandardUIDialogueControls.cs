@@ -40,6 +40,9 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("When showing response menu, use portrait info of player actor assigned to first response.")]
         public bool useFirstResponseForMenuPortrait;
 
+        [Tooltip("When closing, wait for all subtitle panels and menu panels to close.")]
+        public bool waitForClose = true;
+
         #endregion
 
         #region Private Variables
@@ -127,6 +130,25 @@ namespace PixelCrushers.DialogueSystem
         public void OpenSubtitlePanelsOnStart()
         {
             if (allowOpenSubtitlePanelsOnStartConversation) standardSubtitleControls.OpenSubtitlePanelsOnStartConversation();
+        }
+
+        public void ClearCaches()
+        {
+            standardSubtitleControls.ClearCache();
+            standardMenuControls.ClearCache();
+        }
+
+        public virtual void ClearAllSubtitleText()
+        {
+            // Clear all built-in panels:
+            for (int i = 0; i < subtitlePanels.Length; i++)
+            {
+                if (subtitlePanels[i] == null) continue;
+                subtitlePanels[i].ClearText();
+            }
+
+            // Clear any custom panels:
+            standardSubtitleControls.ClearSubtitlesOnCustomPanels();
         }
 
         #endregion

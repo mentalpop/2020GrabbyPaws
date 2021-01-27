@@ -68,7 +68,7 @@ namespace PixelCrushers.DialogueSystem
             ClearCache();
         }
 
-        private void ClearCache()
+        public void ClearCache()
         {
             m_actorPanelCache.Clear();
             m_customPanels.Clear();
@@ -394,7 +394,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (kvp.Value != null) kvp.Value.Close();
             }
-            ClearCache();
+            //--- No longer clear cache when closing subtitles because SetDialoguePanel may close them: ClearCache();
         }
 
         protected virtual void SupercedeOtherPanels(StandardUISubtitlePanel newPanel)
@@ -445,6 +445,14 @@ namespace PixelCrushers.DialogueSystem
         public override void SetActive(bool value) { } // Unused. Work is done by StandardUISubtitlePanel.
         public override void SetSubtitle(Subtitle subtitle) { } // Unused. Work is done by StandardUISubtitlePanel.
         public override void ClearSubtitle() { } // Unused. Work is done by StandardUISubtitlePanel.
+
+        public virtual void ClearSubtitlesOnCustomPanels()
+        {
+            foreach (var panel in m_customPanels)
+            {
+                panel.ClearText();
+            }
+        }
 
         /// <summary>
         /// Sets the portrait sprite to use in the subtitle if the named actor is the speaker.
