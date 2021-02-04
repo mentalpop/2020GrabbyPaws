@@ -161,10 +161,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 1
+  selectedToolbar: 0
   _isDead: 0
   _currentHealth: 0
-  isImmortal: 0
+  isImmortal: 1
   fillHealthOnStart: 1
   maxHealth: 100
   healthRecovery: 0
@@ -204,11 +204,11 @@ MonoBehaviour:
   onActionExit:
     m_PersistentCalls:
       m_Calls: []
-  maxStamina: 200
-  staminaRecovery: 1.2
-  sprintStamina: 30
-  jumpStamina: 30
-  rollStamina: 25
+  maxStamina: 1000
+  staminaRecovery: 100
+  sprintStamina: 0
+  jumpStamina: 0
+  rollStamina: 0
   OnJump:
     m_PersistentCalls:
       m_Calls: []
@@ -297,9 +297,9 @@ MonoBehaviour:
   stepOffsetMinHeight: 0
   stepOffsetDistance: 0.1
   debugWindow: 0
-  applyingStepOffset: 0
-  inputSmooth: {x: -3e-45, y: 0, z: 3e-45}
-  moveDirection: {x: 3e-45, y: 0, z: 3e-45}
+  applyingStepOffset: 1
+  inputSmooth: {x: -0.000000001269694, y: 0, z: -0.000000003564842}
+  moveDirection: {x: -5.178229e-17, y: 0, z: 1.340399e-17}
   matchTarget: {fileID: 0}
 --- !u!114 &8551294124530700067
 MonoBehaviour:
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04017b2ab6f16ed4197f67a9325bbfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faceConversant: 1
+  faceConversant: 0
 --- !u!114 &8551294124530700069
 MonoBehaviour:
   m_ObjectHideFlags: 0

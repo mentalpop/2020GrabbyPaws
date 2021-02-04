@@ -54,8 +54,8 @@ TagManager:
   - BlockAIRayCast
   - Theftables
   - NPC
-  - 
-  - 
+  - Interactable
+  - Sittable
   - 
   - 
   - 
