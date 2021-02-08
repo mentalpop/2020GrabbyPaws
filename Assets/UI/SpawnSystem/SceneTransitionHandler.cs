@@ -45,4 +45,8 @@ public class SceneTransitionHandler : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         instance.spawnPoint = point;
     }
+
+    public static GameObject GetPlayer() {
+        return instance.spawnManager.player;
+    }
 }

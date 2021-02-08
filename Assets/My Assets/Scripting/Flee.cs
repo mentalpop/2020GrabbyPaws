@@ -13,11 +13,16 @@ namespace UnityMovementAI
 
         public float timeToTarget = 0.1f;
 
+        public float smooth = 1f;
+        public float minRunSpeed = 0.5f;
+
         MovementAIRigidbody rb;
 
         Rigidbody toot;
 
         public Animator anim;
+
+        private Transform target = null;
 
         void Awake()
         {
@@ -25,10 +30,13 @@ namespace UnityMovementAI
             toot = GetComponent<Rigidbody>();
         }
 
+        private void Start() {
+            target = SceneTransitionHandler.GetPlayer().transform;
+        }
 
         void Update()
         {
-            if (toot.velocity.sqrMagnitude > 0)
+            if (toot.velocity.sqrMagnitude > minRunSpeed)
             {
             anim.SetFloat("InputMagnitude", 1);
             Debug.Log(toot.velocity.sqrMagnitude);
@@ -37,6 +45,7 @@ namespace UnityMovementAI
             else
             {
                 anim.SetFloat("InputMagnitude", 0);
+                LookSmoothly();
             }
         }
 
@@ -70,6 +79,15 @@ namespace UnityMovementAI
             }
 
             return GiveMaxAccel(acceleration);
+        }
+
+        void LookSmoothly() {
+            if (target != null) {
+                var dir = target.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, smooth * Time.deltaTime);
+            }
         }
 
         Vector3 GiveMaxAccel(Vector3 v)

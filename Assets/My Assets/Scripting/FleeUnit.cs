@@ -4,7 +4,7 @@ namespace UnityMovementAI
 {
     public class FleeUnit : MonoBehaviour
     {
-        public Transform target;
+        [HideInInspector] public Transform target;
 
         SteeringBasics steeringBasics;
         Flee flee;
@@ -13,6 +13,7 @@ namespace UnityMovementAI
         {
             steeringBasics = GetComponent<SteeringBasics>();
             flee = GetComponent<Flee>();
+            target = SceneTransitionHandler.GetPlayer().transform;
         }
 
         void FixedUpdate()

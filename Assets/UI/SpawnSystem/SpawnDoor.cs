@@ -37,7 +37,7 @@ public class SpawnDoor : Interactable
         } else {
             if (barkTrigger != null) {
         //Inject the player's transform before it is used
-                barkTrigger.barker = SceneTransitionHandler.instance.spawnManager.player.transform;
+                barkTrigger.barker = SceneTransitionHandler.GetPlayer().transform;
                 //barkTrigger.conversationActor = barkTrigger.barker;
                 barkTrigger.gameObject.SetActive(true);
             }
