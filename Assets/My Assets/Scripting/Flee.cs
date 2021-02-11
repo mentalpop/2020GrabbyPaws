@@ -39,12 +39,14 @@ namespace UnityMovementAI
             if (toot.velocity.sqrMagnitude > minRunSpeed)
             {
             anim.SetFloat("InputMagnitude", 1);
+                
             Debug.Log(toot.velocity.sqrMagnitude);
             }
 
             else
             {
                 anim.SetFloat("InputMagnitude", 0);
+                
                 LookSmoothly();
             }
         }
