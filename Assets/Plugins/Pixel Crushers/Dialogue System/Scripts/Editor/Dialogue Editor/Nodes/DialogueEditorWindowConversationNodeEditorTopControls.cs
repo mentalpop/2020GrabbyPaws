@@ -269,15 +269,41 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private string[] GetConversationTitles()
         {
-            List<string> titles = new List<string>();
+            int numDuplicates = 0;
+            var titles = new List<string>();
+            var titlesWithoutAmpersand = new List<string>();
             if (database != null)
             {
                 foreach (var conversation in database.conversations)
                 {
-                    titles.Add(conversation.Title.Replace("&", "<AMPERSAND>"));
+                    // Make sure titles will work with GUI popup menus:
+                    var title = conversation.Title;
+                    if (title.StartsWith("/"))
+                    {
+                        title = "?" + title;
+                        conversation.Title = title;
+                    }
+                    if (title.EndsWith("/"))
+                    {
+                        title += "?";
+                        conversation.Title = title;
+                    }
+                    if (title.Contains("//"))
+                    {
+                        title = title.Replace("//", "/");
+                        conversation.Title = title;
+                    }
+                    if (titles.Contains(title))
+                    {
+                        numDuplicates++;
+                        title += " " + numDuplicates;
+                        conversation.Title = title;
+                    }
+                    titles.Add(title);
+                    titlesWithoutAmpersand.Add(title.Replace("&", "<AMPERSAND>"));
                 }
             }
-            return titles.ToArray();
+            return titlesWithoutAmpersand.ToArray();
         }
 
         private int GetCurrentConversationIndex()

@@ -65,7 +65,72 @@ ModelImporter:
       DOF on avatar to improve retargeting quality.\n\t'shoulder.l' has translation
       animation that will be discarded.\n\t'shoulder.r' has translation animation
       that will be discarded.\n"
-    animationRetargetingWarnings: 
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'root|h_Sitting_Fence':\n\tLeftFoot
+      average position error 56.6 mm and maximum position error 56.6 mm at time 0:10
+      (16.9%) Frame 10\n\tRightFoot average position error 53.5 mm and maximum position
+      error 53.5 mm at time 0:19 (32.2%) Frame 19\n\tLeftUpperArm average position
+      error 9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame
+      15\n\tLeftLowerArm average position error 9.5 mm and maximum position error
+      19.5 mm at time 1:21 (76.3%) Frame 45\n\tLeftHand average position error 9.4
+      mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame 15\n\tRightUpperArm
+      average position error 9.4 mm and maximum position error 19.5 mm at time 0:15
+      (25.4%) Frame 15\n\tRightLowerArm average position error 10.0 mm and maximum
+      position error 20.4 mm at time 1:21 (76.3%) Frame 45\n\tRightHand average position
+      error 9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame
+      15\n\nRetargeting quality report for clip 'root|h_Sitting_Letter':\n\tLeftFoot
+      average position error 56.6 mm and maximum position error 56.6 mm at time 0:
+      1 (1.7%) Frame 1\n\tRightFoot average position error 53.5 mm and maximum position
+      error 53.5 mm at time 0: 1 (1.7%) Frame 1\n\tLeftUpperArm average position
+      error 9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame
+      15\n\tLeftLowerArm average position error 9.5 mm and maximum position error
+      19.5 mm at time 1:21 (76.3%) Frame 45\n\tLeftHand average position error 9.4
+      mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame 15\n\tRightUpperArm
+      average position error 9.4 mm and maximum position error 19.5 mm at time 0:15
+      (25.4%) Frame 15\n\tRightLowerArm average position error 10.0 mm and maximum
+      position error 20.4 mm at time 1:21 (76.3%) Frame 45\n\tRightHand average position
+      error 9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame
+      15\n\nRetargeting quality report for clip 'root|h_Sitting_TireSeat':\n\tLeftFoot
+      average position error 56.6 mm and maximum position error 56.6 mm at time 2:
+      1 (83.1%) Frame 49\n\tRightFoot average position error 53.5 mm and maximum
+      position error 53.5 mm at time 0: 2 (3.4%) Frame 2\n\tLeftUpperArm average
+      position error 9.4 mm and maximum position error 19.5 mm at time 1:21 (76.3%)
+      Frame 45\n\tLeftLowerArm average position error 9.5 mm and maximum position
+      error 19.5 mm at time 1:21 (76.3%) Frame 45\n\tLeftHand average position error
+      9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame 15\n\tRightUpperArm
+      average position error 9.4 mm and maximum position error 19.5 mm at time 1:21
+      (76.3%) Frame 45\n\tRightLowerArm average position error 10.0 mm and maximum
+      position error 20.4 mm at time 1:21 (76.3%) Frame 45\n\tRightHand average position
+      error 9.4 mm and maximum position error 19.5 mm at time 0:15 (25.4%) Frame
+      15\n\nRetargeting quality report for clip 'root|h_Swinging_Bat':\n\tLeftLowerLeg
+      average position error 109.7 mm and maximum position error 109.7 mm at time
+      0: 1 (1.7%) Frame 1\n\tLeftFoot average position error 64.5 mm and maximum
+      position error 64.5 mm at time 0: 1 (1.7%) Frame 1\n\tRightLowerLeg average
+      position error 69.7 mm and maximum position error 69.7 mm at time 1: 3 (45.0%)
+      Frame 27\n\tRightFoot average position error 56.1 mm and maximum position error
+      56.1 mm at time 1: 3 (45.0%) Frame 27\n\tLeftUpperArm average position error
+      13.6 mm and maximum position error 23.1 mm at time 0: 0 (0.0%) Frame 0\n\tLeftLowerArm
+      average position error 14.2 mm and maximum position error 22.4 mm at time 0:
+      0 (0.0%) Frame 0\n\tLeftHand average position error 13.6 mm and maximum position
+      error 23.2 mm at time 0: 0 (0.0%) Frame 0\n\tRightUpperArm average position
+      error 13.6 mm and maximum position error 23.1 mm at time 1: 6 (50.0%) Frame
+      30\n\tRightLowerArm average position error 13.9 mm and maximum position error
+      21.6 mm at time 1: 6 (50.0%) Frame 30\n\tRightHand average position error 13.6
+      mm and maximum position error 23.2 mm at time 1: 6 (50.0%) Frame 30\n\nRetargeting
+      quality report for clip 'root|h_T Pose Idle':\n\tLeftLowerLeg average position
+      error 109.7 mm and maximum position error 109.7 mm at time 0: 0 (0.0%) Frame
+      0\n\tLeftFoot average position error 64.5 mm and maximum position error 64.5
+      mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerLeg average position error 69.7
+      mm and maximum position error 69.7 mm at time 0: 0 (0.0%) Frame 0\n\tRightFoot
+      average position error 56.1 mm and maximum position error 56.1 mm at time 0:
+      0 (0.0%) Frame 0\n\tLeftUpperArm average position error 23.1 mm and maximum
+      position error 23.1 mm at time 0: 0 (0.0%) Frame 0\n\tLeftLowerArm average
+      position error 19.0 mm and maximum position error 19.0 mm at time 0: 0 (0.0%)
+      Frame 0\n\tLeftHand average position error 23.1 mm and maximum position error
+      23.1 mm at time 0: 0 (0.0%) Frame 0\n\tRightUpperArm average position error
+      23.1 mm and maximum position error 23.1 mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerArm
+      average position error 19.0 mm and maximum position error 19.0 mm at time 0:
+      0 (0.0%) Frame 0\n\tRightHand average position error 23.1 mm and maximum position
+      error 23.1 mm at time 0: 0 (0.0%) Frame 0\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -102,8 +167,96 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
+      transformMask:
+      - path: 
+        weight: 1
+      - path: EyebrowLeft.red
+        weight: 0
+      - path: EyebrowRight.red
+        weight: 0
+      - path: EyeLady.Green.001
+        weight: 0
+      - path: Fedora.Black
+        weight: 0
+      - path: LipsForward
+        weight: 0
+      - path: NoseSnoot
+        weight: 0
+      - path: RaccoonBody02Head03.RedBrown.001
+        weight: 0
+      - path: RaccoonTail.RedBrown.alt
+        weight: 0
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r/Batilda
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16

@@ -17,7 +17,7 @@ namespace PixelCrushers.DialogueSystem
     /// If you make a subclass, you can also subclass the editor script and override
     /// its virtual functions.
     /// </remarks>
-    [AddComponentMenu("")] // Deprecated.
+    [AddComponentMenu("")] // Use wrapper.
     public class DialogueSystemTrigger : MonoBehaviour
     {
 
@@ -627,7 +627,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (DialogueDebug.logInfo) Debug.Log("Dialogue System: Dialogue System Trigger is firing " + trigger + ".", this);
             DoQuestAction();
-            DoLuaAction();
+            DoLuaAction(actor);
             DoSequenceAction(actor);
             DoAlertAction();
             DoSendMessageActions();
@@ -654,6 +654,18 @@ namespace PixelCrushers.DialogueSystem
         #endregion
 
         #region Lua Action
+
+        protected virtual void DoLuaAction(Transform actor)
+        {
+            if (actor != null)
+            {
+                var dialogueActor = actor.GetComponent<DialogueActor>();
+                var actorName = (dialogueActor != null) ? dialogueActor.actor : actor.name;
+                DialogueLua.SetVariable("ActorIndex", actorName);
+                DialogueLua.SetVariable("Actor", DialogueActor.GetActorName(actor));
+            }
+            DoLuaAction();
+        }
 
         protected virtual void DoLuaAction()
         {
