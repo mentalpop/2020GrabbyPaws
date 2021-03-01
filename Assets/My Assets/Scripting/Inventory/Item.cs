@@ -10,7 +10,7 @@ public class Item : ScriptableObject {
     public CategoryItem category;
     public Sprite icon = null;
     //public bool isDefaultItem = false;
-    public float value = 1f;
+    public int value = 1;
     public GameObject physicalItem;
     public float weight = 0f;
     public GameObject model = null;

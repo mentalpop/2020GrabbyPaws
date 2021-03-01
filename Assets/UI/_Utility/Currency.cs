@@ -1,13 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PixelCrushers.DialogueSystem;
+using System;
 
 public class Currency : MonoBehaviour
 {
-    public decimal startingFunds = 500m;
-    public decimal maxFunds = 99999999m;
+    public int startingFunds = 500;
+    public int maxFunds = 99999999;
 
     public static Currency instance;
+    public int Cash {
+        get { return _cash; }
+        set {
+            _cash = value;
+            if (_cash > maxFunds)
+                _cash = maxFunds;
+            OnCashChanged?.Invoke();
+        }
+    }
+    private int _cash;
+
+    private string saveString = "currency";
+
+    public delegate void CurrencyEvent();
+    public CurrencyEvent OnCashChanged = delegate { };
 
     private void Awake() {
     //Singleton Pattern
@@ -19,31 +36,36 @@ public class Currency : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    public decimal Cash {
-        get {return _cash;}
-        set {
-            _cash = decimal.Round(value);
-            if (_cash > maxFunds)
-                _cash = maxFunds;
-            OnCashChanged?.Invoke();
-        }
-    }
-    private decimal _cash;
-    
-    public delegate void CurrencyEvent();
-    public CurrencyEvent OnCashChanged = delegate { };
-    
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
+        RegisterLuaFunctions();
     }
 
     private void OnDisable() {
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
     }
+    #region Lua Functions
+    private void RegisterLuaFunctions() {
+        //Debug.Log("Currency RegisterLuaFunctions");
+        Lua.RegisterFunction("BuckleCount", this, SymbolExtensions.GetMethodInfo(() => BuckleCount()));
+        Lua.RegisterFunction("BuckleAdd", this, SymbolExtensions.GetMethodInfo(() => BuckleAdd(0f)));
+        Lua.RegisterFunction("BuckleBuy", this, SymbolExtensions.GetMethodInfo(() => BuckleBuy(0f)));
+    }
 
-    private string saveString = "currency";
+    private bool BuckleBuy(double v) { //The Lua method which uses Doubles
+        return BuckleBuy((int)v);
+    }
+
+    private void BuckleAdd(double v) {
+        Cash += (int)v;
+    }
+
+    private double BuckleCount() {
+        return Cash;
+    }
+    #endregion
 
     public void Save(int fileIndex) {
         ES3.Save<decimal>(saveString, _cash);
@@ -57,12 +79,7 @@ public class Currency : MonoBehaviour
         Cash = startingFunds;
     }
 
-    public bool Purchase(float cost) {
-//Pass in a float, convert it to decimal
-        return Purchase((decimal)cost);
-    }
-
-    public bool Purchase(decimal cost) {
+    public bool BuckleBuy(int cost) {
         bool purchaseSuccess = false;
         if (Cash >= cost) {
             Cash -= cost;
@@ -70,4 +87,11 @@ public class Currency : MonoBehaviour
         }
         return purchaseSuccess;
     }
+
+    /*
+    public bool Purchase(int cost) {
+//Pass in a float, convert it to decimal
+        return Purchase(cost);
+    }
+    //*/
 }

@@ -48,13 +48,13 @@ public class UITest : MonoBehaviour
         }
 //Currency
         if (Input.GetKeyDown(KeyCode.KeypadPlus)) { //Add LOTS of funds
-            Currency.instance.Cash += 10000000m;
+            Currency.instance.Cash += 10000000;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMinus)) { //Subtract Funds
-            Currency.instance.Cash -= 100m;
+            Currency.instance.Cash -= 100;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMultiply)) { //Try a Purchase, display if successful
-            if (Currency.instance.Purchase(500m)) {
+            if (Currency.instance.BuckleBuy(500)) {
                 Debug.Log("Purchase successful!");
             } else {
                 Debug.Log("Not enough funds!");

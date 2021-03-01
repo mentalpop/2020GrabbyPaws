@@ -125,10 +125,10 @@ public class HellaHockster : MonoBehaviour
 		estimatedValue.text = string.Format("{0:N0}", TallyValue(hocksterInventory));
 	}
 
-	public decimal TallyValue(List<InventoryItem> listSource) {
-		decimal tally = 0m;
+	public int TallyValue(List<InventoryItem> listSource) {
+		int tally = 0;
 		foreach (var item in listSource) {
-			tally += (decimal)item.item.value * item.quantity;
+			tally += item.item.value * item.quantity;
 		}
 		return tally;
 	}
