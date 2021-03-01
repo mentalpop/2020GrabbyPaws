@@ -81,7 +81,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         Debug.Log("Counting: " + name);
         foreach (var item in items) { //Count occurrences of the item in the inventory
             //Debug.Log("Comparing against: " + item.item.name);
-            if (item.item.ID == name) {
+            if (item.item == null) {
+                Debug.LogWarning(item.ToString() + "'s item property is Null. This should be fixed!");
+            } else if (item.item.ID == name) {
                 count = item.quantity;
                 break;
             }
@@ -94,7 +96,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         Debug.Log("Attempting to add to Inventory: " + name);
         bool _success = false;
         foreach (var item in itemMetaList.items) { //Find the Item in the Meta list based on String reference, add X of it to the inventory
-            if (item.ID == name) {
+            if (item.ID == "") {
+                Debug.LogWarning(item.ToString() + "'s ID property is an empty string. This should be fixed!");
+            } else if (item.ID == name) {
                 //items.Add(new InventoryItem(item, quantity));
                 Add(item, (int)quantity);
                 Debug.Log("Successfully added to Inventory: " + item.ID);
@@ -113,7 +117,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         Debug.Log("Subtracting " + quantity + " " + name);
         while (quantity > 0) {
             foreach (var item in items) { //Try to remove an item if it exists in the inventory
-                if (item.item.ID == name) {
+                if (item.item == null) {
+                    Debug.LogWarning(item.ToString() + "'s item property is Null. This should be fixed!");
+                } else if (item.item.ID == name) {
                     while (quantity > 0) {
                         if (item.quantity > 0) {
                             Remove(item.item);
@@ -133,8 +139,10 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public void InventoryRemove(string name) {
         Debug.Log("Removing " + name);
         //Remove all occurrences of an item from the inventory, good if you don't want to be specific
-        foreach (var item in items) { 
-            if (item.item.ID == name) {
+        foreach (var item in items) {
+            if (item.item == null) {
+                Debug.LogWarning(item.ToString() + "'s item property is Null. This should be fixed!");
+            } else if (item.item.ID == name) {
                 Debug.Log("Found and successfully removed " + name);
                 RemoveAll(item.item);
                 break;
