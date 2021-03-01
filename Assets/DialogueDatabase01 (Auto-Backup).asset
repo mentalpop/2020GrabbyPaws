@@ -1343,6 +1343,32 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
+  - id: 57
+    fields:
+    - title: Name
+      value: Big City/BKGNPC/Dancer01
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Tack Fran
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Tack Fran
+      type: 0
+      typeString: 
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
   items:
   - id: 1
     fields:
@@ -141879,7 +141905,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: InventoryRemove("Key_Bouquet")
+      userScript: 'InventoryRemove("Key_Bouquet");
+
+        InventoryRemove("")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -142402,8 +142430,8 @@ MonoBehaviour:
         y: 630
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 200.82565}
-    canvasZoom: 0.9100001
+    canvasScrollPosition: {x: 0, y: 301.99786}
+    canvasZoom: 0.8800001
   - id: 63
     fields:
     - title: Title

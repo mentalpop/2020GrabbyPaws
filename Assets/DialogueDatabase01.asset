@@ -141905,9 +141905,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'InventoryRemove("Key_Bouquet");
-
-        InventoryRemove("")'
+      userScript: InventoryRemove("Key_Bouquet");
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -142430,7 +142428,7 @@ MonoBehaviour:
         y: 630
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 301.99786}
+    canvasScrollPosition: {x: 1.1363525, y: 1.1363525}
     canvasZoom: 0.8800001
   - id: 63
     fields:
