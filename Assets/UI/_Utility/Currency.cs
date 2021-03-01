@@ -16,6 +16,10 @@ public class Currency : MonoBehaviour
             _cash = value;
             if (_cash > maxFunds)
                 _cash = maxFunds;
+            if (_cash < 0) {
+                _cash = 0;
+                Debug.LogWarning("Cash should not go below zero. This should be fixed!");
+            }
             OnCashChanged?.Invoke();
         }
     }

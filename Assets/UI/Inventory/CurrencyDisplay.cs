@@ -13,10 +13,10 @@ public class CurrencyDisplay : MonoBehaviour
     public float durationShake;
     //public Sine updateShake;
 
-    private decimal localCash;
-    private decimal displayCash;
-    private decimal deltaCash;
-    private decimal cashPrevious;
+    private int localCash;
+    private int displayCash;
+    private int deltaCash;
+    private int cashPrevious;
     private bool effectActive = false;
     private float durationCount;
 
@@ -49,7 +49,7 @@ public class CurrencyDisplay : MonoBehaviour
         if (effectActive) {
             if (durationCount < durationShake) {
                 durationCount += Time.deltaTime;
-                displayCash = cashPrevious + deltaCash * (decimal)(durationCount / durationShake);
+                displayCash = cashPrevious + deltaCash * (int)(durationCount / durationShake);
             } else {
                 effectActive = false;
                 displayCash = localCash; //Set to the correct amount
