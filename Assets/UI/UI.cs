@@ -368,14 +368,18 @@ public class UI : MonoBehaviour
         cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
         switch(cBrain.ActiveVirtualCamera) {
             case CinemachineVirtualCamera cVc:
+                Debug.Log("CinemachineVirtualCamera");
                 if (cVc.m_LookAt == null) {
                     cVc.m_LookAt = player.cameraTarget;
                 //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
                 }
                 break;
             case CinemachineFreeLook cFc:
-                cFc.m_LookAt = player.cameraTarget;
-                cFc.m_Follow = player.cameraTarget;
+                if (cFc.gameObject.CompareTag("SetPlayerFocus")) {
+                    Debug.Log("CinemachineFreeLook Activated with SetPlayerFocus tag; assigning Target to Player");
+                    cFc.m_LookAt = player.cameraTarget;
+                    cFc.m_Follow = player.cameraTarget;
+                }
                 break;
             }
         UpdateCameraSettings();
