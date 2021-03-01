@@ -137763,6 +137763,12 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
+      - originConversationID: 60
+        originDialogueID: 3
+        destinationConversationID: 60
+        destinationDialogueID: 16
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -137817,7 +137823,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 
+        value: ClearSubtitleText(all)
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 60
@@ -137831,16 +137837,10 @@ MonoBehaviour:
       - originConversationID: 60
         originDialogueID: 4
         destinationConversationID: 60
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      - originConversationID: 60
-        originDialogueID: 4
-        destinationConversationID: 60
         destinationDialogueID: 7
         isConnector: 0
         priority: 2
-      conditionsString: 
+      conditionsString: BuckleCount() >= 50
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -137965,7 +137965,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 
+        value: ClearSubtitleText(all)
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 60
@@ -138048,7 +138048,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: BuckleBuy(50)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -138387,7 +138387,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 
+        value: ClearSubtitleText(all)
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 60
@@ -138612,7 +138612,78 @@ MonoBehaviour:
         y: 380
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 0}
+    - id: 16
+      fields:
+      - title: Title
+        value: New Dialogue Entry
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 54
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: I don't have enough.
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: ClearSubtitleText(all)
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 60
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 60
+        originDialogueID: 16
+        destinationConversationID: 60
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
+      conditionsString: BuckleCount() < 50
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 21.315796
+        y: 276.05258
+        width: 160
+        height: 30
+    canvasScrollPosition: {x: 3.9473877, y: 0}
     canvasZoom: 0.7600002
   - id: 61
     fields:
@@ -141905,7 +141976,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: InventoryRemove("Key_Bouquet");
+      userScript: InventorySubtract("Key_Bouquet", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -142428,8 +142499,8 @@ MonoBehaviour:
         y: 630
         width: 160
         height: 30
-    canvasScrollPosition: {x: 1.1363525, y: 1.1363525}
-    canvasZoom: 0.8800001
+    canvasScrollPosition: {x: 21.87649, y: 138.91212}
+    canvasZoom: 0.94000006
   - id: 63
     fields:
     - title: Title

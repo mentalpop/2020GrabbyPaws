@@ -17,15 +17,24 @@ MonoBehaviour:
     parameters: 02000000
     returnValue: 1
   - functionName: InventoryCount
-    parameters: 02000000
+    parameters: 07000000
+    returnValue: 2
+  - functionName: BuckleCount
+    parameters: 07000000
     returnValue: 2
   scriptFunctions:
   - functionName: InventoryAdd
     parameters: 0200000001000000
     returnValue: 0
   - functionName: InventorySubtract
-    parameters: 0200000000000000
+    parameters: 0200000001000000
     returnValue: 0
   - functionName: InventoryRemove
     parameters: 02000000
     returnValue: 0
+  - functionName: BuckleAdd
+    parameters: 01000000
+    returnValue: 0
+  - functionName: BuckleBuy
+    parameters: 01000000
+    returnValue: 1
