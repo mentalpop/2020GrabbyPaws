@@ -1568,6 +1568,7 @@ MonoBehaviour:
     - {fileID: 4977252434292470387}
     defaultMenuPanel: {fileID: 4977252434292470387}
     useFirstResponseForMenuPortrait: 0
+    waitForClose: 1
   QTEIndicatorElements:
     QTEIndicators: []
   addEventSystemIfNeeded: 1
@@ -4887,6 +4888,15 @@ MonoBehaviour:
   HUD: {fileID: 5819588754087773053}
   lappy: {fileID: 1874946249202494012}
   confirmationWindow: {fileID: 974950306488829343}
+  firstPersonBlend:
+    m_Style: 5
+    m_Time: 0.1
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   book: {fileID: 5819588753942763090}
   sign: {fileID: 3370245368894504421}
   pc: {fileID: 7496150119708981639}
@@ -4995,6 +5005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd5d0f84b045a24394f9e0f882871f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingFunds: 500
+  maxFunds: 99999999
 --- !u!114 &5819588752494907360
 MonoBehaviour:
   m_ObjectHideFlags: 0

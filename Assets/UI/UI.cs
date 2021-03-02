@@ -56,12 +56,13 @@ public class UI : MonoBehaviour
     public GameObject HUD;
     public LappyMenu lappy;
     public ConfirmationWindow confirmationWindow;
+    public CinemachineBlendDefinition firstPersonBlend;
     //public FlagRepository flagRepository;
 [Header("Readables")]
     public Readable book;
     public Readable sign;
     public ReadablePC pc;
-    [Header("Currency")]
+[Header("Currency")]
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
 [Header("Inventory")]
@@ -105,9 +106,12 @@ public class UI : MonoBehaviour
     //private bool doShowCurrencyDisplay = false;
     private GameObject lockUI = null;
     private CinemachineBrain cBrain;
-
+    private Camera gameCamera;
+    private CinemachineBlendDefinition defaultBlend;
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
     private bool lockControls = false;
+    ICinemachineCamera previousCamera = null;
+    private bool firstPersonCamera = false;
 
     public static UI Instance { get; private set; }
     #region Unity Messages
@@ -153,7 +157,50 @@ public class UI : MonoBehaviour
                 if (Input.GetButtonDown("Start")) {
                     LappyMenuToggle(false);
                 }
+            //FirstPerson Camera
+                if (!lappy.gameObject.activeSelf) { //Can't First-Person Cam while paused
+                    if (firstPersonCamera) {
+                //Disable on Release
+                        if (Mathf.Round(Input.GetAxisRaw("Triggers")) < 1) {
+                            if (cBrain != null) {
+                                //cBrain.transform.position = player.firstPersonCam.gameObject.transform.position;
+                                //cBrain.transform.rotation = player.firstPersonCam.gameObject.transform.rotation;
+                                gameCamera.cullingMask |= 1 << LayerMask.NameToLayer("Player"); // Show Player Layer
+                                previousCamera.VirtualCameraGameObject.SetActive(true);
+                                player.firstPersonCam.gameObject.SetActive(false);
+                                player.SetLockState(false);
+                                //CameraSetInputLabels(); Can't call this here, cFreeLook is still null
+                                Invoke(nameof(ResetCBrainDefaultBlend), firstPersonBlend.BlendTime); //After the Camera transition is over, reset the blend back to the default
+                                previousCamera = null;
+                                firstPersonCamera = false;
+                            }
+                        }
+                    } else {
+                //Activate on Press
+                        if (Mathf.Round(Input.GetAxisRaw("Triggers")) > 0) {
+                            if (cBrain != null) {
+                                previousCamera = cBrain.ActiveVirtualCamera;
+                                player.SetLockState(true);
+                                CameraSetInputLabels();
+                                previousCamera.VirtualCameraGameObject.SetActive(false);
+                                player.firstPersonCam.gameObject.SetActive(true);
+                                //player.firstPersonCam.MoveToTopOfPrioritySubqueue();
+                                firstPersonCamera = true;
+                                cBrain.m_DefaultBlend = firstPersonBlend;
+                                gameCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player")); // Hide Player Layer
+                                //previousCamera.VirtualCameraGameObject.transform.rotation = player.firstPersonCam.gameObject.transform.rotation;
+                                //previousCamera.VirtualCameraGameObject.transform.rotation = player.transform.rotation;
+                            }
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    private void ResetCBrainDefaultBlend() {
+        if (cBrain.m_DefaultBlend.BlendCurve == firstPersonBlend.BlendCurve && cBrain.m_DefaultBlend.BlendTime == firstPersonBlend.BlendTime) { //No direct overload of ==, so check both these properties
+            cBrain.m_DefaultBlend = defaultBlend;
         }
     }
     #endregion
@@ -327,7 +374,7 @@ public class UI : MonoBehaviour
 
     private void LappyMenuToggle(bool _override) {
 //Show / Hide the HUD
-        bool menuIsActive = _override || !lappy.gameObject.activeSelf;//InHierarchy;
+        bool menuIsActive = _override || !lappy.gameObject.activeSelf;
         if (menuIsActive) {
             SetControlState(true, lappy.gameObject);
             lappy.gameObject.SetActive(true);
@@ -361,6 +408,8 @@ public class UI : MonoBehaviour
     private void AssignPlayer_AndCamera(PlayerBehaviour playerBehaviour, CinemachineBrain cinemachineBrain) {
         player = playerBehaviour;
         cBrain = cinemachineBrain;
+        defaultBlend = cBrain.m_DefaultBlend;
+        gameCamera = cBrain.GetComponent<Camera>();
         cBrain.m_CameraActivatedEvent.AddListener(delegate {OnCameraActivated();});
     }
 
@@ -368,13 +417,14 @@ public class UI : MonoBehaviour
         cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
         switch(cBrain.ActiveVirtualCamera) {
             case CinemachineVirtualCamera cVc:
-                Debug.Log("CinemachineVirtualCamera");
+                //Debug.Log("CinemachineVirtualCamera");
                 if (cVc.m_LookAt == null) {
                     cVc.m_LookAt = player.cameraTarget;
-                //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
+                    //cVc.m_Follow = player.cameraTarget; //Comment this out; it's the problem
                 }
                 break;
             case CinemachineFreeLook cFc:
+                CameraSetInputLabels();
                 if (cFc.gameObject.CompareTag("SetPlayerFocus")) {
                     Debug.Log("CinemachineFreeLook Activated with SetPlayerFocus tag; assigning Target to Player");
                     cFc.m_LookAt = player.cameraTarget;
@@ -436,13 +486,12 @@ public class UI : MonoBehaviour
     }
 
     private void CameraSetInputLabels() {
-        
     //Using Cinemachine Freelook?
         if (Instance.cFreeLook != null) {
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
-            if (Instance.lockControls) {
+            if (Instance.player.controlsLocked) { //Instance.lockControls
                 //Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
