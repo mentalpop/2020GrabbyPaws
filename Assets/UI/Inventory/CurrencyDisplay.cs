@@ -49,7 +49,7 @@ public class CurrencyDisplay : MonoBehaviour
         if (effectActive) {
             if (durationCount < durationShake) {
                 durationCount += Time.deltaTime;
-                displayCash = cashPrevious + deltaCash * (int)(durationCount / durationShake);
+                displayCash = (int)(cashPrevious + deltaCash * (float)(durationCount / durationShake));
             } else {
                 effectActive = false;
                 displayCash = localCash; //Set to the correct amount
