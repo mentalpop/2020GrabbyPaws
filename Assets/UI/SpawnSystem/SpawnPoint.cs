@@ -9,5 +9,7 @@ public enum SpawnPoints
 {
     UITestRoomA,
     UITestRoomB,
-    CityOrigin
+    CityOrigin,
+    EXTRiverWyrms,
+    INTRiverWyrms
 }
