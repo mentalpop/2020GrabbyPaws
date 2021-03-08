@@ -24,6 +24,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public InventoryEvent OnPickUp;
     public InventoryEvent OnDrop;
 
+    private Dictionary<string, bool> pendingPickUps = new Dictionary<string, bool>();
+
     public static Inventory instance;
 
     private void Awake() {
@@ -33,7 +35,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             return;
         }
         instance = this;
-        Debug.Log("instance: "+instance);
+        //Debug.Log("instance: "+instance);
         DontDestroyOnLoad(gameObject);
 //Set all Gadgets as locked initially
         for (int i = 0; i < gadgetList.gadgets.Count; i++) {
@@ -153,6 +155,20 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     }
     
     #endregion
+    public static void RegisterChange(string key, bool value) {
+        instance.pendingPickUps.Add(key, value);
+    }
+
+    public static bool CompareChange(string key) {
+        //To "load" an item, it will either be in the list of Pending changes, or you'll have to actually check the save file
+        bool foundInChanges = instance.pendingPickUps.TryGetValue(key, out bool value);
+        if (foundInChanges) {
+            return value;
+        } else {
+            return ES3.Load(key, true);
+        }
+    }
+
     public void Save(int fileIndex) {
         ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked);
         List<int> itemIDs = new List<int>();
@@ -164,6 +180,11 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         ES3.Save<List<int>>(saveStringItemIDs, itemIDs);
         ES3.Save<List<int>>(saveStringItemCount, itemCount);
         //List<bool> _gadgetsUnlocked = new List<bool>();
+    //Commit Pending changes
+        foreach (var change in pendingPickUps) {
+            ES3.Save(change.Key, change.Value); //Save whether the instance still exists (if it hasn't, it has been picked up)
+        }
+        pendingPickUps.Clear();
     }
 
     public void Load(int fileIndex) {

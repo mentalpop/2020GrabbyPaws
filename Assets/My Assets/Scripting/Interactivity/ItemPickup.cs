@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ItemPickup : Interactable
+public class ItemPickup : SaveLoadInteractable
 {
     public Item item;
     public GameObject pickupSphere;
@@ -45,16 +45,19 @@ public class ItemPickup : Interactable
     }
     //*/
 
-    private void Awake() {
-        gameObject.AddComponent<cakeslice.Outline>();
-    }
-
     public override void Interact() {
+        bool wasPickedUp = Inventory.instance.Add(item);
+        if (wasPickedUp) {
+            Instantiate(pickupSphere, transform.position, Quaternion.identity); //Drop a sphere at point of pick-up
+            Inventory.instance.OnPickUp?.Invoke(); //Currently; no instance subscribes to this method
+            Destroy(gameObject);
+            hasBeenCollected = true;
+        }
         base.Interact();
-        PickUp();
+        //PickUp();
     }
 
-
+    /*
     void PickUp() {
         bool wasPickedUp = Inventory.instance.Add(item);
         if (wasPickedUp) {
@@ -64,7 +67,6 @@ public class ItemPickup : Interactable
         }
     }
 
-    /*
     private void Update() {
         if (!coroutineActive && myRigidBody.velocity.magnitude < velocityThreshold) {
             StartCoroutine(DisablePhyics());

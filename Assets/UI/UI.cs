@@ -87,6 +87,8 @@ public class UI : MonoBehaviour
 
     [HideInInspector] public PlayerBehaviour player;
 
+    private int currentFile = 0;
+
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
     public event FileIOEvent OnLoad = delegate { };
@@ -114,6 +116,7 @@ public class UI : MonoBehaviour
     private bool firstPersonCamera = false;
 
     public static UI Instance { get; private set; }
+
     #region Unity Messages
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
@@ -577,8 +580,12 @@ public class UI : MonoBehaviour
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
     }
+
+    public static int GetCurrentFile() {
+        return Instance.currentFile;
+    }
     #endregion
-    
+
     public static float Direction(Vector2 _a, Vector2 _b) {
        return Mathf.Rad2Deg*Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
     }

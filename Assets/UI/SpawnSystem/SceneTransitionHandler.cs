@@ -61,4 +61,8 @@ public class SceneTransitionHandler : MonoBehaviour
     public static GameObject GetPlayer() {
         return instance.spawnManager.player;
     }
+
+    public static string CurrentScene() {
+        return instance.currentScene;
+    }
 }
