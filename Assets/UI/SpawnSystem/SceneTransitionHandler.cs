@@ -11,6 +11,8 @@ public class SceneTransitionHandler : MonoBehaviour
 
     public static SceneTransitionHandler instance;
 
+    private string currentScene = null;
+
     private void Awake() {
     //Singleton Pattern
         if (instance != null && instance != this) { 
@@ -23,21 +25,32 @@ public class SceneTransitionHandler : MonoBehaviour
 
     private void OnEnable() {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
     }
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        //Debug.Log("OnSceneLoaded: " + scene.name);
-        //Debug.Log(mode);
-    //Find SpawnManager
-        spawnManager = FindObjectOfType<SpawnManager>();
-        if (spawnManager == null) {
-            Debug.Log("SpawnManager not found in: "+scene.name);
-        } else {
-            spawnManager.SpawnPlayer(spawnPoint);
+        if (currentScene == null) {
+            currentScene = scene.name;
+            Debug.Log("OnSceneLoaded: " + scene.name);
+            //Debug.Log(mode);
+        //Find SpawnManager
+            spawnManager = FindObjectOfType<SpawnManager>();
+            if (spawnManager == null) {
+                Debug.Log("SpawnManager not found in: " + scene.name);
+            } else {
+                spawnManager.SpawnPlayer(spawnPoint);
+            }
+        }
+    }
+
+    private void SceneManager_sceneUnloaded(Scene scene) {
+        if (currentScene == scene.name) {
+            currentScene = null;
         }
     }
 
