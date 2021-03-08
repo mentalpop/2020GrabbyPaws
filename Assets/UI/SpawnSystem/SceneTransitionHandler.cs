@@ -35,14 +35,13 @@ public class SceneTransitionHandler : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (currentScene == null) {
-            currentScene = scene.name;
-            Debug.Log("OnSceneLoaded: " + scene.name);
             //Debug.Log(mode);
         //Find SpawnManager
             spawnManager = FindObjectOfType<SpawnManager>();
             if (spawnManager == null) {
                 Debug.Log("SpawnManager not found in: " + scene.name);
             } else {
+                currentScene = scene.name;
                 spawnManager.SpawnPlayer(spawnPoint);
             }
         }
