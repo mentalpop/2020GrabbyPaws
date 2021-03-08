@@ -34,7 +34,6 @@ TagManager:
   - Targets
   - Door
   - Theftable
-  - SetPlayerFocus
   layers:
   - Default
   - TransparentFX

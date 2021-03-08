@@ -137614,15 +137614,15 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: InventoryHas("PizzaLottoTicket")  == false
+      conditionsString: InventoryHas("Key_PizzaLottoTicket")  == false
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 20
-        y: 80
+        x: 18.68422
+        y: 87.894745
         width: 160
         height: 30
     - id: 2
@@ -138120,7 +138120,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: InventoryAdd("Key_PizzaLottoTicket", 1)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -138333,7 +138333,7 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: InventoryHas("PizzaLottoTicket")  == true
+      conditionsString: InventoryHas("Key_PizzaLottoTicket")  == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -138535,7 +138535,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: InventoryHas("PizzaLottoTicket")  == true
+      conditionsString: InventoryHas("Key_PizzaLottoTicket")  == true
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -138683,7 +138683,7 @@ MonoBehaviour:
         y: 276.05258
         width: 160
         height: 30
-    canvasScrollPosition: {x: 3.9473877, y: 0}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.7600002
   - id: 61
     fields:
