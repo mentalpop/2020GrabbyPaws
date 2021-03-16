@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     public NavButton navButton;
+    public bool sendPointerEvData = false;
 
     /*
     private MenuNavigator menuNavigator;
@@ -38,7 +39,11 @@ public class ButtonInputPointer : MonoBehaviour, IPointerEnterHandler, IPointerE
         if (MenuNavigator.MouseIsUsing()) {
             if (navButton.buttonStateData.hasToggleState)
                 navButton.buttonStateData.stateActive = !navButton.buttonStateData.stateActive;
-            navButton.Select();
+            if (sendPointerEvData) {
+                navButton.Select((int)evd.button); //evd
+            } else {
+                navButton.Select();
+            }
         }
 	}
 

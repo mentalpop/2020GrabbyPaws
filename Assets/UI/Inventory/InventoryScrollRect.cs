@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryScrollRect : MonoBehaviour
 {
+    public ListController listController;
     public GameObject slotPrefab;
     public Transform contentTransform;
     public ScrollResize scrollResize;
@@ -22,23 +23,29 @@ public class InventoryScrollRect : MonoBehaviour
     public void Unpack(List<InventoryItem> items, CategoryItem categoryItem) {//inventoryDisplay.inventoryDisplayType
     //Clear the slots first
         SlotsClear();
+        List<ListElement> _elements = new List<ListElement>();
         foreach (var iItem in items) {
     //Instantiate each item
             if (iItem.item.category == categoryItem) {
-                GameObject gameObject = Instantiate(slotPrefab, contentTransform, false);
-                slots.Add(gameObject);
-                InventorySlot slot = gameObject.GetComponent<InventorySlot>();
+                GameObject buttonClone = Instantiate(slotPrefab, contentTransform, false);
+                slots.Add(buttonClone);
+                InventorySlot slot = buttonClone.GetComponent<InventorySlot>();
                 slot.Unpack(iItem);
+                ListElement liEl = buttonClone.GetComponent<ListElement>();
+                _elements.Add(liEl);
             }
         }
         if (slots.Count == 0) {
     //Add a Null Item
-            GameObject gameObject = Instantiate(slotPrefab, contentTransform, false);
-            slots.Add(gameObject);
-            InventorySlot slot = gameObject.GetComponent<InventorySlot>();
+            GameObject buttonClone = Instantiate(slotPrefab, contentTransform, false);
+            slots.Add(buttonClone);
+            InventorySlot slot = buttonClone.GetComponent<InventorySlot>();
             slot.Unpack(Inventory.instance.nullItem);
+            ListElement liEl = buttonClone.GetComponent<ListElement>();
+            _elements.Add(liEl);
         }
         scrollResize.RectResize(slots.Count);
+        listController.Elements = _elements;
     }
 
     public void SlotsClear() {

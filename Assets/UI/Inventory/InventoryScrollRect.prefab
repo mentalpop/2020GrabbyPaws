@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 6993903444718634353}
   - component: {fileID: 6993903444718634354}
   - component: {fileID: 2954725441533293396}
+  - component: {fileID: 2544546265418159262}
   m_Layer: 5
   m_Name: InventoryScrollRect
   m_TagString: Untagged
@@ -211,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b11f48a67aac3149b726ed955f8387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listController: {fileID: 2544546265418159262}
   slotPrefab: {fileID: 3211994905208825373, guid: 942ceb182ce193140a614f705cc01493,
     type: 3}
   contentTransform: {fileID: 6993903445927194469}
@@ -230,6 +232,22 @@ MonoBehaviour:
   scrollRect: {fileID: 6993903444718634355}
   blockerPrefab: {fileID: 8491533245025076059, guid: f396ba5b76569a543b891cf2ec9c376b,
     type: 3}
+--- !u!114 &2544546265418159262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993903444718634317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf2b470e1712d144ad6fd9579953ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaveAsTabs: 0
+  activeIndex: 0
+  focusIndex: 0
+  listHasFocus: 0
 --- !u!1 &6993903444761321304
 GameObject:
   m_ObjectHideFlags: 0

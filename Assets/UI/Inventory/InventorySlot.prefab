@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3211994905208825568}
   - component: {fileID: 3211994905208825375}
   - component: {fileID: 1930657838170564696}
+  - component: {fileID: 1626478192193168917}
+  - component: {fileID: 9075273491304524156}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -88,11 +90,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cbd58650e7864459f5b3b85f597b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navButton: {fileID: 1626478192193168917}
+  listController: {fileID: 0}
+  listIndex: 0
   itemSpinSpeed: 72
   cube: {fileID: 801460633326116529}
   quantityDisplay: {fileID: 8117187881667511997}
   quantity: {fileID: 2247265647366748015}
   tooltipOffset: {x: 2.25, y: -0.5}
+--- !u!114 &1626478192193168917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211994905208825373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f530fb56dc60d742ae4c011b988f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonStateData:
+    available: 1
+    hasToggleState: 0
+    stateActive: 0
+    hasFocus: 0
+    inputPressed: 0
+  navButtonData: {fileID: 0}
+--- !u!114 &9075273491304524156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211994905208825373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58f06c5a78d5ff498f5b2b4cd0a0b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 1626478192193168917}
+  sendPointerEvData: 0
 --- !u!1 &3211994906463746273
 GameObject:
   m_ObjectHideFlags: 0

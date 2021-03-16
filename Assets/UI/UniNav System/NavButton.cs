@@ -19,6 +19,9 @@ public class NavButton : MonoBehaviour
 	public event ButtonEvent OnFocusGain = delegate { };
 	public event ButtonEvent OnFocusLost = delegate { };
 
+    public delegate void ButtonEventExt(ButtonStateData _buttonStateData, object _data);
+    public event ButtonEventExt OnSelectExt = delegate { };
+
     public virtual void Unpack(NavButtonData _navButtonData) {
         navButtonData = _navButtonData;
         OnUnpack(buttonStateData);
@@ -26,6 +29,11 @@ public class NavButton : MonoBehaviour
 
     public void Select() {
         OnSelect(buttonStateData);
+        StateUpdate();
+    }
+
+    public void Select(object _data) {
+        OnSelectExt(buttonStateData, _data);
         StateUpdate();
     }
 

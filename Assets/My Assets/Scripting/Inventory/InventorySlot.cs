@@ -1,8 +1,7 @@
-﻿using UnityEngine.EventSystems;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
-public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+public class InventorySlot : ListElement {
     
     public float itemSpinSpeed = 72f;
     public Transform cube;
@@ -19,6 +18,46 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private InventoryItem iItem;
     private bool mouseOver = false;
     private ItemTooltip iTooltip;
+
+    private void OnEnable() {
+        navButton.OnSelectExt += NavButton_OnSelectExt;
+        navButton.OnFocusGain += NavButton_OnFocusGain;
+        navButton.OnFocusLost += NavButton_OnFocusLost;
+    }
+
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        if ((int)_data == 1) { //eventData.button == PointerEventData.InputButton.Right
+            if (iItem.item.category == CategoryItem.Trash) {
+                Inventory.instance.Drop(iItem.item);
+                Debug.Log("Dropping: " + iItem.item.name);
+            } else {
+                Debug.Log("Can't drop item: " + iItem.item.name);
+            }
+        }
+    }
+
+    private void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
+        //Tooltip Handling
+        iTooltip.gameObject.SetActive(true);
+        //iTooltip.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
+        iTooltip.Unpack(iItem, transform.position);
+        mouseOver = true;
+    }
+
+    private void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
+        //Tooltip Handling
+        iTooltip.gameObject.SetActive(false);
+        mouseOver = false;
+        if (model != null) {
+            model.transform.rotation = initialRotation;
+        }
+    }
+
+    private void OnDisable() {
+        navButton.OnSelectExt -= NavButton_OnSelectExt;
+        navButton.OnFocusGain -= NavButton_OnFocusGain;
+        navButton.OnFocusLost -= NavButton_OnFocusLost;
+    }
 
     void Update() {
         if (mouseOver && model != null)
@@ -49,7 +88,35 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //*/
     }
 
+
     /*
+    public void OnPointerEnter(PointerEventData eventData) {
+        //Tooltip Handling
+        iTooltip.gameObject.SetActive(true);
+        //iTooltip.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
+        iTooltip.Unpack(iItem, transform.position);
+        mouseOver = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        //Tooltip Handling
+        iTooltip.gameObject.SetActive(false);
+        mouseOver = false;
+        if (model != null) {
+            model.transform.rotation = initialRotation;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            if (iItem.item.category == CategoryItem.Trash) {
+                Inventory.instance.Drop(iItem.item);
+                Debug.Log("Dropping: " + iItem.item.name);
+            } else {
+                Debug.Log("Can't drop item: " + iItem.item.name);
+            }
+        }
+    }
     public void Awake()
     {
         tip = FindObjectOfType<ToolTip>();
@@ -97,7 +164,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //Inventory.instance.Remove(item);
     }
     //*/
-        
+
     /*
     public void UseItem()
     {
@@ -109,32 +176,4 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
     //*/
-
-    public void OnPointerEnter(PointerEventData eventData) {
-//Tooltip Handling
-        iTooltip.gameObject.SetActive(true);
-        //iTooltip.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
-        iTooltip.Unpack(iItem, transform.position);
-        mouseOver = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
-//Tooltip Handling
-        iTooltip.gameObject.SetActive(false);
-        mouseOver = false;
-        if (model != null) {
-            model.transform.rotation = initialRotation;
-        }
-    }
-
-    public void OnPointerClick(PointerEventData eventData) {
-        if (eventData.button == PointerEventData.InputButton.Right) {
-            if (iItem.item.category == CategoryItem.Trash) {
-                Inventory.instance.Drop(iItem.item);
-                Debug.Log("Dropping: " + iItem.item.name);
-            } else {
-                Debug.Log("Can't drop item: " + iItem.item.name);
-            }
-        }
-    }
 }
