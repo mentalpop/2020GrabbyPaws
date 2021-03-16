@@ -21,7 +21,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private ItemTooltip iTooltip;
 
     void Update() {
-        if (mouseOver)
+        if (mouseOver && model != null)
             model.transform.Rotate(0, Time.deltaTime * itemSpinSpeed, 0);
     }
 
@@ -33,14 +33,15 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         } else {
             quantityDisplay.SetActive(false);
         }
-        //* Going to use this later; 
-        model = Instantiate(iItem.item.model, cube);
-        //Debug.Log("cube transform: " + cube);
-        model.transform.localPosition = iItem.item.positionOffset;
-        initialRotation = Quaternion.Euler(iItem.item.rotationOffset);
-        model.transform.rotation = initialRotation;
-        model.transform.localScale = new Vector3(iItem.item.itemScale, iItem.item.itemScale, iItem.item.itemScale);
-        model.layer = 5; //UI
+        if (iItem.item.model != null) {
+            model = Instantiate(iItem.item.model, cube);
+            //Debug.Log("cube transform: " + cube);
+            model.transform.localPosition = iItem.item.positionOffset;
+            initialRotation = Quaternion.Euler(iItem.item.rotationOffset);
+            model.transform.rotation = initialRotation;
+            model.transform.localScale = new Vector3(iItem.item.itemScale, iItem.item.itemScale, iItem.item.itemScale);
+            model.layer = 5; //UI
+        }
         /*
         if (model.GetComponent<Rigidbody>() != null) {
             model.GetComponent<Rigidbody>().useGravity = false;
@@ -121,7 +122,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 //Tooltip Handling
         iTooltip.gameObject.SetActive(false);
         mouseOver = false;
-        model.transform.rotation = initialRotation;
+        if (model != null) {
+            model.transform.rotation = initialRotation;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData) {

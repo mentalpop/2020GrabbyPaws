@@ -1,10 +1,6 @@
-﻿/*
-using System.Collections;
-using System.Collections.Generic;
-//*/
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InventoryTab : TabSortItem
+public class InventoryTab : ListElement
 {
     public InventoryScrollRect inventoryScrollRect;
 

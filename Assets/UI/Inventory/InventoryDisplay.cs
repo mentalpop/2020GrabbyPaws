@@ -7,8 +7,7 @@ public class InventoryDisplay : MonoBehaviour
     public AnimatedUIContainer container;
     public Inventory inventory;
     
-    public TabSortMenu inventoryTabMenu;
-    public List<TabData> tabs = new List<TabData>();
+    public ListController inventoryTabMenu;
     public Transform menuBGTransform;
     public BottomCapAdjust bottomCapAdjust;
 
@@ -18,13 +17,13 @@ public class InventoryDisplay : MonoBehaviour
     private InventoryScrollRect inventoryScrollRect;
 
     private void OnEnable() {
-        inventoryTabMenu.OnTabSelected += SetActiveTab;
+        inventoryTabMenu.OnSelect += SetActiveTab;
         inventory.OnItemChanged += UpdateDisplay;
         container.OnEffectComplete += Container_OnEffectComplete;
     }
 
     private void OnDisable() {
-        inventoryTabMenu.OnTabSelected -= SetActiveTab;
+        inventoryTabMenu.OnSelect -= SetActiveTab;
         inventory.OnItemChanged -= UpdateDisplay;
         container.OnEffectComplete -= Container_OnEffectComplete;
     }
@@ -41,11 +40,10 @@ public class InventoryDisplay : MonoBehaviour
     }
 
     void Start() {
-//Instantiate tabs and create a local list
-        inventoryTabMenu.InstantiateTabs(tabs);
+        //Instantiate tabs and create a local list
         float _depthSet = 0f;
-        for (int i = 0; i < inventoryTabMenu.tabs.Count; i++) {
-            InventoryTab tab = inventoryTabMenu.tabs[i].GetComponent<InventoryTab>();
+        for (int i = 0; i < inventoryTabMenu.Elements.Count; i++) {
+            InventoryTab tab = inventoryTabMenu.Elements[i].GetComponent<InventoryTab>();
     //Manually set z depth of Tab Headers and Scroll Rects
             _depthSet = -1f * (i + 1);
             tab.transform.position = new Vector3(tab.transform.position.x, tab.transform.position.y, -1.5f * (i + 1));
