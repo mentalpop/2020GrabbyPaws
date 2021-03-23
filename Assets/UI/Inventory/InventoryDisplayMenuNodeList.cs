@@ -71,8 +71,8 @@ public class InventoryDisplayMenuNodeList : MenuNodeList
                 //Debug.Log("_tab.inventoryScrollRect: " + _tab.inventoryScrollRect);
                 if (_tab.inventoryScrollRect == InventoryDisplay.inventoryScrollRect && _tab.inventoryScrollRect.scrollResize.Open) {
                     _mNode = _tab.GetComponent<InventoryTabMenuNodeList>();
-                    _tab.listController.LastIndex(); //Going upwards, focus the LAST element in the ScrollRect
-                    Debug.Log("_tab.listController.focusIndex: " + _tab.listController.focusIndex);
+                    MenuNodeList _nList = _mNode as MenuNodeList;
+                    _nList.listController.LastIndex(); //Going upwards, focus the LAST element in the ScrollRect
                     _mNode.mCancel = this;
                 //Put the correct Tab in focus
                     if (listController.focusIndex == 0) { //If you're going UP from the FIRST index, select the last
@@ -94,8 +94,8 @@ public class InventoryDisplayMenuNodeList : MenuNodeList
                 _tab = listController.FocusElement as InventoryTab;
                 if (_tab.inventoryScrollRect == InventoryDisplay.inventoryScrollRect && _tab.inventoryScrollRect.scrollResize.Open) {
                     _mNode = _tab.GetComponent<InventoryTabMenuNodeList>();
-                    _tab.listController.FirstIndex(); //Going downwards, focus the FIRST element in the ScrollRect
-                    Debug.Log("_tab.listController.focusIndex: " + _tab.listController.focusIndex);
+                    MenuNodeList _nList = _mNode as MenuNodeList;
+                    _nList.listController.FirstIndex(); //Going downwards, focus the FIRST element in the ScrollRect
                     _mNode.mCancel = this;
                 } else {
                     if (!listController.IncrementIndex()) {
