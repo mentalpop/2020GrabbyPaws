@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6264294645154717691}
   - component: {fileID: 1342478513787650397}
   - component: {fileID: 368964183743051531}
+  - component: {fileID: 5723782096430806134}
   m_Layer: 5
   m_Name: InventoryTab
   m_TagString: Untagged
@@ -155,6 +156,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navButton: {fileID: 884342440222937728}
+  sendPointerEvData: 0
+--- !u!114 &5723782096430806134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455262508151470272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2a1cfa5f188b0448f77033b100feeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 0}
+  mDown: {fileID: 0}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  validSelection: 1
+  listController: {fileID: 6986331959198112086}
+  navigationType: 0
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 1
 --- !u!1 &4513065594803914880
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,5 +616,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b11f48a67aac3149b726ed955f8387f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6986331959198112086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2544546265418159262, guid: b54a772c9b3b92643bb7e3860bdf01eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 4874131464435633608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf2b470e1712d144ad6fd9579953ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

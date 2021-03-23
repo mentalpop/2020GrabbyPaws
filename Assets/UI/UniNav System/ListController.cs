@@ -19,6 +19,8 @@ public class ListController : MonoBehaviour
     public int activeIndex = 0;
     public int focusIndex = 0;
     public bool listHasFocus = false;
+    public ListElement ActiveElement => elements[activeIndex];
+    public ListElement FocusElement => elements[focusIndex];
     //public RectTransform contentPanel;
 
     public delegate void ListElementEvent (int index);

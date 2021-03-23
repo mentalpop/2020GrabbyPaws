@@ -10,6 +10,7 @@ public class ScrollResize : MonoBehaviour
     public Transform countChildTransform;
     public int maxChildrenOnScreen = 9;
     public float heightPerChild = 128;
+    public bool Open => targetHeight > 0f;
 
     private GTween gTween;
     private float targetHeight = 0f;

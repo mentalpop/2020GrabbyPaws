@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryDisplay : MonoBehaviour
 {
     public AnimatedUIContainer container;
+    public MenuHub menuHub;
     public Inventory inventory;
     
     public ListController inventoryTabMenu;
@@ -12,26 +13,32 @@ public class InventoryDisplay : MonoBehaviour
     public BottomCapAdjust bottomCapAdjust;
 
     [HideInInspector] public CategoryItem inventoryDisplayType;
+    [HideInInspector] public InventoryScrollRect inventoryScrollRect;
 
     private List<InventoryTab> iTabs = new List<InventoryTab>();
-    private InventoryScrollRect inventoryScrollRect;
 
     private void OnEnable() {
         inventoryTabMenu.OnSelect += SetActiveTab;
         inventory.OnItemChanged += UpdateDisplay;
         container.OnEffectComplete += Container_OnEffectComplete;
+        menuHub.OnMenuClose += MenuHub_OnMenuClose;
     }
 
     private void OnDisable() {
         inventoryTabMenu.OnSelect -= SetActiveTab;
         inventory.OnItemChanged -= UpdateDisplay;
         container.OnEffectComplete -= Container_OnEffectComplete;
+        menuHub.OnMenuClose -= MenuHub_OnMenuClose;
     }
 
     private void Container_OnEffectComplete(bool reverse) {
         if (reverse) {
             gameObject.SetActive(false);
         }
+    }
+
+    private void MenuHub_OnMenuClose() {
+        Close();
     }
 
     public void Close() {
