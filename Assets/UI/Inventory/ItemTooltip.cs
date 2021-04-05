@@ -34,7 +34,7 @@ public class ItemTooltip : MonoBehaviour
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
     }
 
-    public void Unpack(InventoryItem inventoryItem, Vector2 _position) {
+    public void Unpack(InventoryItem inventoryItem, Transform _transform) {
         itemName.text = inventoryItem.item.name;
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
@@ -49,7 +49,12 @@ public class ItemTooltip : MonoBehaviour
         } else {
             value.text = string.Format("{0:n0}", _value);
         }
-    //Keep on screen
+    //Snap to position of transform plus offset
+        Transform previousParent = transform.parent;
+        transform.parent = _transform;
+        myRect.anchoredPosition = tooltipOffset;
+        transform.parent = previousParent;
+        /*
         float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
         tooltipOffset = new Vector2(tooltipOffset.x, tooltipOffset.y * _scale);
@@ -59,5 +64,6 @@ public class ItemTooltip : MonoBehaviour
         //Debug.Log("yMax: "+yMax);
         myRect.anchoredPosition = new Vector3(Mathf.Clamp(correctedPosition.x + tooltipOffset.x, 0f, canvasSize.x - myRect.rect.width - offset * _scale),
             Mathf.Clamp(correctedPosition.y + tooltipOffset.y - canvasSize.y / 2f, -yMax, yMax), transform.position.z);
+        //*/
     }
 }

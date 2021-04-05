@@ -81,9 +81,12 @@ public class ListController : MonoBehaviour
             Debug.Log("Tried to SetFocus on elements, but elements list is null; "+gameObject.name);
         } else {
             focusIndex = Mathf.Clamp(_index, 0, elements.Count - 1);
-            for (int i = 0; i < elements.Count; i++) {
-                elements[i].navButton.SetFocus(i == focusIndex);
+            for (int i = 0; i < elements.Count; i++) { //Disable all elements that should not be active
+                if (i != focusIndex) {
+                    elements[i].navButton.SetFocus(false);
+                }
             }
+            elements[focusIndex].navButton.SetFocus(true); //Enable the one element that should be active
             OnFocus(focusIndex);
         }
     }

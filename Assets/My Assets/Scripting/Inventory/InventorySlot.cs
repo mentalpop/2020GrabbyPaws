@@ -39,24 +39,19 @@ public class InventorySlot : ListElement {
     private void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
         //Tooltip Handling
         iTooltip.gameObject.SetActive(true);
-        //iTooltip.transform.position = new Vector3(transform.position.x + tooltipOffset.x, transform.position.y + tooltipOffset.y, transform.position.z);
-        iTooltip.Unpack(iItem, transform.position);
+        iTooltip.Unpack(iItem, transform);
         mouseOver = true;
     }
 
     private void NavButton_OnFocusLost(ButtonStateData _buttonStateData) {
-        //Tooltip Handling
-        iTooltip.gameObject.SetActive(false);
-        mouseOver = false;
-        if (model != null) {
-            model.transform.rotation = initialRotation;
-        }
+        CloseTooltip();
     }
 
     private void OnDisable() {
         navButton.OnSelectExt -= NavButton_OnSelectExt;
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;
+        CloseTooltip();
     }
 
     void Update() {
@@ -86,6 +81,17 @@ public class InventorySlot : ListElement {
             model.GetComponent<Rigidbody>().useGravity = false;
             //*/
         //*/
+    }
+
+    private void CloseTooltip() {
+        //Tooltip Handling
+        if (mouseOver) {
+            iTooltip.gameObject.SetActive(false);
+            mouseOver = false;
+        }
+        if (model != null) {
+            model.transform.rotation = initialRotation;
+        }
     }
 
 
