@@ -161,7 +161,7 @@ public class UI : MonoBehaviour
                     LappyMenuToggle(false);
                 }
             //FirstPerson Camera
-                if (!lappy.gameObject.activeSelf) { //Can't First-Person Cam while paused
+                if (!lappy.gameObject.activeSelf && !inventoryDisplay.gameObject.activeSelf) { //Can't change state of First-Person Cam while paused
                     if (firstPersonCamera) {
                 //Disable on Release
                         if (Mathf.Round(Input.GetAxisRaw("Triggers")) < 1) {

@@ -38,7 +38,8 @@ public class InventoryDisplay : MonoBehaviour
     }
 
     private void MenuHub_OnMenuClose() {
-        Close();
+        UI.Instance.ShowInventoryDisplay();
+        //Close(); //Calling this by itself doesn't actually unpause the game
     }
 
     public void Close() {
