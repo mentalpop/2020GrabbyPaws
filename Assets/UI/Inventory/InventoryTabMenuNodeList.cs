@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class InventoryTabMenuNodeList : MenuNodeList
 {
+    [HideInInspector] public InventoryDisplay InventoryDisplay;
+
     public override void MenuNavigate(NavDir navDir) {
         //Debug.Log("MenuNavigate: "+name);
         MenuNode _mNode = null;
         switch (navDir) {
             case NavDir.Accept: _mNode = mAccept; break;
-            case NavDir.Cancel: MenuNavigator.Instance.MenuCancel(mCancel); break;
+            case NavDir.Cancel:
+                InventoryDisplay.inventoryScrollRect.scrollResize.Collapse(); //Close the Pocket when pressing "back"
+                MenuNavigator.Instance.MenuCancel(mCancel);
+                break;
             case NavDir.Left:
                 switch (navigationType) {
                     case NavigationType.Horizontal:
@@ -58,12 +63,19 @@ public class InventoryTabMenuNodeList : MenuNodeList
                 break;
             case NavDir.Up:
                 if (!listController.DecrementIndex()) {
-                    MenuNavigator.Instance.MenuCancel(mCancel);
+                    _mNode = mUp;
                 }
                 break;
             case NavDir.Down:
                 if (!listController.IncrementIndex()) {
-                    MenuNavigator.Instance.MenuCancel(mCancel);
+                    _mNode = mDown;
+                //Find the List Controller on this menu
+                    MenuNodeList _nList = _mNode as MenuNodeList;
+                //Increment the menu node or jump to the first index
+                    bool success = _nList.listController.IncrementIndex();
+                    if (!success) {
+                        _nList.listController.FirstIndex();
+                    }
                 }
                 break;
             case NavDir.Forward: _mNode = mForward; break;

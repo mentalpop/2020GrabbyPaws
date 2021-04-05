@@ -144,4 +144,20 @@ public class ListController : MonoBehaviour
             }
         }
     }
+
+    public virtual ListElement NextElement(int index) {
+        if (index < elements.Count - 1) {
+            return elements[index + 1];
+        } else {
+            return elements[0];
+        }
+    }
+
+    public virtual ListElement PreviousElement(int index) {
+        if (index > 0) {
+            return elements[index - 1];
+        } else {
+            return elements[elements.Count - 1];
+        }
+    }
 }

@@ -70,10 +70,14 @@ public class InventoryDisplayMenuNodeList : MenuNodeList
                 _tab = _li as InventoryTab;
                 //Debug.Log("_tab.inventoryScrollRect: " + _tab.inventoryScrollRect);
                 if (_tab.inventoryScrollRect == InventoryDisplay.inventoryScrollRect && _tab.inventoryScrollRect.scrollResize.Open) {
-                    _mNode = _tab.GetComponent<InventoryTabMenuNodeList>();
+                    InventoryTabMenuNodeList itmnList = _tab.GetComponent<InventoryTabMenuNodeList>();
+                    itmnList.InventoryDisplay = InventoryDisplay;
+                    _mNode = itmnList;
                     MenuNodeList _nList = _mNode as MenuNodeList;
-                    _nList.listController.LastIndex(); //Going upwards, focus the LAST element in the ScrollRect
+                    _mNode.mUp = this;
+                    _mNode.mDown = this;
                     _mNode.mCancel = this;
+                    _nList.listController.LastIndex(); //Going upwards, focus the LAST element in the ScrollRect
                 //Put the correct Tab in focus
                     if (listController.focusIndex == 0) { //If you're going UP from the FIRST index, select the last
                         listController.LastIndex();
@@ -93,10 +97,14 @@ public class InventoryDisplayMenuNodeList : MenuNodeList
             case NavDir.Down:
                 _tab = listController.FocusElement as InventoryTab;
                 if (_tab.inventoryScrollRect == InventoryDisplay.inventoryScrollRect && _tab.inventoryScrollRect.scrollResize.Open) {
-                    _mNode = _tab.GetComponent<InventoryTabMenuNodeList>();
+                    InventoryTabMenuNodeList itmnList = _tab.GetComponent<InventoryTabMenuNodeList>();
+                    itmnList.InventoryDisplay = InventoryDisplay;
+                    _mNode = itmnList;
                     MenuNodeList _nList = _mNode as MenuNodeList;
-                    _nList.listController.FirstIndex(); //Going downwards, focus the FIRST element in the ScrollRect
+                    _mNode.mUp = this;
+                    _mNode.mDown = this;
                     _mNode.mCancel = this;
+                    _nList.listController.FirstIndex(); //Going downwards, focus the FIRST element in the ScrollRect
                 } else {
                     if (!listController.IncrementIndex()) {
                         if (outOfBoundsLoop) {
