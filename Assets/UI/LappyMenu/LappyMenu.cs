@@ -54,19 +54,19 @@ public class LappyMenu : MonoBehaviour
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
 		}
+        UI.Instance.RefocusInventory(); //If the Inventory was open, refocus on it
     }
 
     private void Container_OnEffectComplete(bool reverse) {
         if (reverse) {
             UI.SetControlState(false, gameObject); //De-register from UI
             gameObject.SetActive(false); //For now, just close instantly
-        } else {
-
         }
     }
     
     private void MenuNavigator_OnClose() {
-        Close();
+        UI.Instance.LappyMenuToggle(false);
+        //Close();
     }
 
     public void Close() {

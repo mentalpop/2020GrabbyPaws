@@ -106,6 +106,8 @@ public class UI : MonoBehaviour
     public event UIScaleEvent OnUIScaled = delegate { };
 
     //private bool doShowCurrencyDisplay = false;
+    private MenuNode inventoryMenuNode;
+    private MenuNode pauseMenuNode;
     private GameObject lockUI = null;
     private CinemachineBrain cBrain;
     private Camera gameCamera;
@@ -147,14 +149,14 @@ public class UI : MonoBehaviour
         if (lockUI == null) { //No GameObject is currently locking the UI
             if (MenuNavigator.MouseIsUsing()) {
         //Open / Close menus
-                if (Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
+                if (!lappy.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
                     ShowInventoryDisplay();
                 }
                 if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
                     LappyMenuToggle(false);
                 }
             } else {
-                if (Input.GetButtonDown("Back")) {
+                if (!lappy.gameObject.activeSelf && Input.GetButtonDown("Back")) {
                     ShowInventoryDisplay();
                 }
                 if (Input.GetButtonDown("Start")) {
@@ -369,21 +371,40 @@ public class UI : MonoBehaviour
 
     public void OpenConversationInLappy(string conversationID) {
         if (!lappy.gameObject.activeSelf) {
-            SetControlState(true, lappy.gameObject);
-            lappy.gameObject.SetActive(true);
+            ActivateLappy();
         }
         lappy.StartConversation(conversationID);
     }
 
-    private void LappyMenuToggle(bool _override) {
-//Show / Hide the HUD
-        bool menuIsActive = _override || !lappy.gameObject.activeSelf;
-        if (menuIsActive) {
-            SetControlState(true, lappy.gameObject);
-            lappy.gameObject.SetActive(true);
+    public void LappyMenuToggle(bool _override) {
+        bool doActivateLappy = _override || !lappy.gameObject.activeSelf;
+        if (doActivateLappy) {
+    //Show / Hide the HUD
+            ActivateLappy();
         } else {
+    //Close Lappy
+            pauseMenuNode = MenuNavigator.Instance.activeMenuNode;
             MenuNavigator.Instance.MenuClose();
             lappy.Close();
+        }
+    }
+
+    public void RefocusInventory() {
+        if (inventoryDisplay.gameObject.activeSelf) {
+            //If the Inventory was open, refocus it
+            MenuNavigator.Instance.MenuFocus(inventoryMenuNode);
+        }
+    }
+
+    private void ActivateLappy() {
+        if (inventoryDisplay.gameObject.activeSelf) {
+            //If the Inventory was open, make note of which node was active to 
+            inventoryMenuNode = MenuNavigator.Instance.activeMenuNode;
+        }
+        SetControlState(true, lappy.gameObject);
+        lappy.gameObject.SetActive(true);
+        if (pauseMenuNode != null) {
+            MenuNavigator.Instance.MenuFocus(pauseMenuNode);
         }
     }
 
