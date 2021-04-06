@@ -113,7 +113,8 @@ public class UI : MonoBehaviour
     private Camera gameCamera;
     private CinemachineBlendDefinition defaultBlend;
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
-    private bool lockControls = false;
+    //public bool lockControls = false;
+    public bool lockControls { get; private set; }
     ICinemachineCamera previousCamera = null;
     private bool firstPersonCamera = false;
 
@@ -485,7 +486,7 @@ public class UI : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
-    //Player
+        //Player
         if (Instance.player != null) {
             Instance.player.SetLockState(Instance.lockControls);
         }

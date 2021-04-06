@@ -79,7 +79,7 @@ public class Sense : MonoBehaviour
 
 
 
-            if (Input.GetButtonDown("Steal"))
+            if (!UI.Instance.lockControls && Input.GetButtonDown("Steal"))
             {
 
                 targets[index].gameObject.GetComponent<Interactable>().Interact();
