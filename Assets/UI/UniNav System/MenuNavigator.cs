@@ -174,6 +174,8 @@ public class MenuNavigator : MonoBehaviour
         standaloneInputModule.horizontalAxis = horizontalInput;
         standaloneInputModule.verticalAxis = verticalInput;
         if (useMouse) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             OnInputMethodSet(true);
             //Debug.Log("GamepadCoroutineUpkeep - OnInputMethodSet(true);");
         } else {
