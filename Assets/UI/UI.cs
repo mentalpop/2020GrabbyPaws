@@ -153,14 +153,14 @@ public class UI : MonoBehaviour
                 if (!lappy.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
                     ShowInventoryDisplay();
                 }
-                if (Input.GetKeyDown(KeyCode.Escape) && !lappy.rivenChatWindow.gameObject.activeSelf) { //"Kwit"
+                if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
                     LappyMenuToggle(false);
                 }
             } else {
                 if (!lappy.gameObject.activeSelf && Input.GetButtonDown("Back")) {
                     ShowInventoryDisplay();
                 }
-                if (Input.GetButtonDown("Start") && !lappy.rivenChatWindow.gameObject.activeSelf) {
+                if (Input.GetButtonDown("Start")) {
                     LappyMenuToggle(false);
                 }
             //FirstPerson Camera
@@ -384,9 +384,10 @@ public class UI : MonoBehaviour
             ActivateLappy();
         } else {
     //Close Lappy
-            pauseMenuNode = MenuNavigator.Instance.activeMenuNode;
-            MenuNavigator.Instance.MenuClose();
-            lappy.Close();
+            if (lappy.Close()) {
+                pauseMenuNode = MenuNavigator.Instance.activeMenuNode;
+                MenuNavigator.Instance.MenuClose();
+            }
         }
     }
 

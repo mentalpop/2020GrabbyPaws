@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 4
   _isDead: 0
   _currentHealth: 0
   isImmortal: 1
@@ -505,9 +505,7 @@ MonoBehaviour:
   cameraTarget: {fileID: 8551294124528195133}
   dropTarget: {fileID: 673289111563440180}
   firstPersonCam: {fileID: 123548850329433152}
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  controlsLocked: 0
 --- !u!114 &8551294124530700065
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class RivenChatWindow : MonoBehaviour
 {
-    public ButtonGeneric closeButton;
-    public ClickToClose clickToClose;
+    //public ButtonGeneric closeButton;
+    //public ClickToClose clickToClose;
     public DialogueSystemTrigger dsTrigger;
 
     // Some of this code saves the chat text between uses so you can restore it 
@@ -30,16 +30,16 @@ public class RivenChatWindow : MonoBehaviour
     {
         dialogueUI.conversationUIElements.mainPanel.onOpen.AddListener(ConversationStarted);
         dialogueUI.conversationUIElements.mainPanel.onClose.AddListener(ConversationEnded);
-        clickToClose.OnClick += Close;
-        closeButton.OnClick += Close;
+        //clickToClose.OnClick += Close;
+        //closeButton.OnClick += Close;
     }
 
     private void OnDisable()
     {
         dialogueUI.conversationUIElements.mainPanel.onOpen.RemoveListener(ConversationStarted);
         dialogueUI.conversationUIElements.mainPanel.onClose.RemoveListener(ConversationEnded);
-        clickToClose.OnClick -= Close;
-        closeButton.OnClick -= Close;
+        //clickToClose.OnClick -= Close;
+        //closeButton.OnClick -= Close;
     }
 
     private void ConversationStarted()
@@ -57,7 +57,7 @@ public class RivenChatWindow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Close()
+    public void Close()
     {
 
         if (accumulateText)
