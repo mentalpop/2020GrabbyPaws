@@ -1105,8 +1105,8 @@ MonoBehaviour:
   joystickAxesToCheck: []
   joystickAxisThreshold: 0.5
   keyButtonsToCheck: []
-  keyCodesToCheck: 11010000120100007700000073000000
-  keyInputSwitchesModeTo: 0
+  keyCodesToCheck: 1b000000
+  keyInputSwitchesModeTo: 1
   alwaysAutoFocus: 1
   detectMouseControl: 0
   mouseMoveThreshold: 0.1

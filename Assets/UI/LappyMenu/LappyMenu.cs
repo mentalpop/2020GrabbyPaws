@@ -37,8 +37,8 @@ public class LappyMenu : MonoBehaviour
 
     private void OnEnable() {
         startMenuList.OnSelect += SelectStartMenuItem;
+        clickToClose.OnClick += Close;
         startButton.OnClick += OnClickStart;
-        clickToClose.OnClick += clickToClose_OnClick;
         container.OnEffectComplete += Container_OnEffectComplete;
         menuHub.OnMenuClose += MenuNavigator_OnClose;
         SetBackground(lappySelectedBG.Read());
@@ -46,7 +46,7 @@ public class LappyMenu : MonoBehaviour
 
     private void OnDisable() {
         startMenuList.OnSelect -= SelectStartMenuItem;
-        clickToClose.OnClick -= clickToClose_OnClick;
+        clickToClose.OnClick -= Close;
 		startButton.OnClick -= OnClickStart;
         container.OnEffectComplete -= Container_OnEffectComplete;
         menuHub.OnMenuClose -= MenuNavigator_OnClose;
@@ -63,22 +63,15 @@ public class LappyMenu : MonoBehaviour
             gameObject.SetActive(false); //For now, just close instantly
         }
     }
-
-    private void clickToClose_OnClick() {
-        Close();
-    }
-
+    
     private void MenuNavigator_OnClose() {
         UI.Instance.LappyMenuToggle(false);
         //Close();
     }
 
-    public bool Close() {
-        if (!rivenChatWindow.gameObject.activeSelf && !container.gTween.doReverse) {
+    public void Close() {
+        if (!container.gTween.doReverse)
             container.gTween.Reverse();
-            return true;
-        }
-        return false;
     }
     
 	private void OnConfirm(bool _choice) {
