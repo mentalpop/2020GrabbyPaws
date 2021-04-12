@@ -35,6 +35,7 @@ TagManager:
   - Door
   - Theftable
   - SetPlayerFocus
+  - INTWall
   layers:
   - Default
   - TransparentFX

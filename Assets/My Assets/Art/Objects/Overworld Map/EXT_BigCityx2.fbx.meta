@@ -82,6 +82,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Mentalpop Ground
+    second: {fileID: 2100000, guid: af93941db921b5543a1a5248115b341e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: NeonPink
     second: {fileID: 2100000, guid: 080330e88719bb14f863bcf01f84a50a, type: 2}
   - first:
@@ -114,6 +119,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Palette Specials
     second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials.001
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

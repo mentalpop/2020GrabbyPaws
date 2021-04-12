@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 5247279587703690855}
   - component: {fileID: 5247279587703690852}
   - component: {fileID: 5247279587703690853}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bark Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 5366994848385601527}
   - component: {fileID: 8448821200824403844}
   - component: {fileID: 2075387826776257281}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 6478635371676023635}
   - component: {fileID: 6478635371675946997}
   - component: {fileID: 6478635371675992015}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Main Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1156,7 +1156,7 @@ GameObject:
   - component: {fileID: 6478635371675951555}
   - component: {fileID: 6478635371708958519}
   - component: {fileID: 6478635371679209081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bubble Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1205,13 +1205,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 21639133816558916, guid: 38bc8cfcd4c6e834b8e4a76e30803c11,
     type: 2}
-  m_Color: {r: 0.08130531, g: 0.020558922, b: 0.13207549, a: 1}
+  m_Color: {r: 0.21056606, g: 0.058490556, b: 0.248, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8308d051e8be0b947bea843adc79c6d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d238f41ebfe3654b9214df8873e496e, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 6478635371675976443}
   - component: {fileID: 6478635371686544424}
   - component: {fileID: 6478635371686544425}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NPC UI Subtitle Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1498,7 +1498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8250059250081581113}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NPCDialoguePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
