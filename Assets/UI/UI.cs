@@ -153,14 +153,14 @@ public class UI : MonoBehaviour
                 if (!lappy.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
                     ShowInventoryDisplay();
                 }
-                if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
+                if (Input.GetKeyDown(KeyCode.Escape) && !lappy.rivenChatWindow.gameObject.activeSelf) { //"Kwit"
                     LappyMenuToggle(false);
                 }
             } else {
                 if (!lappy.gameObject.activeSelf && Input.GetButtonDown("Back")) {
                     ShowInventoryDisplay();
                 }
-                if (Input.GetButtonDown("Start")) {
+                if (Input.GetButtonDown("Start") && !lappy.rivenChatWindow.gameObject.activeSelf) {
                     LappyMenuToggle(false);
                 }
             //FirstPerson Camera
