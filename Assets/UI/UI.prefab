@@ -4976,6 +4976,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902756285d52f7344bce440f7ed05896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standaloneInputModule: {fileID: 5819588754121378098}
+  gamepadHorizontalInput: LeftAnalogHorizontal
+  gamepadVerticalInput: LeftAnalogVertical
+  horizontalInput: Horizontal
+  verticalInput: Vertical
   activeMenuNode: {fileID: 0}
   useMouse: 0
 --- !u!114 &5819588752494907388

@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [DefaultExecutionOrder(-500)]
 public class MenuNavigator : MonoBehaviour
 {
+    public StandaloneInputModule standaloneInputModule;
+    public string gamepadHorizontalInput;
+    public string gamepadVerticalInput;
+    public string horizontalInput;
+    public string verticalInput;
     public MenuNode activeMenuNode;
     public bool useMouse = true;
     //public MenuNode activeCancelNode;
@@ -136,6 +142,7 @@ public class MenuNavigator : MonoBehaviour
 
     public static void SetControlPreferences(bool useMouse) {
         Instance.useMouse = useMouse;
+
         Debug.Log("SetControlPreferences: "+useMouse);
         Instance.GamepadCoroutineUpkeep();
         /*
@@ -164,12 +171,14 @@ public class MenuNavigator : MonoBehaviour
             gamepadDetected = false;
             delayedGamepadCheckRoutine = null;
         }
+        standaloneInputModule.horizontalAxis = horizontalInput;
+        standaloneInputModule.verticalAxis = verticalInput;
         if (useMouse) {
             OnInputMethodSet(true);
-            Debug.Log("GamepadCoroutineUpkeep - OnInputMethodSet(true);");
+            //Debug.Log("GamepadCoroutineUpkeep - OnInputMethodSet(true);");
         } else {
             delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
-            Debug.Log("GamepadCoroutineUpkeep - delayedGamepadCheckRoutine: "+delayedGamepadCheckRoutine);
+            //Debug.Log("GamepadCoroutineUpkeep - delayedGamepadCheckRoutine: " + delayedGamepadCheckRoutine);
         }
     }
 
@@ -191,6 +200,8 @@ public class MenuNavigator : MonoBehaviour
             }
             if (_gamepadWasDetected != gamepadDetected) {
                 Debug.Log("gamepadDetected: "+gamepadDetected);
+                standaloneInputModule.horizontalAxis = gamepadHorizontalInput;
+                standaloneInputModule.verticalAxis = gamepadVerticalInput;
                 OnInputMethodSet(!gamepadDetected);
             }
         }
