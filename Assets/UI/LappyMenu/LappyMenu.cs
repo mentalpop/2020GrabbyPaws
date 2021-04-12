@@ -20,25 +20,25 @@ public class LappyMenu : MonoBehaviour
     public ConstrainedIntPref lappySelectedBG;
     public List<Sprite> lappyBGs = new List<Sprite>();
     [HideInInspector] public int chosenBGIndex = 0;
-    
+
     public ListController startMenuList;
     //public List<TabData> tabs = new List<TabData>();
     public ButtonGeneric startButton;
 
-	public ConfirmationPromptData promptSave;
-	public ConfirmationPromptData promptQuitTitle;
-	public ConfirmationPromptData promptQuitGame;
-	private ConfirmationWindow confirmationWindow;
-	private bool awaitingConfirmation = false;
+    public ConfirmationPromptData promptSave;
+    public ConfirmationPromptData promptQuitTitle;
+    public ConfirmationPromptData promptQuitGame;
+    private ConfirmationWindow confirmationWindow;
+    private bool awaitingConfirmation = false;
 
-	private void OnClickStart() {
-		startMenuList.gameObject.SetActive(!startMenuList.gameObject.activeInHierarchy);
-	}
+    private void OnClickStart() {
+        startMenuList.gameObject.SetActive(!startMenuList.gameObject.activeInHierarchy);
+    }
 
     private void OnEnable() {
         startMenuList.OnSelect += SelectStartMenuItem;
-        clickToClose.OnClick += Close;
         startButton.OnClick += OnClickStart;
+        clickToClose.OnClick += clickToClose_OnClick;
         container.OnEffectComplete += Container_OnEffectComplete;
         menuHub.OnMenuClose += MenuNavigator_OnClose;
         SetBackground(lappySelectedBG.Read());
@@ -46,14 +46,14 @@ public class LappyMenu : MonoBehaviour
 
     private void OnDisable() {
         startMenuList.OnSelect -= SelectStartMenuItem;
-        clickToClose.OnClick -= Close;
-		startButton.OnClick -= OnClickStart;
+        clickToClose.OnClick -= clickToClose_OnClick;
+        startButton.OnClick -= OnClickStart;
         container.OnEffectComplete -= Container_OnEffectComplete;
         menuHub.OnMenuClose -= MenuNavigator_OnClose;
-		if (awaitingConfirmation) {
-			awaitingConfirmation = false;
-			confirmationWindow.OnChoiceMade -= OnConfirm;
-		}
+        if (awaitingConfirmation) {
+            awaitingConfirmation = false;
+            confirmationWindow.OnChoiceMade -= OnConfirm;
+        }
         UI.Instance.RefocusInventory(); //If the Inventory was open, refocus on it
     }
 
@@ -63,23 +63,30 @@ public class LappyMenu : MonoBehaviour
             gameObject.SetActive(false); //For now, just close instantly
         }
     }
-    
+
+    private void clickToClose_OnClick() {
+        Close();
+    }
+
     private void MenuNavigator_OnClose() {
         UI.Instance.LappyMenuToggle(false);
         //Close();
     }
 
-    public void Close() {
-        if (!container.gTween.doReverse)
+    public bool Close() {
+        if (!rivenChatWindow.gameObject.activeSelf && !container.gTween.doReverse) {
             container.gTween.Reverse();
+            return true;
+        }
+        return false;
     }
-    
-	private void OnConfirm(bool _choice) {
-		awaitingConfirmation = false;
-		confirmationWindow.OnChoiceMade -= OnConfirm;
-		if (_choice) {
+
+    private void OnConfirm(bool _choice) {
+        awaitingConfirmation = false;
+        confirmationWindow.OnChoiceMade -= OnConfirm;
+        if (_choice) {
             if (confirmationWindow.promptData.promptID == ConfirmationPromptID.QuitToTitle) {
-        //Quit to Title
+                //Quit to Title
                 Close();
                 SceneManager.LoadScene("TitleScreen");
             }
@@ -89,10 +96,10 @@ public class LappyMenu : MonoBehaviour
             if (confirmationWindow.promptData.promptID == ConfirmationPromptID.Save) {
                 UI.Instance.SaveGameData(0);
             }
-		} else {
-			Debug.Log("User selected NOPE");
-		}
-	}
+        } else {
+            Debug.Log("User selected NOPE");
+        }
+    }
 
     /*
     void Start() {
@@ -101,7 +108,7 @@ public class LappyMenu : MonoBehaviour
     //*/
 
     public void SelectStartMenuItem(int _activeTab) {
-        switch(_activeTab) {
+        switch (_activeTab) {
             case 0: //Rewind Time
                 hellaHuckster.gameObject.SetActive(true);
                 break;
@@ -123,17 +130,17 @@ public class LappyMenu : MonoBehaviour
             case 6: //Save Game
                 confirmationWindow = UI.RequestConfirmation(promptSave, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
-			    awaitingConfirmation = true;
+                awaitingConfirmation = true;
                 break;
             case 7: //Quit to Title
                 confirmationWindow = UI.RequestConfirmation(promptQuitTitle, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
-			    awaitingConfirmation = true;
+                awaitingConfirmation = true;
                 break;
             case 8: //Quit Game
                 confirmationWindow = UI.RequestConfirmation(promptQuitGame, null);
                 confirmationWindow.OnChoiceMade += OnConfirm;
-			    awaitingConfirmation = true;
+                awaitingConfirmation = true;
                 break;
         }
     }

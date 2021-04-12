@@ -16,7 +16,8 @@ public enum NightPhases
     p5Dawn
 }
 
-public enum QuestNames {
+public enum QuestNames
+{
     q001TwilightCottonCandy,
     q001TwilightCottonCandyEndFlag
     /*,
@@ -26,14 +27,16 @@ public enum QuestNames {
     //*/
 }
 
-public enum Secrets {
+public enum Secrets
+{
     s001Test,
     s002Test,
     s003Test,
     s004Test
 }
 
-public enum NPCLocations {
+public enum NPCLocations
+{
     /*
     npc001Twilight01Riven,
     npc001Twilight02Riven,
@@ -58,23 +61,23 @@ public class UI : MonoBehaviour
     public ConfirmationWindow confirmationWindow;
     public CinemachineBlendDefinition firstPersonBlend;
     //public FlagRepository flagRepository;
-[Header("Readables")]
+    [Header("Readables")]
     public Readable book;
     public Readable sign;
     public ReadablePC pc;
-[Header("Currency")]
+    [Header("Currency")]
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
-[Header("Inventory")]
+    [Header("Inventory")]
     public InventoryDisplay inventoryDisplay;
     public Inventory inventory;
     [HideInInspector] public CinemachineFreeLook cFreeLook;
     //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
-[Header("VIDEO Options")]
+    [Header("VIDEO Options")]
     public ConstrainedIntPref screenMode;
     public ConstrainedIntPref resolution;
     public ConstrainedIntPref quality;
-[Header("MISC Options")]
+    [Header("MISC Options")]
     public ConstrainedFloatPref mouseSensitivity;
     public Vector2 cameraSpeedMin;
     public Vector2 cameraSpeedMax;
@@ -130,13 +133,13 @@ public class UI : MonoBehaviour
         currency.OnCashChanged -= OnCurrencyChanged;
         MenuNavigator.Instance.OnInputMethodSet -= Instance_OnInputMethodSet;
         if (cBrain != null) {
-            cBrain.m_CameraActivatedEvent.RemoveListener(delegate {OnCameraActivated();});
+            cBrain.m_CameraActivatedEvent.RemoveListener(delegate { OnCameraActivated(); });
         }
     }
 
     private void Awake() {
-    //Singleton Pattern
-        if (Instance != null && Instance != this) { 
+        //Singleton Pattern
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
@@ -149,24 +152,24 @@ public class UI : MonoBehaviour
     void Update() {
         if (lockUI == null) { //No GameObject is currently locking the UI
             if (MenuNavigator.MouseIsUsing()) {
-        //Open / Close menus
+                //Open / Close menus
                 if (!lappy.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
                     ShowInventoryDisplay();
                 }
-                if (Input.GetKeyDown(KeyCode.Escape) && !lappy.rivenChatWindow.gameObject.activeSelf) { //"Kwit"
+                if (Input.GetKeyDown(KeyCode.Escape)) { //"Kwit"
                     LappyMenuToggle(false);
                 }
             } else {
                 if (!lappy.gameObject.activeSelf && Input.GetButtonDown("Back")) {
                     ShowInventoryDisplay();
                 }
-                if (Input.GetButtonDown("Start") && !lappy.rivenChatWindow.gameObject.activeSelf) {
+                if (Input.GetButtonDown("Start")) {
                     LappyMenuToggle(false);
                 }
-            //FirstPerson Camera
+                //FirstPerson Camera
                 if (!lappy.gameObject.activeSelf && !inventoryDisplay.gameObject.activeSelf) { //Can't change state of First-Person Cam while paused
                     if (firstPersonCamera) {
-                //Disable on Release
+                        //Disable on Release
                         if (Mathf.Round(Input.GetAxisRaw("Triggers")) < 1) {
                             if (cBrain != null) {
                                 //cBrain.transform.position = player.firstPersonCam.gameObject.transform.position;
@@ -182,7 +185,7 @@ public class UI : MonoBehaviour
                             }
                         }
                     } else {
-                //Activate on Press
+                        //Activate on Press
                         if (Mathf.Round(Input.GetAxisRaw("Triggers")) > 0) {
                             if (cBrain != null) {
                                 previousCamera = cBrain.ActiveVirtualCamera;
@@ -216,20 +219,20 @@ public class UI : MonoBehaviour
     public static void SetWindowMode(int choiceMade) {
         Instance.screenMode.Write(choiceMade);
         switch (choiceMade) {
-			case 0: Screen.fullScreen = false; break;
-			case 1: Screen.fullScreen = true; break;
-		}
+            case 0: Screen.fullScreen = false; break;
+            case 1: Screen.fullScreen = true; break;
+        }
     }
 
     public static void SetResolution(int choiceMade) {
         Instance.resolution.Write(choiceMade);
         switch (choiceMade) {
-			case 0: Screen.SetResolution(1920, 1080, Screen.fullScreen); break;
-			case 1: Screen.SetResolution(1600, 900, Screen.fullScreen); break;
-			case 2: Screen.SetResolution(1366, 768, Screen.fullScreen); break;
-			case 3: Screen.SetResolution(1280, 720, Screen.fullScreen); break;
-			case 4: Screen.SetResolution(1176, 664, Screen.fullScreen); break;
-		}
+            case 0: Screen.SetResolution(1920, 1080, Screen.fullScreen); break;
+            case 1: Screen.SetResolution(1600, 900, Screen.fullScreen); break;
+            case 2: Screen.SetResolution(1366, 768, Screen.fullScreen); break;
+            case 3: Screen.SetResolution(1280, 720, Screen.fullScreen); break;
+            case 4: Screen.SetResolution(1176, 664, Screen.fullScreen); break;
+        }
     }
 
     public static void SetQuality(int choiceMade) {
@@ -237,7 +240,7 @@ public class UI : MonoBehaviour
         //Debug.Log("quality: "+choiceMade);
     }
 
-//MISC OPTIONS
+    //MISC OPTIONS
     public void RestoreAllDefaults() {
         SetWindowMode(screenMode.defaultValue);
         SetResolution(resolution.defaultValue);
@@ -251,7 +254,7 @@ public class UI : MonoBehaviour
         //SetInputPreference(inputPreference.defaultValue);
         //method(variable.defaultValue);
         lappy.SetBackground(lappy.lappySelectedBG.defaultValue);
-    //Audio
+        //Audio
         Sonos.SetVolume(AudioType.Effect, 1f);
         Sonos.SetVolume(AudioType.Music, 1f);
         Sonos.SetVolume(AudioType.Voice, 1f);
@@ -270,17 +273,17 @@ public class UI : MonoBehaviour
 
     private void UpdateCameraSettings() {
         if (cBrain != null) {
-            switch(cBrain.ActiveVirtualCamera) {
+            switch (cBrain.ActiveVirtualCamera) {
                 /*
                 case CinemachineVirtualCamera cVc:
                     cVc.m_
                     break;
                 //*/
                 case CinemachineFreeLook cFc:
-            //Sensitivity
+                    //Sensitivity
                     cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
                     cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
-            //Axis Inversion
+                    //Axis Inversion
                     cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_InvertInput = Instance.cameraInversion.value == 1 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     break;
@@ -303,7 +306,7 @@ public class UI : MonoBehaviour
 
     public static float GetUIScale() {
         float _uiScale = 1f;
-		switch (Instance.uiScale.value) {
+        switch (Instance.uiScale.value) {
             case 0: _uiScale = 1f; break;
             case 1: _uiScale = 1.125f; break;
             case 2: _uiScale = 1.25f; break;
@@ -322,7 +325,7 @@ public class UI : MonoBehaviour
     }
     public static float GetTextSize() {
         float _textSize = 1f;
-		switch (Instance.textSize.value) {
+        switch (Instance.textSize.value) {
             case 0: _textSize = 1f; break;
             case 1: _textSize = 1.5f; break;
             case 2: _textSize = 2f; break;
@@ -334,10 +337,10 @@ public class UI : MonoBehaviour
         Instance.textPrintSpeed.Write(choiceMade);
         Instance.OnPrintSpeedSet(GetPrintSpeed());
     }
-    
+
     public static float GetPrintSpeed() {
         float _speed = 1f;
-		switch (Instance.uiScale.value) {
+        switch (Instance.uiScale.value) {
             case 0: _speed = 1f; break;
             case 1: _speed = 2f; break;
             case 2: _speed = 4f; break;
@@ -380,13 +383,14 @@ public class UI : MonoBehaviour
     public void LappyMenuToggle(bool _override) {
         bool doActivateLappy = _override || !lappy.gameObject.activeSelf;
         if (doActivateLappy) {
-    //Show / Hide the HUD
+            //Show / Hide the HUD
             ActivateLappy();
         } else {
-    //Close Lappy
-            pauseMenuNode = MenuNavigator.Instance.activeMenuNode;
-            MenuNavigator.Instance.MenuClose();
-            lappy.Close();
+            //Close Lappy
+            if (lappy.Close()) {
+                pauseMenuNode = MenuNavigator.Instance.activeMenuNode;
+                MenuNavigator.Instance.MenuClose();
+            }
         }
     }
 
@@ -410,7 +414,7 @@ public class UI : MonoBehaviour
     }
 
     public void ShowInventoryDisplay() { //TODO: Make private
-//Show / Hide the HUD
+                                         //Show / Hide the HUD
         bool menuIsActive = !inventoryDisplay.gameObject.activeSelf;
         if (menuIsActive) {
             inventoryDisplay.gameObject.SetActive(true);
@@ -435,12 +439,12 @@ public class UI : MonoBehaviour
         cBrain = cinemachineBrain;
         defaultBlend = cBrain.m_DefaultBlend;
         gameCamera = cBrain.GetComponent<Camera>();
-        cBrain.m_CameraActivatedEvent.AddListener(delegate {OnCameraActivated();});
+        cBrain.m_CameraActivatedEvent.AddListener(delegate { OnCameraActivated(); });
     }
 
     private void OnCameraActivated() {
         cFreeLook = cBrain.ActiveVirtualCamera as CinemachineFreeLook;
-        switch(cBrain.ActiveVirtualCamera) {
+        switch (cBrain.ActiveVirtualCamera) {
             case CinemachineVirtualCamera cVc:
                 //Debug.Log("CinemachineVirtualCamera");
                 if (cVc.m_LookAt == null) {
@@ -456,14 +460,14 @@ public class UI : MonoBehaviour
                     cFc.m_Follow = player.cameraTarget;
                 }
                 break;
-            }
+        }
         UpdateCameraSettings();
     }
 
     public static void SetControlState(bool lockMouse, GameObject gameObject) {
         if (lockMouse) {
             bool _alreadyIn = false;
-        //Prevent redundant addition of locking objects
+            //Prevent redundant addition of locking objects
             foreach (var item in Instance.mouseCursorUsers) {
                 if (item == gameObject) {
                     _alreadyIn = true;
@@ -490,7 +494,7 @@ public class UI : MonoBehaviour
         if (Instance.player != null) {
             Instance.player.SetLockState(Instance.lockControls);
         }
-    //Camera
+        //Camera
         Instance.CameraSetInputLabels();
         /*
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
@@ -511,21 +515,21 @@ public class UI : MonoBehaviour
     }
 
     private void CameraSetInputLabels() {
-    //Using Cinemachine Freelook?
+        //Using Cinemachine Freelook?
         if (Instance.cFreeLook != null) {
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
             if (Instance.player.controlsLocked) { //Instance.lockControls
-                //Debug.Log("lockControls: "+lockControls);
-            //X Axis
+                                                  //Debug.Log("lockControls: "+lockControls);
+                                                  //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
-            //Y Axis
+                //Y Axis
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
-        //Control Preferences
+                //Control Preferences
                 Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
                 if (MenuNavigator.MouseIsUsing()) {
                     cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
@@ -589,12 +593,12 @@ public class UI : MonoBehaviour
         SetTextSize(textSize.Read());
         SetFontChoice(fontChoice.Read());
         SetPrintSpeed(textPrintSpeed.Read());
-        Debug.Log("Load inputPreference: "+inputPreference.Read());
+        Debug.Log("Load inputPreference: " + inputPreference.Read());
         SetInputPreference(inputPreference.Read());
     }
 
     public void SaveGameData(int fileNum) {
-        Debug.Log("Game Saved: "+Application.persistentDataPath);
+        Debug.Log("Game Saved: " + Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
     }
 
@@ -609,7 +613,7 @@ public class UI : MonoBehaviour
     #endregion
 
     public static float Direction(Vector2 _a, Vector2 _b) {
-       return Mathf.Rad2Deg*Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
+        return Mathf.Rad2Deg * Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
     }
 }
 
@@ -617,13 +621,13 @@ public static class ScreenSpace
 {
     public static float Width = 3840f;
     public static float Height = 2160f;
-	public static float Convert(float variable) {
-		return variable * (Screen.height / Height);
-	}
+    public static float Convert(float variable) {
+        return variable * (Screen.height / Height);
+    }
 
     public static float Inverse(float variable) {
-		return variable * (Height / Screen.height);
-	}
+        return variable * (Height / Screen.height);
+    }
 }
 
 [Serializable]
@@ -636,13 +640,13 @@ public class ConstrainedFloatPref
     [HideInInspector] public float value;
 
     public float Read() {
-    //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
+        //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
         value = Mathf.Clamp(PlayerPrefs.GetFloat(key, defaultValue), minValue, maxValue);
         return value;
     }
 
     public void Write(float _value) {
-//Save a value, but Clamp it before even writing to the file
+        //Save a value, but Clamp it before even writing to the file
         value = Mathf.Clamp(_value, minValue, maxValue);
         PlayerPrefs.SetFloat(key, value);
     }
@@ -658,13 +662,13 @@ public class ConstrainedIntPref
     [HideInInspector] public int value;
 
     public int Read() {
-    //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
+        //Load in values or their defaults, clamp each value to prevent external tampering from causing problems
         value = Mathf.Clamp(PlayerPrefs.GetInt(key, defaultValue), minValue, maxValue);
         return value;
     }
 
     public void Write(int _value) {
-//Save a value, but Clamp it before even writing to the file
+        //Save a value, but Clamp it before even writing to the file
         value = Mathf.Clamp(_value, minValue, maxValue);
         PlayerPrefs.SetInt(key, value);
     }
