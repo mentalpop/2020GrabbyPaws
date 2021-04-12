@@ -1104,12 +1104,11 @@ MonoBehaviour:
   joystickButtonsToCheck: []
   joystickAxesToCheck: []
   joystickAxisThreshold: 0.5
-  keyButtonsToCheck:
-  - Steal
+  keyButtonsToCheck: []
   keyCodesToCheck: 1b000000
   keyInputSwitchesModeTo: 1
   alwaysAutoFocus: 1
-  detectMouseControl: 1
+  detectMouseControl: 0
   mouseMoveThreshold: 0.1
   controlCursorState: 1
   enforceCursorOnPause: 0
@@ -2839,6 +2838,7 @@ MonoBehaviour:
     - {fileID: 0}
     defaultMenuPanel: {fileID: 2862683860080002177}
     useFirstResponseForMenuPortrait: 0
+    waitForClose: 1
   QTEIndicatorElements:
     QTEIndicators:
     - {fileID: 2561004221319394687}
@@ -4088,7 +4088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22454582, guid: a5c98dfcec76e1847a0aa8d7c8a93459, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.9999695
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 22454582, guid: a5c98dfcec76e1847a0aa8d7c8a93459, type: 3}
       propertyPath: m_SizeDelta.x
