@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 3
     m_SelectOnUp: {fileID: 3347807673442902729}
     m_SelectOnDown: {fileID: 3347807671724792045}
     m_SelectOnLeft: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 3
     m_SelectOnUp: {fileID: 3347807671653836360}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 3
     m_SelectOnUp: {fileID: 8057990616978592895}
     m_SelectOnDown: {fileID: 3347807671653836360}
     m_SelectOnLeft: {fileID: 0}
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   buttonTemplateScrollbar: {fileID: 0}
   scrollbarEnabler: {fileID: 0}
   buttonTemplateScrollbarResetValue: 1
-  explicitNavigationForTemplateButtons: 1
+  explicitNavigationForTemplateButtons: 0
   loopExplicitNavigation: 0
   autonumber:
     enabled: 0
@@ -2276,7 +2276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 3
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 3347807673442902729}
     m_SelectOnLeft: {fileID: 0}
