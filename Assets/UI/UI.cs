@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Cinemachine;
 using Invector.vCharacterController;
 using System;
+using PixelCrushers;
 
 #region Enums
 public enum NightPhases
@@ -120,6 +121,7 @@ public class UI : MonoBehaviour
     public bool lockControls { get; private set; }
     ICinemachineCamera previousCamera = null;
     private bool firstPersonCamera = false;
+    private InputDeviceManager inputDeviceManager;
 
     public static UI Instance { get; private set; }
 
@@ -147,6 +149,25 @@ public class UI : MonoBehaviour
         //Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start() {
+        inputDeviceManager = FindObjectOfType<InputDeviceManager>();
+        if (inputDeviceManager != null) {
+            inputDeviceManager.onUseJoystick.AddListener(UseJoystick);
+            inputDeviceManager.onUseKeyboard.AddListener(UseMouseOrKeyboard);
+            inputDeviceManager.onUseMouse.AddListener(UseMouseOrKeyboard);
+
+        }
+        //Debug.Log("inputDeviceManager: " + inputDeviceManager);
+    }
+
+    private void UseJoystick() {
+        Debug.Log("UseJoystick");
+    }
+
+    private void UseMouseOrKeyboard() {
+        Debug.Log("UseMouseOrKeyboard");
     }
 
     void Update() {
