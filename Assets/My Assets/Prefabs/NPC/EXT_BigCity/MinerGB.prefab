@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &8993696476728901926
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019144874168411035}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.30348027
+  m_Height: 1.3847291
+  m_Direction: 1
+  m_Center: {x: -1.8731988e-10, y: 0.68945944, z: -0.19651954}
 --- !u!1 &1410887965674682009
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,20 +435,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!136 &8993696476728901926
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019144874168411035}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.30348027
-  m_Height: 1.3847291
-  m_Direction: 1
-  m_Center: {x: -1.8731988e-10, y: 0.68945944, z: -0.19651954}
 --- !u!1001 &5040908528265281011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -550,6 +550,11 @@ PrefabInstance:
     - target: {fileID: 5366994848385601530, guid: d13350b2ee4403e45adb72017e3e9379,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6478635371686541231, guid: d13350b2ee4403e45adb72017e3e9379,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6478635371686544424, guid: d13350b2ee4403e45adb72017e3e9379,
