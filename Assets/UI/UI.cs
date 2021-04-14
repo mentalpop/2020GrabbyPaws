@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Cinemachine;
 using Invector.vCharacterController;
 using System;
-using PixelCrushers;
 
 #region Enums
 public enum NightPhases
@@ -121,7 +120,6 @@ public class UI : MonoBehaviour
     public bool lockControls { get; private set; }
     ICinemachineCamera previousCamera = null;
     private bool firstPersonCamera = false;
-    private InputDeviceManager inputDeviceManager;
 
     public static UI Instance { get; private set; }
 
@@ -149,25 +147,6 @@ public class UI : MonoBehaviour
         //Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start() {
-        inputDeviceManager = FindObjectOfType<InputDeviceManager>();
-        if (inputDeviceManager != null) {
-            inputDeviceManager.onUseJoystick.AddListener(UseJoystick);
-            inputDeviceManager.onUseKeyboard.AddListener(UseMouseOrKeyboard);
-            inputDeviceManager.onUseMouse.AddListener(UseMouseOrKeyboard);
-
-        }
-        //Debug.Log("inputDeviceManager: " + inputDeviceManager);
-    }
-
-    private void UseJoystick() {
-        Debug.Log("UseJoystick");
-    }
-
-    private void UseMouseOrKeyboard() {
-        Debug.Log("UseMouseOrKeyboard");
     }
 
     void Update() {
@@ -505,8 +484,10 @@ public class UI : MonoBehaviour
         //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
             Instance.lockControls = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            //if (!MenuNavigator.MouseIsUsing()) {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            //}
         } else {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -542,11 +523,11 @@ public class UI : MonoBehaviour
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
             if (Instance.player.controlsLocked) { //Instance.lockControls
-                                                  //Debug.Log("lockControls: "+lockControls);
-                                                  //X Axis
+                //Debug.Log("lockControls: "+lockControls);
+            //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_XAxis.m_MaxSpeed = 0;
-                //Y Axis
+            //Y Axis
                 Instance.cFreeLook.m_YAxis.m_InputAxisName = "";
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {

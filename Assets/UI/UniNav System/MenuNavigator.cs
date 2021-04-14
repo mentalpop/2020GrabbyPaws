@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using PixelCrushers;
 
 [DefaultExecutionOrder(-500)]
 public class MenuNavigator : MonoBehaviour
@@ -29,10 +30,12 @@ public class MenuNavigator : MonoBehaviour
 
     public static MenuNavigator Instance { get; private set; }
     public static bool IsActive { get => Instance.activeMenuNode != null; set { } }
-
-    private bool gamepadDetected = false;
-    private Coroutine delayedGamepadCheckRoutine;
-    private WaitForSeconds shortWait = new WaitForSeconds(2f);
+    private bool preferMouse = false;
+    //private bool gamepadDetected = false;
+    //private Coroutine delayedGamepadCheckRoutine;
+    //private WaitForSeconds shortWait = new WaitForSeconds(2f);
+    private InputDeviceManager inputDeviceManager;
+    private int mostRecentInputDetected = -1;
 
     private void Awake() {
     //Singleton Pattern
@@ -42,6 +45,17 @@ public class MenuNavigator : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start() {
+        inputDeviceManager = FindObjectOfType<InputDeviceManager>();
+        if (inputDeviceManager == null) {
+            Debug.LogWarning("inputDeviceManager is null");
+        } else {
+            inputDeviceManager.onUseJoystick.AddListener(JoystickDetected);
+            inputDeviceManager.onUseKeyboard.AddListener(MouseOrKeyboardDetected);
+            inputDeviceManager.onUseMouse.AddListener(MouseOrKeyboardDetected);
+        }
     }
 
     /*
@@ -137,33 +151,31 @@ public class MenuNavigator : MonoBehaviour
     }
 
     public static bool MouseIsUsing() {
-        return !Instance.gamepadDetected; //Instance.useMouse &&
+        return Instance.useMouse;// !Instance.gamepadDetected; //Instance.useMouse &&
     }
 
     public static void SetControlPreferences(bool useMouse) {
-        Instance.useMouse = useMouse;
-
-        Debug.Log("SetControlPreferences: "+useMouse);
-        Instance.GamepadCoroutineUpkeep();
-        /*
-        if (Instance.useMouse != useMouse) {
-            
-        }
-        //*/
+        Instance.preferMouse = useMouse;
+        Instance.CheckUserPreference();
     }
 
 //Input Control Preference
-    IEnumerator DelayedGamepadCheck()
-     {
-        while (!useMouse)
-        {
-            CheckForGamepad();
-            yield return shortWait;
-        }
+    private void JoystickDetected() {
+        //Debug.Log("UseJoystick");
+        mostRecentInputDetected = 0;
+        Instance.CheckUserPreference();
     }
 
-    private void GamepadCoroutineUpkeep() {
-        if (delayedGamepadCheckRoutine != null) {
+    private void MouseOrKeyboardDetected() {
+        //Debug.Log("UseMouseOrKeyboard");
+        mostRecentInputDetected = 1;
+        Instance.CheckUserPreference();
+    }
+
+    private void CheckUserPreference() {
+        Debug.Log("CheckUserPreference: " + mostRecentInputDetected + ", preferMouse: " + preferMouse);
+        /*
+        if (delayedGamepadCheckRoutine != null) { //If the user was using the gamepad and has now swapped //useMouse && 
             if (activeMenuNode != null) {
                 activeMenuNode.MenuUnfocus();
             }
@@ -171,16 +183,38 @@ public class MenuNavigator : MonoBehaviour
             gamepadDetected = false;
             delayedGamepadCheckRoutine = null;
         }
-        standaloneInputModule.horizontalAxis = horizontalInput;
-        standaloneInputModule.verticalAxis = verticalInput;
-        if (useMouse) {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            OnInputMethodSet(true);
-            //Debug.Log("GamepadCoroutineUpkeep - OnInputMethodSet(true);");
-        } else {
-            delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
-            //Debug.Log("GamepadCoroutineUpkeep - delayedGamepadCheckRoutine: " + delayedGamepadCheckRoutine);
+        //*/
+        if (useMouse && mostRecentInputDetected == 0 && !preferMouse) { //A joystick was detected and the user doesn't prefer the mouse
+            SwitchToGamepad();
+            //if (useMouse) { //And is currently using the gamepad
+            //delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
+            //}
+        }
+        if (!useMouse && (preferMouse || mostRecentInputDetected == 1)) { //If the most recent input was the mouse
+            //if (!useMouse) { //And is not currently using the mouse
+                SwitchToMouse();
+            //}
+        }
+
+        /*
+        if (preferMouse) { //If the user would prefer to use the mouse
+            if (!useMouse) { //And is not currently using the mouse
+                SwitchToMouse();
+            }
+        } else { //If the user would prefer to use the gamepad
+            if (useMouse) { //And is currently using the gamepad
+                delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
+            }
+        }
+        //*/
+        //Debug.Log("useMouse: " + useMouse);
+    }
+
+    /*
+    IEnumerator DelayedGamepadCheck() {
+        while (!useMouse) {
+            CheckForGamepad();
+            yield return shortWait;
         }
     }
 
@@ -200,12 +234,32 @@ public class MenuNavigator : MonoBehaviour
                     //Debug.Log("Controller: " + i + " is disconnected.");
                 }
             }
+            Debug.Log("gamepadDetected: " + gamepadDetected);
             if (_gamepadWasDetected != gamepadDetected) {
-                Debug.Log("gamepadDetected: "+gamepadDetected);
-                standaloneInputModule.horizontalAxis = gamepadHorizontalInput;
-                standaloneInputModule.verticalAxis = gamepadVerticalInput;
-                OnInputMethodSet(!gamepadDetected);
+                SwitchToGamepad();
             }
         }
+    }
+    //*/
+
+    private void SwitchToMouse() {
+        Debug.Log("SwitchToMouse");
+        if (activeMenuNode != null) {
+            activeMenuNode.MenuUnfocus();
+        }
+        useMouse = true;
+        standaloneInputModule.horizontalAxis = horizontalInput;
+        standaloneInputModule.verticalAxis = verticalInput;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        OnInputMethodSet(true);
+    }
+
+    private void SwitchToGamepad() {
+        Debug.Log("SwitchToGamepad");
+        useMouse = false;
+        standaloneInputModule.horizontalAxis = gamepadHorizontalInput;
+        standaloneInputModule.verticalAxis = gamepadVerticalInput;
+        OnInputMethodSet(false); //!gamepadDetected
     }
 }

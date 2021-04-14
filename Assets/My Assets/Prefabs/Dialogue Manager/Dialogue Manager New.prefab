@@ -1101,14 +1101,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputDevice: 2
   joystickKeyCodesToCheck: 4a0100004b0100004c01000051010000
-  joystickButtonsToCheck: []
-  joystickAxesToCheck: []
+  joystickButtonsToCheck:
+  - A
+  - X
+  - LeftStickClick
+  joystickAxesToCheck:
+  - LeftAnalogHorizontal
+  - LeftAnalogVertical
+  - RightAnalogHorizontal
+  - RightAnalogVertical
   joystickAxisThreshold: 0.5
-  keyButtonsToCheck: []
+  keyButtonsToCheck:
+  - Horizontal
+  - Vertical
   keyCodesToCheck: 1b000000
   keyInputSwitchesModeTo: 1
   alwaysAutoFocus: 1
-  detectMouseControl: 0
+  detectMouseControl: 1
   mouseMoveThreshold: 0.1
   controlCursorState: 1
   enforceCursorOnPause: 0
