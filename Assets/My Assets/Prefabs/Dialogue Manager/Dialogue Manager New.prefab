@@ -1105,6 +1105,8 @@ MonoBehaviour:
   - A
   - X
   - LeftStickClick
+  - Start
+  - Back
   joystickAxesToCheck:
   - LeftAnalogHorizontal
   - LeftAnalogVertical

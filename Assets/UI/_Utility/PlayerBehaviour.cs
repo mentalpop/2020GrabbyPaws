@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public bool controlsLocked = false;
 
     private MenuNavigator MenuNavigator;
+//Define player controls;
     private GenericInput horizontalInput = new GenericInput("Horizontal", "", "");
     private GenericInput verticallInput = new GenericInput("Vertical", "", "");
     private GenericInput jumpInput = new GenericInput("Space", "", "");
@@ -54,7 +55,7 @@ public class PlayerBehaviour : MonoBehaviour
         controlsLocked = doLock;
     }
 
-    private void MenuNavigator_OnInputMethodSet(bool isUsingMouse) {
+    private void MenuNavigator_OnInputMethodSet(bool isUsingMouse) { //If the user is not using the gamepad, set the labels to ignore input from the gamepad
         vThirdPersonInput.horizontalInput = isUsingMouse ? horizontalInput : horizontalInputGamepad;
         vThirdPersonInput.verticallInput = isUsingMouse ? verticallInput : verticallInputGamepad;
         vThirdPersonInput.jumpInput = isUsingMouse ? jumpInput : jumpInputGamepad;
