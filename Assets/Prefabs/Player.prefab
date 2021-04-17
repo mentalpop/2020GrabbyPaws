@@ -624,7 +624,12 @@ MonoBehaviour:
   - tag: NPC
     defaultUseMessage: Chat with
     UIElements: {fileID: 0}
-  layerSpecificElements: []
+  layerSpecificElements:
+  - layerMask:
+      serializedVersion: 2
+      m_Bits: 524288
+    defaultUseMessage: Doot the Test
+    UIElements: {fileID: 0}
 --- !u!114 &8551294124530700068
 MonoBehaviour:
   m_ObjectHideFlags: 0
