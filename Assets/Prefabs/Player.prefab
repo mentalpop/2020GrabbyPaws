@@ -505,9 +505,7 @@ MonoBehaviour:
   cameraTarget: {fileID: 8551294124528195133}
   dropTarget: {fileID: 673289111563440180}
   firstPersonCam: {fileID: 123548850329433152}
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  controlsLocked: 0
 --- !u!114 &8551294124530700065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3275,7 +3273,7 @@ MonoBehaviour:
   checkRadius: 3
   checkLayers:
     serializedVersion: 2
-    m_Bits: 131072
+    m_Bits: 655360
   outlines: []
   radius: 1
   depth: 76
