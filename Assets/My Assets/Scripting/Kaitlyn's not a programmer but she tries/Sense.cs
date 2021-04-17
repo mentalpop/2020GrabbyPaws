@@ -73,17 +73,14 @@ public class Sense : MonoBehaviour
     public void CycleTarget()
     {
         AddAllTargets();
-        if(targets.Count > 0 && targets[index].gameObject.GetComponent<Outline>() != null)
-        {
-            targets[index].gameObject.GetComponent<Outline>().enabled = true;
-
-
-
-            if (!UI.Instance.lockControls && Input.GetButtonDown("Steal"))
-            {
-
-                targets[index].gameObject.GetComponent<Interactable>().Interact();
-                targets.RemoveAt(index);
+        if(targets.Count > 0) {
+            Outline _outline = targets[index].gameObject.GetComponent<Outline>();
+            if (_outline != null) {
+                _outline.enabled = true;
+                if (!UI.Instance.lockControls && Input.GetButtonDown("Steal")) {
+                    targets[index].gameObject.GetComponent<Interactable>().Interact();
+                    targets.RemoveAt(index);
+                }
             }
         }
     }
