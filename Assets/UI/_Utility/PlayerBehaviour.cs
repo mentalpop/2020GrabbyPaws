@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Invector.vCharacterController;
 using UnityEngine;
 using Cinemachine;
+using PixelCrushers.DialogueSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class PlayerBehaviour : MonoBehaviour
     public Transform cameraTarget;
     public Transform dropTarget;
     public CinemachineVirtualCamera firstPersonCam;
+    public ProximitySelector proximitySelector;
+    public string interactMessage = "Click to Interact";
+    public string interactMessageGamepad = "A to Interact";
 
     [HideInInspector] public bool controlsLocked = false;
 
     private MenuNavigator MenuNavigator;
-//Define player controls;
+    private StandardUISelectorElements standardUISelectorElements;
+    public string interactMessageShouldBe;
+    //Define player controls;
     private GenericInput horizontalInput = new GenericInput("Horizontal", "", "");
     private GenericInput verticallInput = new GenericInput("Vertical", "", "");
     private GenericInput jumpInput = new GenericInput("Space", "", "");
@@ -28,9 +34,6 @@ public class PlayerBehaviour : MonoBehaviour
     //private GenericInput strafeInput = new GenericInput("Tab", "RightStickClick", "RightStickClick");
     //private GenericInput crouchInput = new GenericInput("C", "Y", "Y");
 
-    private void Update() {
-        Inventory.instance.dropPosition = dropTarget.position;
-    }
 
     private void Awake() {
         MenuNavigator = FindObjectOfType<MenuNavigator>();
@@ -38,6 +41,17 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogWarning("MenuNavigator is null");
         } else {
             MenuNavigator_OnInputMethodSet(MenuNavigator.MouseIsUsing()); //Set initial control labels
+        }
+    }
+
+    private void Start() {
+        standardUISelectorElements = FindObjectOfType<StandardUISelectorElements>(); ;
+    }
+    private void Update() {
+        Inventory.instance.dropPosition = dropTarget.position;
+        //Aweful hack to override the use Message
+        if (standardUISelectorElements.useMessageText.text == interactMessage || standardUISelectorElements.useMessageText.text == interactMessageGamepad) {
+            standardUISelectorElements.useMessageText.text = proximitySelector.defaultUseMessage;
         }
     }
 
@@ -60,5 +74,8 @@ public class PlayerBehaviour : MonoBehaviour
         vThirdPersonInput.verticallInput = isUsingMouse ? verticallInput : verticallInputGamepad;
         vThirdPersonInput.jumpInput = isUsingMouse ? jumpInput : jumpInputGamepad;
         vThirdPersonInput.sprintInput = isUsingMouse ? sprintInput : sprintInputGamepad;
+        //Interact Message
+        interactMessageShouldBe = isUsingMouse ? interactMessage : interactMessageGamepad;
+        proximitySelector.defaultUseMessage = interactMessageShouldBe;
     }
 }

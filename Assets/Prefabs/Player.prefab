@@ -505,6 +505,9 @@ MonoBehaviour:
   cameraTarget: {fileID: 8551294124528195133}
   dropTarget: {fileID: 673289111563440180}
   firstPersonCam: {fileID: 123548850329433152}
+  proximitySelector: {fileID: 8551294124530700068}
+  interactMessage: Click to Interact
+  interactMessageGamepad: A to Interact
   controlsLocked: 0
 --- !u!114 &8551294124530700065
 MonoBehaviour:
