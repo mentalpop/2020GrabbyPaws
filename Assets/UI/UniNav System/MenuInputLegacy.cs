@@ -23,7 +23,7 @@ public class MenuInputLegacy : MonoBehaviour
     private void Start() {
         if (menuNavigator == null) {
             Debug.LogWarning("menuNavigator is null, attempting to use FindObjectOfType<MenuNavigator> but this should be fixed");
-            menuNavigator = FindObjectOfType<MenuNavigator>();
+            menuNavigator = UI.Instance.menuNavigator;//FindObjectOfType<MenuNavigator>();
         }
     }
 

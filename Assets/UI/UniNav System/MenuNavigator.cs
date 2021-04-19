@@ -47,6 +47,12 @@ public class MenuNavigator : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update() {
+        if (Input.mouseScrollDelta.y != 0f) {
+            MouseOrKeyboardDetected();
+        }
+    }
+
     private void Start() {
         inputDeviceManager = FindObjectOfType<InputDeviceManager>();
         if (inputDeviceManager == null) {

@@ -222,7 +222,7 @@ namespace PixelCrushers
         {
             inputDevice = newDevice;
             m_lastMousePosition = GetMousePosition();
-            SetCursor(deviceUsesCursor);
+            //SetCursor(deviceUsesCursor); //This will make the gamepad fight the mouse every frame 
             SetGraphicRaycasters(deviceUsesCursor);
             switch (inputDevice)
             {

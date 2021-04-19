@@ -10,7 +10,7 @@ public class SaveLoadInteractable : Interactable
 
     private void Start() {
         if (Inventory.CompareChange(GetSaveID())) { //Load the item
-            gameObject.AddComponent<cakeslice.Outline>();
+            //gameObject.AddComponent<cakeslice.Outline>();
         } else {
             OnLoadFalse(); //Most cases, simply destroy the item
         }

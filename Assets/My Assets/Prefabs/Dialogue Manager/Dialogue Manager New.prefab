@@ -1112,6 +1112,7 @@ MonoBehaviour:
   - LeftAnalogVertical
   - RightAnalogHorizontal
   - RightAnalogVertical
+  - D-Pad Vertical
   joystickAxisThreshold: 0.5
   keyButtonsToCheck:
   - Horizontal
