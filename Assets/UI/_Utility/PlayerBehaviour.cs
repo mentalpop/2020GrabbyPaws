@@ -19,7 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private MenuNavigator MenuNavigator;
     private StandardUISelectorElements standardUISelectorElements;
-    public string interactMessageShouldBe;
+    private string interactMessageShouldBe;
     //Define player controls;
     private GenericInput horizontalInput = new GenericInput("Horizontal", "", "");
     private GenericInput verticallInput = new GenericInput("Vertical", "", "");
@@ -33,10 +33,10 @@ public class PlayerBehaviour : MonoBehaviour
     //private GenericInput rollInput = new GenericInput("Q", "B", "B");
     //private GenericInput strafeInput = new GenericInput("Tab", "RightStickClick", "RightStickClick");
     //private GenericInput crouchInput = new GenericInput("C", "Y", "Y");
-
+    private float dPadCurrentValue = 0f;
 
     private void Awake() {
-        MenuNavigator = FindObjectOfType<MenuNavigator>();
+        MenuNavigator = UI.Instance.menuNavigator;//FindObjectOfType<MenuNavigator>();
         if (MenuNavigator == null) {
             Debug.LogWarning("MenuNavigator is null");
         } else {
@@ -47,9 +47,28 @@ public class PlayerBehaviour : MonoBehaviour
     private void Start() {
         standardUISelectorElements = FindObjectOfType<StandardUISelectorElements>(); ;
     }
+
     private void Update() {
         Inventory.instance.dropPosition = dropTarget.position;
-        //Aweful hack to override the use Message
+
+        if (MenuNavigator.useMouse) {
+            if (Input.mouseScrollDelta.y > 0f) {// forward
+                proximitySelector.IncreaseIndex();
+            } else if (Input.mouseScrollDelta.y < 0f) {// backwards
+                proximitySelector.DecreaseIndex();
+            }
+        } else {
+            float _newValue = Input.GetAxis("D-Pad Vertical");
+            if (_newValue != dPadCurrentValue) {
+                dPadCurrentValue = _newValue;
+                if (_newValue > 0f) {
+                    proximitySelector.IncreaseIndex();
+                } else if (_newValue < 0f) {
+                    proximitySelector.DecreaseIndex();
+                }
+            }
+        }
+        //Awful hack to override the use Message
         if (standardUISelectorElements.useMessageText.text == interactMessage || standardUISelectorElements.useMessageText.text == interactMessageGamepad) {
             standardUISelectorElements.useMessageText.text = proximitySelector.defaultUseMessage;
         }
