@@ -8,7 +8,7 @@ public class SaveLoadInteractable : Interactable
 
     protected bool hasBeenCollected = false;
 
-    private void Awake() {
+    private void Start() {
         if (Inventory.CompareChange(GetSaveID())) { //Load the item
             gameObject.AddComponent<cakeslice.Outline>();
         } else {
