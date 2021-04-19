@@ -135,7 +135,7 @@ namespace PixelCrushers.DialogueSystem
                 if (usable != null && usable.CompareTag(tagInfo.tag))
                 {
                     defaultUseMessage = tagInfo.defaultUseMessage;
-                    elements = tagInfo.UIElements;
+                    elements = tagInfo.UIElements ?? StandardUISelectorElements.instance;
                     return;
                 }
             }
@@ -147,7 +147,7 @@ namespace PixelCrushers.DialogueSystem
                 if (usable != null && ((1 << usable.gameObject.layer) & layerInfo.layerMask.value) != 0)
                 {
                     defaultUseMessage = layerInfo.defaultUseMessage;
-                    elements = layerInfo.UIElements;
+                    elements = layerInfo.UIElements ?? StandardUISelectorElements.instance;
                     return;
                 }
             }
