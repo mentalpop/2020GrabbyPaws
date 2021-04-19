@@ -509,6 +509,7 @@ MonoBehaviour:
   interactMessage: Click to Interact
   interactMessageGamepad: A to Interact
   controlsLocked: 0
+  interactMessageShouldBe: 
 --- !u!114 &8551294124530700065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,16 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9481d631e872c45a9f702509a148ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagSpecificElements:
-  - tag: NPC
-    defaultUseMessage: Chat with
-    UIElements: {fileID: 0}
-  layerSpecificElements:
-  - layerMask:
-      serializedVersion: 2
-      m_Bits: 524288
-    defaultUseMessage: Doot the Test
-    UIElements: {fileID: 0}
+  tagSpecificElements: []
+  layerSpecificElements: []
 --- !u!114 &8551294124530700068
 MonoBehaviour:
   m_ObjectHideFlags: 0
