@@ -179,6 +179,10 @@ namespace PixelCrushers.DialogueSystem
         protected const float MinTimeBetweenUseButton = 0.5f;
         protected float timeToEnableUseButton = 0;
 
+        public delegate void ProximityEvent(Usable usable);
+        public event ProximityEvent OnUsableGainFocus = delegate { };
+        public event ProximityEvent OnUsableLoseFocus = delegate { };
+
         public virtual void Start()
         {
             bool found = false;
@@ -217,6 +221,30 @@ namespace PixelCrushers.DialogueSystem
 
             // If the player presses the use key/button, send the OnUse message:
             if (IsUseButtonDown()) UseCurrentSelection();
+        }
+
+        public void IncreaseIndex() {
+            if (usablesInRange.Count > 0) {
+                int _index = usablesInRange.IndexOf(currentUsable);
+                //Debug.Log("_index: " + _index + ", usablesInRange.Count: " + usablesInRange.Count);
+                if (_index < usablesInRange.Count - 1) {
+                    SetCurrentUsable(usablesInRange[_index + 1]);
+                } else {
+                    SetCurrentUsable(usablesInRange[0]);
+                }
+            }
+        }
+
+        public void DecreaseIndex() {
+            if (usablesInRange.Count > 0) {
+                int _index = usablesInRange.IndexOf(currentUsable);
+                //Debug.Log("_index: " + _index + ", usablesInRange.Count: " + usablesInRange.Count);
+                if (_index > 0) {
+                    SetCurrentUsable(usablesInRange[_index - 1]);
+                } else {
+                    SetCurrentUsable(usablesInRange[usablesInRange.Count - 1]);
+                }
+            }
         }
 
         protected void OnSelectedUsableObject(Usable usable)
@@ -399,6 +427,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (currentUsable != null)
             {
+                OnUsableLoseFocus(currentUsable);
                 currentUsable.disabled -= OnUsableDisabled;
                 if (currentUsable != usable)
                 {
@@ -408,6 +437,7 @@ namespace PixelCrushers.DialogueSystem
             currentUsable = usable;
             if (usable != null)
             {
+                OnUsableGainFocus(currentUsable);
                 usable.disabled -= OnUsableDisabled;
                 usable.disabled += OnUsableDisabled; 
                 currentHeading = currentUsable.GetName();
