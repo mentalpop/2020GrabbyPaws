@@ -62,6 +62,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: FlatSpecials
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Glass
     second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
   - first:
@@ -152,6 +157,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Riven
+    second: {fileID: 2100000, guid: 84e4d958d6b573a469350f8caf5732a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SaleSigns02
     second: {fileID: 2100000, guid: bc5adfdb0122df34ebf4d391ef3a333b, type: 2}
   - first:
@@ -192,8 +202,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Signs05
+    second: {fileID: 2100000, guid: 07eda77099599614abad4352c43dca26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar
+    second: {fileID: 2100000, guid: f0c4bdea7d05cf843966856461ecce17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SnackBar02
     second: {fileID: 2100000, guid: 825ad6030dee5c94684ef9af797283f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar03
+    second: {fileID: 2100000, guid: fa0325bf8f1053442877113fd2c8111f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -229,6 +254,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: White Neon
     second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Yellow Light
+    second: {fileID: 2100000, guid: 4d8113ac92356954fad13610d8eb0005, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

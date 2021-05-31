@@ -17,19 +17,19 @@ MonoBehaviour:
   description: 
   globalUserScript: 
   emphasisSettings:
-  - color: {r: 1, g: 1, b: 1, a: 1}
+  - color: {r: 0.10980393, g: 0.11764707, b: 0.227451, a: 1}
     bold: 0
     italic: 0
     underline: 0
-  - color: {r: 0.78042614, g: 0.48584908, b: 1, a: 1}
+  - color: {r: 0.7568628, g: 0.52156866, b: 1, a: 1}
     bold: 0
     italic: 0
     underline: 1
-  - color: {r: 0, g: 1, b: 0, a: 1}
+  - color: {r: 0.63529414, g: 1, b: 0.60784316, a: 1}
     bold: 0
     italic: 0
     underline: 0
-  - color: {r: 0, g: 0, b: 1, a: 1}
+  - color: {r: 1, g: 0.627451, b: 1, a: 1}
     bold: 0
     italic: 0
     underline: 0
@@ -128247,8 +128247,8 @@ MonoBehaviour:
         y: 653
         width: 160
         height: 30
-    canvasScrollPosition: {x: 3.883484, y: 0}
-    canvasZoom: 1.03
+    canvasScrollPosition: {x: 0, y: 517.0731}
+    canvasZoom: 0.8200002
   - id: 52
     fields:
     - title: Title
