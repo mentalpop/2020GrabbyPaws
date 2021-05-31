@@ -5,6 +5,7 @@ namespace UnityMovementAI
     public class FleeUnit : MonoBehaviour
     {
         [HideInInspector] public Transform target;
+        public float bodgeRotation = 90f;
 
         SteeringBasics steeringBasics;
         Flee flee;
@@ -13,6 +14,7 @@ namespace UnityMovementAI
         {
             steeringBasics = GetComponent<SteeringBasics>();
             flee = GetComponent<Flee>();
+            flee.bodgeRotation = bodgeRotation;
             target = SceneTransitionHandler.GetPlayer().transform;
         }
 
@@ -21,7 +23,7 @@ namespace UnityMovementAI
             Vector3 accel = flee.GetSteering(target.position);
 
             steeringBasics.Steer(accel);
-            steeringBasics.LookWhereYoureGoing();
+            steeringBasics.LookWhereYoureGoing(bodgeRotation);
         }
     }
 }

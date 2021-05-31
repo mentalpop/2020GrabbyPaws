@@ -22,6 +22,8 @@ namespace UnityMovementAI
 
         public Animator anim;
 
+        [HideInInspector] public float bodgeRotation = 90f;
+
         private Transform target = null;
 
         void Awake()
@@ -87,6 +89,12 @@ namespace UnityMovementAI
             if (target != null) {
                 var dir = target.position - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+                rotation.eulerAngles = new Vector3(0f, rotation.eulerAngles.y - bodgeRotation, 0f); //This cancels out any rotation on the other axis, probably desirable
+                /* Only modify the y value
+                Vector3 vRotation = rotation.eulerAngles;
+                vRotation.y -= 90f;
+                rotation.eulerAngles = vRotation;
+                //*/
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, smooth * Time.deltaTime);
             }
@@ -97,7 +105,7 @@ namespace UnityMovementAI
             v.Normalize();
 
             /* Accelerate to the target */
-            v *= maxAcceleration;
+                v *= maxAcceleration;
 
             return v;
         }

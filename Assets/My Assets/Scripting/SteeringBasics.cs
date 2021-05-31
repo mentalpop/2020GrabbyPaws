@@ -90,7 +90,7 @@ namespace UnityMovementAI
         /// <summary>
         /// Makes the current game object look where he is going
         /// </summary>
-        public void LookWhereYoureGoing()
+        public void LookWhereYoureGoing(float bodgeRotation)
         {
             Vector3 direction = rb.Velocity;
 
@@ -113,10 +113,10 @@ namespace UnityMovementAI
                 direction /= velocitySamples.Count;
             }
 
-            LookAtDirection(direction);
+            LookAtDirection(direction, bodgeRotation);
         }
 
-        public void LookAtDirection(Vector3 direction)
+        public void LookAtDirection(Vector3 direction, float bodgeRotation)
         {
             direction.Normalize();
 
@@ -135,6 +135,8 @@ namespace UnityMovementAI
                 {
                     float toRotation = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                     float rotation = Mathf.LerpAngle(rb.Rotation.eulerAngles.z, toRotation, Time.deltaTime * turnSpeed);
+
+                    rotation += bodgeRotation;
 
                     rb.Rotation = Quaternion.Euler(0, 0, rotation);
                 }
