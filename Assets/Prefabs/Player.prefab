@@ -509,7 +509,6 @@ MonoBehaviour:
   interactMessage: Click to Interact
   interactMessageGamepad: A to Interact
   controlsLocked: 0
-  interactMessageShouldBe: 
 --- !u!114 &8551294124530700065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,8 +524,8 @@ MonoBehaviour:
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
     m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-    m_AmplitudeGain: 10
-    m_FrequencyGain: 10
+    m_AmplitudeGain: 2.5
+    m_FrequencyGain: 2.5
     m_RepeatMode: 0
     m_Randomize: 0
     m_TimeEnvelope:
@@ -545,7 +544,7 @@ MonoBehaviour:
       m_AttackTime: 0
       m_SustainTime: 0.1
       m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
+      m_ScaleWithImpact: 0
       m_HoldForever: 0
     m_ImpactRadius: 200
     m_DirectionMode: 0
@@ -1651,7 +1650,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 1.7772877, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1753,7 +1752,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 1.7772877, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3610,7 +3609,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 1.7772877, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

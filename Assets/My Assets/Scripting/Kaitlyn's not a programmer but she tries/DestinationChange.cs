@@ -11,8 +11,8 @@ public class DestinationChange : MonoBehaviour
     {
      if (other.tag == "NPC")
         {
-            xPos = Random.Range(22, 63);
-            zPos = Random.Range(479, 452);
+            xPos = Random.Range(-12, 6);
+            zPos = Random.Range(158, 174);
 
             this.gameObject.transform.position = new Vector3(xPos, 22f, zPos);
         }   

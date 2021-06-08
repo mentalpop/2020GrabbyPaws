@@ -11,5 +11,7 @@ public enum SpawnPoints
     UITestRoomB,
     CityOrigin,
     EXTRiverWyrms,
-    INTRiverWyrms
+    INTRiverWyrms,
+    INTLostFound01,
+    EXTLostFound01
 }

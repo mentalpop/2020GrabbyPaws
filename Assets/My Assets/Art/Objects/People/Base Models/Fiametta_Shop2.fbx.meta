@@ -1,0 +1,1323 @@
+fileFormatVersion: 2
+guid: 4837fbda9ea4f2949b17b9c165174e77
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      74: 7464531320871030922
+    second: root|Shop.ArmsTogether
+  - first:
+      74: -1211573916396157251
+    second: root|Shop.ArmsTogetherLoop
+  - first:
+      74: -3774147339779210006
+    second: root|Shop.Crying
+  - first:
+      74: -1529946902117093615
+    second: root|Shop.Leaning
+  - first:
+      74: 8018226353004337890
+    second: root|Shop.Surprise
+  - first:
+      74: -5804662019457812854
+    second: root|Shop.SurpriseLoop
+  - first:
+      74: 1467484943122655244
+    second: root|Shop.Thinking
+  - first:
+      74: -505436547954909376
+    second: root|Shop.ThinkingLoop
+  - first:
+      74: -3108368516113742121
+    second: root|Shop.CryingLoop
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FaceLilac
+    second: {fileID: 2100000, guid: 041d0553ac3e031458c3be7b5eea27dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSpecials
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RaccoonFur
+    second: {fileID: 2100000, guid: 165a3fd5c7582a64486b8df62343e3ed, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'root|Shop.ArmsTogether' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'spine_01.x' has translation
+      animation that will be discarded.\n\t'shoulder.l' has translation animation
+      that will be discarded.\n\t'shoulder.r' has translation animation that will
+      be discarded.\n\t'thigh_stretch.l' has translation animation that will be discarded.\n\t'thigh_stretch.r'
+      has translation animation that will be discarded.\n\nClip 'root|Shop.ArmsTogetherLoop'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'spine_01.x'
+      has translation animation that will be discarded.\n\t'thigh_stretch.l' has
+      translation animation that will be discarded.\n\t'thigh_stretch.r' has translation
+      animation that will be discarded.\n\nClip 'root|Shop.Crying' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'shoulder.l' has translation
+      animation that will be discarded.\n\t'shoulder.r' has translation animation
+      that will be discarded.\n\nClip 'root|Shop.Leaning' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'shoulder.l' has translation animation that
+      will be discarded.\n\t'shoulder.r' has translation animation that will be discarded.\n\nClip
+      'root|Shop.Surprise' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'shoulder.l'
+      has translation animation that will be discarded.\n\t'shoulder.r' has translation
+      animation that will be discarded.\n\nClip 'root|Shop.Thinking' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'shoulder.l' has translation
+      animation that will be discarded.\n\t'shoulder.r' has translation animation
+      that will be discarded.\n\nClip 'root|Shop.ThinkingLoop' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'shoulder.l' has translation
+      animation that will be discarded.\n\t'shoulder.r' has translation animation
+      that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: root|Shop.ArmsTogether
+      takeName: root|Shop.ArmsTogether
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 106
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.ArmsTogetherLoop
+      takeName: root|Shop.ArmsTogetherLoop
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.Crying
+      takeName: root|Shop.Crying
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.Leaning
+      takeName: root|Shop.Leaning
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.Surprise
+      takeName: root|Shop.Surprise
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 106
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.SurpriseLoop
+      takeName: root|Shop.SurpriseLoop
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 33
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.Thinking
+      takeName: root|Shop.Thinking
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: root|Shop.ThinkingLoop
+      takeName: root|Shop.ThinkingLoop
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: RaccoonBody02.Lilac.Alt.001
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/root.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x
+        weight: 1
+      - path: root/root.x/c_tail_00.x/c_tail_01.x/c_tail_02.x/c_tail_03.x
+        weight: 1
+      - path: root/root.x/spine_01.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/neck.x/head.x
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/arm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/forearm_twist.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.l/arm_stretch.l/forearm_stretch.l/hand.l
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/arm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/forearm_twist.r
+        weight: 1
+      - path: root/root.x/spine_01.x/spine_02.x/shoulder.r/arm_stretch.r/forearm_stretch.r/hand.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/foot.l/toes_01.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/leg_stretch.l/leg_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.l/thigh_twist.l
+        weight: 1
+      - path: root/root.x/thigh_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/foot.r/toes_01.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/leg_stretch.r/leg_twist.r
+        weight: 1
+      - path: root/root.x/thigh_stretch.r/thigh_twist.r
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: root.x
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thigh_stretch.l
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thigh_stretch.r
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leg_stretch.l
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leg_stretch.r
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: foot.l
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: foot.r
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: spine_01.x
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: neck.x
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: head.x
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: shoulder.l
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: shoulder.r
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: arm_stretch.l
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: arm_stretch.r
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: forearm_stretch.l
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: forearm_stretch.r
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: hand.l
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: hand.r
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: toes_01.l
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: toes_01.r
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Fiametta_Shop(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RaccoonBody02.Lilac.Alt.001
+      parentName: Fiametta_Shop(Clone)
+      position: {x: -0.000043475342, y: 1.7163501, z: 0.30422962}
+      rotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: root
+      parentName: Fiametta_Shop(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: root.x
+      parentName: root
+      position: {x: 1.3604261e-13, y: -0.102161825, z: 0.58052343}
+      rotation: {x: 0.5434988, y: -0.0000028872582, z: -0.000001869434, w: 0.83941}
+      scale: {x: 1, y: 0.99999964, z: 0.99999976}
+    - name: thigh_stretch.l
+      parentName: root.x
+      position: {x: -0.17872913, y: 0.009627528, z: -0.10764514}
+      rotation: {x: -0.677003, y: -0.07622578, z: 0.72977763, w: 0.05728111}
+      scale: {x: 0.9999352, y: 0.99999946, z: 0.9999808}
+    - name: leg_stretch.l
+      parentName: thigh_stretch.l
+      position: {x: -0.000000009536743, y: 0.32650536, z: -5.9604643e-10}
+      rotation: {x: -0.00010736284, y: 0.0000039050346, z: -0.29261583, w: 0.9562301}
+      scale: {x: 0.99998385, y: 1.0000159, z: 0.9999999}
+    - name: foot.l
+      parentName: leg_stretch.l
+      position: {x: -0.00000002982095, y: 0.21445772, z: 0.000000009164214}
+      rotation: {x: 0.5354955, y: -0.46020263, z: 0.52699816, w: 0.4730022}
+      scale: {x: 0.9999356, y: 1.0000012, z: 0.9999986}
+    - name: toes_01.l
+      parentName: foot.l
+      position: {x: -0.000000002537272, y: 0.101916865, z: 0.0000000035762786}
+      rotation: {x: -0.009205907, y: -0.9993132, z: -0.035895254, w: 0.00022582707}
+      scale: {x: 1.0000001, y: 1.0000051, z: 0.99999565}
+    - name: leg_twist.l
+      parentName: leg_stretch.l
+      position: {x: 0.000000005066395, y: 0.10722948, z: 0.000000029504298}
+      rotation: {x: -0.000000026164336, y: 0.00000008548998, z: 4.2885456e-10, w: 1}
+      scale: {x: 0.99999976, y: 1.0000005, z: 1}
+    - name: thigh_twist.l
+      parentName: thigh_stretch.l
+      position: {x: 0.0000000035762786, y: -0.00000010132789, z: -0.00000002503395}
+      rotation: {x: 0.00000004470347, y: -0.0000000021536828, z: 0.00000008195636,
+        w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1.0000002}
+    - name: thigh_stretch.r
+      parentName: root.x
+      position: {x: 0.17872556, y: 0.009627475, z: -0.10765103}
+      rotation: {x: 0.6770078, y: -0.07622535, z: 0.72977334, w: -0.057281006}
+      scale: {x: 0.999935, y: 0.99999934, z: 0.9999808}
+    - name: leg_stretch.r
+      parentName: thigh_stretch.r
+      position: {x: 0.000000015497207, y: 0.32650536, z: 0.0000000011920929}
+      rotation: {x: -0.000110477195, y: -0.000003986526, z: 0.29261658, w: 0.9562299}
+      scale: {x: 0.99998426, y: 1.0000167, z: 1.0000004}
+    - name: foot.r
+      parentName: leg_stretch.r
+      position: {x: 0.0000000020116566, y: 0.21445782, z: 0.000000009164214}
+      rotation: {x: 0.53549063, y: 0.46019635, z: -0.5270041, w: 0.47300726}
+      scale: {x: 0.9999355, y: 1.0000012, z: 0.999999}
+    - name: toes_01.r
+      parentName: foot.r
+      position: {x: -0.000000010873482, y: 0.10191693, z: 0.0000000010430813}
+      rotation: {x: 0.009205399, y: -0.9993131, z: -0.03589543, w: -0.00021296735}
+      scale: {x: 1.0000005, y: 1.0000048, z: 0.99999607}
+    - name: leg_twist.r
+      parentName: leg_stretch.r
+      position: {x: 0.000000021606683, y: 0.10722959, z: 0.000000028312206}
+      rotation: {x: 0.000000043153694, y: -0.000000011735435, z: -0.0000000600449,
+        w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: thigh_twist.r
+      parentName: thigh_stretch.r
+      position: {x: 0.00000004649162, y: -0.00000018298626, z: 0}
+      rotation: {x: 0.00000004004686, y: -0.0000000020663715, z: 0.000000042840828,
+        w: 1}
+      scale: {x: 1.0000004, y: 0.9999998, z: 1.0000002}
+    - name: spine_01.x
+      parentName: root.x
+      position: {x: 2.329638e-10, y: 0.22874591, z: 0.000000023841853}
+      rotation: {x: 0.2234804, y: 0.00322115, z: 0.00073701015, w: 0.97470284}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000001}
+    - name: spine_02.x
+      parentName: spine_01.x
+      position: {x: 3.0733643e-10, y: 0.25667706, z: -0.000000085402206}
+      rotation: {x: 0.15302637, y: -0.0032625296, z: 0.0005051688, w: 0.98821664}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999998}
+    - name: neck.x
+      parentName: spine_02.x
+      position: {x: -7.9977325e-10, y: 0.22111201, z: -0.000000010059832}
+      rotation: {x: -0.16798772, y: -0.0066304114, z: 0.0011299499, w: 0.9857662}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: head.x
+      parentName: neck.x
+      position: {x: -5.2154064e-10, y: 0.25282443, z: -0.000000070345706}
+      rotation: {x: 0.00057445455, y: 0.0067601395, z: -0.000003847723, w: 0.99997705}
+      scale: {x: 0.9999999, y: 1.0000002, z: 1.0000004}
+    - name: shoulder.r
+      parentName: spine_02.x
+      position: {x: 0.07177746, y: 0.10395971, z: 0.1256733}
+      rotation: {x: -0.3509814, y: -0.45920905, z: 0.6480929, w: -0.49589777}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: arm_stretch.r
+      parentName: shoulder.r
+      position: {x: 0.000000006854534, y: 0.2231138, z: -0.00000008232892}
+      rotation: {x: -0.06871792, y: 0.31086755, z: -0.09798594, w: -0.94288814}
+      scale: {x: 1.0000001, y: 1.0000008, z: 1.0000004}
+    - name: forearm_stretch.r
+      parentName: arm_stretch.r
+      position: {x: -0, y: 0.25749415, z: -0.000000009536743}
+      rotation: {x: -0.0051125926, y: -0.0004644987, z: 0.0733795, w: 0.99729085}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: hand.r
+      parentName: forearm_stretch.r
+      position: {x: -0.000000030994414, y: 0.23203605, z: 0.000000057220458}
+      rotation: {x: 0.022404658, y: 0.9245195, z: 0.08156424, w: -0.37163016}
+      scale: {x: 1.0000007, y: 0.99999994, z: 0.99999994}
+    - name: forearm_twist.r
+      parentName: forearm_stretch.r
+      position: {x: -0.00000009059906, y: 0.11601789, z: 0.00000017166137}
+      rotation: {x: -0.00000070679374, y: 0.37372836, z: 0.00000033183423, w: 0.9275382}
+      scale: {x: 1.0000006, y: 1.0000001, z: 0.9999998}
+    - name: arm_twist.r
+      parentName: arm_stretch.r
+      position: {x: 0.000000018924474, y: 0.00000007927417, z: -0.000000043064354}
+      rotation: {x: -0.000000119209275, y: -0.000000059604638, z: -0.00000001862645,
+        w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: shoulder.l
+      parentName: spine_02.x
+      position: {x: -0.0717774, y: 0.10395971, z: 0.12567338}
+      rotation: {x: 0.35098168, y: -0.459209, z: 0.6480928, w: 0.49589792}
+      scale: {x: 1.0000002, y: 1, z: 0.99999994}
+    - name: arm_stretch.l
+      parentName: shoulder.l
+      position: {x: 0.000000059604645, y: 0.2231138, z: -0.000000050195084}
+      rotation: {x: 0.06871865, y: 0.31086782, z: -0.09798878, w: 0.9428877}
+      scale: {x: 0.9999999, y: 1.0000004, z: 1.0000001}
+    - name: forearm_stretch.l
+      parentName: arm_stretch.l
+      position: {x: 0.000000019073486, y: 0.25749403, z: 0.00000002026558}
+      rotation: {x: -0.0051118485, y: 0.00046423054, z: -0.07338079, w: 0.9972908}
+      scale: {x: 1.0000001, y: 1, z: 0.9999999}
+    - name: hand.l
+      parentName: forearm_stretch.l
+      position: {x: 0.000000009536743, y: 0.23203601, z: -0.0000000333786}
+      rotation: {x: -0.022404488, y: 0.92451954, z: 0.08156412, w: 0.37163}
+      scale: {x: 1.0000011, y: 1.0000006, z: 1.0000001}
+    - name: forearm_twist.l
+      parentName: forearm_stretch.l
+      position: {x: -0.0000000667572, y: 0.11601819, z: 0.00000004053116}
+      rotation: {x: -0.0000006851373, y: -0.37372822, z: -0.00000041151904, w: 0.9275382}
+      scale: {x: 1, y: 1, z: 1}
+    - name: arm_twist.l
+      parentName: arm_stretch.l
+      position: {x: -0.000000008642673, y: 0.000000013113022, z: 0.000000017173589}
+      rotation: {x: -0, y: -0, z: -0.0000000037252894, w: 1}
+      scale: {x: 0.99999994, y: 1.0000006, z: 0.99999976}
+    - name: c_tail_00.x
+      parentName: root.x
+      position: {x: -0.000011240532, y: 0.080630116, z: -0.26720035}
+      rotation: {x: -0.5664129, y: 0.000007354737, z: 0.000008927655, w: 0.82412165}
+      scale: {x: 0.9999999, y: 1.0000004, z: 1.0000004}
+    - name: c_tail_01.x
+      parentName: c_tail_00.x
+      position: {x: -0.000000002980232, y: 0.13817906, z: 0.000000031641683}
+      rotation: {x: -0.0000002980232, y: -0.0000000022641868, z: -0.000000011782957,
+        w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: c_tail_02.x
+      parentName: c_tail_01.x
+      position: {x: 0.00000015258789, y: 0.13817917, z: 0.00000007867813}
+      rotation: {x: 0.000000089406974, y: 0.0000000026070497, z: 0.000000058440477,
+        w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: c_tail_03.x
+      parentName: c_tail_02.x
+      position: {x: -0.000000047683713, y: 0.13817899, z: -0.000000085830685}
+      rotation: {x: -0.00000011920926, y: -0.000000031665852, z: -0.00000006004256,
+        w: 1}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000002}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
