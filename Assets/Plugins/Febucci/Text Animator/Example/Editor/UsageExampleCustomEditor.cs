@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace Febucci.UI.Examples
+namespace Febucci.UI.Examples.Editors
 {
     [CustomEditor(typeof(UsageExample))]
-    public class UsageExampleCustomEditor : Editor
+    class UsageExampleCustomEditor : Editor
     {
         public override void OnInspectorGUI()
         {

@@ -2,13 +2,20 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.ap_VertExp)]
     class VerticalExpandAppearance : AppearanceBase
     {
+
         int startA, targetA;
         int startB, targetB;
+
+        //--Temp variables--
+        float pct;
+
         public override void SetDefaultValues(AppearanceDefaultValues data)
         {
-            showDuration = data.defaults.verticalExpandDuration;
+            effectDuration = data.defaults.verticalExpandDuration;
 
             if (data.defaults.verticalFromBottom) //From bottom to top 
             {
@@ -37,8 +44,8 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            float pct = Tween.EaseInOut(data.passedTime / showDuration);
-            
+            pct = Tween.EaseInOut(data.passedTime / effectDuration);
+
             data.vertices[targetA] = Vector3.LerpUnclamped(data.vertices[startA], data.vertices[targetA], pct);
             data.vertices[targetB] = Vector3.LerpUnclamped(data.vertices[startB], data.vertices[targetB], pct);
         }

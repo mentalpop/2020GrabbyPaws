@@ -1,14 +1,12 @@
-﻿using UnityEngine;
-
-namespace Febucci.UI.Core.Examples
+﻿namespace Febucci.UI.Examples
 {
     //Documentation link: https://www.febucci.com/textanimator-docs
     //Example class
-    public class BehaviorTemplate : BehaviorBase
-    {
-        //float amplitude;
 
-        public override void SetDefaultValues(BehaviorDefaultValues data)
+    [Core.EffectInfo(tag: "")]
+    public class BehaviorTemplate : Core.BehaviorBase
+    {
+        public override void SetDefaultValues(Core.BehaviorDefaultValues data)
         {
             /// Sets the default values of this effect here 
 
@@ -30,7 +28,7 @@ namespace Febucci.UI.Core.Examples
             */
         }
 
-        public override void ApplyEffect(ref CharacterData data, int charIndex)
+        public override void ApplyEffect(ref Core.CharacterData data, int charIndex)
         {
             //Take a look at the TextUtilities class.
             //See also how default classes are implemented.

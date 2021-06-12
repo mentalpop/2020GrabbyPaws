@@ -3,7 +3,7 @@
 namespace Febucci.UI.Core
 {
     [System.Serializable]
-    public struct EmissionControl
+    internal struct EmissionControl
     {
 #pragma warning disable 0649 //disables warning 0649, "value declared but never assigned", since Unity actually assigns the variable in the inspector through the [SerializeField] attribute, but the compiler doesn't know this and throws warnings
         [SerializeField, Attributes.MinValue(0)] int cycles;
@@ -43,7 +43,7 @@ namespace Febucci.UI.Core
                     effectsMaxDuration = overrideDuration;
                 }
 
-                float attackDuration = attackCurve.GetDuration();
+                float attackDuration = attackCurve.CalculateCurveDuration();
 
                 for (int i = attackCurve.length; i < totalKeys.Length; i++)
                 {
@@ -56,7 +56,7 @@ namespace Febucci.UI.Core
             intensityOverDuration.preWrapMode = WrapMode.Loop;
             intensityOverDuration.postWrapMode = WrapMode.Loop;
 
-            this.cycleDuration = intensityOverDuration.GetDuration();
+            this.cycleDuration = intensityOverDuration.CalculateCurveDuration();
             maxDuration = cycleDuration * cycles;
         }
 

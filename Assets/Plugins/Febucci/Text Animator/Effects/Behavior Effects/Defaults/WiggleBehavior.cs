@@ -2,8 +2,11 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Wiggle)]
     class WiggleBehavior : BehaviorBase
     {
+
         float amplitude = 0.15f;
         float frequency = 7.67f;
 
@@ -41,7 +44,7 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            data.vertices.MoveChar(directions[charIndex] * Mathf.Sin(animatorTime* frequency + charIndex) * amplitude * effectIntensity);
+            data.vertices.MoveChar(directions[charIndex] * Mathf.Sin(time.timeSinceStart* frequency + charIndex) * amplitude * uniformIntensity);
         }
 
 

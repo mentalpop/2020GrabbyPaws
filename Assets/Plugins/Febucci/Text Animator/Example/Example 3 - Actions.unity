@@ -172,11 +172,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimatorPlayer: {fileID: 1911804841}
-  textToShow: 'Waiting one second:<waitfor=1> done.
+  textToShow: 'You can use special tags to pause the typewriter until a certain action
+    is completed.
+
+
+    Example:
+
+
+    Waiting one second:<waitfor=1> done.
 
     Waiting three seconds: <waitfor=3> done.
 
-    Waiting your input:<waitinput> done.'
+    Waiting your input:<waitinput> done.
+
+
+    You can also create your own (via C#).
+
+    Read the docs for more ^^'
 --- !u!4 &349547109
 Transform:
   m_ObjectHideFlags: 0
@@ -538,6 +550,7 @@ MonoBehaviour:
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
   triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
     m_PersistentCalls:
       m_Calls: []
@@ -557,6 +570,8 @@ MonoBehaviour:
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!114 &1911804842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +607,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -618,7 +634,13 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
   useDynamicScaling: 0
   referenceFontSize: -1
   timeScale: 0

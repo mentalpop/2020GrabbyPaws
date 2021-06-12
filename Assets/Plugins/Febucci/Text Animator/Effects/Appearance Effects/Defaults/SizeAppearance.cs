@@ -1,11 +1,13 @@
 ﻿namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.ap_Size)]
     class SizeAppearance : AppearanceBase
     {
         float amplitude;
         public override void SetDefaultValues(AppearanceDefaultValues data)
         {
-            showDuration = data.defaults.sizeDuration;
+            effectDuration = data.defaults.sizeDuration;
             amplitude = data.defaults.sizeAmplitude * -1 + 1;
         }
 
@@ -13,7 +15,7 @@
         {
             data.vertices.LerpUnclamped(
                 data.vertices.GetMiddlePos(),
-                Tween.EaseIn(1 - (data.passedTime / showDuration)) * amplitude
+                Tween.EaseIn(1 - (data.passedTime / effectDuration)) * amplitude
                 );
         }
     }

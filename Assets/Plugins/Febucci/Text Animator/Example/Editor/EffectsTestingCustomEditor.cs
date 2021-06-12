@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Febucci.UI.Examples
+namespace Febucci.UI.Examples.Editors
 {
     [CustomEditor(typeof(EffectsTesting))]
-    public class EffectsTestingCustomEditor : Editor
+    class EffectsTestingCustomEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            EditorGUILayout.LabelField("Write your custom tags into this script, in order to test them all in one place, without having to format strings everytime", EditorStyles.helpBox);
-
             if (Application.isPlaying)
             {
                 ButtonSetText();

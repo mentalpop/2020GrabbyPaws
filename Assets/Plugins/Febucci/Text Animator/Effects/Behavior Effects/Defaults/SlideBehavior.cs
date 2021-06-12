@@ -2,8 +2,12 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Slide)]
     class SlideBehavior : BehaviorSine
     {
+        float sin;
+
         public override void SetDefaultValues(BehaviorDefaultValues data)
         {
             amplitude = data.defaults.slideAmplitude;
@@ -13,7 +17,7 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            float sin = Mathf.Sin(frequency * animatorTime+ charIndex * waveSize) * amplitude * effectIntensity;
+            sin = Mathf.Sin(frequency * time.timeSinceStart + charIndex * waveSize) * amplitude * uniformIntensity;
 
             //bottom, torwards one direction
             data.vertices[0] += Vector3.right * sin;

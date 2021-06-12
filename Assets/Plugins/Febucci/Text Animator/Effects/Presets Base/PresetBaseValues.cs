@@ -3,8 +3,9 @@
 namespace Febucci.UI.Core
 {
     [System.Serializable]
-    public class PresetBaseValues
+    internal class PresetBaseValues
     {
+#pragma warning disable 0649 //disabling the error or unity will throw "field is never assigned" [..], because we actually assign the variables from the custom drawers
         public string effectTag;
 
         [SerializeField] public FloatCurve movementX;
@@ -19,7 +20,7 @@ namespace Febucci.UI.Core
         [SerializeField] public FloatCurve rotZ;
 
         [SerializeField] public ColorCurve color;
-
+#pragma warning restore 0649
         public float GetMaxDuration()
         {
             float GetEffectEvaluatorDuration(EffectEvaluator effect)

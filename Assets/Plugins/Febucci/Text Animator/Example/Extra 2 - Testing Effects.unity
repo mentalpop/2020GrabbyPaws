@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 349547109}
   - component: {fileID: 349547108}
   m_Layer: 0
-  m_Name: Custom Tags here
+  m_Name: Text Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,8 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimatorPlayer: {fileID: 1911804841}
-  showDefaultTags: 1
-  customTags: []
 --- !u!4 &349547109
 Transform:
   m_ObjectHideFlags: 0
@@ -417,7 +415,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Test your tags in this scene, by editing the top GameObject
+  m_text: 'This scene will display all global effects detected by Text Animator, from
+    built-in ones to custom effects (C# or created via the inspector)
+
+
+    <size=50>[Locally created effects won''t be displayed]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1ffb8c3515fb6dc4688eff5a7e48200f, type: 2}
   m_sharedMaterial: {fileID: 7453642021753212536, guid: 1ffb8c3515fb6dc4688eff5a7e48200f,
@@ -487,12 +489,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1911804839}
-    characterCount: 59
+    characterCount: 186
     spriteCount: 0
-    spaceCount: 10
-    wordCount: 11
+    spaceCount: 29
+    wordCount: 29
     linkCount: 0
-    lineCount: 2
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -531,9 +533,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTypeWriter: 1
+  startTypewriterMode: 3
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
+  triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTypewriterStart:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -543,9 +553,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Febucci.UI.Core.CharacterEvent, Assembly-CSharp-firstpass, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  waitForNormalChars: 0.1
+  waitForNormalChars: 0.030303031
   waitLong: 0.6
-  waitMiddle: 0.2
+  waitMiddle: 0.3
+  avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!114 &1911804842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +593,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -606,4 +620,13 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
+  useDynamicScaling: 0
+  referenceFontSize: -1
+  timeScale: 0

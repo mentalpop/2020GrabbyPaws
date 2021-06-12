@@ -2,8 +2,11 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Swing)]
     class SwingBehavior : BehaviorSine
     {
+
         public override void SetDefaultValues(BehaviorDefaultValues data)
         {
             amplitude = data.defaults.swingAmplitude;
@@ -13,7 +16,7 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            data.vertices.RotateChar(Mathf.Cos(animatorTime* frequency + charIndex * waveSize) * amplitude);
+            data.vertices.RotateChar(Mathf.Cos(time.timeSinceStart * frequency + charIndex * waveSize) * amplitude);
         }
     }
 }

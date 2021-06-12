@@ -4,14 +4,16 @@
 namespace Febucci.UI.Core
 {
     [System.Serializable]
-    public class ColorCurve
+    internal class ColorCurve
     {
 
+#pragma warning disable 0649 //disabling the error or unity will throw "field is never assigned" [..], because we actually assign the variables from the custom drawers
         [SerializeField] public bool enabled;
 
         [SerializeField] protected Gradient gradient;
         [SerializeField, Attributes.MinValue(0.1f)] protected float duration;
         [SerializeField, Range(0, 100)] protected float charsTimeOffset; //clamping to 100 because it repeates the behavior after it
+#pragma warning restore 0649
 
         public float GetDuration()
         {

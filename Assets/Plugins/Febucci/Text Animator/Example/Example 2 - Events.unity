@@ -417,9 +417,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTypeWriter: 1
+  startTypewriterMode: 3
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
   triggerEventsOnSkip: 1
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
     m_PersistentCalls:
       m_Calls: []
@@ -435,10 +437,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Febucci.UI.Core.CharacterEvent, Assembly-CSharp-firstpass, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  waitForNormalChars: 0.01
+  waitForNormalChars: 0.03
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!114 &1940420946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 0
   triggerAnimPlayerOnChange: 0
   effectIntensityMultiplier: 100
   appearancesContainer:
@@ -475,6 +478,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -501,9 +505,16 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
   useDynamicScaling: 0
   referenceFontSize: -1
+  timeScale: 0
 --- !u!114 &1940420947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,7 +666,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimatorPlayer: {fileID: 1940420945}
-  textToShow: 'Hmm, <?bg>now the background changed.
+  textToShow: 'You can trigger events once the typewriter reaches a specific part
+    of the text.
+
+
+    Example:
+
+
+    Hmm, <?bg>now the background changed.
 
     Let''s test it again, 3, 2, 1, <?bg> done.
 
@@ -664,7 +682,10 @@ MonoBehaviour:
 
     1, <?bg> 2. 1, <?bg> 2. 1, <?bg> 2.
 
-    Yay!'
+    Yay!
+
+
+    Read the docs for more ^^'
 --- !u!4 &2004915689
 Transform:
   m_ObjectHideFlags: 0

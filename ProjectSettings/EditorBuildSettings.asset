@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/Town.unity
     guid: d33d55bdde050b547a5b2de8847ae3ff
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/INT_Town.unity
     guid: 54f995e9a121a8a4994d82fef75b9afa
+  - enabled: 1
+    path: Assets/My Assets/Scenes/EXT_BigCity.unity
+    guid: 1c24ab4fa37d5974ba91e46abddf56c9
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1c26488bc19171240bd7a45fc2a7fb64,
       type: 2}

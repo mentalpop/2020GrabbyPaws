@@ -2,10 +2,10 @@
 
 namespace Febucci.UI.Core
 {
-    class SizeBehavior : BehaviorSine
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Incr)]
+    sealed class SizeBehavior : BehaviorSine
     {
-        Vector3 middle;
-
         public override void SetDefaultValues(BehaviorDefaultValues data)
         {
             amplitude = data.defaults.sizeAmplitude * -1 + 1;
@@ -15,9 +15,9 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            middle = data.vertices.GetMiddlePos();
-
-            data.vertices.LerpUnclamped(middle, (Mathf.Cos(animatorTime* frequency + charIndex * waveSize) + 1) / 2f * amplitude);
+            data.vertices.LerpUnclamped(
+                data.vertices.GetMiddlePos(),
+                (Mathf.Cos(time.timeSinceStart* frequency + charIndex * waveSize) + 1) / 2f * amplitude);
         }
     }
 }

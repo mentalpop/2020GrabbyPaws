@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Febucci.UI.Core;
+using System;
+using UnityEngine;
 
 namespace Febucci.UI.Examples
 {
@@ -7,13 +9,11 @@ namespace Febucci.UI.Examples
     {
         public TextAnimatorPlayer textAnimatorPlayer;
 
-        public bool showDefaultTags = true;
-
-        public string[] customTags = new string[0];
-
         private void Awake()
         {
             UnityEngine.Assertions.Assert.IsNotNull(textAnimatorPlayer, $"Text Animator Player component is null in {gameObject.name}");
+
+            TAnimBuilder.InitializeGlobalDatabase();
         }
 
         private void Start()
@@ -23,36 +23,34 @@ namespace Febucci.UI.Examples
 
         public static string AddEffect(string tag)
         {
-            return $"<{tag}>{tag}</{tag}>, ";
+            return $"<{tag}><noparse><{tag}></noparse></{tag}>, ";
+        }
+
+        public static string AddAppearanceEffect(string tag)
+        {
+            return "{" + tag + "}" + "<noparse>{" + tag +"}</noparse>{/" + tag + "}, "; //todo optimize
         }
 
         public void ShowText()
         {
-            string builtText = "Built-in tags:\n";
+            string builtText = "Detected Behavior effects:\n";
 
-            if (showDefaultTags)
+            string[] behaviors = TAnimBuilder.GetAllBehaviorsTags();
+            string[] appearances = TAnimBuilder.GetAllApppearancesTags();
+
+            for (int i = 0; i < behaviors.Length; i++)
             {
-                for (int i = 0; i < TAnimTags.defaultBehaviors.Length; i++)
-                {
-                    builtText += AddEffect(TAnimTags.defaultBehaviors[i]);
-                }
-
-                builtText += "\n";
+                builtText += AddEffect(behaviors[i]);
             }
 
-            for (int i = 0; i < customTags.Length; i++)
+            builtText += "\n\nDetected Appearance effects:\n";
+
+            for (int i = 0; i < appearances.Length; i++)
             {
-                builtText += AddEffect(customTags[i]);
+                builtText += AddAppearanceEffect(appearances[i]);
             }
 
-            if (builtText.Length > 0)
-            {
-                textAnimatorPlayer.ShowText(builtText);
-            }
-            else
-            {
-                Debug.LogError("No tags are showed. Try adding custom tags or set showDefaultTags to true in the inspector");
-            }
+            textAnimatorPlayer.ShowText(builtText);
         }
 
     }

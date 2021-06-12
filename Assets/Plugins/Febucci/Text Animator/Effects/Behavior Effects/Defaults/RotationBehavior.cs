@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-
-namespace Febucci.UI.Core
+﻿namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Rot)]
     class RotationBehavior : BehaviorBase
     {
+
         float angleSpeed = 180;
         float angleDiffBetweenChars = 10;
 
@@ -26,7 +27,7 @@ namespace Febucci.UI.Core
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            data.vertices.RotateChar(-animatorTime* angleSpeed + angleDiffBetweenChars * charIndex);
+            data.vertices.RotateChar(-time.timeSinceStart * angleSpeed + angleDiffBetweenChars * charIndex);
         }
 
 

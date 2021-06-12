@@ -2,32 +2,38 @@
 
 namespace Febucci.UI.Core
 {
+    /// <summary>
+    /// Helper class. Contains methods to parse attributes/values from strings.
+    /// </summary>
     public static class FormatUtils
     {
         /// <summary>
-        /// Tries to parsing an attribute from a string list. If unsuccessful, sets the result it to the default value.
+        /// Tries to parse a rich text tag parameter.
         /// </summary>
-        /// <param name="attributes"></param>
-        /// <param name="index"></param>
-        /// <param name="defValue"></param>
-        /// <param name="result"></param>
-        /// <returns>Returns true if successful</returns>
+        /// <remarks>
+        /// Mostly used in combination with custom typewriter actions. (Manual: <see href="https://www.textanimator.febucci.com/docs/writing-custom-actions-c-sharp/">Writing Custom actions C#</see>)
+        /// </remarks>
+        /// <param name="attributes">list of all the attributesi in the rich text tag</param>
+        /// <param name="index">the parameter's index in the list</param>
+        /// <param name="defValue">default value, assigned if the parsing is not successful</param>
+        /// <param name="result">result from the parsing</param>
+        /// <returns><c>true</c> if successful</returns>
         public static bool TryGetFloat(List<string> attributes, int index, float defValue, out float result)
         {
-            if (index < attributes.Count)
+            if (index >= attributes.Count || index < 0)
             {
-                if (ParseFloat(attributes[index], out result))
-                {
-                    //Float parsed correctly, returns
-                    return true;
-                }
-                else
-                {
-                    //Float couldn't parse, sets default value
-                    result = defValue;
-                    return false;
-                }
+                result = defValue;
+                return false;
             }
+
+            return TryGetFloat(attributes[index], defValue, out result);
+        }
+
+        //TODO Docs
+        public static bool TryGetFloat(string attribute, float defValue, out float result)
+        {
+            if (ParseFloat(attribute, out result))
+                return true;
 
             result = defValue;
             return false;

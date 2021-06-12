@@ -2,6 +2,11 @@
 
 namespace Febucci.UI.Core
 {
+    //TODO Docs
+
+    /// <summary>
+    /// Helper class used to interpolate effects.
+    /// </summary>
     public static class Tween
     {
         public static float EaseIn(float t)

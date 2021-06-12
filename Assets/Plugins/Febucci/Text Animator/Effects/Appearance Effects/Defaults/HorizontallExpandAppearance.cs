@@ -2,6 +2,8 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.ap_HoriExp)]
     class HorizontalExpandAppearance : AppearanceBase
     {
         //expand type
@@ -12,23 +14,29 @@ namespace Febucci.UI.Core
             Right //from right to left
         }
 
+
         ExpType type = ExpType.Left;
+
+        //--Temp variables--
+        Vector2 startTop;
+        Vector2 startBot;
+        float pct;
+
+
 
         public override void SetDefaultValues(AppearanceDefaultValues data)
         {
-            showDuration = data.defaults.horizontalExpandDuration;
+            effectDuration = data.defaults.horizontalExpandDuration;
             type = data.defaults.horizontalExpandStart;
         }
 
         public override void ApplyEffect(ref CharacterData data, int charIndex)
         {
-            Vector2 startTop;
-            Vector2 startBot;
-
-            float pct = Tween.EaseInOut(data.passedTime / showDuration);
+            pct = Tween.EaseInOut(data.passedTime / effectDuration);
 
             switch (type)
             {
+                default:
                 case ExpType.Left:
                     //top left and bot left
                     startTop = data.vertices[1];
@@ -62,7 +70,7 @@ namespace Febucci.UI.Core
 
                     break;
             }
-            
+
         }
 
     }

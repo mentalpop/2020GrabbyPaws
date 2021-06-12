@@ -172,13 +172,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimatorPlayer: {fileID: 1911804841}
-  textToShow: 'You can create your own presets for effects,
+  textToShow: 'Other than using built-in effects, you can create your own custom effects
+    directly from the Inspector (or via C#).
 
-    <custom1>here</custom1> are <something> some examples</something>
 
-    (Look at their setting in the TextAnimator component)
+    <custom1>Here</custom1> are <something> some examples</something>.
 
-    (You can also create global presets for all TextAnimators)'
+
+    You can look and modify their settings inside the TextAnimator component.'
 --- !u!4 &349547109
 Transform:
   m_ObjectHideFlags: 0
@@ -536,9 +537,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTypeWriter: 1
+  startTypewriterMode: 3
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
   triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
     m_PersistentCalls:
       m_Calls: []
@@ -558,6 +561,8 @@ MonoBehaviour:
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!114 &1911804842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 0
   triggerAnimPlayerOnChange: 1
   effectIntensityMultiplier: 25
   appearancesContainer:
@@ -868,6 +872,7 @@ MonoBehaviour:
             m_NumAlphaKeys: 2
           duration: 0.3
           charsTimeOffset: 0
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -894,6 +899,10 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
     presets:
     - effectTag: custom1
       movementX:
@@ -1819,5 +1828,8 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
   useDynamicScaling: 0
   referenceFontSize: -1
+  timeScale: 0

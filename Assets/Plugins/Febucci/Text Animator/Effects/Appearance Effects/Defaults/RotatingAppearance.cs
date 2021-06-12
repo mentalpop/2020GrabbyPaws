@@ -2,12 +2,15 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.ap_Rot)]
     class RotatingAppearance : AppearanceBase
     {
+
         float targetAngle;
         public override void SetDefaultValues(AppearanceDefaultValues data)
         {
-            showDuration = data.defaults.rotationDuration;
+            effectDuration = data.defaults.rotationDuration;
             targetAngle = data.defaults.rotationStartAngle;
         }
 
@@ -18,7 +21,7 @@ namespace Febucci.UI.Core
                 Mathf.Lerp(
                     targetAngle,
                     0,
-                    Tween.EaseInOut(data.passedTime / showDuration)
+                    Tween.EaseInOut(data.passedTime / effectDuration)
                     )
                 );
         }

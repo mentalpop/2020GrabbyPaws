@@ -2,6 +2,8 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Fade)]
     class FadeBehavior : BehaviorBase
     {
         float delay = .3f;
@@ -33,9 +35,9 @@ namespace Febucci.UI.Core
             if (data.passedTime <= delay) //not passed enough time yet
                 return;
 
-            charPCTs[charIndex] += animatorDeltaTime;
+            charPCTs[charIndex] += time.deltaTime;
             //Lerps
-            if (charPCTs[charIndex] <= 1 && charPCTs[charIndex]>=0)
+            if (charPCTs[charIndex] <= 1 && charPCTs[charIndex] >= 0)
             {
                 data.colors.LerpUnclamped(Color.clear, Tween.EaseInOut(Mathf.Clamp01(charPCTs[charIndex])));
             }

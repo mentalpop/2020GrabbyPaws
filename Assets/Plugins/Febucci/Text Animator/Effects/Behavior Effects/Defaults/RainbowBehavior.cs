@@ -2,6 +2,8 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Rainb)]
     class RainbowBehavior : BehaviorBase
     {
         float hueShiftSpeed = 0.8f;
@@ -28,7 +30,7 @@ namespace Febucci.UI.Core
         {
             for (byte i = 0; i < data.colors.Length; i++)
             {
-                data.colors[i] = Color.HSVToRGB(Mathf.PingPong(animatorTime * hueShiftSpeed + charIndex * hueShiftWaveSize, 1), 1, 1);
+                data.colors[i] = Color.HSVToRGB(Mathf.PingPong(time.timeSinceStart * hueShiftSpeed + charIndex * hueShiftWaveSize, 1), 1, 1);
             }
         }
 

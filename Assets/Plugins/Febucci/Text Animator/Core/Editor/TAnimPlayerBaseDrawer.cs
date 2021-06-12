@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
-using System.Reflection;
 
-namespace Febucci.UI.Core
+namespace Febucci.UI.Core.Editors
 {
     [CustomEditor(typeof(TAnimPlayerBase), true)]
-    public class TAnimPlayerBaseDrawer : Editor
+    class TAnimPlayerBaseDrawer : Editor
     {
         protected SerializedProperty showLettersDinamically { get; private set; }
         SerializedProperty startTypewriterMode;
@@ -17,6 +15,8 @@ namespace Febucci.UI.Core
         SerializedProperty onTextShowed;
         SerializedProperty onTypewriterStart;
         SerializedProperty onCharacterVisible;
+
+        SerializedProperty resetTypingSpeedAtStartup;
 
         string[] propertiesToExclude = new string[0];
 
@@ -32,6 +32,7 @@ namespace Febucci.UI.Core
             "onTextShowed",
             "onTypewriterStart",
             "onCharacterVisible",
+            "resetTypingSpeedAtStartup",
             };
         }
 
@@ -48,12 +49,13 @@ namespace Febucci.UI.Core
             onTypewriterStart = serializedObject.FindProperty("onTypewriterStart");
             onCharacterVisible = serializedObject.FindProperty("onCharacterVisible");
 
+            resetTypingSpeedAtStartup = serializedObject.FindProperty("resetTypingSpeedAtStartup");
+
             propertiesToExclude = GetPropertiesToExclude();
         }
 
         public override void OnInspectorGUI()
         {
-
 
             {
                 EditorGUILayout.LabelField("Main Settings", EditorStyles.boldLabel);
@@ -77,8 +79,12 @@ namespace Febucci.UI.Core
 
                 EditorGUILayout.PropertyField(startTypewriterMode);
 
-                EditorGUILayout.PropertyField(canSkipTypewriter);
+                EditorGUILayout.PropertyField(resetTypingSpeedAtStartup);
 
+
+                EditorGUILayout.LabelField("Typewriter Skip", EditorStyles.boldLabel);
+
+                EditorGUILayout.PropertyField(canSkipTypewriter);
                 GUI.enabled = canSkipTypewriter.boolValue;
                 EditorGUILayout.PropertyField(hideAppearancesOnSkip);
                 EditorGUILayout.PropertyField(triggerEventsOnSkip);
@@ -111,8 +117,11 @@ namespace Febucci.UI.Core
                     if (showLettersDinamically.boolValue)
                     {
 
+                        EditorGUI.indentLevel++;
                         EditorGUILayout.PropertyField(onTypewriterStart);
                         EditorGUILayout.PropertyField(onCharacterVisible);
+
+                        EditorGUI.indentLevel--;
                     }
 
                     //GUI.enabled = true;
@@ -133,12 +142,14 @@ namespace Febucci.UI.Core
 
 
     [CustomEditor(typeof(TextAnimatorPlayer), true)]
-    public class TAnimPlayeDrawer : TAnimPlayerBaseDrawer
+    class TAnimPlayeDrawer : TAnimPlayerBaseDrawer
     {
         SerializedProperty waitForNormalChars;
         SerializedProperty waitLong;
         SerializedProperty waitMiddle;
         SerializedProperty avoidMultiplePunctuactionWait;
+        SerializedProperty waitForNewLines;
+        SerializedProperty waitForLastCharacter;
 
         protected override void OnEnable()
         {
@@ -148,6 +159,8 @@ namespace Febucci.UI.Core
             waitLong = serializedObject.FindProperty("waitLong");
             waitMiddle = serializedObject.FindProperty("waitMiddle");
             avoidMultiplePunctuactionWait = serializedObject.FindProperty("avoidMultiplePunctuactionWait");
+            waitForNewLines = serializedObject.FindProperty("waitForNewLines");
+            waitForLastCharacter = serializedObject.FindProperty("waitForLastCharacter");
         }
 
         protected override string[] GetPropertiesToExclude()
@@ -158,6 +171,8 @@ namespace Febucci.UI.Core
             "waitLong",
             "waitMiddle",
             "avoidMultiplePunctuactionWait",
+            "waitForNewLines",
+            "waitForLastCharacter",
             };
 
             string[] baseProperties = base.GetPropertiesToExclude();
@@ -192,10 +207,11 @@ namespace Febucci.UI.Core
                 EditorGUILayout.PropertyField(waitForNormalChars);
                 EditorGUILayout.PropertyField(waitLong);
                 EditorGUILayout.PropertyField(waitMiddle);
-                EditorGUILayout.Space();
-                EditorGUILayout.PropertyField(avoidMultiplePunctuactionWait);
-                EditorGUI.indentLevel--;
 
+                EditorGUILayout.PropertyField(avoidMultiplePunctuactionWait);
+                EditorGUILayout.PropertyField(waitForNewLines);
+                EditorGUILayout.PropertyField(waitForLastCharacter);
+                EditorGUI.indentLevel--;
             }
             else
             {
@@ -204,11 +220,11 @@ namespace Febucci.UI.Core
                 GUI.enabled = true;
             }
 
-
             if (serializedObject.hasModifiedProperties)
             {
                 serializedObject.ApplyModifiedProperties();
             }
+
         }
     }
 }

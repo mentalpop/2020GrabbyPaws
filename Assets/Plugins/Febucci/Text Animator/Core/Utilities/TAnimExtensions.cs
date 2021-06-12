@@ -10,7 +10,7 @@ namespace Febucci.UI.Core
         {
             for (int a = 0; a < effects.Count; a++)
             {
-                if (!effects[a].closed)
+                if (!effects[a].regionManager.IsLastRegionClosed())
                 {
                     if (effects[a].effectTag.Equals(tag))
                         return a;
@@ -23,17 +23,10 @@ namespace Febucci.UI.Core
 
         internal static bool CloseElement<T>(this List<T> effects, int listIndex, int realTextIndex) where T : EffectsBase
         {
-            if (listIndex < 0 || listIndex >= effects.Count || effects[listIndex].closed)
+            if (listIndex < 0 || listIndex >= effects.Count || effects[listIndex].regionManager.IsLastRegionClosed())
                 return false;
 
-            var temp = effects[listIndex];
-
-            //Sets the final index
-
-            // *it sets "realTextIndex" as final index, since we've kept adding characters until now
-            temp.charEndIndex = realTextIndex;
-            temp.closed = true;
-            effects[listIndex] = temp;
+            effects[listIndex].regionManager.CloseEffect(realTextIndex);
 
             return true;
         }
@@ -47,28 +40,22 @@ namespace Febucci.UI.Core
 
         internal static bool TryAddingNewRegion<T>(this List<T> effects, T region) where T : EffectsBase
         {
-            //Doesn't do anything if we have a similar tag open
-            //Since there's no need to open a new one
-            if (effects.IsAnyRegionOpenWithTag(region.effectTag))
-                return false;
+            for (int a = 0; a < effects.Count; a++)
+            {
+                //Doesn't do anything if we have a similar tag open
+                //Since there's no need to open a new one
+                if (!effects[a].regionManager.IsLastRegionClosed()
+                    && effects[a].regionManager.entireRichTextTag.Equals(region.regionManager.entireRichTextTag))
+                {
+                    return false;
+                }
+            }
 
+            //no tag open with that rich text combination - creates a new one
             effects.Add(region);
             return true;
         }
 
-
-        internal static bool IsAnyRegionOpenWithTag<T>(this List<T> effects, string tag) where T : EffectsBase
-        {
-            for (int a = 0; a < effects.Count; a++)
-            {
-                if (!effects[a].closed && effects[a].effectTag.Equals(tag))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         internal static bool CloseSingleOrAllEffects<T>(this List<T> effects, string closureTag, int realTextIndex) where T : EffectsBase
         {
@@ -79,7 +66,7 @@ namespace Febucci.UI.Core
                 //Closes ALL the region opened until now
                 for (int k = 0; k < effects.Count; k++)
                 {
-                    if(effects.CloseElement(k, realTextIndex))
+                    if (effects.CloseElement(k, realTextIndex))
                     {
                         atLeastOneClosed = true;
                     }

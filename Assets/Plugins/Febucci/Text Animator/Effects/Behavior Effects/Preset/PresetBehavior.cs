@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
+﻿using UnityEngine;
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: "")]
     class PresetBehavior : BehaviorBase
     {
         bool enabled;
@@ -14,10 +13,7 @@ namespace Febucci.UI.Core
 
         //management
         Matrix4x4 matrix;
-        Vector3 movementVec;
-        Vector3 scaleVec;
         Vector3 offset;
-        Vector3 rotationEuler;
         Quaternion rotationQua;
 
         float uniformEffectTime;
@@ -29,22 +25,9 @@ namespace Febucci.UI.Core
         float weight = 1;
         EmissionControl emissionControl;
 
-        //movement
-        bool setMovement;
-        EffectEvaluator movementX;
-        EffectEvaluator movementY;
-        EffectEvaluator movementZ;
-
-        //scale
-        bool setScale;
-        EffectEvaluator scaleX;
-        EffectEvaluator scaleY;
-
-        //rotation
-        bool setRotation;
-        EffectEvaluator rotX;
-        EffectEvaluator rotY;
-        EffectEvaluator rotZ;
+        PresetAppearance.ThreeAxisEffector movement;
+        PresetAppearance.ThreeAxisEffector rotation;
+        PresetAppearance.TwoAxisEffector scale;
 
         bool setColor;
         Color32 color;
@@ -59,39 +42,22 @@ namespace Febucci.UI.Core
             weight = 0;
             isOnOneCharacter = false;
 
-
-            movementVec = Vector3.zero;
-
-            float showDuration = 0;
-            float scaleXDuration = 0;
-            float scaleYDuration = 0;
-
             enabled = false;
 
 
             void AssignValues(PresetBehaviorValues result)
             {
+                float showDuration = 0;
                 emissionControl = result.emission;
 
                 enabled = PresetAppearance.SetPreset(
                     false,
                     result,
-                    ref movementX,
-                    ref movementY,
-                    ref movementZ,
-                    ref setMovement,
+                    ref movement,
                     ref showDuration,
-                    ref scaleVec,
-                    ref setScale,
-                    ref scaleX,
-                    ref scaleY,
-                    ref scaleXDuration,
-                    ref scaleYDuration,
-                    ref setRotation,
+                    ref rotation,
+                    ref scale,
                     ref rotationQua,
-                    ref rotX,
-                    ref rotY,
-                    ref rotZ,
                     ref hasTransformEffects,
                     ref setColor,
                     ref colorCurve);
@@ -99,28 +65,21 @@ namespace Febucci.UI.Core
                 emissionControl.Initialize(showDuration);
             }
 
+            PresetBehaviorValues values;
 
-            void TryAssigningPreset()
+            //searches for local presets first, which override global presets
+            if (TAnimBuilder.GetPresetFromArray(effectTag, data.presets, out values))
             {
-                PresetBehaviorValues result;
-
-                //searches for local presets first, which override global presets
-                if (TAnimBuilder.GetPresetFromArray(effectTag, data.presets, out result))
-                {
-                    AssignValues(result);
-                    return;
-                }
-
-                //global presets
-                if (TAnimBuilder.TryGetGlobalPresetBehavior(effectTag, out result))
-                {
-                    AssignValues(result);
-                    return;
-                }
-
+                AssignValues(values);
+                return;
             }
 
-            TryAssigningPreset();
+            //global presets
+            if (TAnimBuilder.TryGetGlobalPresetBehavior(effectTag, out values))
+            {
+                AssignValues(values);
+                return;
+            }
         }
 
         public override void SetModifier(string modifierName, string modifierValue)
@@ -142,7 +101,7 @@ namespace Febucci.UI.Core
             if (!isOnOneCharacter)
                 return;
 
-            uniformEffectTime = emissionControl.IncreaseEffectTime(animatorDeltaTime * timeSpeed);
+            uniformEffectTime = emissionControl.IncreaseEffectTime(time.deltaTime * timeSpeed);
 
         }
 
@@ -163,44 +122,13 @@ namespace Febucci.UI.Core
             {
                 offset = (data.vertices[0] + data.vertices[2]) / 2f;
 
-                #region Movement
-                if (setMovement)
-                {
-                    movementVec.x = movementX.Evaluate(uniformEffectTime, charIndex);
-                    movementVec.y = movementY.Evaluate(uniformEffectTime, charIndex);
-                    movementVec.z = movementZ.Evaluate(uniformEffectTime, charIndex);
+                //weighted rotation
+                rotationQua.eulerAngles = rotation.EvaluateEffect(uniformEffectTime, charIndex) * weight;
 
-                    movementVec *= effectIntensity * weight;  //movement also needs effects intensity (might change depending on fonts etc.)
-
-                }
-                #endregion
-
-                #region Scale
-                if (setScale)
-                {
-                    scaleVec.x = scaleX.Evaluate(uniformEffectTime, charIndex);
-                    scaleVec.y = scaleY.Evaluate(uniformEffectTime, charIndex);
-
-                    //weighted scale
-                    scaleVec = Vector3.LerpUnclamped(Vector3.one, scaleVec, weight);
-
-                }
-                #endregion
-
-                #region Rotation
-                if (setRotation)
-                {
-
-                    rotationEuler.x = rotX.Evaluate(uniformEffectTime, charIndex);
-                    rotationEuler.y = rotY.Evaluate(uniformEffectTime, charIndex);
-                    rotationEuler.z = rotZ.Evaluate(uniformEffectTime, charIndex);
-
-                    //weighted rotation
-                    rotationQua.eulerAngles = rotationEuler * weight;
-                }
-                #endregion
-
-                matrix.SetTRS(movementVec, rotationQua, scaleVec);
+                matrix.SetTRS(
+                    movement.EvaluateEffect(uniformEffectTime, charIndex) * uniformIntensity * weight,
+                    rotationQua,
+                    Vector3.LerpUnclamped(Vector3.one, scale.EvaluateEffect(uniformEffectTime, charIndex), weight));
 
                 for (byte i = 0; i < data.vertices.Length; i++)
                 {

@@ -11,7 +11,7 @@ namespace Febucci.Attributes
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             //delay in seconds
-            Rect delayValueRect = new Rect(0, position.y, 70 + 230, position.height);
+            Rect delayValueRect = new Rect(position.x, position.y, 70 + 230 - position.x, position.height);
             delayValueRect.width = Mathf.Clamp(position.width * 0.6f, 170, position.width);
 
             Rect delayLabel = new Rect(delayValueRect);

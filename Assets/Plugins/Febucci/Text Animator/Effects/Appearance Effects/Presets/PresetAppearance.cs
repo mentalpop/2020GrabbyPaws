@@ -1,38 +1,23 @@
 ﻿using UnityEngine;
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: "")]
     class PresetAppearance : AppearanceBase
     {
+
         bool enabled;
 
         //management
         Matrix4x4 matrix;
-        Vector3 movementVec;
-        Vector3 scaleVec;
         Vector3 offset;
-        Vector3 rotationEuler;
         Quaternion rotationQua;
 
         bool hasTransformEffects;
 
-        //movement
-        bool setMovement;
-        EffectEvaluator movementX;
-        EffectEvaluator movementY;
-        EffectEvaluator movementZ;
-
-        //scale
-        bool setScale;
-        float scaleXDuration;
-        float scaleYDuration;
-        EffectEvaluator scaleX;
-        EffectEvaluator scaleY;
-
-        //rotation
-        bool setRotation;
-        EffectEvaluator rotX;
-        EffectEvaluator rotY;
-        EffectEvaluator rotZ;
+        ThreeAxisEffector movement;
+        ThreeAxisEffector rotation;
+        TwoAxisEffector scale;
 
         bool setColor;
         Color32 color;
@@ -40,9 +25,7 @@ namespace Febucci.UI.Core
 
         public override void SetDefaultValues(AppearanceDefaultValues data)
         {
-            movementVec = Vector3.zero;
-
-            showDuration = 0;
+            effectDuration = 0;
 
             enabled = false;
 
@@ -51,70 +34,97 @@ namespace Febucci.UI.Core
                 enabled = SetPreset(
                     true,
                     result,
-                    ref movementX,
-                    ref movementY,
-                    ref movementZ,
-                    ref setMovement,
-                    ref showDuration,
-                    ref scaleVec,
-                    ref setScale,
-                    ref scaleX,
-                    ref scaleY,
-                    ref scaleXDuration,
-                    ref scaleYDuration,
-                    ref setRotation,
+                    ref movement,
+                    ref effectDuration,
+                    ref rotation,
+                    ref scale,
                     ref rotationQua,
-                    ref rotX,
-                    ref rotY,
-                    ref rotZ,
                     ref hasTransformEffects,
                     ref setColor,
                     ref colorCurve);
             }
 
-            void TryAssigningPreset()
+
+            PresetAppearanceValues values;
+            //searches for local presets first, which override global presets
+            if (TAnimBuilder.GetPresetFromArray(effectTag, data.presets, out values))
             {
-                PresetAppearanceValues result;
-                //searches for local presets first, which override global presets
-                if (TAnimBuilder.GetPresetFromArray(effectTag, data.presets, out result))
-                {
-                    AssignValues(result);
-                    return;
-                }
-
-                //global presets
-                if (TAnimBuilder.TryGetGlobalPresetAppearance(effectTag, out result))
-                {
-                    AssignValues(result);
-                    return;
-                }
-
+                AssignValues(values);
+                return;
             }
 
-            TryAssigningPreset();
+            //global presets
+            if (TAnimBuilder.TryGetGlobalPresetAppearance(effectTag, out values))
+            {
+                AssignValues(values);
+                return;
+            }
+
         }
 
-        //TODO: REFACTOR THIS !!
+        #region Effector classes
+        internal abstract class Effector
+        {
+            protected abstract Vector3 _EvaluateEffect(float passedTime, int charInde);
+            public Vector3 EvaluateEffect(float passedTime, int charIndex)
+            {
+                return _EvaluateEffect(passedTime, charIndex);
+            }
+        }
+
+        internal sealed class ThreeAxisEffector : Effector
+        {
+            EffectEvaluator x;
+            EffectEvaluator y;
+            EffectEvaluator z;
+
+            public ThreeAxisEffector(EffectEvaluator x, EffectEvaluator y, EffectEvaluator z)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+
+            protected override Vector3 _EvaluateEffect(float passedTime, int charIndex)
+            {
+                return new Vector3(
+                    x.Evaluate(passedTime, charIndex),
+                    y.Evaluate(passedTime, charIndex),
+                    z.Evaluate(passedTime, charIndex)
+                    );
+            }
+        }
+
+        internal sealed class TwoAxisEffector : Effector
+        {
+            EffectEvaluator x;
+            EffectEvaluator y;
+
+            public TwoAxisEffector(EffectEvaluator x, EffectEvaluator y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            protected override Vector3 _EvaluateEffect(float passedTime, int charIndex)
+            {
+                return new Vector3(
+                    x.Evaluate(passedTime, charIndex),
+                    y.Evaluate(passedTime, charIndex),
+                    1
+                    );
+            }
+        }
+        #endregion
 
         public static bool SetPreset<T>(
             bool isAppearance,
             T values,
-            ref EffectEvaluator movementX,
-            ref EffectEvaluator movementY,
-            ref EffectEvaluator movementZ,
-            ref bool setMovement,
+            ref ThreeAxisEffector movement,
             ref float showDuration,
-            ref Vector3 scaleVec,
-            ref bool setScale,
-            ref EffectEvaluator scaleX,
-            ref EffectEvaluator scaleY,
-            ref float scaleXDuration,
-            ref float scaleYDuration,
-            ref bool setRotation,
+            ref ThreeAxisEffector rotation,
+            ref TwoAxisEffector scale,
             ref Quaternion rotationQua,
-            ref EffectEvaluator rotX,
-            ref EffectEvaluator rotY,
-            ref EffectEvaluator rotZ,
             ref bool hasTransformEffects,
             ref bool setColor,
             ref ColorCurve colorCurve
@@ -124,37 +134,28 @@ namespace Febucci.UI.Core
             values.Initialize(isAppearance);
             showDuration = values.GetMaxDuration();
 
-            setMovement = values.movementX.enabled || values.movementY.enabled || values.movementZ.enabled;
-            if (setMovement)
-            {
-                movementX = values.movementX;
-                movementY = values.movementY;
-                movementZ = values.movementZ;
-            }
 
-            scaleVec = Vector3.one;
-            setScale = values.scaleX.enabled || values.scaleY.enabled;
-            if (setScale)
-            {
-                scaleX = values.scaleX;
-                scaleY = values.scaleY;
+            movement = new ThreeAxisEffector(
+                values.movementX,
+                values.movementY,
+                values.movementZ);
 
-                scaleVec.z = 1;
+            scale = new TwoAxisEffector(
+                values.scaleX,
+                values.scaleY
+                );
 
-                scaleXDuration = scaleX.GetDuration();
-                scaleYDuration = scaleY.GetDuration();
-            }
+            rotation = new ThreeAxisEffector(
+                values.rotX,
+                values.rotY,
+                values.rotZ
+                );
 
-            setRotation = values.rotX.enabled || values.rotY.enabled || values.rotZ.enabled;
             rotationQua = Quaternion.identity;
-            if (setRotation)
-            {
-                rotX = values.rotX;
-                rotY = values.rotY;
-                rotZ = values.rotZ;
-            }
 
-            hasTransformEffects = setMovement || setRotation || setScale;
+            hasTransformEffects = values.movementX.enabled || values.movementY.enabled || values.movementZ.enabled
+                || values.rotX.enabled || values.rotY.enabled || values.rotZ.enabled 
+                || values.scaleX.enabled || values.scaleY.enabled;
 
             setColor = values.color.enabled;
             if (setColor)
@@ -177,41 +178,14 @@ namespace Febucci.UI.Core
             {
                 offset = (data.vertices[0] + data.vertices[2]) / 2f;
 
-                #region Movement
 
-                if (setMovement)
-                {
-                    movementVec.x = movementX.Evaluate(data.passedTime, charIndex);
-                    movementVec.y = movementY.Evaluate(data.passedTime, charIndex);
-                    movementVec.z = movementZ.Evaluate(data.passedTime, charIndex);
+                rotationQua.eulerAngles = rotation.EvaluateEffect(data.passedTime, charIndex);
 
-                    movementVec *= effectIntensity;
 
-                }
-                #endregion
-
-                #region Scale
-                if (setScale)
-                {
-                    scaleVec.x = scaleX.Evaluate(data.passedTime, charIndex);
-                    scaleVec.y = scaleY.Evaluate(data.passedTime, charIndex);
-                }
-
-                #endregion
-
-                #region Rotation
-                if (setRotation)
-                {
-
-                    rotationEuler.x = rotX.Evaluate(data.passedTime, charIndex);
-                    rotationEuler.y = rotY.Evaluate(data.passedTime, charIndex);
-                    rotationEuler.z = rotZ.Evaluate(data.passedTime, charIndex);
-
-                    rotationQua.eulerAngles = rotationEuler;
-                }
-                #endregion
-
-                matrix.SetTRS(movementVec, rotationQua, scaleVec);
+                matrix.SetTRS(
+                    movement.EvaluateEffect(data.passedTime, charIndex) * uniformIntensity,
+                    rotationQua,
+                    scale.EvaluateEffect(data.passedTime, charIndex));
 
                 for (byte i = 0; i < data.vertices.Length; i++)
                 {
@@ -224,7 +198,7 @@ namespace Febucci.UI.Core
             if (setColor)
             {
                 color = colorCurve.GetColor(data.passedTime, charIndex);
-                data.colors.LerpUnclamped(color, 1 - data.passedTime / showDuration);
+                data.colors.LerpUnclamped(color, 1 - data.passedTime / effectDuration);
             }
 
         }

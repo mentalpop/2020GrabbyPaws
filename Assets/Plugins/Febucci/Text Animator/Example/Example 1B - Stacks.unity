@@ -172,8 +172,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimatorPlayer: {fileID: 1911804841}
-  textToShow: You can use <wiggle><wave><swing>multiple</> effects on the <rainb><shake>same</>
-    letters. <wave><rot><incr>YAY.</>
+  textToShow: 'You can use <wiggle><wave><swing>multiple</> effects on the <rainb><shake>same</>
+    letters. <wave><rot><incr>YAY!</>
+
+
+    Example: writing "<noparse><swing><slide><incr>HEEEEY</></noparse>" will result
+    in "<swing><slide><incr>HEEEEY</>".
+
+
+    [Tip: if you have opened multiple tags, you can use <noparse></> or {/}</noparse>
+    to close all of them at once, instead of writing each single tag.]'
 --- !u!4 &349547109
 Transform:
   m_ObjectHideFlags: 0
@@ -531,9 +539,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTypeWriter: 1
+  startTypewriterMode: 3
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
+  triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTypewriterStart:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -546,6 +562,9 @@ MonoBehaviour:
   waitForNormalChars: 0.03
   waitLong: 0.6
   waitMiddle: 0.2
+  avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!114 &1911804842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +600,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -607,4 +627,13 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
+  useDynamicScaling: 0
+  referenceFontSize: -1
+  timeScale: 0

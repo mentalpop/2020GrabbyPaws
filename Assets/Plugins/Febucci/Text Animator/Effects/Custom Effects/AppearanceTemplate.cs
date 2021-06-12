@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 
-namespace Febucci.UI.Core.Examples
+namespace Febucci.UI.Examples
 {
-    //Documentation link: https://www.febucci.com/textanimator-docs
-    //Example class
-    public class AppearanceTemplate : AppearanceBase
+    [Core.EffectInfo(tag: "")] //doesn't add it to the game
+    public class AppearanceTemplate : Core.AppearanceBase
     {
         //float verticalOffset;
+
 
         Vector3 vert;
         float pct;
 
-        public override void SetDefaultValues(AppearanceDefaultValues data)
+        public override void SetDefaultValues(Core.AppearanceDefaultValues data)
         {
             //verticalOffset = data.customs.templateOffset;
         }
 
-        public override void ApplyEffect(ref CharacterData data, int charIndex)
+        public override void ApplyEffect(ref Core.CharacterData data, int charIndex)
         {
             /*
             pct = charPCTs[charIndex] / showDuration;

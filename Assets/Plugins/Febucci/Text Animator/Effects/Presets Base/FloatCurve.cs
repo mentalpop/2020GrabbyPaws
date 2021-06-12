@@ -3,8 +3,9 @@
 namespace Febucci.UI.Core
 {
     [System.Serializable]
-    public class FloatCurve : EffectEvaluator
+    internal class FloatCurve : EffectEvaluator
     {
+#pragma warning disable 0649 //disabling the error or unity will throw "field is never assigned" [..], because we actually assign the variables from the custom drawers
         public bool enabled;
 
         [SerializeField] protected float amplitude;
@@ -15,6 +16,7 @@ namespace Febucci.UI.Core
         [SerializeField, Range(0, 100)] protected float charsTimeOffset; //clamping to 100 because it repeates the behavior after it
 
         [System.NonSerialized] float calculatedDuration;
+#pragma warning restore 0649
 
         public bool isEnabled => enabled;
 
@@ -27,7 +29,7 @@ namespace Febucci.UI.Core
 
         public void Initialize(int type)
         {
-            calculatedDuration = curve.GetDuration();
+            calculatedDuration = curve.CalculateCurveDuration();
 
             isAppearance = type >= 3;
 

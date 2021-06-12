@@ -2,6 +2,8 @@
 
 namespace Febucci.UI.Core
 {
+    [UnityEngine.Scripting.Preserve]
+    [EffectInfo(tag: TAnimTags.bh_Shake)]
     class ShakeBehavior : BehaviorBase
     {
         public float shakeStrength;
@@ -48,7 +50,7 @@ namespace Febucci.UI.Core
         int lastRandomIndex;
         public override void Calculate()
         {
-            timePassed += animatorDeltaTime;
+            timePassed += time.deltaTime;
             //Changes the shake direction if enough time passed
             if (timePassed >= shakeDelay)
             {
@@ -74,7 +76,7 @@ namespace Febucci.UI.Core
                 (
                     TextUtilities.fakeRandoms[
                                             Mathf.RoundToInt((charIndex + randIndex) % (TextUtilities.fakeRandomsCount - 1))
-                                            ] * shakeStrength * effectIntensity
+                                            ] * shakeStrength * uniformIntensity
                     );
         }
 
