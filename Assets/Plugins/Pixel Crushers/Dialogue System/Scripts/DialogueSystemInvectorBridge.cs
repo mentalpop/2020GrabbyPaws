@@ -21,10 +21,10 @@ namespace PixelCrushers.DialogueSystem.InvectorSupport
         [Tooltip("Face the other conversation participant when starting a conversation.")]
         public bool faceConversant = true;
 
-        private vThirdPersonController m_controller = null;
-        private vThirdPersonInput m_input = null;
-        private Animator m_animator = null;
-        private Rigidbody m_rb = null;
+        public vThirdPersonController m_controller = null;
+        public vThirdPersonInput m_input = null;
+        public Animator m_animator = null;
+        public Rigidbody m_rb = null;
 
         private void Awake()
         {

@@ -1637,6 +1637,50 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
+  - id: 68
+    fields:
+    - title: Name
+      value: New Actor 68
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 69
+    fields:
+    - title: Name
+      value: New Actor 69
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
   items:
   - id: 1
     fields:
@@ -146009,7 +146053,7 @@ MonoBehaviour:
         y: 280
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 2}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
   - id: 65
     fields:
@@ -151163,7 +151207,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Hey, [var=PlayerName].
+        value: Bzzt
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -151196,7 +151240,7 @@ MonoBehaviour:
         destinationDialogueID: 22
         isConnector: 0
         priority: 2
-      conditionsString: Dialog[3].SimStatus ~= "WasDisplayed"
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -151443,7 +151487,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: gonna check your loan numbers? haha.
+        value: 
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
