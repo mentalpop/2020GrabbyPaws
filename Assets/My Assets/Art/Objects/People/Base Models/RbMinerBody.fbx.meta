@@ -63,7 +63,9 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'thigh_stretch.l' : position
+      error = 20.576717 mm\n\t'thigh_stretch.r' : position error = 20.577883 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'root|Sitting.GroundMiner' has import animation
       warnings that might lower retargeting quality:\n\t'spine_02.x' is inbetween
@@ -71,11 +73,18 @@ ModelImporter:
       'root|Sitting.GroundMiner.Sad' has import animation warnings that might lower
       retargeting quality:\n\t'spine_02.x' is inbetween humanoid transforms and has
       rotation animation that will be discarded.\n"
-    animationRetargetingWarnings: 
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'root|Sitting.GroundMiner':\n\tRetargeting
+      quality is good. No significant differences with original animation were found.\n\nRetargeting
+      quality report for clip 'root|Sitting.GroundMiner.Cry':\n\tRetargeting quality
+      is good. No significant differences with original animation were found.\n\nRetargeting
+      quality report for clip 'root|Sitting.GroundMiner.Sad':\n\tRetargeting quality
+      is good. No significant differences with original animation were found.\n\nRetargeting
+      quality report for clip 'root|Sitting.GroundWave':\n\tRetargeting quality is
+      good. No significant differences with original animation were found.\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -111,12 +120,8 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: BuckleButtonR
-        weight: 1
-      - path: BuckleButtonR.001
-        weight: 1
-      - path: RBMinerBody
-        weight: 1
+      - path: RBMinerBody.001
+        weight: 0
       - path: root
         weight: 1
       - path: root/root.x
@@ -215,10 +220,6 @@ ModelImporter:
       events: []
       transformMask:
       - path: 
-        weight: 1
-      - path: BuckleButtonR
-        weight: 1
-      - path: BuckleButtonR.001
         weight: 1
       - path: RBMinerBody
         weight: 1
