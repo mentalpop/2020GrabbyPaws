@@ -15,6 +15,7 @@ namespace PixelCrushers.DialogueSystem
             serializedObject.Update();
 
             EditorGUILayout.LabelField("UI Elements", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("textAnimatorPlayer"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("panel"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("portraitImage"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("portraitName"), true);

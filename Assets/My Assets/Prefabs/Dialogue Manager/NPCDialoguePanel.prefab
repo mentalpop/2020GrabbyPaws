@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerAnimPlayerOnChange: 1
+  triggerAnimPlayerOnChange: 0
   effectIntensityMultiplier: 25
   appearancesContainer:
     tags: []
@@ -224,6 +224,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -250,7 +251,17 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
+      pendAmplitude: 25
+      pendFrequency: 3
+      pendWaveSize: 0.2
+      pendInverted: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
   useDynamicScaling: 0
   referenceFontSize: -1
   timeScale: 0
@@ -266,11 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a6945b90dcd0c4b81619c0d8b5c283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useTypeWriter: 0
+  useTypeWriter: 1
   startTypewriterMode: 3
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
   triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
     m_PersistentCalls:
       m_Calls: []
@@ -284,6 +296,8 @@ MonoBehaviour:
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!1 &7089306745642003493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1469,8 @@ MonoBehaviour:
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
+  textAnimator: {fileID: 6913144215469342106}
+  textAnimatorPlayer: {fileID: 3926312233916565791}
   panel: {fileID: 8311655468343324013}
   portraitImage: {fileID: 3270921941695727233, guid: bc3a01cb883190a4494af94eee722e8a,
     type: 3}
