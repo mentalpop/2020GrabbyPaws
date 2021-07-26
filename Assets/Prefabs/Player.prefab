@@ -428,71 +428,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 7185487449646607694}
---- !u!114 &2530906802831348105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4865116513638002871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04017b2ab6f16ed4197f67a9325bbfb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceConversant: 0
-  m_controller: {fileID: 3505402117396636773}
-  m_input: {fileID: 3505402117396636778}
-  m_animator: {fileID: 1969488830512099294}
-  m_rb: {fileID: 3505402117396636776}
---- !u!114 &8005287563919489020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4865116513638002871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963d6358c55a0f44d8de57bee560f184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useDefaultGUI: 0
-  guiSkin: {fileID: 0}
-  guiStyleName: label
-  alignment: 1
-  color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  textStyle: 1
-  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
-  defaultUseMessage: (A to interact)
-  useKey: 0
-  useButton: Steal
-  enableTouch: 0
-  touchArea:
-    origin: 0
-    alignment: 0
-    x:
-      scale: 0
-      value: 0
-    y:
-      scale: 0
-      value: 0
-    width:
-      scale: 0
-      value: 0
-    height:
-      scale: 0
-      value: 0
-    minPixelWidth: 0
-    minPixelHeight: 0
-  broadcastToChildren: 1
-  actorTransform: {fileID: 8493512274446729892}
-  onSelectedUsable:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeselectedUsable:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &772829566546307432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +527,23 @@ MonoBehaviour:
     onDialogueSystemUnpause:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &2530906802831348105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865116513638002871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04017b2ab6f16ed4197f67a9325bbfb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceConversant: 0
+  m_controller: {fileID: 3505402117396636773}
+  m_input: {fileID: 3505402117396636778}
+  m_animator: {fileID: 1969488830512099294}
+  m_rb: {fileID: 3505402117396636776}
 --- !u!114 &3190141848615334274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +591,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontCode: <align=right><color=#00ffff>
   backCode: </color></align>
+--- !u!114 &8005287563919489020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865116513638002871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963d6358c55a0f44d8de57bee560f184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultGUI: 0
+  guiSkin: {fileID: 0}
+  guiStyleName: label
+  alignment: 1
+  color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  textStyle: 1
+  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultUseMessage: (A to interact)
+  useKey: 0
+  useButton: Steal
+  enableTouch: 0
+  touchArea:
+    origin: 0
+    alignment: 0
+    x:
+      scale: 0
+      value: 0
+    y:
+      scale: 0
+      value: 0
+    width:
+      scale: 0
+      value: 0
+    height:
+      scale: 0
+      value: 0
+    minPixelWidth: 0
+    minPixelHeight: 0
+  broadcastToChildren: 1
+  actorTransform: {fileID: 8493512274446729892}
+  onSelectedUsable:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeselectedUsable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5830624193095642404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1105,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6930925982164727092, guid: 10ec185ba5b26a5429aecfc27db035a8,
+        type: 3}
+      propertyPath: doneTime
+      value: 106.26151
+      objectReference: {fileID: 0}
     - target: {fileID: 6930925982395353666, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1248,7 +1253,7 @@ PrefabInstance:
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_text
-      value: help myself to this...
+      value: These are super huffable
       objectReference: {fileID: 0}
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
