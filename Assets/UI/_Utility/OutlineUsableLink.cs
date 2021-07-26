@@ -8,6 +8,7 @@ public class OutlineUsableLink : MonoBehaviour
 {
     public Usable Usable;
     public Outline outline;
+    public bool isChildPrefab = false;
     private ProximitySelector proximitySelector;
     private bool subbedEvents = false;
 
@@ -23,7 +24,11 @@ public class OutlineUsableLink : MonoBehaviour
         if (outline == null) { //If the outline is null, try to GetComponent, if it is still null, Add it as a Component
             outline = gameObject.GetComponent<Outline>();
             if (outline == null) {
-                outline = gameObject.AddComponent<Outline>();
+                if (isChildPrefab) {
+                    outline = transform.parent.gameObject.AddComponent<Outline>();
+                } else {
+                    outline = gameObject.AddComponent<Outline>();
+                }
             }
         }
         outline.enabled = false;

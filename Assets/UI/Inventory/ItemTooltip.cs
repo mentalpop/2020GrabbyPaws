@@ -18,18 +18,9 @@ public class ItemTooltip : MonoBehaviour
         itemName.text = inventoryItem.item.name;
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
-        float _value = inventoryItem.item.value * inventoryItem.quantity;
-        if (_value < 100f) {
-    //Prepend zeroes in front of small numbers
-            if (_value < 10f) {
-                value.text = "00"+_value.ToString();
-            } else {
-                value.text = "0"+_value.ToString();
-            }
-        } else {
-            value.text = string.Format("{0:n0}", _value);
-        }
-    //Keep on screen
+        //float _value = inventoryItem.item.value * inventoryItem.quantity;
+        value.text = UI.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
+        //Keep on screen
         float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
     }
@@ -38,18 +29,8 @@ public class ItemTooltip : MonoBehaviour
         itemName.text = inventoryItem.item.name;
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
-        float _value = inventoryItem.item.value * inventoryItem.quantity;
-        if (_value < 100f) {
-    //Prepend zeroes in front of small numbers
-            if (_value < 10f) {
-                value.text = "00"+_value.ToString();
-            } else {
-                value.text = "0"+_value.ToString();
-            }
-        } else {
-            value.text = string.Format("{0:n0}", _value);
-        }
-    //Snap to position of transform plus offset
+        value.text = UI.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
+        //Snap to position of transform plus offset
         Transform previousParent = transform.parent;
         transform.parent = _transform;
         myRect.anchoredPosition = tooltipOffset;

@@ -5,6 +5,7 @@ public class ItemPickup : SaveLoadInteractable
 {
     public Item item;
     public GameObject pickupSphere;
+    public GameObject itemToPickup;
 
     /*
     public float velocityThreshold = 0.01f;
@@ -50,7 +51,11 @@ public class ItemPickup : SaveLoadInteractable
         if (wasPickedUp) {
             Instantiate(pickupSphere, transform.position, Quaternion.identity); //Drop a sphere at point of pick-up
             Inventory.instance.OnPickUp?.Invoke(); //Currently; no instance subscribes to this method
-            Destroy(gameObject);
+            if (itemToPickup == null) {
+                Destroy(gameObject);
+            } else {
+                Destroy(itemToPickup);
+            }
             hasBeenCollected = true;
         }
         base.Interact();

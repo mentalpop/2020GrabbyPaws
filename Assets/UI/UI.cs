@@ -606,16 +606,16 @@ public class UI : MonoBehaviour
     public void SaveGameData(int fileNum) {
         Debug.Log("Game Saved: " + Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
-        ES3.Save(ssScene, SceneTransitionHandler.instance.currentScene);
-        ES3.Save(ssSpawnPoint, SceneTransitionHandler.instance.spawnPoint);
+        //ES3.Save(ssScene, SceneTransitionHandler.instance.currentScene);
+        //ES3.Save(ssSpawnPoint, SceneTransitionHandler.instance.spawnPoint);
     }
 
     public void LoadGameData(int fileNum) {
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
-        string _scene = (string)ES3.Load(ssScene);
-        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint);
-        SceneTransitionHandler.SceneGoto(_scene, _spawnPoint);
+        //string _scene = (string)ES3.Load(ssScene);
+        //SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint);
+        //SceneTransitionHandler.SceneGoto(_scene, _spawnPoint);
     }
 
     public static int GetCurrentFile() {
@@ -625,6 +625,19 @@ public class UI : MonoBehaviour
 
     public static float Direction(Vector2 _a, Vector2 _b) {
         return Mathf.Rad2Deg * Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
+    }
+
+    public static string ValueFormat(float _value) {
+        if (_value < 100f) {
+            //Prepend zeroes in front of small numbers
+            if (_value < 10f) {
+                return "00" + _value.ToString();
+            } else {
+                return "0" + _value.ToString();
+            }
+        } else {
+            return string.Format("{0:n0}", _value);
+        }
     }
 }
 
