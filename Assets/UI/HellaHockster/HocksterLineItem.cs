@@ -31,7 +31,9 @@ public class HocksterLineItem : ButtonFormatterEightState, IPointerClickHandler
 
     private void OnDisable() {
         navButton.OnStateUpdate -= ButtonFormat;
-        Destroy(iTooltip.gameObject);
+        if (iTooltip.gameObject.activeInHierarchy) {
+            Destroy(iTooltip.gameObject);
+        }
     }
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {

@@ -600,14 +600,22 @@ public class UI : MonoBehaviour
         SetInputPreference(inputPreference.Read());
     }
 
+    private string ssScene = "level";
+    private string ssSpawnPoint = "spawnPoint";
+
     public void SaveGameData(int fileNum) {
         Debug.Log("Game Saved: " + Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
+        ES3.Save(ssScene, SceneTransitionHandler.instance.currentScene);
+        ES3.Save(ssSpawnPoint, SceneTransitionHandler.instance.spawnPoint);
     }
 
     public void LoadGameData(int fileNum) {
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
+        string _scene = (string)ES3.Load(ssScene);
+        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint);
+        SceneTransitionHandler.SceneGoto(_scene, _spawnPoint);
     }
 
     public static int GetCurrentFile() {

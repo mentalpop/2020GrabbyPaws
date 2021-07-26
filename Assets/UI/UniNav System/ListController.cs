@@ -52,20 +52,31 @@ public class ListController : MonoBehaviour
             if (isUsingMouse) {
                 Unfocus();
             } else {
-                SetActiveIndex(activeIndex);
+                SetFocusIndex(activeIndex);
+            }
+        }
+    }
+
+    public virtual void SetFocusIndex(int _index) {
+        //bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
+        for (int i = 0; i < elements.Count; i++) {
+            elements[i].navButton.SetFocus(listHasFocus && i == _index);//_focusOrMouseUse
+            if (behaveAsTabs) {
+                elements[i].navButton.SetActive(i == _index);
             }
         }
     }
 
     public virtual void SetActiveIndex(int _index) {
         OnSelectEvent(_index);
+        SetFocusIndex(_index);
         //bool _focusOrMouseUse = listHasFocus || MenuNavigator.MouseIsUsing();
-        for (int i = 0; i < elements.Count; i++) {
-            elements[i].navButton.SetFocus(listHasFocus && i == activeIndex);//_focusOrMouseUse
-            if (behaveAsTabs) {
-                elements[i].navButton.SetActive(i == activeIndex);
-            }
-        }
+        //for (int i = 0; i < elements.Count; i++) {
+        //    elements[i].navButton.SetFocus(listHasFocus && i == activeIndex);//_focusOrMouseUse
+        //    if (behaveAsTabs) {
+        //        elements[i].navButton.SetActive(i == activeIndex);
+        //    }
+        //}
     }
 
     protected void OnSelectEvent(int _index) {

@@ -11,7 +11,8 @@ public class SceneTransitionHandler : MonoBehaviour
 
     public static SceneTransitionHandler instance;
 
-    private string currentScene = null;
+    public string currentScene { get; private set; }
+    //private string currentScene = null;
 
     private void Awake() {
     //Singleton Pattern
