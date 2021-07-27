@@ -7,6 +7,7 @@ public class Item : ScriptableObject {
 
     public string ID = "Trash_";
     new public string name = "New Item";
+    public string collectMessage = "BIG STEAL";
     public CategoryItem category;
     public Sprite icon = null;
     //public bool isDefaultItem = false;

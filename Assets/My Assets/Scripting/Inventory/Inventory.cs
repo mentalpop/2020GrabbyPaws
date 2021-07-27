@@ -19,10 +19,10 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private string saveStringItemCount = "itemQuantity";
     private string saveStringGadgets = "gadgets";
 
-    public delegate void InventoryEvent();
-    public InventoryEvent OnItemChanged;
+    public delegate void InventoryEvent(Item item);
     public InventoryEvent OnPickUp;
     public InventoryEvent OnDrop;
+    public InventoryEvent OnItemChanged;
 
     private Dictionary<string, bool> pendingPickUps = new Dictionary<string, bool>();
 
@@ -97,11 +97,13 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public void InventoryAdd(string name, double quantity) {
         Debug.Log("Attempting to add to Inventory: " + name);
         bool _success = false;
+        Item newItem = null;
         foreach (var item in itemMetaList.items) { //Find the Item in the Meta list based on String reference, add X of it to the inventory
             if (item.ID == "") {
                 Debug.LogWarning(item.ToString() + "'s ID property is an empty string. This should be fixed!");
             } else if (item.ID == name) {
                 //items.Add(new InventoryItem(item, quantity));
+                newItem = item;
                 Add(item, (int)quantity);
                 Debug.Log("Successfully added to Inventory: " + item.ID);
                 _success = true;
@@ -111,20 +113,25 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         if (!_success) {
             Debug.LogWarning("Failed to add \""+name+ "\" to Inventory, are you sure it's in the ItemMetaList?");
         }
-        OnItemChanged?.Invoke();
+        if (newItem != null) {
+            OnItemChanged?.Invoke(newItem);
+        }
     }
 
     public void InventorySubtract(string name, double _quantity) {
         int quantity = (int)_quantity;
         Debug.Log("Subtracting " + quantity + " " + name);
+        Item newItem = null;
         while (quantity > 0) {
             foreach (var item in items) { //Try to remove an item if it exists in the inventory
                 if (item.item == null) {
                     Debug.LogWarning(item.ToString() + "'s item property is Null. This should be fixed!");
                 } else if (item.item.ID == name) {
+                    newItem = item.item;
                     while (quantity > 0) {
                         if (item.quantity > 0) {
                             Remove(item.item);
+                            newItem = null;
                             Debug.Log("Successfully subtracted");
                         } else
                             Debug.LogWarning("Trying to remove more of an item from the Inventory than exists in the inventory");
@@ -135,12 +142,15 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             }
             quantity--;
         }
-        OnItemChanged?.Invoke();
+        if (newItem != null) {
+            OnItemChanged?.Invoke(newItem);
+        }
     }
 
     public void InventoryRemove(string name) {
         Debug.Log("Removing " + name);
         //Remove all occurrences of an item from the inventory, good if you don't want to be specific
+        Item newItem = null;
         foreach (var item in items) {
             if (item.item == null) {
                 Debug.LogWarning(item.ToString() + "'s item property is Null. This should be fixed!");
@@ -151,7 +161,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             }
         }
         //items.RemoveAll(item => item.item.name == name); //Remove everything that matches the name
-        OnItemChanged?.Invoke();
+        if (newItem != null) {
+            OnItemChanged?.Invoke(newItem);
+        }
     }
     
     #endregion
@@ -222,7 +234,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     //if there are none, add to the list instead
             items.Add(new InventoryItem(item, quantity));
         }
-        OnItemChanged?.Invoke();
+        OnItemChanged?.Invoke(item);
         return true;
     }
 
@@ -243,7 +255,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
                 break;
             }
         }
-        OnItemChanged?.Invoke();
+        OnItemChanged?.Invoke(item);
     }
 
     public void RemoveAll(Item item) {
@@ -255,7 +267,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
                 break;
             }
         }
-        OnItemChanged?.Invoke();
+        OnItemChanged?.Invoke(item);
     }
 
     public GameObject Drop(Item _toDrop) {
@@ -266,13 +278,24 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
                 if (item.item.physicalItem != null) {
                     toDrop = Instantiate(item.item.physicalItem, dropPosition, Quaternion.identity);
                     Instantiate(pickupSphere, dropPosition, Quaternion.identity); //Drop a sphere where the item was dropped
-                    OnDrop();
+                    OnDrop(item.item);
                 }
                 Remove(item.item);
                 break;
             }
         }
         return toDrop;
+    }
+
+    public static InventoryItem GetInventoryItem(Item lookupItem) {
+        InventoryItem inventoryItem = null;
+        foreach (var item in instance.items) { //Ensure the item exists in the inventory
+            if (item.item == lookupItem) {
+                inventoryItem = item;
+                break;
+            }
+        }
+        return inventoryItem;
     }
 
     public static ItemTooltip GetItemTooltip() {

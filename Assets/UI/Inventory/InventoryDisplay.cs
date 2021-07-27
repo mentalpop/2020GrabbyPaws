@@ -77,7 +77,7 @@ public class InventoryDisplay : MonoBehaviour
     //Assign the new ScrollRect and open it
         inventoryScrollRect = iTabs[_activeTab].inventoryScrollRect;
         //Debug.Log("inventoryDisplayType" + ": " + inventoryDisplayType);
-        UpdateDisplay();
+        UpdateDisplay(null);
     //Set position in Heirarchy to be one more than the active tab
         /*
         inventoryScrollRect.transform.SetAsLastSibling(); //Do this first to put it to the end of the list
@@ -91,7 +91,7 @@ public class InventoryDisplay : MonoBehaviour
         //*/
     }
 
-    public void UpdateDisplay() {
+    public void UpdateDisplay(Item item) {
         inventoryScrollRect.Unpack(inventory.items, inventoryDisplayType);
         bottomCapAdjust.UpdateHeight(inventoryScrollRect.scrollResize.myRect.rect.height);
     }

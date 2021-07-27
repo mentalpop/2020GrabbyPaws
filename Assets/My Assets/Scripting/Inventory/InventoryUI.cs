@@ -26,7 +26,7 @@ public class InventoryUI : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         inventory.Add(firstItem);
-        UpdateUI();
+        UpdateUI(null);
 
     }
 	
@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            UpdateUI();
+            UpdateUI(null);
             inventoryUI.SetActive(!inventoryUI.activeSelf);
             player.enabled = !player.enabled;
             if (Cursor.lockState != CursorLockMode.Locked)
@@ -51,7 +51,7 @@ public class InventoryUI : MonoBehaviour {
 	}
 
 
-    public void UpdateUI()
+    public void UpdateUI(Item item)
     {
         
         

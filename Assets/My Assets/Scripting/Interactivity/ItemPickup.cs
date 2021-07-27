@@ -50,7 +50,7 @@ public class ItemPickup : SaveLoadInteractable
         bool wasPickedUp = Inventory.instance.Add(item);
         if (wasPickedUp) {
             Instantiate(pickupSphere, transform.position, Quaternion.identity); //Drop a sphere at point of pick-up
-            Inventory.instance.OnPickUp?.Invoke(); //Currently; no instance subscribes to this method
+            Inventory.instance.OnPickUp?.Invoke(item);
             if (itemToPickup == null) {
                 Destroy(gameObject);
             } else {
