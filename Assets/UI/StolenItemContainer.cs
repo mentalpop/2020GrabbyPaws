@@ -8,6 +8,8 @@ public class StolenItemContainer : MonoBehaviour
     public GameObject sipPrefab;
     public Inventory inventory;
 
+    private List<StolenItemPrompt> prompts = new List<StolenItemPrompt>();
+
     private void OnEnable() {
         inventory.OnPickUp += PickUp;
     }
@@ -19,6 +21,25 @@ public class StolenItemContainer : MonoBehaviour
     private void PickUp(Item item) {
         GameObject newGO = Instantiate(sipPrefab, transform, false);
         StolenItemPrompt prompt = newGO.GetComponent<StolenItemPrompt>();
-        prompt.Unpack(Inventory.GetInventoryItem(item));
+        prompt.Unpack(Inventory.GetInventoryItem(item), this);
+    //Shift all existing prompts up
+        float destPosition = 0f;
+        foreach (var _prompt in prompts) {
+            if (destPosition < 2f) {
+                BTweenRectAnchor bTweenRectAnchor = _prompt.rectFadeIn;
+                bTweenRectAnchor.positionMin = new Vector2(0f, destPosition);
+                bTweenRectAnchor.positionMax = new Vector2(0f, destPosition + 1f);
+                bTweenRectAnchor.BTween.PlayFromZero(); //This is sort of cheating, but the transition happens so quickly that it isn't too noticeable that the transition restarts, jumping to the new starting position instead of smoothly moving into place from its current position
+                destPosition += 1f;
+            } else {
+        //Any prompts beyond this should just close immediately
+                _prompt.Close();
+            }
+        }
+        prompts.Insert(0, prompt); //New items placed at top of list
+    }
+
+    public void RemoveThis(StolenItemPrompt prompt) {
+        prompts.Remove(prompt);
     }
 }
