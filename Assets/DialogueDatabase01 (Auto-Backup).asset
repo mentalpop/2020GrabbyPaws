@@ -129292,7 +129292,7 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 42
+      value: 46
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -129340,7 +129340,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -129413,7 +129413,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129484,7 +129484,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129555,7 +129555,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129627,7 +129627,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129708,7 +129708,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -129779,7 +129779,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -129846,7 +129846,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129917,7 +129917,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -129988,7 +129988,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130059,7 +130059,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130124,7 +130124,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130205,7 +130205,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -130276,7 +130276,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -130343,7 +130343,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130414,7 +130414,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130485,7 +130485,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130556,7 +130556,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130627,7 +130627,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130692,7 +130692,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -130761,7 +130761,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 42
+        value: 46
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -130813,8 +130813,8 @@ MonoBehaviour:
         y: 653
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 517.0731}
-    canvasZoom: 0.8200002
+    canvasScrollPosition: {x: 0, y: 10.126587}
+    canvasZoom: 0.7900002
   - id: 52
     fields:
     - title: Title
@@ -155542,7 +155542,7 @@ MonoBehaviour:
   - id: 71
     fields:
     - title: Title
-      value: New Conversation 71
+      value: Big City/Barks/Interactable
       type: 0
       typeString: CustomFieldType_Text
     - title: Pictures
@@ -155652,8 +155652,203 @@ MonoBehaviour:
         y: 30
         width: 160
         height: 30
+    - id: 1
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 68
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: Brrrrr
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 71
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 18.439041
+        y: 109.97562
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 68
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: I'm a Machieeen
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 71
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 192.43907
+        y: 109.97562
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 68
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: These flowers are super huffable
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 71
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 389.5121
+        y: 101.21949
+        width: 160
+        height: 30
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 0.8200002
   syncInfo:
     syncActors: 0
     syncItems: 0

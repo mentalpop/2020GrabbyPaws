@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Key_AbandonedBag
   name: Abandoned Buckles
-  category: 2
+  collectMessage: BIG STEAL
+  category: 0
   icon: {fileID: 0}
   value: 100
   physicalItem: {fileID: 5752062560057136656, guid: dbfa7cc79f79ce347a4c2199b5e885e0,
