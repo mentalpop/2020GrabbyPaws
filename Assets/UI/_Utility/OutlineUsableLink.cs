@@ -26,18 +26,15 @@ public class OutlineUsableLink : MonoBehaviour
             if (outline == null) {
                 GameObject targetGameObject = isChildPrefab ? transform.parent.gameObject : gameObject;
                 if (targetGameObject.GetComponent<Renderer>()) { //The Renderer Component is required
-                    targetGameObject.AddComponent<Outline>();
+                    outline = targetGameObject.AddComponent<Outline>();
                 } else {
-                    Debug.LogError("Failed to automatically add an Outline to " + targetGameObject.name + "because it doesn't have a Renderer Component. Please add an Outline Component to the correct Child object and then specify a reference to it on the OutlineUsableLink Component");
+                    Debug.LogError("Failed to automatically add an Outline to " + targetGameObject.name + " because it doesn't have a Renderer Component. Please add an Outline Component to the correct Child object and then specify a reference to it on the OutlineUsableLink Component");
                 }
-                //if (isChildPrefab) {
-                //    outline = transform.parent.gameObject.AddComponent<Outline>();
-                //} else {
-                //    outline = gameObject.AddComponent<Outline>();
-                //}
             }
         }
-        outline.enabled = false;
+        if (outline != null) {
+            outline.enabled = false;
+        }
     }
 
     void OnEnable() {
