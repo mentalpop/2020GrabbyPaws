@@ -622,7 +622,10 @@ public class UI : MonoBehaviour
         return Instance.currentFile;
     }
     #endregion
+}
 
+public static class StaticMethods
+{
     public static float Direction(Vector2 _a, Vector2 _b) {
         return Mathf.Rad2Deg * Mathf.Atan2(_a.y - _b.y, _a.x - _b.x);
     }
@@ -637,6 +640,14 @@ public class UI : MonoBehaviour
             }
         } else {
             return string.Format("{0:n0}", _value);
+        }
+    }
+
+    public static void SetLayerRecursively(this Transform parent, int layer) {
+        parent.gameObject.layer = layer;
+
+        for (int i = 0, count = parent.childCount; i < count; i++) {
+            parent.GetChild(i).SetLayerRecursively(layer);
         }
     }
 }

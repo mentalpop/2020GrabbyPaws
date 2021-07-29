@@ -37,7 +37,7 @@ public class MenuInputLegacy : MonoBehaviour
             }
         } else {
             if (inputVector.magnitude > axisThreshold) {
-                float inputDirection = UI.Direction(Vector2.zero, inputVector) + 180f;
+                float inputDirection = StaticMethods.Direction(Vector2.zero, inputVector) + 180f;
                 axisDown = true;
                 //Debug.Log("inputDirection: "+inputDirection);
                 if (inputDirection >= 45 && inputDirection < 135) {

@@ -38,7 +38,7 @@ public class StolenItemPrompt : MonoBehaviour
     public void Unpack(InventoryItem inventoryItem, StolenItemContainer _stolenItemContainer) {
         stolenItemContainer = _stolenItemContainer;
         tmpItemName.text = inventoryItem.item.name;
-        tmpValue.text = UI.ValueFormat(inventoryItem.item.value); //* inventoryItem.quantity
+        tmpValue.text = StaticMethods.ValueFormat(inventoryItem.item.value); //* inventoryItem.quantity
         tmpSplashMessage.text = inventoryItem.item.collectMessage; //BIG STEAL
         float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale);
@@ -55,11 +55,13 @@ public class StolenItemPrompt : MonoBehaviour
             initialRotation = Quaternion.Euler(inventoryItem.item.rotationOffset);
             model.transform.rotation = initialRotation;
             model.transform.localScale = new Vector3(inventoryItem.item.itemScale, inventoryItem.item.itemScale, inventoryItem.item.itemScale);
-            model.layer = 5; //UI
+            //model.layer = 5; //UI
+            StaticMethods.SetLayerRecursively(model.transform, 5); //UI
         }
     //Effect
         btween.PlayFromZero();
         StartCoroutine(CloseAfterDelay());
+        transform.localScale = Vector3.one; //Something changes the z-depth to zero, so this has to compensate
     }
 
     private IEnumerator CloseAfterDelay() {

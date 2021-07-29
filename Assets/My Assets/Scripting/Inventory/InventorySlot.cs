@@ -74,7 +74,8 @@ public class InventorySlot : ListElement {
             initialRotation = Quaternion.Euler(iItem.item.rotationOffset);
             model.transform.rotation = initialRotation;
             model.transform.localScale = new Vector3(iItem.item.itemScale, iItem.item.itemScale, iItem.item.itemScale);
-            model.layer = 5; //UI
+            //model.layer = 5; //UI - Does not apply to children
+            StaticMethods.SetLayerRecursively(model.transform, 5); //UI
         }
         /*
         if (model.GetComponent<Rigidbody>() != null) {

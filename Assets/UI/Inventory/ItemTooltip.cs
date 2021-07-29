@@ -19,7 +19,7 @@ public class ItemTooltip : MonoBehaviour
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
         //float _value = inventoryItem.item.value * inventoryItem.quantity;
-        value.text = UI.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
+        value.text = StaticMethods.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
         //Keep on screen
         float _scale = UI.GetUIScale();
         transform.localScale = new Vector2(_scale, _scale); //Set scale first!
@@ -29,7 +29,7 @@ public class ItemTooltip : MonoBehaviour
         itemName.text = inventoryItem.item.name;
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
-        value.text = UI.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
+        value.text = StaticMethods.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
         //Snap to position of transform plus offset
         Transform previousParent = transform.parent;
         transform.parent = _transform;
