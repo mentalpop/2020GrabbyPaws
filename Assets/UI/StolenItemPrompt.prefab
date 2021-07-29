@@ -242,7 +242,7 @@ MonoBehaviour:
   btween: {fileID: 6739069640734005154}
   canvasFadeOut: {fileID: 6761541029653905231}
   rectFadeIn: {fileID: 1083309647419594452}
-  secondsRemainOpen: 2
+  secondsRemainOpen: 5
 --- !u!225 &5499693746578571514
 CanvasGroup:
   m_ObjectHideFlags: 0
