@@ -17,7 +17,7 @@ MonoBehaviour:
     parameters: 02000000
     returnValue: 1
   - functionName: InventoryCount
-    parameters: 07000000
+    parameters: 02000000
     returnValue: 2
   - functionName: BuckleCount
     parameters: 07000000

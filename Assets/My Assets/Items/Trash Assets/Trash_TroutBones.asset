@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Trash_TroutBones
   name: Trout Bones (fallen comrade)
+  collectMessage: BIG STEAL
   category: 0
   icon: {fileID: 0}
   value: 9
@@ -22,7 +23,7 @@ MonoBehaviour:
   weight: 0
   model: {fileID: 100000, guid: 4b4bbe0d2c78cec46a6f893a8be331b7, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 22.5, y: 0, z: 50}
+  rotationOffset: {x: 0, y: 0, z: 0}
   itemScale: 2
   consumable: 0
   cursed: 0

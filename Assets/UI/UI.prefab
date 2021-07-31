@@ -4787,9 +4787,7 @@ MonoBehaviour:
   itemTooltip: {fileID: 1669461762406351715}
   pickupSphere: {fileID: 7665324660621762108, guid: 6654e4a1c297c6d449b22614777b4a29,
     type: 3}
-  items:
-  - item: {fileID: 11400000, guid: 70764bac1a5ab3049be8db818f8cf15e, type: 2}
-    quantity: 1
+  items: []
   gadgetUnlocked: 
 --- !u!114 &5819588752494907363
 MonoBehaviour:

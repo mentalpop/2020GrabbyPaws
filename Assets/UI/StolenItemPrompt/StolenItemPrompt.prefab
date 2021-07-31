@@ -673,16 +673,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: BIG STEAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8ffd18ada00ba834f8f308735f977396, type: 2}
-  m_sharedMaterial: {fileID: 21007906773722930, guid: 8ffd18ada00ba834f8f308735f977396,
+  m_fontAsset: {fileID: 11400000, guid: 94296dbdc5af9e440ad066b1f41d2c8e, type: 2}
+  m_sharedMaterial: {fileID: 21007906773722930, guid: 94296dbdc5af9e440ad066b1f41d2c8e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4281211336
+  m_fontColor: {r: 0.7830189, g: 0.09972411, b: 0.17882645, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

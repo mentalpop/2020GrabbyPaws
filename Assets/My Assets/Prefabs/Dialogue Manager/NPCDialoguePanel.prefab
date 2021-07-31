@@ -293,9 +293,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   waitForNormalChars: 0.03
-  waitLong: 0.6
-  waitMiddle: 0.2
-  avoidMultiplePunctuactionWait: 0
+  waitLong: 0.4
+  waitMiddle: 0.15
+  avoidMultiplePunctuactionWait: 1
   waitForNewLines: 1
   waitForLastCharacter: 1
 --- !u!1 &7089306745642003493
@@ -1469,7 +1469,6 @@ MonoBehaviour:
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-  textAnimator: {fileID: 6913144215469342106}
   textAnimatorPlayer: {fileID: 3926312233916565791}
   panel: {fileID: 8311655468343324013}
   portraitImage: {fileID: 3270921941695727233, guid: bc3a01cb883190a4494af94eee722e8a,

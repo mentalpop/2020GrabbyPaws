@@ -18,13 +18,13 @@ MonoBehaviour:
   category: 2
   icon: {fileID: 0}
   value: 3
-  physicalItem: {fileID: 5752062560057136656, guid: dbfa7cc79f79ce347a4c2199b5e885e0,
+  physicalItem: {fileID: -927199367670048503, guid: d447c9d118f9ce647b69389363726109,
     type: 3}
   weight: 0
   model: {fileID: -927199367670048503, guid: 80c6f598a2e4bf244865154e449dcdc0, type: 3}
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 22.5, y: 0, z: 50}
-  itemScale: 1
+  positionOffset: {x: 0, y: -1.06, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0

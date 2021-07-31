@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Trash_BanditKing_Bag
   name: Bandit King Combo #4
+  collectMessage: BIG STEAL
   category: 0
   icon: {fileID: 0}
   value: 1
@@ -21,7 +22,7 @@ MonoBehaviour:
   weight: 0
   model: {fileID: 100000, guid: fd059e857016dbb4aa9a21f4cdff4bfe, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 22.5, y: 0, z: 50}
+  rotationOffset: {x: 0, y: 0, z: 0}
   itemScale: 2
   consumable: 0
   cursed: 0

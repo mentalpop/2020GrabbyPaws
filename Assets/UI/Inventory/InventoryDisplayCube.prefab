@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5895344474676520081}
   - component: {fileID: 5890674106551313811}
   - component: {fileID: 1277241989909498861}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InventoryDisplayCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

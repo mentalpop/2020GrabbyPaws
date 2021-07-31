@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Trash_BigBuckleSign
   name: Big Buckle Sign
+  collectMessage: BIG STEAL
   category: 0
   icon: {fileID: 0}
   value: 20
@@ -23,7 +24,7 @@ MonoBehaviour:
   model: {fileID: -927199367670048503, guid: 4101526db8d22ac419431fbaf80ca564, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 0
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0

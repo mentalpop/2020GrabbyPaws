@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Trash_Mixtape_Blue
   name: Blue Mixtape
+  collectMessage: BIG STEAL!
   category: 0
   icon: {fileID: 0}
-  value: 6
+  value: 3
   physicalItem: {fileID: 100000, guid: 87fb25702ba2c804392bad66bf6dd998, type: 3}
   weight: 0
-  model: {fileID: 100000, guid: 87fb25702ba2c804392bad66bf6dd998, type: 3}
+  model: {fileID: -927199367670048503, guid: 2cd816f5078d50b44b08fea430bf69d1, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 22.5, y: 0, z: 50}
+  rotationOffset: {x: 0, y: 0, z: 0}
   itemScale: 2
   consumable: 0
   cursed: 0

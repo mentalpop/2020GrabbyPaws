@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
-  m_Name: Trash_AbandonedBag01
+  m_Name: Trash_WorkBox
   m_EditorClassIdentifier: 
-  ID: Trash_AbandonedBuckles01
-  name: Abandoned Buckles
-  collectMessage: BIG STEAL
+  ID: Trash_WorkBox
+  name: Work Box
+  collectMessage: WHY?
   category: 0
   icon: {fileID: 0}
-  value: 102
+  value: 4
   physicalItem: {fileID: 5752062560057136656, guid: dbfa7cc79f79ce347a4c2199b5e885e0,
     type: 3}
   weight: 0
-  model: {fileID: -927199367670048503, guid: 8cf365e7c95af6d42960e20bde8c956b, type: 3}
+  model: {fileID: -927199367670048503, guid: ce9f9b834acc20f418604ff9b5ab1465, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 22.5, y: 0, z: 50}
-  itemScale: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: It easily weighs over 100 buckles.
-  riven: I sure love it when they make it easy.
+  description: Somebuddy's official workplace issued tool box.
+  riven: 

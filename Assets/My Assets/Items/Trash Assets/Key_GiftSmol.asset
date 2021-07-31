@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Key_GiftSmol
   name: Smol Gift
+  collectMessage: BIG STEAL
   category: 2
   icon: {fileID: 0}
   value: 10
@@ -23,7 +24,7 @@ MonoBehaviour:
   model: {fileID: -927199367670048503, guid: 0289526a19941ce48a3b6e649cbffb6f, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 0
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0

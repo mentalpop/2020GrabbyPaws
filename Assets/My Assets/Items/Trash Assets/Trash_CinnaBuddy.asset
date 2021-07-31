@@ -24,7 +24,7 @@ MonoBehaviour:
   model: {fileID: -927199367670048503, guid: 0471083d55efb6f4ba05869909c4d7c5, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 0
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0

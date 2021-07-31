@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Trash_DrSwerveCan
   name: Dr Swerve Can
+  collectMessage: 15g of SUGAR!
   category: 0
   icon: {fileID: 0}
   value: 5
-  physicalItem: {fileID: -927199367670048503, guid: 53a92616617e4f24fb210fa6314e514f,
-    type: 3}
+  physicalItem: {fileID: 0}
   weight: 0
-  model: {fileID: -927199367670048503, guid: 53a92616617e4f24fb210fa6314e514f, type: 3}
+  model: {fileID: -927199367670048503, guid: 86fbc5b186fc9e54ab6c1f38fa868800, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 0
+  itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: If you open them up, you can lick all the flavour off the insides.
+  description: If you open them up, you can lick the leftover flavour off the insides.
   riven: 
