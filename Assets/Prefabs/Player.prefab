@@ -1102,12 +1102,12 @@ PrefabInstance:
     - target: {fileID: 6930925982164727090, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -266.1
+      value: -327.7
       objectReference: {fileID: 0}
     - target: {fileID: 6930925982164727090, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 417
+      value: 450.8
       objectReference: {fileID: 0}
     - target: {fileID: 6930925982164727090, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
@@ -1247,12 +1247,12 @@ PrefabInstance:
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 24
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
@@ -1267,7 +1267,7 @@ PrefabInstance:
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_text
-      value: she's empty
+      value: hello?!
       objectReference: {fileID: 0}
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
@@ -1282,7 +1282,7 @@ PrefabInstance:
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6930925983212360752, guid: 10ec185ba5b26a5429aecfc27db035a8,
         type: 3}
