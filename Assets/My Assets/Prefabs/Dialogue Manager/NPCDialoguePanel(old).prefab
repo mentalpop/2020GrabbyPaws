@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 5247279587649406977}
   - component: {fileID: 5247279587649406978}
   - component: {fileID: 5247279587649406976}
+  - component: {fileID: 8706459203210127426}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -327,6 +328,21 @@ MonoBehaviour:
   hideContinueButtonOnContinue: 1
   continueSubtitlePanel: 1
   continueAlertPanel: 1
+--- !u!114 &8706459203210127426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5247279587649406982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19c58ea7c708fa40b4601341abbdf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueUI: {fileID: 6478635371686544424}
+  textAnimatorPlayer: {fileID: 0}
+  hideContinueButtonOnContinue: 0
 --- !u!1 &5247279587703690859
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +982,7 @@ MonoBehaviour:
         rotationDuration: 0.3
         rotationStartAngle: 180
       presets: []
+  tags_fallbackBehaviors: []
   behaviorValues:
     defaults:
       wiggleAmplitude: 0.15
@@ -992,7 +1009,17 @@ MonoBehaviour:
       hueShiftSpeed: 0.8
       hueShiftWaveSize: 0.08
       fadeDelay: 1.2
+      dangleAmplitude: 0.13
+      dangleFrequency: 2.41
+      dangleWaveSize: 0.18
+      dangleAnchorBottom: 0
+      pendAmplitude: 25
+      pendFrequency: 3
+      pendWaveSize: 0.2
+      pendInverted: 0
     presets: []
+  scriptable_globalBehaviorsValues: {fileID: 0}
+  scriptable_globalAppearancesValues: {fileID: 0}
   useDynamicScaling: 0
   referenceFontSize: -1
   timeScale: 0
@@ -1013,6 +1040,7 @@ MonoBehaviour:
   canSkipTypewriter: 1
   hideAppearancesOnSkip: 0
   triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
   onTextShowed:
     m_PersistentCalls:
       m_Calls: []
@@ -1026,6 +1054,8 @@ MonoBehaviour:
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
 --- !u!1 &6478635371686541231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,6 +1490,7 @@ MonoBehaviour:
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
+  textAnimatorPlayer: {fileID: 0}
   panel: {fileID: 6478635371708831603}
   portraitImage: {fileID: 3270921941695727233, guid: bc3a01cb883190a4494af94eee722e8a,
     type: 3}
@@ -1499,7 +1530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8250059250081581113}
   m_Layer: 5
-  m_Name: NPCDialoguePanel
+  m_Name: NPCDialoguePanel(old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
