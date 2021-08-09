@@ -650,6 +650,21 @@ public static class StaticMethods
             parent.GetChild(i).SetLayerRecursively(layer);
         }
     }
+
+    public static float SumHeightOfChildren(Transform _transform) {
+        float _height = 0;
+        float _sepHeight = 0;
+        VerticalLayoutGroup vlg = _transform.GetComponent<VerticalLayoutGroup>();
+        if (vlg != null) {
+            _sepHeight = vlg.spacing;
+            _height += vlg.padding.top + vlg.padding.bottom; //Padding counts towards height
+        }
+        foreach (Transform child in _transform) {
+            if (child.gameObject.activeInHierarchy)
+                _height += ((RectTransform)child).sizeDelta.y + _sepHeight;
+        }
+        return _height;
+    }
 }
 
 public static class ScreenSpace

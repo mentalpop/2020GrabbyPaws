@@ -16,6 +16,7 @@ public class ScrollResize : MonoBehaviour
     private float targetHeight = 0f;
 
     public delegate void ScrollResizeEvent();
+    public event ScrollResizeEvent OnResize = delegate { };
     public event ScrollResizeEvent OnClose = delegate { };
 
     private void Awake() {
@@ -27,6 +28,7 @@ public class ScrollResize : MonoBehaviour
             float tweenVal = gTween.DoTween();
             if (gTween.effectActive) {
                 myRect.sizeDelta = new Vector2(myRect.rect.width, targetHeight * tweenVal);
+                OnResize();
             } else {
                 if (gTween.doReverse) {
                     OnClose();

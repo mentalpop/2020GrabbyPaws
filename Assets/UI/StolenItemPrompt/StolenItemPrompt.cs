@@ -14,6 +14,7 @@ public class StolenItemPrompt : MonoBehaviour
     public BTween btween;
     public BTweenCanvasGroup canvasFadeOut;
     public BTweenRectAnchor rectFadeIn;
+    public BTweenScale scaleDown;
     public float secondsRemainOpen = 2f;
 
     private bool closing = false;
@@ -73,6 +74,7 @@ public class StolenItemPrompt : MonoBehaviour
         if (!closing) {
             closing = true;
             canvasFadeOut.enabled = true; //Only enable for fade-out
+            scaleDown.enabled = true; //Only enable for fade-out
             rectFadeIn.enabled = false; //Disable for fade-out
             btween.PlayFromEnd();
         }

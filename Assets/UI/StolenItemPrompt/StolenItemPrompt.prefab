@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 6739069640734005154}
   - component: {fileID: 6761541029653905231}
   - component: {fileID: 1083309647419594452}
+  - component: {fileID: 7831503199532474657}
   m_Layer: 5
   m_Name: StolenItemPrompt
   m_TagString: Untagged
@@ -242,6 +243,7 @@ MonoBehaviour:
   btween: {fileID: 6739069640734005154}
   canvasFadeOut: {fileID: 6761541029653905231}
   rectFadeIn: {fileID: 1083309647419594452}
+  scaleDown: {fileID: 7831503199532474657}
   secondsRemainOpen: 5
 --- !u!225 &5499693746578571514
 CanvasGroup:
@@ -385,6 +387,98 @@ MonoBehaviour:
   positionAsPercent: 1
   positionMin: {x: 0, y: -1}
   positionMax: {x: 0, y: 0}
+--- !u!114 &7831503199532474657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383597799669621225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3281df41ce3c9d847aa547afb3a35d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BTween: {fileID: 6739069640734005154}
+  relative: 0
+  calibrateOnBegin: 1
+  resetOnEnd: 0
+  subjectTransform: {fileID: 4237197956797102674}
+  curveX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curveY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curveZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  sizeAsPercent: 0
+  scaleMin: {x: 0, y: 0, z: 0}
+  scaleMax: {x: 86, y: 86, z: 86}
 --- !u!1 &2541975087972701963
 GameObject:
   m_ObjectHideFlags: 0

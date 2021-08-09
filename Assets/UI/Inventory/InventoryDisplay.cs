@@ -9,6 +9,7 @@ public class InventoryDisplay : MonoBehaviour
     public Inventory inventory;
     
     public ListController inventoryTabMenu;
+    public Transform tabSortMenu;
     public Transform menuBGTransform;
     public BottomCapAdjust bottomCapAdjust;
 
@@ -16,12 +17,17 @@ public class InventoryDisplay : MonoBehaviour
     [HideInInspector] public InventoryScrollRect inventoryScrollRect;
 
     private List<InventoryTab> iTabs = new List<InventoryTab>();
+    private bool subResizeEvent = false;
 
     private void OnEnable() {
         inventoryTabMenu.OnSelect += SetActiveTab;
         inventory.OnItemChanged += UpdateDisplay;
         container.OnEffectComplete += Container_OnEffectComplete;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
+        if (!subResizeEvent && inventoryScrollRect != null) {
+            subResizeEvent = true;
+            inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
+        }
     }
 
     private void OnDisable() {
@@ -29,6 +35,9 @@ public class InventoryDisplay : MonoBehaviour
         inventory.OnItemChanged -= UpdateDisplay;
         container.OnEffectComplete -= Container_OnEffectComplete;
         menuHub.OnMenuClose -= MenuHub_OnMenuClose;
+        if (subResizeEvent) {
+            inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
+        }
     }
 
     private void Container_OnEffectComplete(bool reverse) {
@@ -58,16 +67,29 @@ public class InventoryDisplay : MonoBehaviour
             tab.inventoryScrollRect.transform.position = new Vector3(tab.inventoryScrollRect.transform.position.x, tab.inventoryScrollRect.transform.position.y, _depthSet);
             iTabs.Add(tab);
         }
-    //Put the menu in front of the last tab
-        menuBGTransform.SetAsLastSibling();
-        menuBGTransform.position = new Vector3(menuBGTransform.position.x, menuBGTransform.position.y, _depthSet * 2f);
+        //Put the menu in front of the last tab
+        //menuBGTransform.SetAsLastSibling();
+        //menuBGTransform.position = new Vector3(menuBGTransform.position.x, menuBGTransform.position.y, _depthSet * 2f);
         /*
         foreach (var tabObj in inventoryTabMenu.tabs) {
             InventoryTab tab = tabObj.GetComponent<InventoryTab>();
             iTabs.Add(tab);
         }
         //*/
+        if (subResizeEvent && inventoryScrollRect != null) {
+            subResizeEvent = false;
+            inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
+        }
         inventoryScrollRect = iTabs[0].inventoryScrollRect;
+        if (!subResizeEvent && inventoryScrollRect != null) {
+            subResizeEvent = true;
+            inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
+        }
+    }
+
+    private void AdjustBottomCap() {
+        //bottomCapAdjust.UpdateHeight(inventoryScrollRect.scrollResize.myRect.rect.height);
+        bottomCapAdjust.UpdateHeight(StaticMethods.SumHeightOfChildren(tabSortMenu));
     }
 
     public void SetActiveTab(int _activeTab) {
@@ -93,6 +115,6 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateDisplay(Item item) {
         inventoryScrollRect.Unpack(inventory.items, inventoryDisplayType);
-        bottomCapAdjust.UpdateHeight(inventoryScrollRect.scrollResize.myRect.rect.height);
+        
     }
 }
