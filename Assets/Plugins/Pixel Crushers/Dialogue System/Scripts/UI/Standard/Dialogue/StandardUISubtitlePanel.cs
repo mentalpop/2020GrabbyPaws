@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System;
-using Febucci.UI.Core;
-using Febucci.UI;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -15,9 +13,6 @@ namespace PixelCrushers.DialogueSystem
     {
 
         #region Serialized Fields
-
-        [Tooltip("(Optional) Text Animator Component for displaying text with typewritter effect.")]
-        public TextAnimatorPlayer textAnimatorPlayer;
 
         [Tooltip("(Optional) Main panel for subtitle.")]
         public RectTransform panel;
@@ -481,22 +476,9 @@ namespace PixelCrushers.DialogueSystem
             {
                 StartCoroutine(StartTypingWhenFocused(subtitleText, subtitleText.text, previousChars));
             }
-            else {
-                //Debug.Log("previousText: " + previousText); //What was printed previously
-                //Debug.Log("subtitleText.text: " + subtitle.formattedText.text); //What is about to be added
-                if (textAnimatorPlayer == null) {
-                    //Original code that was here;
-                    TypewriterUtility.StartTyping(subtitleText, subtitleText.text, previousChars);
-                } else {
-            //Directly send text to the textAnimator
-                    if (string.IsNullOrEmpty(previousText)) {
-                        //textAnimatorPlayer.textAnimator.SetText(string.Empty, false); //Seems to make no difference
-                        textAnimatorPlayer.ShowText(subtitle.formattedText.text);
-                    } else {
-                        textAnimatorPlayer.textAnimator.AppendText("\n" + subtitle.formattedText.text, true);
-                        textAnimatorPlayer.StartShowingText();
-                    }
-                }
+            else
+            {
+                TypewriterUtility.StartTyping(subtitleText, subtitleText.text, previousChars);
             }
             frameLastSetContent = Time.frameCount;
         }
