@@ -62,8 +62,8 @@ public class InventoryDisplay : MonoBehaviour
         for (int i = 0; i < inventoryTabMenu.Elements.Count; i++) {
             InventoryTab tab = inventoryTabMenu.Elements[i].GetComponent<InventoryTab>();
     //Manually set z depth of Tab Headers and Scroll Rects
-            _depthSet = -1f * (i + 1);
-            tab.transform.position = new Vector3(tab.transform.position.x, tab.transform.position.y, -1.5f * (i + 1));
+            _depthSet = -2f * (i + 1);
+            tab.transform.position = new Vector3(tab.transform.position.x, tab.transform.position.y, -3.5f * (i + 1));
             tab.inventoryScrollRect.transform.position = new Vector3(tab.inventoryScrollRect.transform.position.x, tab.inventoryScrollRect.transform.position.y, _depthSet);
             iTabs.Add(tab);
         }
