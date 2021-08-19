@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 7089306746131673629}
   - component: {fileID: 7089306746131673631}
   - component: {fileID: 7089306746131673628}
-  - component: {fileID: 7089306746131673630}
+  - component: {fileID: 6859986199717767907}
   m_Layer: 0
   m_Name: Continue Button
   m_TagString: Untagged
@@ -577,8 +577,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8311655468365610551}
-        m_MethodName: OnContinue
+      - m_Target: {fileID: 6859986199717767907}
+        m_MethodName: OnFastForward
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7089306746131673630
+--- !u!114 &6859986199717767907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -617,15 +617,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7089306746131673624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ee3d99442035942b6dd1ede25ff7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f19c58ea7c708fa40b4601341abbdf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueUI: {fileID: 6478635371686544424, guid: d13350b2ee4403e45adb72017e3e9379,
-    type: 3}
-  typewriterEffect: {fileID: 0}
-  hideContinueButtonOnContinue: 1
-  continueSubtitlePanel: 1
-  continueAlertPanel: 1
+  dialogueUI: {fileID: 0}
+  textAnimatorPlayer: {fileID: 3926312233916565791}
+  hideContinueButtonOnContinue: 0
 --- !u!1 &7089306746212691061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1334,7 @@ GameObject:
   - component: {fileID: 8311655468375466897}
   - component: {fileID: 8311655468375469835}
   - component: {fileID: 8311655468375357669}
-  - component: {fileID: 8311655468365610551}
+  - component: {fileID: 8412464283047999697}
   m_Layer: 0
   m_Name: NPC UI Subtitle Panel
   m_TagString: Untagged
@@ -1440,7 +1437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_yAxisOnly: 0
   m_rotate180: 0
---- !u!114 &8311655468365610551
+--- !u!114 &8412464283047999697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1449,7 +1446,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8311655468365610549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9a9540f98bb79346b296ec5feb51073, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ffd0ec3a18d71148831de1925548d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 7089306746131673624}
@@ -1469,10 +1466,8 @@ MonoBehaviour:
   onBackButtonDown:
     m_PersistentCalls:
       m_Calls: []
-  textAnimatorPlayer: {fileID: 3926312233916565791}
   panel: {fileID: 8311655468343324013}
-  portraitImage: {fileID: 3270921941695727233, guid: bc3a01cb883190a4494af94eee722e8a,
-    type: 3}
+  portraitImage: {fileID: 0}
   portraitName:
     m_uiText: {fileID: 0}
     m_textMeshProUGUI: {fileID: 0}
@@ -1499,3 +1494,4 @@ MonoBehaviour:
       m_Calls: []
   m_hasFocus: 1
   m_actorOverridingPanel: {fileID: 0}
+  clearTextOnOpen: 0

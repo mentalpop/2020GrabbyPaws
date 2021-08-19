@@ -11,10 +11,12 @@ namespace PixelCrushers.DialogueSystem
     /// </summary>
     public class TextAnimatorSubtitlePanel : StandardUISubtitlePanel
     {
+        public bool clearTextOnOpen = false;
+
         public override void Open()
         {
             base.Open();
-            ClearText();
+            if (clearTextOnOpen) ClearText();
         }
 
         public override void SetContent(Subtitle subtitle)

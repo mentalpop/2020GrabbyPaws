@@ -13,5 +13,7 @@ public enum SpawnPoints
     EXTRiverWyrms,
     INTRiverWyrms,
     INTLostFound01,
-    EXTLostFound01
+    EXTLostFound01,
+    INTMondays,
+    EXTMondays
 }

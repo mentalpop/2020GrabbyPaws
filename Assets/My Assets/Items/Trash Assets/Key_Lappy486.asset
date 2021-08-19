@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
+  m_Name: Key_Lappy486
+  m_EditorClassIdentifier: 
+  ID: Key_Lappy486
+  name: Lappy 486
+  collectMessage: YOUR LAPPY!
+  category: 2
+  icon: {fileID: 0}
+  value: 0
+  physicalItem: {fileID: 5752062560057136656, guid: dbfa7cc79f79ce347a4c2199b5e885e0,
+    type: 3}
+  weight: 0
+  model: {fileID: -927199367670048503, guid: e61eb1b4353c0a045bdfc68a82680355, type: 3}
+  positionOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 2
+  consumable: 0
+  cursed: 0
+  negativeValue: 0
+  description: It's your hi speed lo fi Lappy that Riven scrambled together with
+    parts you found.
+  riven: 
