@@ -10,7 +10,7 @@ Material:
   m_Name: cfxr smiley angry ab
   m_Shader: {fileID: 4800000, guid: e198026df304af84a85675be636192ea, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _CFXR_DITHERED_SHADOWS_ON _CFXR_OVERLAYBLEND_RGBA
-    _CFXR_SINGLE_CHANNEL _FADING_ON _OVERLAYTEX_OFF
+    _FADING_ON _OVERLAYTEX_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -78,7 +78,7 @@ Material:
     - _ReceivedShadowsStrength: 0.5
     - _SecondColorSmooth: 0.2
     - _ShadowStrength: 0.6
-    - _SingleChannel: 1
+    - _SingleChannel: 0
     - _SoftParticlesFadeDistanceFar: 1
     - _SoftParticlesFadeDistanceNear: 0
     - _SrcBlend: 5

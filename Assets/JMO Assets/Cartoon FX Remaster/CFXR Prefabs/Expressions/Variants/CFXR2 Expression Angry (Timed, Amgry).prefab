@@ -7,10 +7,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6416142012723590880, guid: 7e555044379301f43b3eae2844f2bd60,
+    - target: {fileID: 1188476064939919808, guid: 7e555044379301f43b3eae2844f2bd60,
         type: 3}
-      propertyPath: m_Name
-      value: CFXR2 Expression Angry (Timed, Frowns) Variant
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c07041c51f99748459f6c348337b94d1, type: 2}
+    - target: {fileID: 1399451033944964110, guid: 7e555044379301f43b3eae2844f2bd60,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399451033944964110, guid: 7e555044379301f43b3eae2844f2bd60,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3699405089266138511, guid: 7e555044379301f43b3eae2844f2bd60,
         type: 3}
@@ -67,15 +77,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1399451033944964110, guid: 7e555044379301f43b3eae2844f2bd60,
+    - target: {fileID: 6416142012723590880, guid: 7e555044379301f43b3eae2844f2bd60,
         type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1399451033944964110, guid: 7e555044379301f43b3eae2844f2bd60,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 2
+      propertyPath: m_Name
+      value: CFXR2 Expression Angry (Timed, Frowns)
       objectReference: {fileID: 0}
     - target: {fileID: 8598542805302490889, guid: 7e555044379301f43b3eae2844f2bd60,
         type: 3}
