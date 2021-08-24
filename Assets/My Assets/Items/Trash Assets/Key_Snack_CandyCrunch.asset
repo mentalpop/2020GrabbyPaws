@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
+  m_Name: Key_Snack_CandyCrunch
+  m_EditorClassIdentifier: 
+  ID: Key_Snack_CandyCrunch
+  name: Candy Crunch
+  collectMessage: CRUNCHY!
+  category: 2
+  icon: {fileID: 0}
+  value: 10
+  physicalItem: {fileID: 0}
+  weight: 0
+  model: {fileID: -927199367670048503, guid: f9f1753d24a8ae94aa8e31c42d0e1cac, type: 3}
+  positionOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 2.5
+  consumable: 0
+  cursed: 0
+  negativeValue: 0
+  description: These rare snacks are exceedingly uncommon. In part due to them being
+    pure sugar, and also due to them being banned in many countries.
+  riven: 
