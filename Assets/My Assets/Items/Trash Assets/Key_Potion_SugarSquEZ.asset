@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: This sweet, sugary squEZ potion is satisfying for your thirst, and
+    popular with the cubbos!
   riven: 

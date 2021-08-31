@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A traditional classic mopoato chipper, perfectly designed for dipp'ems
+    or jams.
   riven: 

@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Promotes more blooms for greater colour, guaranteed 3x growth vs.
+    other competitors.
   riven: 

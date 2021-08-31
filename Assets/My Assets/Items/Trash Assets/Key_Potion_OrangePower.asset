@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: The label says, "WANNA GET STRONG? DRINK THE ORANGE STUFF!" and you
+    feel convinced of its efficacy.
   riven: 

@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Other than tasting like chocolate, nobody's sure what this is.  The
+    instructions refer to water, but you don't see any in there...
   riven: 

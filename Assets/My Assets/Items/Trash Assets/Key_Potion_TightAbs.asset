@@ -28,5 +28,6 @@ MonoBehaviour:
   cursed: 0
   negativeValue: 0
   description: This potion boasts tighter abs in several hours or less, for several
-    additional hours at least.
+    additional hours at least. You're not sure what an "ab" is, but you assume tight
+    = better.
   riven: 

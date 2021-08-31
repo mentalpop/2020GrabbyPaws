@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: It either refills your sprint meter, your jump meter or your magic
+    attack and you're not sure which. It's the green one, in any case.
   riven: 

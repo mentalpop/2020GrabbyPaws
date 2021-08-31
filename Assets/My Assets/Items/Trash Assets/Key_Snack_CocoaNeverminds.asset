@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Put 'em in your hot coffee, cereal milk, even your bath water to enhance
+    the cocoa flavour.
   riven: 

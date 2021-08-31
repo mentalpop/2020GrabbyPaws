@@ -27,5 +27,5 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: An extra tall bottle that one could share with a friend.
   riven: 

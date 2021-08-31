@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A helium-infused beverage, so it makes you weigh less.  Less flavor,
+    more fun!
   riven: 

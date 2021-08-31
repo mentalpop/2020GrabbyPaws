@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: This fancy potion claims to give you a shinier coat in 3 uses or less.
+    Many say it tastes awful, but their sheen is better than ever.
   riven: 

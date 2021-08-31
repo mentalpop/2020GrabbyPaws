@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Whether or not your froot toots, these gummy snacks are bursting with
+    froot flavour!
   riven: 

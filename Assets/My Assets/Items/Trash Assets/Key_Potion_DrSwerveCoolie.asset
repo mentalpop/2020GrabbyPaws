@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A minty drink, refreshing and bubbly. It fizzes, and sounds a little
+    angry though.
   riven: 

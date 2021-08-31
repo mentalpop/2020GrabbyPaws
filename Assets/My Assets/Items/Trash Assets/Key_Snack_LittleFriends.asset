@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A cracker specifically designed to be small, sharable and uniquely
+    lumpy.
   riven: 

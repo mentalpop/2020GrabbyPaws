@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: It's yellow, it's spicy and makes your nose twitch. Expert researchers
+    insist this flavour is "banana", but you remain uncertain.
   riven: 

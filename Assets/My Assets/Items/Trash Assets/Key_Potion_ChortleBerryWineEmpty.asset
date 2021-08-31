@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Whoever chugged this must be having a fruitful chuckle to themselves
+    right about now!
   riven: 

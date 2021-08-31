@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: It energizes you by tasting so onion-y that you just want to get it
+    over with.
   riven: 

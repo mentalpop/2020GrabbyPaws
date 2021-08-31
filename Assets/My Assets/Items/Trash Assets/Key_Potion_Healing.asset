@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A potion that incrementally increases your recovery rate. Whatever
+    that is.
   riven: 

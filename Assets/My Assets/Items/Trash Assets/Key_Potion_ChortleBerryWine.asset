@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A strong-smelling AND tasting juice.  Named for the giggles it gives
+    you while powering you up.
   riven: 

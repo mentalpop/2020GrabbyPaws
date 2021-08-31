@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: A purple coloured ancient drink powder, can be mixed with water, teas
+    or milks and enjoyed with marbles.
   riven: 

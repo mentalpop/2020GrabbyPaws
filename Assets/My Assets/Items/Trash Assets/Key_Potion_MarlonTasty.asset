@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: You knew a Marlon, but they were a crudster, so you don't think this
+    is related.
   riven: 

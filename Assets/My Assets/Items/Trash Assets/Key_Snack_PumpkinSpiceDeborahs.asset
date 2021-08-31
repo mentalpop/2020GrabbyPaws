@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: These limited edition cookies have been enlarged on the box art to
+    prove a point!
   riven: 

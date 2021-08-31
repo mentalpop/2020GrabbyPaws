@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Protection from the sun's harmful rays has never tasted better. The
+    vanilla-beachball scent really helps keep it down.
   riven: 

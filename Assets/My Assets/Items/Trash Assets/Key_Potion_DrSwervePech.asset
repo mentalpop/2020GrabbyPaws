@@ -27,5 +27,5 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Like fruit juice, but with more sugar.  Intoxicatingly sweet.
   riven: 

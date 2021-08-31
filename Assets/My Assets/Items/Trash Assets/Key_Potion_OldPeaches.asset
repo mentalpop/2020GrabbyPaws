@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: Hoowah!  You're not sure by the smell if it's gone bad or gotten better
+    with age.
   riven: 

@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: x
+  description: An old, powerful potion that is used in rituals to quell winter storms,
+    and usher in a spring time thaw. It's strawberry.
   riven: 
