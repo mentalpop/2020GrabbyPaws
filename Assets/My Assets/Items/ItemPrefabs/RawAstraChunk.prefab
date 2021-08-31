@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2591754406175339965}
   - component: {fileID: 4040642545715641479}
   m_Layer: 0
-  m_Name: RawAstra.002
+  m_Name: RawAstraChunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4308560464313336161}
   m_LocalRotation: {x: 0, y: -0.4574187, z: -0, w: 0.8892514}
-  m_LocalPosition: {x: -10.418423, y: 1.5248727, z: 139.202}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
