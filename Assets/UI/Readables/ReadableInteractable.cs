@@ -11,7 +11,8 @@ public class ReadableInteractable : Interactable
     {
         Book,
         Sign,
-        PC
+        PC,
+        Simple
     }
 
     private void Awake() {
@@ -22,6 +23,7 @@ public class ReadableInteractable : Interactable
         switch (Type) {
             case ReadableTypes.Book: UI.Instance.DisplayBook(readableData as ReadableData); break;
             case ReadableTypes.Sign: UI.Instance.DisplaySign(readableData as ReadableData); break;
+            case ReadableTypes.Simple: UI.Instance.DisplaySimple(readableData as ReadableData); break;
             case ReadableTypes.PC: UI.Instance.DisplayPC(readableData as ReadablePCData); break;
         }
     }

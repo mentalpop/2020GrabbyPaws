@@ -65,6 +65,7 @@ public class UI : MonoBehaviour
     [Header("Readables")]
     public Readable book;
     public Readable sign;
+    public Readable simple;
     public ReadablePC pc;
     [Header("Currency")]
     public Currency currency;
@@ -366,6 +367,13 @@ public class UI : MonoBehaviour
         sign.gameObject.SetActive(true);
         SetControlState(true, sign.gameObject);
         sign.Unpack(rData);
+    }
+
+    public void DisplaySimple(ReadableData rData)
+    {
+        simple.gameObject.SetActive(true);
+        SetControlState(true, simple.gameObject);
+        simple.Unpack(rData);
     }
 
     public void DisplayPC(ReadablePCData pcData) {
