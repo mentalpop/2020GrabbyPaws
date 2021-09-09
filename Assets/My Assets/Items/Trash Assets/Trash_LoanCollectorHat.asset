@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
+  m_Name: Trash_LoanCollectorHat
+  m_EditorClassIdentifier: 
+  ID: Trash_LoanCollectorHat
+  name: Loan Collector Hat
+  collectMessage: YOINK!
+  category: 0
+  icon: {fileID: 0}
+  value: 5
+  physicalItem: {fileID: 5752062560057136656, guid: dbfa7cc79f79ce347a4c2199b5e885e0,
+    type: 3}
+  weight: 0
+  model: {fileID: -927199367670048503, guid: 1cc84b3f6cee1ec478046f3dabdf073c, type: 3}
+  positionOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0}
+  itemScale: 2
+  consumable: 0
+  cursed: 0
+  negativeValue: 0
+  description: 'A pink ribboned fedora that proves you''re part of the Buckle Prince
+    loan collectors, and a friend of Dante Spaghetti''s mob. It''s the last thing
+    many raccoons ever see. '
+  riven: 

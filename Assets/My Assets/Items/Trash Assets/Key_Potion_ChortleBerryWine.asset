@@ -17,7 +17,7 @@ MonoBehaviour:
   collectMessage: WOAH!
   category: 2
   icon: {fileID: 0}
-  value: 5
+  value: 35
   physicalItem: {fileID: 0}
   weight: 0
   model: {fileID: -927199367670048503, guid: 25697fab3d365f044a56656312309326, type: 3}

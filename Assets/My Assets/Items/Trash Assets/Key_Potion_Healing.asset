@@ -17,7 +17,7 @@ MonoBehaviour:
   collectMessage: WOW!
   category: 2
   icon: {fileID: 0}
-  value: 5
+  value: 200
   physicalItem: {fileID: 0}
   weight: 0
   model: {fileID: -927199367670048503, guid: e64e97b7a8466d140b5e4e76484db57c, type: 3}
