@@ -31,13 +31,12 @@ public class SnackEmit : MonoBehaviour
     {
         // get
         int numInside = Ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, Enter);
-
         // on enter
         for (int i = 0; i < numInside; i++)
         {
             ParticleSystem.Particle particle = Enter[i];
-
-            Instantiate(Prefab, particle.position, Quaternion.identity);
+            //Debug.Log("particle.position: " + (transform.position + particle.position));
+            Instantiate(Prefab, transform.position + particle.position, Quaternion.identity);
         }
     }
 }
