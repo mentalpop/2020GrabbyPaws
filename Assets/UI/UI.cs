@@ -357,23 +357,26 @@ public class UI : MonoBehaviour
     #endregion
 
     #region UI State
-    public void DisplayBook(ReadableData rData) {
+    public Readable DisplayBook(ReadableData rData) {
         book.gameObject.SetActive(true);
         SetControlState(true, book.gameObject);
         book.Unpack(rData);
+        return book;
     }
 
-    public void DisplaySign(ReadableData rData) {
+    public Readable DisplaySign(ReadableData rData) {
         sign.gameObject.SetActive(true);
         SetControlState(true, sign.gameObject);
         sign.Unpack(rData);
+        return sign;
     }
 
-    public void DisplaySimple(ReadableData rData)
+    public Readable DisplaySimple(ReadableData rData)
     {
         simple.gameObject.SetActive(true);
         SetControlState(true, simple.gameObject);
         simple.Unpack(rData);
+        return simple;
     }
 
     public void DisplayPC(ReadablePCData pcData) {

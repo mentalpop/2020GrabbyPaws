@@ -10,6 +10,11 @@ public class Readable : MonoBehaviour
     public TextMeshProUGUI bookTitle;
     public TextMeshProUGUI bookText;
 
+    private ReadableData readableData;
+
+    public delegate void ReadableEvent(ReadableData data);
+    public event ReadableEvent OnReadableClose = delegate { };
+
     private void OnEnable() {
         clickToClose.OnClick += Close;
         container.OnEffectComplete += Container_OnEffectComplete;
@@ -23,6 +28,7 @@ public class Readable : MonoBehaviour
     }
 
     public void Unpack(ReadableData rData) {
+        readableData = rData;
         bookTitle.text = rData.title;
         bookText.text = rData.contents;
     }
@@ -31,6 +37,7 @@ public class Readable : MonoBehaviour
         if (reverse) {
             UI.SetControlState(false, gameObject); //De-register from UI
             gameObject.SetActive(false); //For now, just close instantly
+            OnReadableClose(readableData);
         } else {
 
         }
