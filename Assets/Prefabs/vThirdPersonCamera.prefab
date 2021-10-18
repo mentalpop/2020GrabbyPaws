@@ -103,8 +103,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3754484921943646705}
-  m_LocalRotation: {x: -0.02833008, y: 0.96829957, z: -0.1285336, w: -0.21230303}
-  m_LocalPosition: {x: 1.8674258, y: 3.7463634, z: -6.6280656}
+  m_LocalRotation: {x: 0.0068935957, y: 0.99092525, z: -0.10904058, w: 0.07829362}
+  m_LocalPosition: {x: 61.450485, y: 5.8859196, z: 40.384712}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2218460760779858792}
@@ -142,7 +142,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4194071
+    m_Bits: 2096919
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
