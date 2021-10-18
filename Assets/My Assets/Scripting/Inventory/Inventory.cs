@@ -177,7 +177,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         if (foundInChanges) {
             return value;
         } else {
-            return ES3.Load(key, true);
+            return ES3.Load(key, false); //False; not collected by default
         }
     }
 
@@ -194,6 +194,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         //List<bool> _gadgetsUnlocked = new List<bool>();
     //Commit Pending changes
         foreach (var change in pendingPickUps) {
+            Debug.Log("Saving: " + change.Key + ", " + change.Value);
             ES3.Save(change.Key, change.Value); //Save whether the instance still exists (if it hasn't, it has been picked up)
         }
         pendingPickUps.Clear();

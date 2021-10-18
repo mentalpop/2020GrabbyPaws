@@ -15,6 +15,6 @@ public class BucklePickup : SaveLoadInteractable
             Destroy(itemToPickup);
         }
         hasBeenCollected = true;
-        base.Interact();
+        base.Interact(); //Write the pending change to the save file
     }
 }

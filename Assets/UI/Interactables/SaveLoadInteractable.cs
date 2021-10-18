@@ -9,8 +9,10 @@ public class SaveLoadInteractable : Interactable
     protected bool hasBeenCollected = false;
 
     private void Start() {
-        if (Inventory.CompareChange(GetSaveID())) { //Load the item
-            //gameObject.AddComponent<cakeslice.Outline>();
+        var result = Inventory.CompareChange(GetSaveID());
+        if (result) { //Load the item
+            Debug.Log("Inventory.CompareChange(GetSaveID()) " + gameObject.name + ": " + result);
+            OnLoadTrue();
         } else {
             OnLoadFalse(); //Most cases, simply destroy the item
         }
@@ -26,7 +28,11 @@ public class SaveLoadInteractable : Interactable
         return string.Format("{0}_{1}_{2}_{3}_{4}_{5}", UI.GetCurrentFile(), SceneTransitionHandler.CurrentScene(), gameObject.name, transform.position.x, transform.position.y, transform.position.z);
     }
 
-    protected virtual void OnLoadFalse() {
+    protected virtual void OnLoadTrue() {
         Destroy(gameObject);
+    }
+
+    protected virtual void OnLoadFalse() {
+
     }
 }
