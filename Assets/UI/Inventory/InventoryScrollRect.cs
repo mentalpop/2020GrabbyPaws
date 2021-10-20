@@ -6,6 +6,7 @@ public class InventoryScrollRect : MonoBehaviour
 {
     public ListController listController;
     public GameObject slotPrefab;
+    public GameObject keyItemBlockerPrefab;
     public Transform contentTransform;
     public ScrollResize scrollResize;
     //public InventoryDisplay inventoryDisplay;
@@ -46,6 +47,10 @@ public class InventoryScrollRect : MonoBehaviour
         }
         scrollResize.RectResize(slots.Count);
         listController.Elements = _elements;
+        //Key item Blocker
+        if (categoryItem == CategoryItem.Key) {
+            Instantiate(keyItemBlockerPrefab, transform, false);
+        }
     }
 
     public void SlotsClear() {

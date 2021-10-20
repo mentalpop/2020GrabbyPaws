@@ -217,6 +217,8 @@ MonoBehaviour:
   listController: {fileID: 2544546265418159262}
   slotPrefab: {fileID: 3211994905208825373, guid: 942ceb182ce193140a614f705cc01493,
     type: 3}
+  keyItemBlockerPrefab: {fileID: 945950846165441207, guid: 9e5f4c890e94b5b4899fe0c213731ba7,
+    type: 3}
   contentTransform: {fileID: 6993903445927194469}
   scrollResize: {fileID: 6993903444718634353}
 --- !u!114 &2954725441533293396

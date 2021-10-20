@@ -11,23 +11,23 @@ public class InventoryDisplay : MonoBehaviour
     public ListController inventoryTabMenu;
     public Transform tabSortMenu;
     public Transform menuBGTransform;
-    public BottomCapAdjust bottomCapAdjust;
+    //public BottomCapAdjust bottomCapAdjust;
 
     [HideInInspector] public CategoryItem inventoryDisplayType;
     [HideInInspector] public InventoryScrollRect inventoryScrollRect;
 
     private List<InventoryTab> iTabs = new List<InventoryTab>();
-    private bool subResizeEvent = false;
+    //private bool subResizeEvent = false;
 
     private void OnEnable() {
         inventoryTabMenu.OnSelect += SetActiveTab;
         inventory.OnItemChanged += UpdateDisplay;
         container.OnEffectComplete += Container_OnEffectComplete;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
-        if (!subResizeEvent && inventoryScrollRect != null) {
-            subResizeEvent = true;
-            inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
-        }
+        //if (!subResizeEvent && inventoryScrollRect != null) {
+        //    subResizeEvent = true;
+        //    inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
+        //}
     }
 
     private void OnDisable() {
@@ -35,9 +35,9 @@ public class InventoryDisplay : MonoBehaviour
         inventory.OnItemChanged -= UpdateDisplay;
         container.OnEffectComplete -= Container_OnEffectComplete;
         menuHub.OnMenuClose -= MenuHub_OnMenuClose;
-        if (subResizeEvent) {
-            inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
-        }
+        //if (subResizeEvent) {
+        //    inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
+        //}
     }
 
     private void Container_OnEffectComplete(bool reverse) {
@@ -76,21 +76,21 @@ public class InventoryDisplay : MonoBehaviour
             iTabs.Add(tab);
         }
         //*/
-        if (subResizeEvent && inventoryScrollRect != null) {
-            subResizeEvent = false;
-            inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
-        }
+        //if (subResizeEvent && inventoryScrollRect != null) {
+        //    subResizeEvent = false;
+        //    inventoryScrollRect.scrollResize.OnResize -= AdjustBottomCap;
+        //}
         inventoryScrollRect = iTabs[0].inventoryScrollRect;
-        if (!subResizeEvent && inventoryScrollRect != null) {
-            subResizeEvent = true;
-            inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
-        }
+        //if (!subResizeEvent && inventoryScrollRect != null) {
+        //    subResizeEvent = true;
+        //    inventoryScrollRect.scrollResize.OnResize += AdjustBottomCap;
+        //}
     }
 
-    private void AdjustBottomCap() {
-        //bottomCapAdjust.UpdateHeight(inventoryScrollRect.scrollResize.myRect.rect.height);
-        bottomCapAdjust.UpdateHeight(StaticMethods.SumHeightOfChildren(tabSortMenu));
-    }
+    //private void AdjustBottomCap() {
+    //    //bottomCapAdjust.UpdateHeight(inventoryScrollRect.scrollResize.myRect.rect.height);
+    //    bottomCapAdjust.UpdateHeight(StaticMethods.SumHeightOfChildren(tabSortMenu));
+    //}
 
     public void SetActiveTab(int _activeTab) {
         inventoryDisplayType = (CategoryItem)_activeTab;
