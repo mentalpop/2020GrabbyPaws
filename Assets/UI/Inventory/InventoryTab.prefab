@@ -182,6 +182,7 @@ MonoBehaviour:
   navigationType: 0
   menuSize: {x: 0, y: 0}
   outOfBoundsLoop: 1
+  InventoryDisplay: {fileID: 0}
 --- !u!1 &4513065594803914880
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,12 +572,12 @@ PrefabInstance:
     - target: {fileID: 6993903444761321311, guid: b54a772c9b3b92643bb7e3860bdf01eb,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6993903444761321311, guid: b54a772c9b3b92643bb7e3860bdf01eb,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6993903445251979766, guid: b54a772c9b3b92643bb7e3860bdf01eb,
         type: 3}
@@ -597,6 +598,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993903445962539305, guid: b54a772c9b3b92643bb7e3860bdf01eb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54a772c9b3b92643bb7e3860bdf01eb, type: 3}

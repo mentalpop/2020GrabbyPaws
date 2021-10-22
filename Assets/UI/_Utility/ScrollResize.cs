@@ -11,6 +11,7 @@ public class ScrollResize : MonoBehaviour
     public int maxChildrenOnScreen = 9;
     public float heightPerChild = 128;
     public bool Open => targetHeight > 0f;
+    public float transitionSpeed = 0.15f;
 
     private GTween gTween;
     private float targetHeight = 0f;
@@ -20,7 +21,7 @@ public class ScrollResize : MonoBehaviour
     public event ScrollResizeEvent OnClose = delegate { };
 
     private void Awake() {
-        gTween = new GTween(0.3f, 0f, 1f, false);
+        gTween = new GTween(transitionSpeed, 0f, 1f, false); 
     }
 
     private void Update() {
