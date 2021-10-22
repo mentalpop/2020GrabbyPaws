@@ -26,9 +26,12 @@ public class InventoryDisplay : MonoBehaviour
         inventory.OnItemChanged += UpdateDisplay;
         container.OnEffectComplete += Container_OnEffectComplete;
         menuHub.OnMenuClose += MenuHub_OnMenuClose;
-        if (inventoryScrollRect != null && !subOnCloseEvent) {
-            subOnCloseEvent = true;
-            inventoryScrollRect.scrollResize.OnClose += ScrollResize_OnClose;
+        if (inventoryScrollRect != null) {
+            UpdateDisplay(null);
+            if (!subOnCloseEvent) {
+                subOnCloseEvent = true;
+                inventoryScrollRect.scrollResize.OnClose += ScrollResize_OnClose;
+            }
         }
         //if (!subResizeEvent && inventoryScrollRect != null) {
         //    subResizeEvent = true;
