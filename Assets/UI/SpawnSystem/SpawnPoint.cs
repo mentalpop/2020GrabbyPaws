@@ -15,5 +15,9 @@ public enum SpawnPoints
     INTLostFound01,
     EXTLostFound01,
     INTMondays,
-    EXTMondays
+    EXTMondays,
+    INTGraveyard,
+    EXTGraveyard,
+    INTRockResearch,
+    EXTRockResearch
 }
