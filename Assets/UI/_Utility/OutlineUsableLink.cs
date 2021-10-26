@@ -13,7 +13,7 @@ public class OutlineUsableLink : MonoBehaviour
     private bool subbedEvents = false;
 
     private void Start() {
-        proximitySelector = UI.Instance.player.proximitySelector;//FindObjectOfType<ProximitySelector>();
+        proximitySelector = UI.Player.proximitySelector;//FindObjectOfType<ProximitySelector>();
         if (proximitySelector == null) {
             Debug.LogWarning("Failed to find proximitySelector on player");
         } else {

@@ -90,7 +90,8 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref cameraInversion;
     public ConstrainedIntPref inputPreference;
 
-    [HideInInspector] public PlayerBehaviour player;
+    private PlayerBehaviour player;
+    public static PlayerBehaviour Player => Instance.player;
 
     private int currentFile = 0;
 
@@ -505,8 +506,8 @@ public class UI : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
         //Player
-        if (Instance.player != null) {
-            Instance.player.SetLockState(Instance.lockControls);
+        if (Player != null) {
+            Player.SetLockState(Instance.lockControls);
         }
         //Camera
         Instance.CameraSetInputLabels();
@@ -534,7 +535,7 @@ public class UI : MonoBehaviour
             //Debug.Log("suppressCamera: "+suppressCamera);
             //CinemachineFreeLook currentCamera = Instance.cFreeLook;//Instance.cFreeLook.ActiveVirtualCamera as CinemachineFreeLook;
             //Debug.Log("currentCamera: "+currentCamera);
-            if (Instance.player.controlsLocked) { //Instance.lockControls
+            if (Player.controlsLocked) { //Instance.lockControls
                 //Debug.Log("lockControls: "+lockControls);
             //X Axis
                 Instance.cFreeLook.m_XAxis.m_InputAxisName = "";
