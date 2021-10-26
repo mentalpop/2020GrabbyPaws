@@ -19,5 +19,7 @@ public enum SpawnPoints
     INTGraveyard,
     EXTGraveyard,
     INTRockResearch,
-    EXTRockResearch
+    EXTRockResearch,
+    INTApartmintDoor,
+    EXTApartmintDoor
 }

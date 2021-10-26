@@ -28,27 +28,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Palette Browns
-    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
+    second: {fileID: 2100000, guid: df6f9dfc25333c44c90e68be9c773745, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Palette Greens
-    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
+    second: {fileID: 2100000, guid: 0f43adeced694df4d937a450154ccaf8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Palette Specials
-    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Palette Specials.003
-    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Palette Stones
-    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+    second: {fileID: 2100000, guid: ba1ae80da36cb8f429b857f9df6c1636, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
