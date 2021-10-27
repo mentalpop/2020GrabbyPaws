@@ -5,16 +5,14 @@ public class Interact : MonoBehaviour {
 	public float range = 10f;
 	public Camera fpsCam;
 	
-	// Update is called once per frame
 	void Update () {
-		if (!UI.Instance.lockControls && (Input.GetButtonDown("Steal") || Input.GetMouseButtonDown(0))) {
-			InteractWith ();
+		if (!UI.LockControls && (Input.GetButtonDown("Steal") || Input.GetMouseButtonDown(0))) {
+			InteractWith();
 		}
 		Debug.DrawRay (fpsCam.transform.position, fpsCam.transform.forward);
 	}
 
-	void InteractWith (){
-
+	void InteractWith () {
 		LayerMask lm = LayerMask.NameToLayer("IgnoreRayCast");
 		RaycastHit hit;
 		if (Physics.Raycast (fpsCam.transform.position, fpsCam.transform.forward, out hit, range,lm)) {

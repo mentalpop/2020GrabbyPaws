@@ -45,6 +45,10 @@ public class SpawnDoor : Interactable
     }
 
     public void CheckConditions() {
+        if (UI.LockControls) {
+            isUsable = false;
+            return;
+        }
         isUsable = true;
         if (items.Count > 0) {
             foreach (var item in items) {

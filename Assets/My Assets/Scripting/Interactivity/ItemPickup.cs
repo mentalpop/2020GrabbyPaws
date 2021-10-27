@@ -47,6 +47,9 @@ public class ItemPickup : SaveLoadInteractable
     //*/
 
     public override void Interact() {
+        if (UI.LockControls) {
+            return;
+        }
         bool wasPickedUp = Inventory.instance.Add(item);
         if (wasPickedUp) {
             Instantiate(pickupSphere, transform.position, Quaternion.identity); //Drop a sphere at point of pick-up

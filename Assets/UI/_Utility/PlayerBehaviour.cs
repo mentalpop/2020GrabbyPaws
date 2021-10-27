@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     private void Start() {
-        standardUISelectorElements = FindObjectOfType<StandardUISelectorElements>(); ;
+        standardUISelectorElements = FindObjectOfType<StandardUISelectorElements>();
     }
 
     private void Update() {

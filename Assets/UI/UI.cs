@@ -122,8 +122,11 @@ public class UI : MonoBehaviour
     private Camera gameCamera;
     private CinemachineBlendDefinition defaultBlend;
     private List<GameObject> mouseCursorUsers = new List<GameObject>();
+
+    public static bool LockControls => Instance.lockControls;
+    private bool lockControls = false;
     //public bool lockControls = false;
-    public bool lockControls { get; private set; }
+    //public bool lockControls { get; private set; }
     ICinemachineCamera previousCamera = null;
     private bool firstPersonCamera = false;
 
@@ -504,7 +507,6 @@ public class UI : MonoBehaviour
             Instance.mouseCursorUsers.Remove(gameObject);
         }
         Instance.lockControls = false;
-        //Debug.Log("Instance.mouseCursorUsers.Count: "+Instance.mouseCursorUsers.Count);
         if (Instance.mouseCursorUsers.Count > 0) {
             Instance.lockControls = true;
             //if (!MenuNavigator.MouseIsUsing()) {
@@ -555,7 +557,7 @@ public class UI : MonoBehaviour
                 Instance.cFreeLook.m_YAxis.m_MaxSpeed = 0;
             } else {
                 //Control Preferences
-                Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
+                //Debug.Log("CameraSetInputLabels: " + MenuNavigator.MouseIsUsing());
                 if (MenuNavigator.MouseIsUsing()) {
                     cFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
                     cFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";

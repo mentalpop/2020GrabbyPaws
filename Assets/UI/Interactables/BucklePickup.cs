@@ -8,6 +8,9 @@ public class BucklePickup : SaveLoadInteractable
     public GameObject itemToPickup;
 
     public override void Interact() {
+        if (UI.LockControls) {
+            return;
+        }
         Currency.instance.Cash += value;
         if (itemToPickup == null) {
             Destroy(gameObject);

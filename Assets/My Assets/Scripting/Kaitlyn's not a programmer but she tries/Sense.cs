@@ -57,7 +57,7 @@ public class Sense : MonoBehaviour
             Outline _outline = targets[index].gameObject.GetComponent<Outline>();
             if (_outline != null) {
                 _outline.enabled = true;
-                if (!UI.Instance.lockControls && Input.GetButtonDown("Steal")) {
+                if (!UI.LockControls && Input.GetButtonDown("Steal")) {
                     targets[index].gameObject.GetComponent<Interactable>().Interact();
                     targets.RemoveAt(index);
                 }

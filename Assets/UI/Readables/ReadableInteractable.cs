@@ -37,6 +37,9 @@ public class ReadableInteractable : Interactable
     }
 
     public override void Interact() {
+        if (UI.LockControls) {
+            return;
+        }
         if (subbedEvent) {
             activeReadable.OnReadableClose -= ActiveReadable_OnReadableClose;
         }
