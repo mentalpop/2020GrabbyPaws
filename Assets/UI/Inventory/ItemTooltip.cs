@@ -12,7 +12,14 @@ public class ItemTooltip : MonoBehaviour
     public RectTransform myRect;
     public Vector2 canvasSize;
     public Vector2 tooltipOffset;
-    public float offset = 120;
+    //public float offset = 120;
+
+    private Transform myInventorySlotTransform;
+    private RectTransform rect;
+
+    private void Awake() {
+        rect = (RectTransform)transform;
+    }
 
     public void Unpack(InventoryItem inventoryItem) {
         itemName.text = inventoryItem.item.name;
@@ -20,9 +27,6 @@ public class ItemTooltip : MonoBehaviour
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
         //float _value = inventoryItem.item.value * inventoryItem.quantity;
         value.text = StaticMethods.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
-        //Keep on screen
-        float _scale = UI.GetUIScale();
-        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
     }
 
     public void Unpack(InventoryItem inventoryItem, Transform _transform) {
@@ -30,21 +34,22 @@ public class ItemTooltip : MonoBehaviour
         description.text = inventoryItem.item.description;
         weight.text = (inventoryItem.item.weight * inventoryItem.quantity).ToString();
         value.text = StaticMethods.ValueFormat(inventoryItem.item.value * inventoryItem.quantity);
+        myInventorySlotTransform = _transform;
+        BindRect();
+    }
+
+    private void LateUpdate() {
+        if (myInventorySlotTransform != null) {
         //Snap to position of transform plus offset
-        Transform previousParent = transform.parent;
-        transform.parent = _transform;
-        myRect.anchoredPosition = tooltipOffset;
-        transform.parent = previousParent;
-        /*
-        float _scale = UI.GetUIScale();
-        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
-        tooltipOffset = new Vector2(tooltipOffset.x, tooltipOffset.y * _scale);
-        Vector2 correctedPosition = Camera.main.WorldToScreenPoint(_position);
-        correctedPosition = new Vector2(ScreenSpace.Inverse(correctedPosition.x), ScreenSpace.Inverse(correctedPosition.y));
-        float yMax = (canvasSize.y - myRect.rect.height - offset * _scale) / 2f;
-        //Debug.Log("yMax: "+yMax);
-        myRect.anchoredPosition = new Vector3(Mathf.Clamp(correctedPosition.x + tooltipOffset.x, 0f, canvasSize.x - myRect.rect.width - offset * _scale),
-            Mathf.Clamp(correctedPosition.y + tooltipOffset.y - canvasSize.y / 2f, -yMax, yMax), transform.position.z);
-        //*/
+            Transform previousParent = transform.parent;
+            transform.parent = myInventorySlotTransform;
+            myRect.anchoredPosition = tooltipOffset;
+            transform.parent = previousParent;
+            BindRect();
+        }
+    }
+
+    public void BindRect() {
+        StaticMethods.BindRect(rect, UI.Instance.UICanvasRect.sizeDelta - rect.sizeDelta);
     }
 }

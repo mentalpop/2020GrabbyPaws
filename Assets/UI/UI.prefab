@@ -4715,6 +4715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eab7df523ea2f441b9917265221d609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvasRect: {fileID: 5819588752503816818}
   menuNavigator: {fileID: 4311098172652755225}
   sonosAudio: {fileID: 8846785370091901141}
   HUD: {fileID: 5819588754087773053}

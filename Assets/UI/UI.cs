@@ -55,6 +55,7 @@ public class UI : MonoBehaviour
 {
     public static string saveFileName = "grabby.paws";
 
+    public RectTransform UICanvasRect;
     public MenuNavigator menuNavigator;
     public Sonos sonosAudio;
     public GameObject HUD;
@@ -92,8 +93,8 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref cameraInversion;
     public ConstrainedIntPref inputPreference;
 
-    private PlayerBehaviour player;
     public static PlayerBehaviour Player => Instance.player;
+    private PlayerBehaviour player;
 
     private int currentFile = 0;
 
@@ -685,6 +686,14 @@ public static class StaticMethods
                 _height += ((RectTransform)child).sizeDelta.y + _sepHeight;
         }
         return _height;
+    }
+
+    public static void BindRect(RectTransform rect, Vector2 sizeDelta) {
+        Vector2 panelPivot = rect.pivot;
+        Vector2 position = rect.anchoredPosition;
+        position.x = Mathf.Clamp(position.x, -sizeDelta.x * panelPivot.x, sizeDelta.x * (1 - panelPivot.x));
+        position.y = Mathf.Clamp(position.y, -sizeDelta.y * panelPivot.y, sizeDelta.y * (1 - panelPivot.y));
+        rect.anchoredPosition = position;
     }
 }
 
