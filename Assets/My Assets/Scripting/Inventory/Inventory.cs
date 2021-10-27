@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public InventoryEvent OnPickUp;
     public InventoryEvent OnDrop;
     public InventoryEvent OnItemChanged;
+    public InventoryEvent OnItemGiven;
 
     private Dictionary<string, bool> pendingPickUps = new Dictionary<string, bool>();
 
@@ -61,6 +62,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         Lua.RegisterFunction("InventoryAdd", this, SymbolExtensions.GetMethodInfo(() => InventoryAdd(string.Empty, 0f)));
         Lua.RegisterFunction("InventorySubtract", this, SymbolExtensions.GetMethodInfo(() => InventorySubtract(string.Empty, 0f)));
         Lua.RegisterFunction("InventoryRemove", this, SymbolExtensions.GetMethodInfo(() => InventoryRemove(string.Empty)));
+        Lua.RegisterFunction("InventoryGive", this, SymbolExtensions.GetMethodInfo(() => InventoryGive(string.Empty, 0f)));
     }
 
     public bool InventoryHas(string name) {
@@ -112,6 +114,31 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
         if (!_success) {
             Debug.LogWarning("Failed to add \""+name+ "\" to Inventory, are you sure it's in the ItemMetaList?");
+        }
+        if (newItem != null) {
+            OnItemChanged?.Invoke(newItem);
+        }
+    }
+
+    public void InventoryGive(string name, double quantity) {
+        Debug.Log("Attempting to add to Inventory: " + name);
+        bool _success = false;
+        Item newItem = null;
+        foreach (var item in itemMetaList.items) { //Find the Item in the Meta list based on String reference, add X of it to the inventory
+            if (item.ID == "") {
+                Debug.LogWarning(item.ToString() + "'s ID property is an empty string. This should be fixed!");
+            } else if (item.ID == name) {
+                //items.Add(new InventoryItem(item, quantity));
+                newItem = item;
+                Add(item, (int)quantity);
+                Debug.Log("Successfully added to Inventory: " + item.ID);
+                _success = true;
+                OnItemGiven?.Invoke(item);
+                break;
+            }
+        }
+        if (!_success) {
+            Debug.LogWarning("Failed to add \"" + name + "\" to Inventory, are you sure it's in the ItemMetaList?");
         }
         if (newItem != null) {
             OnItemChanged?.Invoke(newItem);

@@ -73,6 +73,8 @@ public class UI : MonoBehaviour
     [Header("Inventory")]
     public InventoryDisplay inventoryDisplay;
     public Inventory inventory;
+    public GameObject givenItemPrefab;
+    public Transform givenItemTransform;
     [HideInInspector] public CinemachineFreeLook cFreeLook;
     //[HideInInspector] public vThirdPersonCamera thirdPersonCamera;
     [Header("VIDEO Options")]
@@ -130,6 +132,12 @@ public class UI : MonoBehaviour
     private void OnEnable() {
         currency.OnCashChanged += OnCurrencyChanged;
         MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
+        inventory.OnItemGiven += OnGiven;
+    }
+    private void OnGiven(Item item) {
+        GameObject newGO = Instantiate(givenItemPrefab, givenItemTransform, false);
+        GivenItemPrompt prompt = newGO.GetComponent<GivenItemPrompt>();
+        prompt.Unpack(Inventory.GetInventoryItem(item));
     }
 
     private void OnDisable() {
@@ -138,6 +146,7 @@ public class UI : MonoBehaviour
         if (cBrain != null) {
             cBrain.m_CameraActivatedEvent.RemoveListener(delegate { OnCameraActivated(); });
         }
+        inventory.OnItemGiven -= OnGiven;
     }
 
     private void Awake() {
