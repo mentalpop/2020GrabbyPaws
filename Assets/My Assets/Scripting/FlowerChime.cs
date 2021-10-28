@@ -40,6 +40,7 @@ public class FlowerChime : MonoBehaviour
     }
 
 
+
     private void OnTriggerExit(Collider other)
     {
        if(other.tag == "Player")
