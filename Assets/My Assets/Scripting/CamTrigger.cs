@@ -16,13 +16,9 @@ public class CamTrigger : MonoBehaviour
         {
             vcam.gameObject.SetActive(true);
             vcam.m_Priority = 99;
-                
-
-            
         }
 
     }
-
 
     private void OnTriggerExit(Collider other)
     {
