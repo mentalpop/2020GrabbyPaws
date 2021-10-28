@@ -6,49 +6,38 @@ public class CamTrigger : MonoBehaviour
 {
 
     public CinemachineVirtualCamera vcam;
+    public float waitTime = 2f;
 
+    //public bool waited = false;
+    private WaitForSeconds cachedWaitForSeconds;
+    private Coroutine myCoroutine;
 
-    public bool waited = false;
-
-
-    void OnTriggerEnter(Collider other)
-    {
-
-        if (other.tag == "Player")
-
-            StartCoroutine(SetBoolToTrue());
-
-
+    private void Awake() {
+        cachedWaitForSeconds = new WaitForSeconds(waitTime);
     }
 
-    private void Update()
-    {
-            if (waited)
-            {
-                vcam.gameObject.SetActive(true);
-                vcam.m_Priority = 99;
-            }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player") {
+            myCoroutine = StartCoroutine(CheckIfPlayerStillPresent());
+        }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "Player") {
             vcam.gameObject.SetActive(false);
             vcam.m_Priority = 0;
-            waited = false;
+            if (myCoroutine != null) {
+                StopCoroutine(myCoroutine);
+            }
         }
     }
 
 
-    private IEnumerator SetBoolToTrue()
-    {
-
-        yield return new WaitForSeconds(2f);
-        if (waited == false)
-        {
-            waited = true;
-        }
-        yield return null;
+    private IEnumerator CheckIfPlayerStillPresent() {
+        yield return cachedWaitForSeconds;
+        vcam.gameObject.SetActive(true);
+        vcam.m_Priority = 99;
+        //yield return null;
     }
 }
