@@ -4730,6 +4730,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  uiCamera: {fileID: 5819588754334205013}
   book: {fileID: 5819588753942763090}
   sign: {fileID: 3370245368894504421}
   simple: {fileID: 5203156607626281406}

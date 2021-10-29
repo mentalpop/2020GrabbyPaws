@@ -62,6 +62,7 @@ public class UI : MonoBehaviour
     public LappyMenu lappy;
     public ConfirmationWindow confirmationWindow;
     public CinemachineBlendDefinition firstPersonBlend;
+    public Camera uiCamera;
     //public FlagRepository flagRepository;
     [Header("Readables")]
     public Readable book;
@@ -129,6 +130,7 @@ public class UI : MonoBehaviour
     //public bool lockControls { get; private set; }
     ICinemachineCamera previousCamera = null;
     private bool firstPersonCamera = false;
+    private DSCanvasManager DSCanvasManager;
 
     public static UI Instance { get; private set; }
 
@@ -163,6 +165,12 @@ public class UI : MonoBehaviour
         //Debug.Log("Instance: "+Instance);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start() {
+        transform.SetAsLastSibling();
+        DSCanvasManager = FindObjectOfType<DSCanvasManager>();
+        DSCanvasManager.SetUICamera(uiCamera);
     }
 
     void Update() {

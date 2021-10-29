@@ -15,17 +15,11 @@ public class GivenItemPrompt : MonoBehaviour
     public BTweenCanvasGroup canvasFadeOut;
     public BTweenRectAnchor rectFadeIn;
     public BTweenScale scaleDown;
-    public float secondsRemainOpen = 2f;
 
     private bool closing = false;
-    private WaitForSeconds shortWait;
     //private Coroutine myCoroutine;
     private GameObject model;
     private Quaternion initialRotation;
-
-    private void Awake() {
-        shortWait = new WaitForSeconds(secondsRemainOpen);
-    }
 
     private void OnEnable() {
         btween.OnEndTween += Btween_OnEndTween;
@@ -59,13 +53,14 @@ public class GivenItemPrompt : MonoBehaviour
         }
     //Effect
         btween.PlayFromZero();
-        StartCoroutine(CloseAfterDelay());
         transform.localScale = Vector3.one; //Something changes the z-depth to zero, so this has to compensate
     }
 
-    private IEnumerator CloseAfterDelay() {
-        yield return shortWait;
-        Close(); //This could be called early
+    void Update() {
+        //Close when user clicks button
+        if (!UI.LockControls && (Input.GetButtonDown("Steal") || Input.GetMouseButtonDown(0))) {
+            Close();
+        }
     }
 
     public void Close() {
