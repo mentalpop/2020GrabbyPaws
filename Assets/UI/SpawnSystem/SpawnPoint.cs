@@ -21,5 +21,6 @@ public enum SpawnPoints
     INTRockResearch,
     EXTRockResearch,
     INTApartmintDoor,
-    EXTApartmintDoor
+    EXTApartmintDoor,
+    EXTBonfireSpawn
 }

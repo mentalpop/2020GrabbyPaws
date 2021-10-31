@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: Key_Shrimp_CandyCorn
   m_EditorClassIdentifier: 
-  ID: Key_Shrimp_Candy
-  name: Little Shrimp!
-  collectMessage: SPOOKY!
+  ID: Key_Shrimp_CandyCorn
+  name: Sugar Shrimps!
+  collectMessage: SWEET!
   category: 2
   icon: {fileID: 0}
   value: 0
   physicalItem: {fileID: 0}
   weight: 0
-  model: {fileID: -927199367670048503, guid: d465b22f631db7149adb43ebd52765cf, type: 3}
+  model: {fileID: -927199367670048503, guid: fdd0dc459f8e2284987a2b59d142c477, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0}
   itemScale: 2
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: A classic candy every kid loves to get every Shrimp n' Treats!
+  description: Sugary little shrimps, expertly layered.
   riven: 

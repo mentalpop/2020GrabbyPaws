@@ -75,7 +75,7 @@ Material:
     - _OVERLAYBLEND: 0
     - _OVERLAYTEX: 0
     - _SecondColorSmooth: 0.2
-    - _ShadowStrength: 0.5
+    - _ShadowStrength: 0.494
     - _SingleChannel: 1
     - _SoftParticlesFadeDistanceFar: 2
     - _SoftParticlesFadeDistanceNear: 0

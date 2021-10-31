@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e11f7e7659a134595d262c1514e645, type: 3}
   m_Name: Key_Shrimp_CandyFlat
   m_EditorClassIdentifier: 
-  ID: Key_Shrimp_Candy
-  name: Little Shrimp!
-  collectMessage: SPOOKY!
+  ID: Key_Shrimp_CandyFlat
+  name: Wrapped Shramp!
+  collectMessage: BOOO!
   category: 2
   icon: {fileID: 0}
   value: 0
@@ -27,5 +27,6 @@ MonoBehaviour:
   consumable: 0
   cursed: 0
   negativeValue: 0
-  description: A classic candy every kid loves to get every Shrimp n' Treats!
+  description: You're not sure why everyone calls these shrimps, but it's tradition.
+    Unwrap and enjoy!
   riven: 
