@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc23151968d5cba4db671520e294e7e6, type: 3}
-  m_Name: JunkShowerSign
+  m_Name: Controller Awareness
   m_EditorClassIdentifier: 
-  title: JunkShowerSign
-  readFlag: sign002
-  contents: 'Junkshower Awareness
+  title: Controller Awareness
+  readFlag: sign003
+  contents: 'Hey! Use a controller, or don''t.
 
-    Take care! Look up for a change.'
+    Press thumbstick/shift to run.
+
+    Space
+    or "A" to advance dialogue
+
+    Click or "B" to quit menus!'
