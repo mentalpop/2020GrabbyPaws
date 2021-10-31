@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Cinemachine;
 using Invector.vCharacterController;
 using System;
+using UnityEngine.SceneManagement;
 
 #region Enums
 public enum NightPhases
@@ -139,6 +140,7 @@ public class UI : MonoBehaviour
         currency.OnCashChanged += OnCurrencyChanged;
         MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
         inventory.OnItemGiven += OnGiven;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnGiven(Item item) {
         GameObject newGO = Instantiate(givenItemPrefab, givenItemTransform, false);
@@ -153,6 +155,7 @@ public class UI : MonoBehaviour
             cBrain.m_CameraActivatedEvent.RemoveListener(delegate { OnCameraActivated(); });
         }
         inventory.OnItemGiven -= OnGiven;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Awake() {
@@ -167,11 +170,15 @@ public class UI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start() {
-        transform.SetAsLastSibling();
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         DSCanvasManager = FindObjectOfType<DSCanvasManager>();
-        if (DSCanvasManager != null) {
-            DSCanvasManager.SetUICamera(uiCamera);
+        if (DSCanvasManager == null) {
+            Debug.LogWarning("DSCanvasManager not found in: " + scene.name);
+        } else {
+            transform.SetAsLastSibling();
+            if (DSCanvasManager != null) {
+                DSCanvasManager.SetUICamera(uiCamera);
+            }
         }
     }
 

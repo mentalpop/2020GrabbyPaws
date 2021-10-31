@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using PixelCrushers;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-500)]
 public class MenuNavigator : MonoBehaviour
@@ -53,14 +54,34 @@ public class MenuNavigator : MonoBehaviour
         }
     }
 
-    private void Start() {
+    private void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+    }
+
+    private void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         inputDeviceManager = FindObjectOfType<InputDeviceManager>();
         if (inputDeviceManager == null) {
-            Debug.LogWarning("inputDeviceManager is null");
+            Debug.LogWarning("inputDeviceManager not found in: " + scene.name);
+            useMouse = true; //Enable this as a fallback
         } else {
+            useMouse = false; //Disable this
             inputDeviceManager.onUseJoystick.AddListener(JoystickDetected);
             inputDeviceManager.onUseKeyboard.AddListener(MouseOrKeyboardDetected);
             inputDeviceManager.onUseMouse.AddListener(MouseOrKeyboardDetected);
+        }
+    }
+
+    private void SceneManager_sceneUnloaded(Scene arg0) {
+        if (inputDeviceManager != null) {
+            inputDeviceManager.onUseJoystick.RemoveListener(JoystickDetected);
+            inputDeviceManager.onUseKeyboard.RemoveListener(MouseOrKeyboardDetected);
+            inputDeviceManager.onUseMouse.RemoveListener(MouseOrKeyboardDetected);
         }
     }
 
