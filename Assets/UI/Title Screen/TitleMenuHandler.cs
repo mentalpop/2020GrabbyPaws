@@ -4,38 +4,44 @@ using UnityEngine;
 
 public class TitleMenuHandler : MonoBehaviour
 {
-    public ButtonGeneric buttonNewGame;
-    public ButtonGeneric buttonLoad;
-    public ButtonGeneric buttonQuit;
+    public NavButton buttonNewGame;
+    public NavButton buttonLoad;
+    public NavButton buttonOptions;
+    public NavButton buttonQuit;
     
 	public ConfirmationPromptData promptNewGame;
 	public ConfirmationPromptData promptQuit;
 	private ConfirmationWindow confirmationWindow;
 	private bool awaitingConfirmation = false;
-    
-    [Header("Debug")]
+
+[Header("New Game Data")]
+    public string startScene;
+    public SpawnPoints initialSpawnPoint;
+[Header("Debug")]
     public bool saveFileExists = true;
 
     private void OnEnable() {
-        buttonNewGame.OnClick += OnClickNewGame;
-        buttonLoad.OnClick += OnClickLoad;
-        buttonQuit.OnClick += OnClickQuit;
-        UI.LockUI(gameObject);
+        buttonNewGame.OnSelect += OnClickNewGame;
+        buttonLoad.OnSelect += OnClickLoad;
+        buttonQuit.OnSelect += OnClickQuit;
+        buttonOptions.OnSelect += ButtonOptions_OnSelect;
+        //UI.LockUI(gameObject);
     }
 
     private void OnDisable() {
-        buttonNewGame.OnClick -= OnClickNewGame;
-        buttonLoad.OnClick -= OnClickLoad;
-        buttonQuit.OnClick -= OnClickQuit;
-        UI.UnlockUI();
-    //
-		if (awaitingConfirmation) {
+        buttonNewGame.OnSelect -= OnClickNewGame;
+        buttonLoad.OnSelect -= OnClickLoad;
+        buttonQuit.OnSelect -= OnClickQuit;
+        buttonOptions.OnSelect -= ButtonOptions_OnSelect;
+        //UI.UnlockUI();
+        //
+        if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
 		}
     }
 
-    private void OnClickNewGame() {
+    private void OnClickNewGame(ButtonStateData _buttonStateData) {
         if (saveFileExists) {
             confirmationWindow = UI.RequestConfirmation(promptNewGame, null);
             confirmationWindow.OnChoiceMade += OnConfirm;
@@ -45,11 +51,15 @@ public class TitleMenuHandler : MonoBehaviour
         }
     }
 
-    private void OnClickLoad() {
+    private void OnClickLoad(ButtonStateData _buttonStateData) {
         LoadGame();
     }
-    
-    private void OnClickQuit() {
+
+    private void ButtonOptions_OnSelect(ButtonStateData _buttonStateData) {
+        //Open Lappy Menu to Options Screen
+    }
+
+    private void OnClickQuit(ButtonStateData _buttonStateData) {
         confirmationWindow = UI.RequestConfirmation(promptQuit, null);
         confirmationWindow.OnChoiceMade += OnConfirm;
 		awaitingConfirmation = true;
@@ -72,12 +82,12 @@ public class TitleMenuHandler : MonoBehaviour
 	}
 
     private void NewGame() {
-        SceneTransitionHandler.SceneGoto("UITestScene", SpawnPoints.UITestRoomB);
+        SceneTransitionHandler.SceneGoto(startScene, initialSpawnPoint);
     }
 
     private void LoadGame() {
         UI.Instance.LoadGameData(0);
     //Go to UI Test Room
-        SceneTransitionHandler.SceneGoto("UITestScene", SpawnPoints.UITestRoomA);
+        //SceneTransitionHandler.SceneGoto("UITestScene", SpawnPoints.UITestRoomA);
     }
 }

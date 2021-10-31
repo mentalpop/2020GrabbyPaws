@@ -170,7 +170,9 @@ public class UI : MonoBehaviour
     private void Start() {
         transform.SetAsLastSibling();
         DSCanvasManager = FindObjectOfType<DSCanvasManager>();
-        DSCanvasManager.SetUICamera(uiCamera);
+        if (DSCanvasManager != null) {
+            DSCanvasManager.SetUICamera(uiCamera);
+        }
     }
 
     void Update() {

@@ -79,6 +79,5 @@ public class ConfirmationWindow : MonoBehaviour
         }
         buttonOK.StateUpdate();
         buttonNo.StateUpdate();
-        
     }
 }
