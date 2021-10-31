@@ -4,31 +4,12 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-  //  public Transform teleportTarget;
-    public Transform thePlayer;
+    public Transform teleportTarget;
 
- 
-    void OnTriggerEnter(Collider other)
-    {
-
-        if (other.tag == "Player")
-        {
-
-            thePlayer.transform.GetChild(0).localPosition = new Vector3(0,1,88);
+    void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player") {
+            other.transform.position = teleportTarget.transform.position;
+            //thePlayer.transform.GetChild(0).localPosition = new Vector3(0, 1, 88);
         }
-
-    }
-
-    private void OnValidate()
-    {
-        if (thePlayer == null)
-        {
-            thePlayer = GetComponent<Transform>();
-        }
-    }
-
-    private void Start()
-    {
-        thePlayer = UI.Player.transform;
     }
 }
