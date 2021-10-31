@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public Transform teleportTarget;
+  //  public Transform teleportTarget;
     public Transform thePlayer;
 
  
@@ -14,7 +14,7 @@ public class Teleport : MonoBehaviour
         if (other.tag == "Player")
         {
 
-            thePlayer.transform.GetChild(0).position = teleportTarget.transform.position;
+            thePlayer.transform.GetChild(0).localPosition = new Vector3(0,1,88);
         }
 
     }
@@ -29,6 +29,6 @@ public class Teleport : MonoBehaviour
 
     private void Start()
     {
-        thePlayer = UI.Player.transform.GetChild(0);
+        thePlayer = UI.Player.transform;
     }
 }
