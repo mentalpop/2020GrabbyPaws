@@ -70,7 +70,7 @@ public class MenuNavigator : MonoBehaviour
             Debug.LogWarning("inputDeviceManager not found in: " + scene.name);
             useMouse = true; //Enable this as a fallback
         } else {
-            useMouse = false; //Disable this
+            //useMouse = false; //This should not be set to false - it causes the mouse to not work
             inputDeviceManager.onUseJoystick.AddListener(JoystickDetected);
             inputDeviceManager.onUseKeyboard.AddListener(MouseOrKeyboardDetected);
             inputDeviceManager.onUseMouse.AddListener(MouseOrKeyboardDetected);
