@@ -1230,7 +1230,7 @@ MonoBehaviour:
   promptNewGame: {fileID: 11400000, guid: 8e44c9cb74b3d8b428d2e56be6711d01, type: 2}
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
   startScene: EXT_BigCity
-  initialSpawnPoint: 0
+  initialSpawnPoint: 15
   saveFileExists: 0
 --- !u!224 &354949745654007397
 RectTransform:
