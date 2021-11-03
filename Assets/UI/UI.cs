@@ -524,18 +524,18 @@ public class UI : MonoBehaviour
             Instance.mouseCursorUsers.Remove(gameObject);
         }
         Instance.lockControls = false;
-        if (Instance.mouseCursorUsers.Count > 0) {
-            Instance.lockControls = true;
-            //if (!MenuNavigator.MouseIsUsing()) {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            //}
-        } else {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        //Player
+    //Player
         if (Player != null) {
+            if (Instance.mouseCursorUsers.Count > 0) {
+                Instance.lockControls = true;
+                //if (!MenuNavigator.MouseIsUsing()) {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                //}
+            } else {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
             Player.SetLockState(Instance.lockControls);
         }
         //Camera
