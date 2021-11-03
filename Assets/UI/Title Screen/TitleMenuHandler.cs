@@ -8,8 +8,9 @@ public class TitleMenuHandler : MonoBehaviour
     public NavButton buttonLoad;
     public NavButton buttonOptions;
     public NavButton buttonQuit;
-    
-	public ConfirmationPromptData promptNewGame;
+    public OptionsMenu optionsMenu;
+
+    public ConfirmationPromptData promptNewGame;
 	public ConfirmationPromptData promptQuit;
 	private ConfirmationWindow confirmationWindow;
     public Canvas tsCanvas;
@@ -41,7 +42,9 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     private void Start() {
-        tsCanvas.worldCamera = UI.Instance.uiCamera; //This is important for when the user returns to the title screen in order to reset the camera reference
+    //These are important for when the user returns to the title screen in order to reset references
+        tsCanvas.worldCamera = UI.Instance.uiCamera; 
+        optionsMenu.lappyMenu = UI.Instance.lappy;
     }
 
     private void OnClickNewGame(ButtonStateData _buttonStateData) {
@@ -60,7 +63,7 @@ public class TitleMenuHandler : MonoBehaviour
 
     private void ButtonOptions_OnSelect(ButtonStateData _buttonStateData) {
         //Open Lappy Menu to Options Screen
-
+        optionsMenu.gameObject.SetActive(true);
     }
 
     private void OnClickQuit(ButtonStateData _buttonStateData) {
