@@ -48,7 +48,6 @@ public class SceneTransitionHandler : MonoBehaviour
         if (currentScene == null) {
         //Fade In
             UI.SetControlState(false, instance.gameObject);
-            Debug.Log("Fade In");
             fadeAnimation.Play(animationFadeEnd); 
             var _clip = fadeAnimation.GetCurrentAnimatorClipInfo(0); //Find current clicp
             clipSeconds = new WaitForSeconds(_clip.Length); //Get the length of the clip animation
@@ -89,8 +88,7 @@ public class SceneTransitionHandler : MonoBehaviour
             inTransition = true;
             spawnPoint = point;
             sceneGoto = sceneName;
-            //Crossfade
-            Debug.Log("Fade Out");
+        //Crossfade
             fadeAnimation.Play(animationFadeStart); //Start Animation
             var _clip = fadeAnimation.GetCurrentAnimatorClipInfo(0); //Find current clicp
             clipSeconds = new WaitForSeconds(_clip.Length); //Get the length of the clip animation

@@ -12,7 +12,9 @@ public class TitleMenuHandler : MonoBehaviour
 	public ConfirmationPromptData promptNewGame;
 	public ConfirmationPromptData promptQuit;
 	private ConfirmationWindow confirmationWindow;
-	private bool awaitingConfirmation = false;
+    public Canvas tsCanvas;
+
+    private bool awaitingConfirmation = false;
 
 [Header("New Game Data")]
     public string startScene;
@@ -25,7 +27,6 @@ public class TitleMenuHandler : MonoBehaviour
         buttonLoad.OnSelect += OnClickLoad;
         buttonQuit.OnSelect += OnClickQuit;
         buttonOptions.OnSelect += ButtonOptions_OnSelect;
-        //UI.LockUI(gameObject);
     }
 
     private void OnDisable() {
@@ -33,12 +34,14 @@ public class TitleMenuHandler : MonoBehaviour
         buttonLoad.OnSelect -= OnClickLoad;
         buttonQuit.OnSelect -= OnClickQuit;
         buttonOptions.OnSelect -= ButtonOptions_OnSelect;
-        //UI.UnlockUI();
-        //
         if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
 		}
+    }
+
+    private void Start() {
+        tsCanvas.worldCamera = UI.Instance.uiCamera; //This is important for when the user returns to the title screen in order to reset the camera reference
     }
 
     private void OnClickNewGame(ButtonStateData _buttonStateData) {
@@ -57,6 +60,7 @@ public class TitleMenuHandler : MonoBehaviour
 
     private void ButtonOptions_OnSelect(ButtonStateData _buttonStateData) {
         //Open Lappy Menu to Options Screen
+
     }
 
     private void OnClickQuit(ButtonStateData _buttonStateData) {

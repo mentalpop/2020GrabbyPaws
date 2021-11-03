@@ -264,12 +264,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a97f506c0b19024ba05d6f8819d3251, type: 3}
---- !u!20 &393464609 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5819588754334205013, guid: 6a97f506c0b19024ba05d6f8819d3251,
-    type: 3}
-  m_PrefabInstance: {fileID: 393464608}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &744286051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1223,7 @@ MonoBehaviour:
   buttonQuit: {fileID: 1053052896}
   promptNewGame: {fileID: 11400000, guid: 8e44c9cb74b3d8b428d2e56be6711d01, type: 2}
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
+  tsCanvas: {fileID: 354949745654007398}
   startScene: EXT_BigCity
   initialSpawnPoint: 15
   saveFileExists: 0
@@ -1265,7 +1260,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 393464609}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
