@@ -88,7 +88,7 @@ public class LappyMenu : MonoBehaviour
             if (confirmationWindow.promptData.promptID == ConfirmationPromptID.QuitToTitle) {
                 //Quit to Title
                 Close();
-                SceneManager.LoadScene("Title_Screen");
+                SceneTransitionHandler.SceneGoto("Title_Screen", SpawnPoints.UITestRoomA);
             }
             if (confirmationWindow.promptData.promptID == ConfirmationPromptID.QuitGame) {
                 Application.Quit();

@@ -391,10 +391,10 @@ GameObject:
   - component: {fileID: 1097854594581338364}
   - component: {fileID: 3335139881557258473}
   - component: {fileID: 2995180180368539268}
-  - component: {fileID: 4119662223303582963}
   - component: {fileID: 3167387901444503970}
   - component: {fileID: 8976297466042176993}
   - component: {fileID: 1797536578148931913}
+  - component: {fileID: 8208734240704767210}
   m_Layer: 5
   m_Name: TitleScreenButton
   m_TagString: Untagged
@@ -461,39 +461,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4119662223303582963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8892083012532408446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e9ceb599ddc4f747b654d48ae79584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasToggleState: 0
-  stateActive: 0
-  myImage: {fileID: 2995180180368539268}
-  onHover: {fileID: 3462119594934459851}
-  spriteDefaultNeutral: {fileID: 0}
-  spriteDefaultHover: {fileID: 0}
-  spriteDefaultSelected: {fileID: 0}
-  spriteToggleNeutral: {fileID: 0}
-  spriteToggleHover: {fileID: 0}
-  spriteToggleSelected: {fileID: 0}
-  spriteUnavailable: {fileID: 0}
-  doSetNativeSize: 1
-  available: 1
-  doChangeColor: 0
-  onUnavailableChangeColor: 0
-  colorNeutral: {r: 1, g: 1, b: 1, a: 0.7}
-  colorHover: {r: 1, g: 1, b: 1, a: 1}
-  colorSelected: {r: 1, g: 1, b: 1, a: 1}
-  colorAvailable: {r: 1, g: 1, b: 1, a: 1}
-  colorUnavailable: {r: 1, g: 1, b: 1, a: 0.3}
-  alwaysHover: 0
 --- !u!114 &3167387901444503970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,3 +516,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navButton: {fileID: 3167387901444503970}
   sendPointerEvData: 0
+--- !u!114 &8208734240704767210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892083012532408446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b194338c3a141a5409089dc8c46a3cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 3167387901444503970}
+  allowSelectionWhileActive: 0
+  buttonState: 1
+  goNeutral: {fileID: 0}
+  goFocus: {fileID: 3462119594934459851}
+  goSelected: {fileID: 0}
+  goActive: {fileID: 0}
+  goActiveFocus: {fileID: 0}
+  goActiveSelected: {fileID: 0}
+  goUnavailable: {fileID: 0}
+  goUnavailableFocus: {fileID: 0}

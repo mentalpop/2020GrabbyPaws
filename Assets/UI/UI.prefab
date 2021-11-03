@@ -4869,6 +4869,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: 0
   spawnManager: {fileID: 0}
+  crossFadePrefab: {fileID: 832698220604762586, guid: 3272790c43b1a2a4f8e09f3c21ab515d,
+    type: 3}
+  fadeAnimation: {fileID: 0}
 --- !u!114 &1536072457079159744
 MonoBehaviour:
   m_ObjectHideFlags: 0
