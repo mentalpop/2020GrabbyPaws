@@ -28,7 +28,10 @@ public class SpotLightHandler : MonoBehaviour
     }
 
     private void Update() {
+    //Scale
         sineScale.Increment();
+        float _scale = 1f + sineScale.GetSineMagnitude();
+        spotlight.localScale = new Vector3(_scale, _scale);
     //Mouse
         RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, myCanvas.worldCamera, out Vector2 mouseActiveSpotlightPosition);
     //Gamepad

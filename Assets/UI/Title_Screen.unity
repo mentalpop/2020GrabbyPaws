@@ -591,8 +591,8 @@ MonoBehaviour:
     duration: 0
     durationElapsed: 0
   sineScale:
-    div: 60
-    magnitude: 0.05
+    div: 120
+    magnitude: 0.01
     value: 0
     duration: 0
     durationElapsed: 0
