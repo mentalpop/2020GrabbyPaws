@@ -571,6 +571,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlight: {fileID: 717094227}
   myCanvas: {fileID: 354949745654007398}
+  gTween:
+    tweenDuration: 0.3
+    tweenStartVal: 0
+    tweenTargetVal: 1
+    effectActive: 0
+    doReverse: 0
+  offsetPosition: {x: 650, y: 0}
+  sineX:
+    div: 480
+    magnitude: 100
+    value: 3.14
+    duration: 0
+    durationElapsed: 0
+  sineY:
+    div: 240
+    magnitude: 50
+    value: 0
+    duration: 0
+    durationElapsed: 0
+  sineScale:
+    div: 60
+    magnitude: 0.05
+    value: 0
+    duration: 0
+    durationElapsed: 0
 --- !u!114 &1053052896 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3167387901444503970, guid: d1f7cd55b090d1349bc5620fb0bcf597,
@@ -2080,6 +2105,8 @@ MonoBehaviour:
   buttonLoad: {fileID: 752651470}
   buttonOptions: {fileID: 1188267575}
   buttonQuit: {fileID: 1053052896}
+  mNodeNewGame: {fileID: 0}
+  mNodeQuit: {fileID: 0}
   optionsMenu: {fileID: 2017737103}
   promptNewGame: {fileID: 11400000, guid: 8e44c9cb74b3d8b428d2e56be6711d01, type: 2}
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}

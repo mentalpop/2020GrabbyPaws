@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 8976297466042176993}
   - component: {fileID: 1797536578148931913}
   - component: {fileID: 8208734240704767210}
+  - component: {fileID: 968677509891869059}
   m_Layer: 5
   m_Name: TitleScreenButton
   m_TagString: Untagged
@@ -539,3 +540,26 @@ MonoBehaviour:
   goActiveSelected: {fileID: 0}
   goUnavailable: {fileID: 0}
   goUnavailableFocus: {fileID: 0}
+--- !u!114 &968677509891869059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892083012532408446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a5583975e8914db058989450bcbb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navButton: {fileID: 3167387901444503970}
+  allowSelectionWhileActive: 0
+  buttonState: 0
+  text: {fileID: 7004720308435879719}
+  fontStyleNeutral: 0
+  fontStyleFocus: 1
+  fontStyleSelected: 0
+  fontStyleActive: 0
+  fontStyleActiveFocus: 1
+  fontStyleActiveSelected: 0
+  fontStyleUnavailable: 2

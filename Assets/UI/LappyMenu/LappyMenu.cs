@@ -25,9 +25,14 @@ public class LappyMenu : MonoBehaviour
     //public List<TabData> tabs = new List<TabData>();
     public ButtonGeneric startButton;
 
+[Header("Confirmation Prompts")]
     public ConfirmationPromptData promptSave;
     public ConfirmationPromptData promptQuitTitle;
     public ConfirmationPromptData promptQuitGame;
+    public MenuNode mNodeStartMenu;
+    //public MenuNode mNodeSave;
+    //public MenuNode mNodeQuitTitle;
+    //public MenuNode mNodeQuitGame;
     private ConfirmationWindow confirmationWindow;
     private bool awaitingConfirmation = false;
 
@@ -128,17 +133,17 @@ public class LappyMenu : MonoBehaviour
                 optionsMenu.gameObject.SetActive(true);
                 break;
             case 6: //Save Game
-                confirmationWindow = UI.RequestConfirmation(promptSave, null);
+                confirmationWindow = UI.RequestConfirmation(promptSave, mNodeStartMenu); //mNodeSave
                 confirmationWindow.OnChoiceMade += OnConfirm;
                 awaitingConfirmation = true;
                 break;
             case 7: //Quit to Title
-                confirmationWindow = UI.RequestConfirmation(promptQuitTitle, null);
+                confirmationWindow = UI.RequestConfirmation(promptQuitTitle, mNodeStartMenu); //mNodeQuitTitle
                 confirmationWindow.OnChoiceMade += OnConfirm;
                 awaitingConfirmation = true;
                 break;
             case 8: //Quit Game
-                confirmationWindow = UI.RequestConfirmation(promptQuitGame, null);
+                confirmationWindow = UI.RequestConfirmation(promptQuitGame, mNodeStartMenu); //mNodeQuitGame
                 confirmationWindow.OnChoiceMade += OnConfirm;
                 awaitingConfirmation = true;
                 break;

@@ -576,6 +576,7 @@ MonoBehaviour:
   promptSave: {fileID: 11400000, guid: a4e640dc04fbc3748a40788afa525517, type: 2}
   promptQuitTitle: {fileID: 11400000, guid: da0359165af4b424a8a7e0bc5da866fd, type: 2}
   promptQuitGame: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
+  mNodeStartMenu: {fileID: 6220181618831938254}
 --- !u!114 &8440036961688051355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4871,7 +4872,8 @@ MonoBehaviour:
   spawnManager: {fileID: 0}
   crossFadePrefab: {fileID: 832698220604762586, guid: 3272790c43b1a2a4f8e09f3c21ab515d,
     type: 3}
-  fadeAnimation: {fileID: 0}
+  animationFadeStart: Crossfade_Start
+  animationFadeEnd: Crossfade_End
 --- !u!114 &1536072457079159744
 MonoBehaviour:
   m_ObjectHideFlags: 0

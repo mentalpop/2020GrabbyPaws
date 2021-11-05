@@ -23,7 +23,10 @@ public class Sine {
     public void Increment() {
         if (!durationElapsed) {
             value += (float)Math.PI / div;
-            if (duration != 0f && value > duration * (float)Math.PI) {
+            if (duration == 0f) {
+                if (value > Tau)
+                    value -= (float)Tau;
+            } else if (value > duration * (float)Math.PI) {
                 value = duration * (float)Math.PI;
                 durationElapsed = true;
             }

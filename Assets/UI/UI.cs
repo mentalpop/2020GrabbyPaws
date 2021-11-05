@@ -588,6 +588,9 @@ public class UI : MonoBehaviour
     }
 
     public static ConfirmationWindow RequestConfirmation(ConfirmationPromptData _data, MenuNode _menuOnDisable) {
+        if (_menuOnDisable == null) {
+            Debug.LogWarning("_menuOnDisable is null, this is usually undeseriable as it will cause an issue on closing the prompt.");
+        }
         Instance.confirmationWindow.gameObject.SetActive(true);
         Instance.confirmationWindow.Unpack(_data, _menuOnDisable);
         return Instance.confirmationWindow; //Allow calling object to subscribe to the result

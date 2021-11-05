@@ -8,6 +8,9 @@ public class TitleMenuHandler : MonoBehaviour
     public NavButton buttonLoad;
     public NavButton buttonOptions;
     public NavButton buttonQuit;
+    public MenuNode mNodeNewGame;
+    public MenuNode mNodeQuit;
+    //public MenuNode titleMenuNode;
     public OptionsMenu optionsMenu;
 
     public ConfirmationPromptData promptNewGame;
@@ -49,7 +52,7 @@ public class TitleMenuHandler : MonoBehaviour
 
     private void OnClickNewGame(ButtonStateData _buttonStateData) {
         if (saveFileExists) {
-            confirmationWindow = UI.RequestConfirmation(promptNewGame, null);
+            confirmationWindow = UI.RequestConfirmation(promptNewGame, mNodeNewGame);
             confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
         } else {
@@ -67,7 +70,7 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     private void OnClickQuit(ButtonStateData _buttonStateData) {
-        confirmationWindow = UI.RequestConfirmation(promptQuit, null);
+        confirmationWindow = UI.RequestConfirmation(promptQuit, mNodeQuit);
         confirmationWindow.OnChoiceMade += OnConfirm;
 		awaitingConfirmation = true;
     }
