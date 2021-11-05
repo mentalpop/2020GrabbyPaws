@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class TitleMenuHandler : MonoBehaviour
 {
-    public NavButton buttonNewGame;
-    public NavButton buttonLoad;
-    public NavButton buttonOptions;
-    public NavButton buttonQuit;
-    public MenuNode mNodeNewGame;
-    public MenuNode mNodeQuit;
-    //public MenuNode titleMenuNode;
+    public MenuNode mNodeMenu;
+    public ListController menuList;
     public OptionsMenu optionsMenu;
 
     public ConfirmationPromptData promptNewGame;
@@ -27,17 +22,11 @@ public class TitleMenuHandler : MonoBehaviour
     public bool saveFileExists = true;
 
     private void OnEnable() {
-        buttonNewGame.OnSelect += OnClickNewGame;
-        buttonLoad.OnSelect += OnClickLoad;
-        buttonQuit.OnSelect += OnClickQuit;
-        buttonOptions.OnSelect += ButtonOptions_OnSelect;
+        menuList.OnSelect += SelectStartMenuItem;
     }
 
     private void OnDisable() {
-        buttonNewGame.OnSelect -= OnClickNewGame;
-        buttonLoad.OnSelect -= OnClickLoad;
-        buttonQuit.OnSelect -= OnClickQuit;
-        buttonOptions.OnSelect -= ButtonOptions_OnSelect;
+        menuList.OnSelect -= SelectStartMenuItem;
         if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
@@ -50,29 +39,29 @@ public class TitleMenuHandler : MonoBehaviour
         optionsMenu.lappyMenu = UI.Instance.lappy;
     }
 
-    private void OnClickNewGame(ButtonStateData _buttonStateData) {
-        if (saveFileExists) {
-            confirmationWindow = UI.RequestConfirmation(promptNewGame, mNodeNewGame);
-            confirmationWindow.OnChoiceMade += OnConfirm;
-			awaitingConfirmation = true;
-        } else {
-            NewGame();
+    public void SelectStartMenuItem(int _activeTab) {
+        switch (_activeTab) {
+            case 0: //New Game
+                if (saveFileExists) {
+                    confirmationWindow = UI.RequestConfirmation(promptNewGame, mNodeMenu);
+                    confirmationWindow.OnChoiceMade += OnConfirm;
+                    awaitingConfirmation = true;
+                } else {
+                    NewGame();
+                }
+                break;
+            case 1: //Continue
+                LoadGame();
+                break;
+            case 2: //Options
+                optionsMenu.gameObject.SetActive(true);
+                break;
+            case 3: //Quit Game
+                confirmationWindow = UI.RequestConfirmation(promptQuit, mNodeMenu);
+                confirmationWindow.OnChoiceMade += OnConfirm;
+                awaitingConfirmation = true;
+                break;
         }
-    }
-
-    private void OnClickLoad(ButtonStateData _buttonStateData) {
-        LoadGame();
-    }
-
-    private void ButtonOptions_OnSelect(ButtonStateData _buttonStateData) {
-        //Open Lappy Menu to Options Screen
-        optionsMenu.gameObject.SetActive(true);
-    }
-
-    private void OnClickQuit(ButtonStateData _buttonStateData) {
-        confirmationWindow = UI.RequestConfirmation(promptQuit, mNodeQuit);
-        confirmationWindow.OnChoiceMade += OnConfirm;
-		awaitingConfirmation = true;
     }
 
     private void OnConfirm(bool _choice) {
