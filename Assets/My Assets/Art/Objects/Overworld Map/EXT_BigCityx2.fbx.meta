@@ -62,6 +62,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: FlatBrowns
+    second: {fileID: 2100000, guid: df6f9dfc25333c44c90e68be9c773745, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: FlatSaleSign03
     second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
   - first:
@@ -152,6 +157,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PlantGreens
+    second: {fileID: 2100000, guid: 0f43adeced694df4d937a450154ccaf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Purple Light
     second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
   - first:
@@ -179,6 +189,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Screen
     second: {fileID: 2100000, guid: cc487427856e9ae4cbc5db9062e21734, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SeeThru
+    second: {fileID: 2100000, guid: 117f77073d6bfb5458e4134149c790ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -227,6 +242,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: SnackBar05
+    second: {fileID: 2100000, guid: c622d27e98f8814439fad99b05d21d31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: StreetSigns01
     second: {fileID: 2100000, guid: 0c67cbacd9c878b44b64a4b9cc8dbf3f, type: 2}
   - first:
@@ -239,6 +259,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: TreeSway Greens
     second: {fileID: 2100000, guid: 9a56dd95ff5ad7a49916701482ea0849, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Warm Light
+    second: {fileID: 2100000, guid: 79d56be46e9b3874e8b919083271cc6e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

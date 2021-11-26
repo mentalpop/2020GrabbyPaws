@@ -103,7 +103,7 @@ Material:
     - _RimBrightness: 3.32
     - _RimStrength: 1.8
     - _SmoothnessTextureChannel: 0
-    - _SpecOffset: 0.509
+    - _SpecOffset: 0.708
     - _SpecSize: 0.683
     - _SpecularHighlights: 1
     - _SrcBlend: 1
