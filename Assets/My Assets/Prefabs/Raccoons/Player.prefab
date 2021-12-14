@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseWindow: 1
   selectedToolbar: 0
   unlockCursorOnStart: 0
   showCursorOnStart: 0
@@ -969,9 +969,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse ScrollWheel
     keyboardAxis: 0
-    joystick: 
+    joystick: Horizontal
     joystickAxis: 0
-    mobile: 
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0

@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/UI/UITestScene.unity
     guid: 6be7c8a9f5f61464cb1316a1496cd915
+  - enabled: 1
+    path: Assets/My Assets/Scenes/EXT_BigCity_Griftings.unity
+    guid: f6c26ed8ce608804f97658402a9f4f5b
+  - enabled: 1
+    path: Assets/My Assets/Scenes/INT_BigCity_Griftings.unity
+    guid: 3f4f0fc0708aa1342928bc7262854784
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1c26488bc19171240bd7a45fc2a7fb64,
       type: 2}
