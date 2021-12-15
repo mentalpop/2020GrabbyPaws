@@ -432,6 +432,7 @@ namespace PixelCrushers.DialogueSystem
         /// <param name="value">True to enable, false to disable.</param>
         public void SetDialogueSystemInput(bool value)
         {
+            Debug.Log("SetDialogueSystemInput: " + value);
             if (value == true)
             {
                 if (IsDialogueSystemInputDisabled())

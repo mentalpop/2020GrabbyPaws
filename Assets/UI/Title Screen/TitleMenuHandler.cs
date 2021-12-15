@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitleMenuHandler : MonoBehaviour
 {
     public MenuNode mNodeMenu;
     public ListController menuList;
     public OptionsMenu optionsMenu;
+    public Image artLayer;
+    public List<Sprite> artSprites = new List<Sprite>();
 
     public ConfirmationPromptData promptNewGame;
 	public ConfirmationPromptData promptQuit;
@@ -37,6 +40,9 @@ public class TitleMenuHandler : MonoBehaviour
     //These are important for when the user returns to the title screen in order to reset references
         tsCanvas.worldCamera = UI.Instance.uiCamera; 
         optionsMenu.lappyMenu = UI.Instance.lappy;
+
+    //Randomize Art Layer
+        artLayer.sprite = artSprites[Random.Range(0, artSprites.Count)];
     }
 
     public void SelectStartMenuItem(int _activeTab) {

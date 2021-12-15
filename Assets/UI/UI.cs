@@ -6,6 +6,7 @@ using Cinemachine;
 using Invector.vCharacterController;
 using System;
 using UnityEngine.SceneManagement;
+using PixelCrushers.DialogueSystem;
 
 #region Enums
 public enum NightPhases
@@ -538,6 +539,8 @@ public class UI : MonoBehaviour
             }
             Player.SetLockState(Instance.lockControls);
         }
+        //DialogueManager
+        DialogueManager.SetDialogueSystemInput(!Instance.lockControls); //This is inverted
         //Camera
         Instance.CameraSetInputLabels();
         /*

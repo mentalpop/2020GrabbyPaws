@@ -1727,6 +1727,11 @@ MonoBehaviour:
   mNodeMenu: {fileID: 354949744893906280}
   menuList: {fileID: 354949744893906282}
   optionsMenu: {fileID: 2017737103}
+  artLayer: {fileID: 1271832584}
+  artSprites:
+  - {fileID: 21300000, guid: dd2dd4d016fccf54c9247b6a089eaa9f, type: 3}
+  - {fileID: 21300000, guid: 3f3e1b0a1f7b42740b9a7cdd7106fda7, type: 3}
+  - {fileID: 21300000, guid: 121411d134fd835489cbc544d2a3b58e, type: 3}
   promptNewGame: {fileID: 11400000, guid: 8e44c9cb74b3d8b428d2e56be6711d01, type: 2}
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
   tsCanvas: {fileID: 354949745654007398}
