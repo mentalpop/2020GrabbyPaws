@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using PixelCrushers;
 using UnityEngine.SceneManagement;
+using PixelCrushers.DialogueSystem;
 
 [DefaultExecutionOrder(-500)]
 public class MenuNavigator : MonoBehaviour
 {
+    public GameObject dialogueManagerPrefab; //Debug - Create this if it doesn't exist
+
     public StandaloneInputModule standaloneInputModule;
     public string gamepadHorizontalInput;
     public string gamepadVerticalInput;
@@ -65,6 +68,11 @@ public class MenuNavigator : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        DialogueSystemController dialogueSystemController = FindObjectOfType<DialogueSystemController>();
+        if (dialogueSystemController == null) {
+            GameObject newGO = Instantiate(dialogueManagerPrefab, transform.parent, false);
+            Debug.LogWarning("\"Dialogue Manager New\" prefab not found in: " + scene.name + ", creating one for Debug Purposes");
+        }
         inputDeviceManager = FindObjectOfType<InputDeviceManager>();
         if (inputDeviceManager == null) {
             Debug.LogWarning("inputDeviceManager not found in: " + scene.name);
