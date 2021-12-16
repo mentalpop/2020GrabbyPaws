@@ -8,15 +8,14 @@ public class SoupHolder : MonoBehaviour
 {
     public string soupID;
     public List<GameObject> soups = new List<GameObject>();
-    public Rig PlayersRig;
 
+    private Rig PlayersRig;
     private Inventory inventory;
 
-    private void Start()
+    private void Awake()
     {
         PlayersRig = FindObjectOfType<Rig>();
         PlayersRig.weight = 1.0f;
-
     }
 
     private void OnEnable()
@@ -33,9 +32,8 @@ public class SoupHolder : MonoBehaviour
 
     private void inventory_OnItemChanged(Item item) {
         int _soups = (int)inventory.InventoryCount(soupID);
-        switch(_soups) {
+        switch (_soups) {
             case 0: 
-
                 PlayersRig.weight = 0.0f;
                 Destroy(gameObject);
                 break;
