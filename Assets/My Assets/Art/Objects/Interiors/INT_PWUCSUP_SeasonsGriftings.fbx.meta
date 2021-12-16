@@ -1,0 +1,308 @@
+fileFormatVersion: 2
+guid: 27a6c76b5c95cf24e8651e5ded9d47dd
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      74: 5541256795457292841
+    second: Counter.016|Base Parents.003Action
+  - first:
+      74: 4943627814578246644
+    second: Counter.016|Base Parents.003Action.001
+  - first:
+      74: -2562066495228961362
+    second: Counter.016|Counter.008Action
+  - first:
+      74: 1683470188974159594
+    second: Counter.016|Counter.008Action.001
+  - first:
+      74: 7110603944644583813
+    second: Counter.016|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: -4004450270322773425
+    second: Counter.016|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: 2825039567254718320
+    second: Counter.016|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: -6988517177542610833
+    second: Counter.016|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: 3459003106847417788
+    second: Counter.016|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: -549543191681767661
+    second: Counter.016|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 5142839967396185160
+    second: Counter.016|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: -4508427894285135658
+    second: Counter.016|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: 4679015457595329783
+    second: Counter.016|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: 7159642211409306444
+    second: Counter.016|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: -103789363333066787
+    second: Counter.016|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: 8216795187892092577
+    second: Counter.016|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: 2446653161732842595
+    second: Counter.016|PlaneAction
+  - first:
+      74: 228964273467822349
+    second: Counter.016|PlaneAction.001
+  - first:
+      74: 5766644855286153762
+    second: Counter.016|PlaneAction.003
+  - first:
+      74: 3171561058750974549
+    second: Counter.016|PlaneAction.004
+  - first:
+      74: -8933558353707165296
+    second: Counter.016|PlaneAction.006
+  - first:
+      74: 4615487167796419507
+    second: Counter.016|PlaneAction.007
+  - first:
+      74: 2015724654166075934
+    second: Counter.016|RaccoonBody04Head02.GreenBlack.001Action
+  - first:
+      74: 1657993446085762796
+    second: Counter.016|RaccoonBody04Head02.GreenBlack.001Action.001
+  - first:
+      74: 1584308476394733981
+    second: Counter.016|RaccoonBody04Head02.GreenBlack.001Action.002
+  - first:
+      74: 7606523743736821887
+    second: Counter.016|RaccoonBody04Head02.GreenBlack.001Action.003
+  - first:
+      74: -7222918203763081592
+    second: Counter.016|RaccoonBody04Head02.GreenBlack.001Action.004
+  - first:
+      74: 2843446479813279415
+    second: Counter.016|Torus.061Action
+  - first:
+      74: -1980441780838263540
+    second: Counter.016|Torus.062Action
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads05
+    second: {fileID: 2100000, guid: de8468e14202dfc479077f1d1006b960, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light.001
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns04
+    second: {fileID: 2100000, guid: 41cdcc10664b7b74a8560253ffbf5a64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ButtonLight
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness.001
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatBrowns
+    second: {fileID: 2100000, guid: df6f9dfc25333c44c90e68be9c773745, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatReds
+    second: {fileID: 2100000, guid: 479500485a4bf8342b46803e5b92c101, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatRiven
+    second: {fileID: 2100000, guid: 84e4d958d6b573a469350f8caf5732a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSaleSign03
+    second: {fileID: 2100000, guid: a59cd4feb71e8c444a097101f2b88950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSpecials
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HotPink Light
+    second: {fileID: 2100000, guid: 080330e88719bb14f863bcf01f84a50a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Greens.001
+    second: {fileID: 2100000, guid: 0f43adeced694df4d937a450154ccaf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlantGreens
+    second: {fileID: 2100000, guid: 0f43adeced694df4d937a450154ccaf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Light
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SaleSigns03
+    second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign01
+    second: {fileID: 2100000, guid: 0817b98f16d73604ebfdbafe2fe88a0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar
+    second: {fileID: 2100000, guid: f0c4bdea7d05cf843966856461ecce17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar03
+    second: {fileID: 2100000, guid: fa0325bf8f1053442877113fd2c8111f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBar05
+    second: {fileID: 2100000, guid: c622d27e98f8814439fad99b05d21d31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White Neon
+    second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
