@@ -15,6 +15,7 @@ public class HoldablePickup : MonoBehaviour
         {
             Holdables newHoldable = Instantiate(holdablefab, activeHoldEm.HoldEmsParent);
             activeHoldEm.Hold(newHoldable);
+         
         }
     }
 

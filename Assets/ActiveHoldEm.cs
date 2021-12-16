@@ -8,7 +8,7 @@ public class ActiveHoldEm : MonoBehaviour
     public Transform HoldEmsParent;
     Holdables holdable;
     public UnityEngine.Animations.Rigging.Rig handik;
-    public int soupNumber;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -20,26 +20,14 @@ public class ActiveHoldEm : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (soupNumber > 1)
-        {
-            handik.weight = 1.0f;
 
-        }
-
-        else
-        {
-            handik.weight = 0.0f;
-        }
-    }
 
     public void Hold(Holdables newHoldable)
     {
         if (holdable)
         {
             Destroy(holdable.gameObject);
+            handik.weight = 0f;
             {
                 holdable = newHoldable;
                 holdable.transform.parent = HoldEmsParent;

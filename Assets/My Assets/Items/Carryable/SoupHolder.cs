@@ -2,28 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class SoupHolder : MonoBehaviour
 {
     public string soupID;
     public List<GameObject> soups = new List<GameObject>();
+    public Rig PlayersRig;
 
     private Inventory inventory;
 
-    private void OnEnable() {
+    private void Start()
+    {
+        PlayersRig = FindObjectOfType<Rig>();
+        PlayersRig.weight = 1.0f;
+
+    }
+
+    private void OnEnable()
+    {
         inventory = Inventory.instance;
         inventory.OnItemChanged += inventory_OnItemChanged;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         inventory.OnItemChanged -= inventory_OnItemChanged;
     }
+
 
     private void inventory_OnItemChanged(Item item) {
         int _soups = (int)inventory.InventoryCount(soupID);
         switch(_soups) {
-            case 0: Destroy(gameObject); break;
+            case 0: 
+
+                PlayersRig.weight = 0.0f;
+                Destroy(gameObject);
+                break;
             default:
+                PlayersRig.weight = 1.0f;
                 foreach (var soup in soups) { //Turn off all Soup models
                     soup.SetActive(false);
                 }
