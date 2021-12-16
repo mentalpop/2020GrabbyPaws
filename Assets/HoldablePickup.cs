@@ -13,7 +13,7 @@ public class HoldablePickup : MonoBehaviour
         ActiveHoldEm activeHoldEm = other.gameObject.GetComponent<ActiveHoldEm>();
         if (activeHoldEm)
         {
-            Holdables newHoldable = Instantiate(holdablefab);
+            Holdables newHoldable = Instantiate(holdablefab, activeHoldEm.HoldEmsParent);
             activeHoldEm.Hold(newHoldable);
         }
     }
