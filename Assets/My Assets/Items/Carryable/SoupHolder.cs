@@ -15,14 +15,16 @@ public class SoupHolder : MonoBehaviour
     private void Awake()
     {
         PlayersRig = FindObjectOfType<Rig>();
-        
+    }
+
+    private void Start() {
+        PlayersRig.weight = 1.0f;
     }
 
     private void OnEnable()
     {
         inventory = Inventory.instance;
         inventory.OnItemChanged += inventory_OnItemChanged;
-        PlayersRig.weight = 1.0f;
     }
 
     private void OnDisable()
