@@ -27,7 +27,7 @@ public class SoupHolder : MonoBehaviour
                 foreach (var soup in soups) { //Turn off all Soup models
                     soup.SetActive(false);
                 }
-                soups[_soups].SetActive(true); //Except the one that has the correct count
+                soups[Mathf.Min(_soups, soups.Count - 1)].SetActive(true); //Except the one that has the correct count
                 break;
         }
     }
