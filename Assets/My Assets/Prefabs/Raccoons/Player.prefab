@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126412694123679776}
   m_LocalRotation: {x: 0.43141037, y: -0.5723889, z: -0.65889364, w: 0.22828776}
-  m_LocalPosition: {x: -0.478, y: 0.88600034, z: 0.2709998}
+  m_LocalPosition: {x: -0.507, y: -0.055, z: -0.557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1994073855349067489}
@@ -1315,7 +1315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoldEmsParent: {fileID: 1994073855349067489}
   handik: {fileID: 3082480293249503241}
-  soupNumber: 0
 --- !u!1 &4670251899076039129
 GameObject:
   m_ObjectHideFlags: 0

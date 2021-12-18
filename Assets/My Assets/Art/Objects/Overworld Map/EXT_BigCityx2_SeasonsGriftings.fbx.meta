@@ -223,8 +223,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: SnackBar05
-    second: {fileID: -2374157447825904732, guid: 08937fa665cbc27448713188b3dd4d4e,
-      type: 3}
+    second: {fileID: 2100000, guid: c622d27e98f8814439fad99b05d21d31, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -605,7 +605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoldEmsParent: {fileID: 7037896143648270524}
   handik: {fileID: 5818885621489464916}
-  soupNumber: 0
 --- !u!114 &5968691096420758546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,12 +1574,17 @@ PrefabInstance:
     - target: {fileID: 980616139702367944, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.007
+      value: -0.055
       objectReference: {fileID: 0}
     - target: {fileID: 980616139702367944, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.455
+      value: -0.557
+      objectReference: {fileID: 0}
+    - target: {fileID: 980616139702367944, guid: 25a078ad94369064a91b42fa836e3f60,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.507
       objectReference: {fileID: 0}
     - target: {fileID: 1141938154896876793, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
@@ -1642,15 +1646,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4511792543059960711, guid: 25a078ad94369064a91b42fa836e3f60,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.923
+      objectReference: {fileID: 0}
     - target: {fileID: 5334222261010518783, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.036
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 5334222261010518783, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.539
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334222261010518783, guid: 25a078ad94369064a91b42fa836e3f60,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 5377947205448663607, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
@@ -1736,6 +1750,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fallDamage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8692224415508586818, guid: 25a078ad94369064a91b42fa836e3f60,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.962
       objectReference: {fileID: 0}
     - target: {fileID: 8705517533206462001, guid: 25a078ad94369064a91b42fa836e3f60,
         type: 3}
