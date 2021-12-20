@@ -17,6 +17,8 @@ public class HoldablePickup : MonoBehaviour
             activeHoldEm.Hold(newHoldable);
          
         }
+
+
     }
 
     // Update is called once per frame

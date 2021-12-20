@@ -75,6 +75,17 @@ MonoBehaviour:
           m_StringArgument: IceBlockMelt
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 245961984830137941}
+        m_MethodName: SendMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DestroyObjectDelayed
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4199732553690267660}
         m_MethodName: SetActive
         m_Mode: 6
@@ -102,6 +113,8 @@ GameObject:
   - component: {fileID: 7746760105679794228}
   - component: {fileID: 7746760105679794379}
   - component: {fileID: 7746760105679794229}
+  - component: {fileID: 1646274624601649351}
+  - component: {fileID: 245961984830137941}
   m_Layer: 0
   m_Name: Ice
   m_TagString: Untagged
@@ -185,6 +198,86 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8790862552535708831, guid: 04112db3240ae8a4692f1642b7a7ea2a, type: 3}
+--- !u!114 &1646274624601649351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746760105679794377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 512
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: 
+  conversationConversant: {fileID: 0}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  exclusive: 0
+  skipIfNoValidEntries: 0
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: 87c2ce600cf016f479951be59809b3e7, type: 2}
+--- !u!114 &245961984830137941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746760105679794377}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd1a0afaf86a8a44ad9f1fc9fc9c61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  var: 5
 --- !u!1 &7746760106007213577
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +306,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8361578239709311466}
+  - {fileID: 1387513936021650675}
   m_Father: {fileID: 7746760106292635841}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -242,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7746760106103371547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.05, y: -1.2, z: -1.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8361578239709311466}
@@ -4959,7 +5053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361578239709491910}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.52, y: 0.85, z: -0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7746760106103371524}
@@ -9598,6 +9692,136 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1001 &1161423398568232663
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7746760106007213578}
+    m_Modifications:
+    - target: {fileID: 242988770062822278, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_Name
+      value: FogCalmWhiteCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2712998
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2712998
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: ShapeModule.sphericalDirectionAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 242988770082447394, guid: 76ebe609964665742998828e2744bad1,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76ebe609964665742998828e2744bad1, type: 3}
+--- !u!4 &1387513936021650675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 242988770063153700, guid: 76ebe609964665742998828e2744bad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1161423398568232663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7223136286882651073
 PrefabInstance:
   m_ObjectHideFlags: 0
