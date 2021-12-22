@@ -71,6 +71,7 @@ public class UI : MonoBehaviour
     public Readable sign;
     public Readable simple;
     public ReadablePC pc;
+    public Readable controls;
     [Header("Currency")]
     public Currency currency;
     public CurrencyDisplay currencyDisplay;
@@ -409,6 +410,14 @@ public class UI : MonoBehaviour
         SetControlState(true, simple.gameObject);
         simple.Unpack(rData);
         return simple;
+    }
+
+    public Readable DisplayControls(ReadableData rData)
+    {
+        controls.gameObject.SetActive(true);
+        SetControlState(true, controls.gameObject);
+        controls.Unpack(rData);
+        return controls;
     }
 
     public void DisplayPC(ReadablePCData pcData) {

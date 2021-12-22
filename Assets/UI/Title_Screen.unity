@@ -1735,8 +1735,8 @@ MonoBehaviour:
   promptNewGame: {fileID: 11400000, guid: 8e44c9cb74b3d8b428d2e56be6711d01, type: 2}
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
   tsCanvas: {fileID: 354949745654007398}
-  startScene: EXT_BigCity
-  initialSpawnPoint: 15
+  startScene: INT_BigCity_Griftings
+  initialSpawnPoint: 1
   saveFileExists: 0
 --- !u!114 &354949745654007395
 MonoBehaviour:

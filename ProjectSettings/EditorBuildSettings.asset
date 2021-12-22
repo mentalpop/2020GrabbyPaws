@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UI/Title_Screen.unity
     guid: cb0453d0eb97b2f4992a902ec7cc8971
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/EXT_BigCity.unity
     guid: 1c24ab4fa37d5974ba91e46abddf56c9
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/INT_BigCity.unity
     guid: 7e87c338d27ad6544a18a822916ab235
   - enabled: 0

@@ -17,7 +17,8 @@ public class ReadableInteractable : Interactable
         Book,
         Sign,
         PC,
-        Simple
+        Simple,
+        Controls
     }
 
     private void Awake() {
@@ -47,6 +48,7 @@ public class ReadableInteractable : Interactable
             case ReadableTypes.Book: activeReadable = UI.Instance.DisplayBook(readableData as ReadableData); break;
             case ReadableTypes.Sign: activeReadable = UI.Instance.DisplaySign(readableData as ReadableData); break;
             case ReadableTypes.Simple: activeReadable = UI.Instance.DisplaySimple(readableData as ReadableData); break;
+            case ReadableTypes.Controls: activeReadable = UI.Instance.DisplayControls(readableData as ReadableData); break;
             case ReadableTypes.PC: UI.Instance.DisplayPC(readableData as ReadablePCData); break;
         }
     //Subscribe to the Close event on the Readable
