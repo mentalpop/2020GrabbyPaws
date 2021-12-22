@@ -52,7 +52,7 @@ public class SpawnDoor : Interactable
         isUsable = true;
         if (items.Count > 0) {
             foreach (var item in items) {
-                if (!Inventory.instance.InventoryHas(item.name)) {
+                if (!Inventory.instance.InventoryHas(item.ID)) {
                     isUsable = false;
                     break;
                 }
