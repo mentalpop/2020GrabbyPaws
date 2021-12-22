@@ -28,6 +28,9 @@ public class SpawnManager : MonoBehaviour
         SpawnPoint pointToSpawnPlayer = spawnPoints[0];
         bool foundSpawnPoint = false;
         foreach (var spawnPoint in spawnPoints) {
+            if (spawnPoint == null) {
+                Debug.LogError("A spawnPoint in the SpawnManager is null! Check the list of spawnPoints");
+            }
             if (spawnPoint.pointID == point) {
                 pointToSpawnPlayer = spawnPoint;
                 foundSpawnPoint = true;
