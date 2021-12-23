@@ -24,5 +24,6 @@ public enum SpawnPoints
     EXTApartmintDoor,
     EXTBonfireSpawn,
     INTPWUCSUP,
-    EXTPWUCSUP
+    EXTPWUCSUP,
+    INTApartmintHome
 }
