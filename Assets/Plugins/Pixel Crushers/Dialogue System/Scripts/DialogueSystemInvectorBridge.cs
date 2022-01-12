@@ -5,7 +5,7 @@ using Invector.CharacterController;
 #else
 using Invector.vCharacterController;
 #endif
-using System;
+using PixelCrushers.InvectorSupport;
 
 namespace PixelCrushers.DialogueSystem.InvectorSupport
 {
@@ -21,21 +21,25 @@ namespace PixelCrushers.DialogueSystem.InvectorSupport
         [Tooltip("Face the other conversation participant when starting a conversation.")]
         public bool faceConversant = true;
 
-        public vThirdPersonController m_controller = null;
-        public vThirdPersonInput m_input = null;
-        public Animator m_animator = null;
-        public Rigidbody m_rb = null;
+        [Tooltip("If Face Conversant is ticked, only rotate on Y-axis.")]
+        public bool faceYAxisOnly = true;
+
+        private vThirdPersonController m_controller = null;
+        //private vThirdPersonInput m_input = null;
+        //private Animator m_animator = null;
+        //private Rigidbody m_rb = null;
 
         private void Awake()
         {
             m_controller = GetComponent<vThirdPersonController>();
-            m_input = GetComponent<vThirdPersonInput>();
-            m_animator = GetComponent<Animator>();
-            m_rb = GetComponent<Rigidbody>();
+        //    m_input = GetComponent<vThirdPersonInput>();
+        //    m_animator = GetComponent<Animator>();
+        //    m_rb = GetComponent<Rigidbody>();
         }
 
         private void OnConversationStart(Transform other)
         {
+            UpdateEventSystemInput();
             PauseCharacterAndFaceOther(other);
         }
 
@@ -51,45 +55,68 @@ namespace PixelCrushers.DialogueSystem.InvectorSupport
 
         public void PauseCharacterAndFaceOther(Transform other)
         {
-            if (m_controller != null)
+            InvectorPlayerUtility.PausePlayer();
+            //if (m_controller != null)
+            //{
+            //    m_controller.enabled = false;
+            //    m_controller.isSprinting = false;
+            //}
+            //if (m_input != null) m_input.enabled = false;
+            //StartCoroutine(StopCharacter(other));
+            if (faceConversant)
             {
-                m_controller.enabled = false;
-                m_controller.isSprinting = false;
+                FaceConversant(other);
             }
-            if (m_input != null) m_input.enabled = false;
-            StartCoroutine(StopCharacter(other));
+
         }
 
         public void UnpauseCharacter()
         {
-            if (m_controller != null) m_controller.enabled = true;
-            if (m_input != null) m_input.enabled = true;
+            InvectorPlayerUtility.UnpausePlayer();
+            //if (m_controller != null) m_controller.enabled = true;
+            //if (m_input != null) m_input.enabled = true;
         }
 
-        private IEnumerator StopCharacter(Transform other)
+//        private IEnumerator StopCharacter(Transform other)
+//        {
+//            var elapsed = 0f;
+//            while (elapsed < 0.1f)
+//            {
+//                if (m_rb != null)
+//                {
+//                    m_rb.velocity *= 0.5f;
+//                    m_rb.angularVelocity *= 0.5f;
+//                }
+//                elapsed += Time.deltaTime;
+//                yield return null;
+//            }
+//            m_rb.velocity = Vector3.zero;
+//            m_rb.angularVelocity = Vector3.zero;
+//            if (m_animator != null)
+//            {
+//                m_animator.SetFloat("InputVertical", 0);
+//                m_animator.SetFloat("InputHorizontal", 0);
+//#if !USE_INVECTOR_FREE
+//                m_animator.SetFloat("InputMagnitude", 0);
+//#endif
+//            }
+//            if (faceConversant)
+//            {
+//                FaceConversant(other);
+//            }
+//        }
+
+        public void FaceConversant(Transform conversant)
         {
-            var elapsed = 0f;
-            while (elapsed < 0.1f)
+            if (conversant == null) return;
+            if (faceYAxisOnly)
             {
-                if (m_rb != null)
-                {
-                    m_rb.velocity *= 0.5f;
-                    m_rb.angularVelocity *= 0.5f;
-                }
-                elapsed += Time.deltaTime;
-                yield return null;
+                transform.LookAt(new Vector3(conversant.position.x, transform.position.y, conversant.position.z));
             }
-            m_rb.velocity = Vector3.zero;
-            m_rb.angularVelocity = Vector3.zero;
-            if (m_animator != null)
+            else
             {
-                m_animator.SetFloat("InputVertical", 0);
-                m_animator.SetFloat("InputHorizontal", 0);
-#if !USE_INVECTOR_FREE
-                m_animator.SetFloat("InputMagnitude", 0);
-#endif
+                transform.LookAt(conversant, Vector3.up);
             }
-            if (faceConversant) transform.LookAt(other, Vector3.up);
         }
 
 #if !USE_INVECTOR_FREE
@@ -182,6 +209,19 @@ namespace PixelCrushers.DialogueSystem.InvectorSupport
             return count;
         }
 
+        public void UpdateEventSystemInput()
+        {
+            var inventory = FindObjectOfType<Invector.vItemManager.vInventory>();
+            var inputModule = FindObjectOfType<UnityEngine.EventSystems.StandaloneInputModule>();
+            if (inventory != null && inputModule != null)
+            {
+                inputModule.horizontalAxis = inventory.horizontal.buttonName;
+                inputModule.verticalAxis = inventory.vertical.buttonName;
+                inputModule.submitButton = inventory.submit.buttonName;
+                inputModule.cancelButton = inventory.cancel.buttonName;
+            }
+        }
+
 #else
 
         private void RegisterLuaFunctions()
@@ -199,6 +239,8 @@ namespace PixelCrushers.DialogueSystem.InvectorSupport
             Lua.UnregisterFunction("vAddHealth");
             Lua.UnregisterFunction("vAddMaxHealth");
         }
+
+        public void UpdateEventSystemInput() { }
 
 #endif
 
