@@ -2511,6 +2511,7 @@ GameObject:
   - component: {fileID: 7089306746131673631}
   - component: {fileID: 7089306746131673628}
   - component: {fileID: 6859986199717767907}
+  - component: {fileID: 1261542472427883201}
   m_Layer: 0
   m_Name: Continue Button
   m_TagString: Untagged
@@ -2665,6 +2666,19 @@ MonoBehaviour:
   dialogueUI: {fileID: 0}
   textAnimatorPlayer: {fileID: 3926312233916565791}
   hideContinueButtonOnContinue: 0
+--- !u!114 &1261542472427883201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7089306746131673624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58696d3a82aa7844b8b1bf9dfec1ab37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisButton: {fileID: 7089306746131673631}
 --- !u!1 &7089306746212691061
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,6 +118,9 @@ public class UI : MonoBehaviour
     public delegate void UIScaleEvent(float scale);
     public event UIScaleEvent OnUIScaled = delegate { };
 
+    public delegate void PauseEvent(bool controlsLocked);
+    public event PauseEvent OnPauseStateChange = delegate { };
+
     //private bool doShowCurrencyDisplay = false;
     private MenuNode inventoryMenuNode;
     private MenuNode pauseMenuNode;
@@ -552,6 +555,7 @@ public class UI : MonoBehaviour
         DialogueManager.SetDialogueSystemInput(!Instance.lockControls); //This is inverted
         //Camera
         Instance.CameraSetInputLabels();
+        Instance.OnPauseStateChange(Instance.lockControls);
         /*
         Debug.Log("Instance.thirdPersonCamera: "+Instance.thirdPersonCamera);
         Debug.Log("Instance.cBrain: "+Instance.cBrain);

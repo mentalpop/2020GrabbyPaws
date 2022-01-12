@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 3347807671653836375}
   - component: {fileID: 3347807671653836360}
   - component: {fileID: 3347807671653836361}
+  - component: {fileID: 7653264189316904173}
   m_Layer: 5
   m_Name: Response Button 3
   m_TagString: Untagged
@@ -280,6 +281,19 @@ MonoBehaviour:
     m_textMeshProUGUI: {fileID: 3347807672738643815}
   setLabelColor: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &7653264189316904173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347807671653836363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58696d3a82aa7844b8b1bf9dfec1ab37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisButton: {fileID: 3347807671653836360}
 --- !u!1 &3347807671724792032
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +308,7 @@ GameObject:
   - component: {fileID: 3347807671724792043}
   - component: {fileID: 3347807671724792045}
   - component: {fileID: 3347807671724792047}
+  - component: {fileID: 4853249850441324833}
   m_Layer: 5
   m_Name: Response Button 4
   m_TagString: Untagged
@@ -444,6 +459,19 @@ MonoBehaviour:
     m_textMeshProUGUI: {fileID: 3347807672913306112}
   setLabelColor: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &4853249850441324833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347807671724792032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58696d3a82aa7844b8b1bf9dfec1ab37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisButton: {fileID: 3347807671724792045}
 --- !u!1 &3347807672144535369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1642,7 @@ GameObject:
   - component: {fileID: 3347807673442902728}
   - component: {fileID: 3347807673442902729}
   - component: {fileID: 3347807673442902730}
+  - component: {fileID: 6487161862097804697}
   m_Layer: 5
   m_Name: Response Button 2
   m_TagString: Untagged
@@ -1764,6 +1793,19 @@ MonoBehaviour:
     m_textMeshProUGUI: {fileID: 3347807672508788289}
   setLabelColor: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &6487161862097804697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347807673442902732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58696d3a82aa7844b8b1bf9dfec1ab37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisButton: {fileID: 3347807673442902729}
 --- !u!1 &7944454226138608649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7879200024157649393}
   - component: {fileID: 7880312482809020145}
+  - component: {fileID: 2584105174412838642}
   - component: {fileID: 8057358413042342251}
   - component: {fileID: 8057246939992991925}
   - component: {fileID: 8058031902071679141}
@@ -1825,6 +1868,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &2584105174412838642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944454226138608649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d7816d98a61bf44a9f416f6459cdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisCanvas: {fileID: 7880312482809020145}
 --- !u!114 &8057358413042342251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,6 +2230,7 @@ GameObject:
   - component: {fileID: 8057905061379268681}
   - component: {fileID: 8057990616978592895}
   - component: {fileID: 8060516993305081643}
+  - component: {fileID: 2375826869915806747}
   m_Layer: 5
   m_Name: Response Button 1
   m_TagString: Untagged
@@ -2324,6 +2381,19 @@ MonoBehaviour:
     m_textMeshProUGUI: {fileID: 3347807672480627651}
   setLabelColor: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &2375826869915806747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7945452994167345015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58696d3a82aa7844b8b1bf9dfec1ab37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableThisButton: {fileID: 8057990616978592895}
 --- !u!1 &7946453382450782315
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,9 @@ public class SceneTransitionHandler : MonoBehaviour
     private WaitForSeconds clipSeconds;
     private string sceneGoto;
 
+    public delegate void SceneEvent(string sceneName, SpawnPoints point);
+    public event SceneEvent OnBeginTransitionToNewScene = delegate { };
+
     private void Awake() {
     //Singleton Pattern
         if (instance != null && instance != this) { 
@@ -88,6 +91,7 @@ public class SceneTransitionHandler : MonoBehaviour
             inTransition = true;
             spawnPoint = point;
             sceneGoto = sceneName;
+            OnBeginTransitionToNewScene(sceneName, point);
         //Crossfade
             fadeAnimation.Play(animationFadeStart); //Start Animation
             var _clip = fadeAnimation.GetCurrentAnimatorClipInfo(0); //Find current clicp

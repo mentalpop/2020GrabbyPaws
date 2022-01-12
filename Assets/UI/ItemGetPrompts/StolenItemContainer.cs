@@ -8,14 +8,30 @@ public class StolenItemContainer : MonoBehaviour
     public GameObject sipPrefab;
     public Inventory inventory;
 
+    private bool subbedEvents = false;
     private List<StolenItemPrompt> prompts = new List<StolenItemPrompt>();
 
     private void OnEnable() {
+        if (!subbedEvents && SceneTransitionHandler.instance != null) {
+            SceneTransitionHandler.instance.OnBeginTransitionToNewScene += Instance_OnBeginTransitionToNewScene;
+            subbedEvents = true;
+        }
         inventory.OnPickUp += PickUp;
     }
 
     private void OnDisable() {
+        if (subbedEvents && SceneTransitionHandler.instance != null) {
+            SceneTransitionHandler.instance.OnBeginTransitionToNewScene -= Instance_OnBeginTransitionToNewScene;
+            subbedEvents = false;
+        }
         inventory.OnPickUp -= PickUp;
+    }
+
+    private void Start() { //Try subscribing in the Start method as a fallback because OnEnable might happen too soon?
+        if (!subbedEvents && SceneTransitionHandler.instance != null) {
+            SceneTransitionHandler.instance.OnBeginTransitionToNewScene += Instance_OnBeginTransitionToNewScene;
+            subbedEvents = true;
+        }
     }
 
     private void PickUp(Item item) {
@@ -41,5 +57,12 @@ public class StolenItemContainer : MonoBehaviour
 
     public void RemoveThis(StolenItemPrompt prompt) {
         prompts.Remove(prompt);
+    }
+
+    private void Instance_OnBeginTransitionToNewScene(string sceneName, SpawnPoints point) {
+    //Close all Prompts
+        foreach (var _prompt in prompts) {
+            _prompt.Close();
+        }
     }
 }
