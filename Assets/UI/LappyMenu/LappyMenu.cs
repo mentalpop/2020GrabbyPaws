@@ -99,7 +99,7 @@ public class LappyMenu : MonoBehaviour
                 Application.Quit();
             }
             if (confirmationWindow.promptData.promptID == ConfirmationPromptID.Save) {
-                UI.Instance.SaveGameData(0);
+                UI.Instance.SaveGameData(UI.GetCurrentFile());
             }
         } else {
             Debug.Log("User selected NOPE");

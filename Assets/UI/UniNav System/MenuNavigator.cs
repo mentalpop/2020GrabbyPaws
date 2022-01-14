@@ -208,7 +208,7 @@ public class MenuNavigator : MonoBehaviour
     }
 
     private void CheckUserPreference() {
-        Debug.Log("CheckUserPreference: " + mostRecentInputDetected + ", preferMouse: " + preferMouse);
+        //Debug.Log("CheckUserPreference: " + mostRecentInputDetected + ", preferMouse: " + preferMouse);
         /*
         if (delayedGamepadCheckRoutine != null) { //If the user was using the gamepad and has now swapped //useMouse && 
             if (activeMenuNode != null) {
@@ -278,7 +278,7 @@ public class MenuNavigator : MonoBehaviour
     //*/
 
     private void SwitchToMouse() {
-        Debug.Log("SwitchToMouse");
+        //Debug.Log("SwitchToMouse");
         if (activeMenuNode != null) {
             activeMenuNode.MenuUnfocus();
         }
@@ -291,7 +291,7 @@ public class MenuNavigator : MonoBehaviour
     }
 
     private void SwitchToGamepad() {
-        Debug.Log("SwitchToGamepad");
+        //Debug.Log("SwitchToGamepad");
         useMouse = false;
         standaloneInputModule.horizontalAxis = gamepadHorizontalInput;
         standaloneInputModule.verticalAxis = gamepadVerticalInput;

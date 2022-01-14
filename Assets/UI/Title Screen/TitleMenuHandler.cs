@@ -5,31 +5,31 @@ using UnityEngine.UI;
 
 public class TitleMenuHandler : MonoBehaviour
 {
+    public Canvas tsCanvas;
     public MenuNode mNodeMenu;
     public ListController menuList;
     public OptionsMenu optionsMenu;
     public Image artLayer;
     public List<Sprite> artSprites = new List<Sprite>();
-
+[Header("ConfirmationPromptData")]
     public ConfirmationPromptData promptNewGame;
 	public ConfirmationPromptData promptQuit;
-	private ConfirmationWindow confirmationWindow;
-    public Canvas tsCanvas;
-
-    private bool awaitingConfirmation = false;
-
 [Header("New Game Data")]
     public string startScene;
     public SpawnPoints initialSpawnPoint;
-[Header("Debug")]
-    public bool saveFileExists = true;
+
+    private ConfirmationWindow confirmationWindow;
+    private bool awaitingConfirmation = false;
+    private bool saveFileExists = false;
 
     private void OnEnable() {
         menuList.OnSelect += SelectStartMenuItem;
+        UI.Instance.OnUIScaled += Instance_OnUIScaled;
     }
 
     private void OnDisable() {
         menuList.OnSelect -= SelectStartMenuItem;
+        UI.Instance.OnUIScaled -= Instance_OnUIScaled;
         if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
@@ -37,12 +37,25 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     private void Start() {
+    //Set UI Scale of Options Window
+        Instance_OnUIScaled(UI.GetUIScale()); //Load default value
     //These are important for when the user returns to the title screen in order to reset references
         tsCanvas.worldCamera = UI.Instance.uiCamera; 
         optionsMenu.lappyMenu = UI.Instance.lappy;
 
     //Randomize Art Layer
         artLayer.sprite = artSprites[Random.Range(0, artSprites.Count)];
+
+        saveFileExists = UI.Instance.GameDataExists(UI.GetCurrentFile());
+        //If Save file does not exist, disable Continue button
+        if (!saveFileExists) {
+            var _button = menuList.Elements[1]; //Magic number to "get" the Continue Button
+            _button.navButton.SetAvailable(false);
+        }
+    }
+
+    private void Instance_OnUIScaled(float scale) {
+        optionsMenu.transform.localScale = new Vector2(scale, scale);
     }
 
     public void SelectStartMenuItem(int _activeTab) {
@@ -57,7 +70,9 @@ public class TitleMenuHandler : MonoBehaviour
                 }
                 break;
             case 1: //Continue
-                LoadGame();
+                if (saveFileExists) {
+                    LoadGame();
+                }
                 break;
             case 2: //Options
                 optionsMenu.gameObject.SetActive(true);
@@ -91,7 +106,7 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     private void LoadGame() {
-        UI.Instance.LoadGameData(0);
+        UI.Instance.LoadGameData(UI.GetCurrentFile());
     //Go to UI Test Room
         //SceneTransitionHandler.SceneGoto("UITestScene", SpawnPoints.UITestRoomA);
     }

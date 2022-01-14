@@ -72,11 +72,11 @@ public class Currency : MonoBehaviour
     #endregion
 
     public void Save(int fileIndex) {
-        ES3.Save<decimal>(saveString, _cash);
+        ES3.Save(saveString, _cash);
     }
 
     public void Load(int fileIndex) {
-        Cash = ES3.Load(saveString, startingFunds);
+        Cash = (int)ES3.Load(saveString, startingFunds);
     }
 
     private void Start() {

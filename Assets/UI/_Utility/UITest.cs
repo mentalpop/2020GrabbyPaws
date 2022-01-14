@@ -41,10 +41,10 @@ public class UITest : MonoBehaviour
         }
 //Saving / Loading
         if (Input.GetKeyDown(KeyCode.V)) { //Save
-            UI.Instance.SaveGameData(0);
+            UI.Instance.SaveGameData(UI.GetCurrentFile());
         }
         if (Input.GetKeyDown(KeyCode.L)) { //Load
-            UI.Instance.LoadGameData(0);
+            UI.Instance.LoadGameData(UI.GetCurrentFile());
         }
 //Currency
         if (Input.GetKeyDown(KeyCode.KeypadPlus)) { //Add LOTS of funds

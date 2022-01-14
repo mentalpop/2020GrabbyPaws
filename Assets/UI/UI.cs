@@ -331,7 +331,7 @@ public class UI : MonoBehaviour
             cFreeLook.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
             //*/
         } else {
-            Debug.Log("Tried to update cFreeLook, but cBrain is null");
+            Debug.LogWarning("Tried to update cFreeLook, but cBrain is null");
         }
     }
 
@@ -660,21 +660,27 @@ public class UI : MonoBehaviour
         SetInputPreference(inputPreference.Read());
     }
 
-    private string ssScene = "level";
-    private string ssSpawnPoint = "spawnPoint";
+    private readonly string ssScene = "level_";
+    private readonly string ssSpawnPoint = "spawnPoint_";
+    private readonly string ssFileExists = "fileExists_";
+
+    public bool GameDataExists(int fileNum) {
+        return ES3.Load(ssFileExists + fileNum.ToString(), false);
+    }
 
     public void SaveGameData(int fileNum) {
         Debug.Log("Game Saved: " + Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
-        ES3.Save(ssScene, SceneTransitionHandler.instance.currentScene);
-        ES3.Save(ssSpawnPoint, SceneTransitionHandler.instance.spawnPoint);
+        ES3.Save(ssScene + fileNum.ToString(), SceneTransitionHandler.instance.currentScene);
+        ES3.Save(ssSpawnPoint + fileNum.ToString(), SceneTransitionHandler.instance.spawnPoint);
+        ES3.Save(ssFileExists + fileNum.ToString(), true);
     }
 
     public void LoadGameData(int fileNum) {
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
-        string _scene = (string)ES3.Load(ssScene);
-        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint);
+        string _scene = ES3.Load(ssScene + fileNum.ToString(), ES3Settings.defaultSettings.path, ""); //(string)
+        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint + fileNum.ToString());
         SceneTransitionHandler.SceneGoto(_scene, _spawnPoint);
     }
 

@@ -543,6 +543,7 @@ MonoBehaviour:
   fontStyleActiveFocus: 1
   fontStyleActiveSelected: 0
   fontStyleUnavailable: 2
+  fontStyleUnavailableFocus: 2
 --- !u!114 &8490905224783239831
 MonoBehaviour:
   m_ObjectHideFlags: 0

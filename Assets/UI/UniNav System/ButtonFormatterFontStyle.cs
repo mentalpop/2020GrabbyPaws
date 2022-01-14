@@ -12,6 +12,7 @@ public class ButtonFormatterFontStyle : ButtonFormatterEightState
     public FontStyles fontStyleActiveFocus = FontStyles.Bold;
     public FontStyles fontStyleActiveSelected = FontStyles.Normal;
     public FontStyles fontStyleUnavailable = FontStyles.Italic;
+    private FontStyles fontStyleUnavailableFocus = FontStyles.Italic | FontStyles.Bold;
 
     protected override void ButtonFormat(ButtonStateData _buttonStateData) {
         base.ButtonFormat(_buttonStateData);
@@ -24,6 +25,7 @@ public class ButtonFormatterFontStyle : ButtonFormatterEightState
             case BState.ActiveFocus: text.fontStyle = fontStyleActiveFocus; break;
             case BState.ActiveSelected: text.fontStyle = fontStyleActiveSelected; break;
             case BState.Unavailable: text.fontStyle = fontStyleUnavailable; break;
+            case BState.UnavailableFocus: text.fontStyle = fontStyleUnavailableFocus; break;
         }
     }
 }
