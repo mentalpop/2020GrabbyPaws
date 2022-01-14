@@ -59,6 +59,7 @@ public class UI : MonoBehaviour
 
     public RectTransform UICanvasRect;
     public MenuNavigator menuNavigator;
+    public GamepadPromptManager gamepadPromptManager;
     public Sonos sonosAudio;
     public GameObject HUD;
     public LappyMenu lappy;
@@ -146,11 +147,8 @@ public class UI : MonoBehaviour
         MenuNavigator.Instance.OnInputMethodSet += Instance_OnInputMethodSet;
         inventory.OnItemGiven += OnGiven;
         SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    private void OnGiven(Item item) {
-        GameObject newGO = Instantiate(givenItemPrefab, givenItemTransform, false);
-        GivenItemPrompt prompt = newGO.GetComponent<GivenItemPrompt>();
-        prompt.Unpack(Inventory.GetInventoryItem(item));
+        menuNavigator.OnInputMethodSet += MenuNavigator_OnInputMethodSet;
+        menuNavigator.OnInputMethodIgnoreChange += MenuNavigator_OnInputMethodIgnoreChange;
     }
 
     private void OnDisable() {
@@ -161,6 +159,8 @@ public class UI : MonoBehaviour
         }
         inventory.OnItemGiven -= OnGiven;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        menuNavigator.OnInputMethodSet -= MenuNavigator_OnInputMethodSet;
+        menuNavigator.OnInputMethodIgnoreChange -= MenuNavigator_OnInputMethodIgnoreChange;
     }
 
     private void Awake() {
@@ -250,6 +250,27 @@ public class UI : MonoBehaviour
             cBrain.m_DefaultBlend = defaultBlend;
         }
     }
+    #endregion
+
+    #region General Purpose Events
+    private void MenuNavigator_OnInputMethodSet(bool isUsingMouse) {
+        if (isUsingMouse) {
+            //gamepadPromptManager.CreatePrompt(GamepadPromptManager.PromptType.PromptDetectedMouse);
+        } else {//Only create prompt on Gamepad detected
+            gamepadPromptManager.CreatePrompt(GamepadPromptManager.PromptType.PromptDetectedGamepad);
+        }
+    }
+
+    private void MenuNavigator_OnInputMethodIgnoreChange(bool isUsingMouse) {
+        gamepadPromptManager.CreatePrompt(GamepadPromptManager.PromptType.PromptIgnoredGamepad);
+    }
+
+    private void OnGiven(Item item) {
+        GameObject newGO = Instantiate(givenItemPrefab, givenItemTransform, false);
+        GivenItemPrompt prompt = newGO.GetComponent<GivenItemPrompt>();
+        prompt.Unpack(Inventory.GetInventoryItem(item));
+    }
+
     #endregion
 
     #region Options, Get / Set Methods

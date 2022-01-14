@@ -267,6 +267,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6672269263223630495, guid: 6a97f506c0b19024ba05d6f8819d3251,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672269263223630495, guid: 6a97f506c0b19024ba05d6f8819d3251,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7473712615931577303, guid: 6a97f506c0b19024ba05d6f8819d3251,
+        type: 3}
+      propertyPath: m_Name
+      value: GamepadPromptContainer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a97f506c0b19024ba05d6f8819d3251, type: 3}
 --- !u!1 &717094226

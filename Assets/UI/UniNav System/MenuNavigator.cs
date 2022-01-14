@@ -28,6 +28,7 @@ public class MenuNavigator : MonoBehaviour
 
     public delegate void InputMethodEvent(bool isUsingMouse);
     public event InputMethodEvent OnInputMethodSet = delegate { };
+    public event InputMethodEvent OnInputMethodIgnoreChange = delegate { };
 
     protected NavButton activeButton;
     protected NavButton heldButton;
@@ -192,6 +193,9 @@ public class MenuNavigator : MonoBehaviour
     public static void SetControlPreferences(bool useMouse) {
         Instance.preferMouse = useMouse;
         Instance.CheckUserPreference();
+        if (Instance.preferMouse) { //Create Ignore Gamepad Prompt
+            Instance.OnInputMethodIgnoreChange(false);
+        }
     }
 
 //Input Control Preference
@@ -219,8 +223,13 @@ public class MenuNavigator : MonoBehaviour
             delayedGamepadCheckRoutine = null;
         }
         //*/
-        if (useMouse && mostRecentInputDetected == 0 && !preferMouse) { //A joystick was detected and the user doesn't prefer the mouse
-            SwitchToGamepad();
+        //Debug.Log("useMouse: " + useMouse + ", mostRecentInputDetected: " + mostRecentInputDetected+", preferMouse: "+preferMouse);
+        if (useMouse && mostRecentInputDetected == 0) { //A joystick was detected and the user doesn't prefer the mouse
+            if (preferMouse) {
+                OnInputMethodIgnoreChange(false);
+            } else {
+                SwitchToGamepad();
+            }
             //if (useMouse) { //And is currently using the gamepad
             //delayedGamepadCheckRoutine = StartCoroutine(DelayedGamepadCheck());
             //}
