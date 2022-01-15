@@ -65,6 +65,10 @@ public class ItemPickup : SaveLoadInteractable
         //PickUp();
     }
 
+    protected override void OnLoadTrue() {
+        Destroy(itemToPickup);
+    }
+
     /*
     void PickUp() {
         bool wasPickedUp = Inventory.instance.Add(item);

@@ -106,6 +106,7 @@ public class UI : MonoBehaviour
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
     public event FileIOEvent OnLoad = delegate { };
+    public event FileIOEvent OnNewGame = delegate { };
 
     public delegate void TextScaledEvent(float fontScale);
     public event TextScaledEvent OnTextScaled = delegate { };
@@ -689,8 +690,11 @@ public class UI : MonoBehaviour
         return ES3.Load(ssFileExists + fileNum.ToString(), false);
     }
 
+    public void NewGame(int fileNum) {
+        OnNewGame?.Invoke(fileNum);
+    }
+
     public void SaveGameData(int fileNum) {
-        Debug.Log("Game Saved: " + Application.persistentDataPath);
         OnSave?.Invoke(fileNum);
         ES3.Save(ssScene + fileNum.ToString(), SceneTransitionHandler.instance.currentScene);
         ES3.Save(ssSpawnPoint + fileNum.ToString(), SceneTransitionHandler.instance.spawnPoint);

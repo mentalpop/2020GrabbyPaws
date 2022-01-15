@@ -1766,6 +1766,9 @@ MonoBehaviour:
   promptQuit: {fileID: 11400000, guid: 5606f3f8407b1564498f3e8744d704f0, type: 2}
   startScene: INT_BigCity_Griftings
   initialSpawnPoint: 1
+  loadDebugScene: 1
+  debugSpawnPoint: 0
+  debugScene: UITestScene
   menuList: {fileID: 354949744893906282}
   listUnpacker: {fileID: 354949744893906281}
   buttonData:

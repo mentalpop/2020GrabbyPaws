@@ -43,12 +43,14 @@ public class Currency : MonoBehaviour
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
+        UI.Instance.OnNewGame += NewGame;
         RegisterLuaFunctions();
     }
 
     private void OnDisable() {
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
+        UI.Instance.OnNewGame -= NewGame;
     }
     #region Lua Functions
     private void RegisterLuaFunctions() {
@@ -79,7 +81,7 @@ public class Currency : MonoBehaviour
         Cash = (int)ES3.Load(saveString, startingFunds);
     }
 
-    private void Start() {
+    private void NewGame(int fileNum) {
         Cash = startingFunds;
     }
 
@@ -91,11 +93,4 @@ public class Currency : MonoBehaviour
         }
         return purchaseSuccess;
     }
-
-    /*
-    public bool Purchase(int cost) {
-//Pass in a float, convert it to decimal
-        return Purchase(cost);
-    }
-    //*/
 }

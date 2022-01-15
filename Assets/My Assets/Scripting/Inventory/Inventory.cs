@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
+using System;
 
 public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int>>
 {
@@ -47,12 +48,14 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
+        UI.Instance.OnNewGame += NewGame;
         RegisterLuaFunctions();
     }
 
     private void OnDisable() {
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
+        UI.Instance.OnNewGame -= NewGame;
     }
     #region Lua Functions
     private void RegisterLuaFunctions() {
@@ -240,6 +243,10 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             items.Add(new InventoryItem(itemMetaList.GetItem(item.itemID), item.quantity));
         }
         //*/
+    }
+
+    private void NewGame(int fileNum) {
+        pendingPickUps.Clear();
     }
 
     public bool Add(Item item) {

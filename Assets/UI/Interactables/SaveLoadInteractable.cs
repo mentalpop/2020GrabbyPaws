@@ -10,11 +10,11 @@ public class SaveLoadInteractable : Interactable
 
     private void Start() {
         var result = Inventory.CompareChange(GetSaveID());
+        Debug.Log("SaveLoadInteractable Start" + gameObject.name + ": " + result);
         if (result) { //Load the item
-            Debug.Log("Inventory.CompareChange(GetSaveID()) " + gameObject.name + ": " + result);
             OnLoadTrue();
         } else {
-            OnLoadFalse(); //Most cases, simply destroy the item
+            OnLoadFalse();
         }
     }
 
@@ -29,7 +29,7 @@ public class SaveLoadInteractable : Interactable
     }
 
     protected virtual void OnLoadTrue() {
-        Destroy(gameObject);
+        Destroy(gameObject); //Most cases, simply destroy the item
     }
 
     protected virtual void OnLoadFalse() {

@@ -283,7 +283,7 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-                if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Registering Lua function {1}", new System.Object[] { DialogueDebug.Prefix, functionName }));
+                //if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Registering Lua function {1}", new System.Object[] { DialogueDebug.Prefix, functionName }));
                 environment.RegisterMethodFunction(functionName, target, method);
             }
         }

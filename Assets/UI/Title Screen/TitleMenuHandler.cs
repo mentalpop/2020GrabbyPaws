@@ -16,6 +16,9 @@ public class TitleMenuHandler : MonoBehaviour
 [Header("New Game Data")]
     public string startScene;
     public SpawnPoints initialSpawnPoint;
+    public bool loadDebugScene = false;
+    public SpawnPoints debugSpawnPoint;
+    public string debugScene;
 [Header("Menu Handling")]
     public ListController menuList;
     public ListUnpacker listUnpacker;
@@ -131,7 +134,12 @@ public class TitleMenuHandler : MonoBehaviour
 	}
 
     private void NewGame() {
-        SceneTransitionHandler.SceneGoto(startScene, initialSpawnPoint);
+        UI.Instance.NewGame(UI.GetCurrentFile());
+        if (loadDebugScene) {
+            SceneTransitionHandler.SceneGoto(debugScene, debugSpawnPoint);
+        } else {
+            SceneTransitionHandler.SceneGoto(startScene, initialSpawnPoint);
+        }
     }
 
     private void LoadGame() {
