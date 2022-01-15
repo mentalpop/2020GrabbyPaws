@@ -7,7 +7,6 @@ public class TitleMenuHandler : MonoBehaviour
 {
     public Canvas tsCanvas;
     public MenuNode mNodeMenu;
-    public ListController menuList;
     public OptionsMenu optionsMenu;
     public Image artLayer;
     public List<Sprite> artSprites = new List<Sprite>();
@@ -17,10 +16,15 @@ public class TitleMenuHandler : MonoBehaviour
 [Header("New Game Data")]
     public string startScene;
     public SpawnPoints initialSpawnPoint;
+[Header("Menu Handling")]
+    public ListController menuList;
+    public ListUnpacker listUnpacker;
+    public List<NavButtonData> buttonData = new List<NavButtonData>();
 
     private ConfirmationWindow confirmationWindow;
     private bool awaitingConfirmation = false;
     private bool saveFileExists = false;
+    private int indexOfNewGameButton;
 
     private void OnEnable() {
         menuList.OnSelect += SelectStartMenuItem;
@@ -47,10 +51,19 @@ public class TitleMenuHandler : MonoBehaviour
         artLayer.sprite = artSprites[Random.Range(0, artSprites.Count)];
 
         saveFileExists = UI.Instance.GameDataExists(UI.GetCurrentFile());
-        //If Save file does not exist, disable Continue button
-        if (!saveFileExists) {
-            var _button = menuList.Elements[1]; //Magic number to "get" the Continue Button
-            _button.navButton.SetAvailable(false);
+        //If Save file does not exist, remove Continue button from the list
+        //if (!saveFileExists) {
+        //    var _button = menuList.Elements[1]; //Magic number to "get" the Continue Button
+        //    _button.navButton.SetAvailable(false);
+        //}
+        if (saveFileExists) {
+            listUnpacker.Unpack(buttonData);
+        } else {
+            List<NavButtonData> _buttonData = new List<NavButtonData>();
+            for (int i = 1; i < buttonData.Count; i++) { //Build a new list, ignore the first element (Continue Button)
+                _buttonData.Add(buttonData[i]);
+            }
+            listUnpacker.Unpack(_buttonData);
         }
     }
 
@@ -59,29 +72,45 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     public void SelectStartMenuItem(int _activeTab) {
-        switch (_activeTab) {
-            case 0: //New Game
-                if (saveFileExists) {
-                    confirmationWindow = UI.RequestConfirmation(promptNewGame, mNodeMenu);
-                    confirmationWindow.OnChoiceMade += OnConfirm;
-                    awaitingConfirmation = true;
-                } else {
-                    NewGame();
-                }
-                break;
-            case 1: //Continue
-                if (saveFileExists) {
-                    LoadGame();
-                }
-                break;
-            case 2: //Options
-                optionsMenu.gameObject.SetActive(true);
-                break;
-            case 3: //Quit Game
-                confirmationWindow = UI.RequestConfirmation(promptQuit, mNodeMenu);
-                confirmationWindow.OnChoiceMade += OnConfirm;
-                awaitingConfirmation = true;
-                break;
+        if (saveFileExists) {
+            switch (_activeTab) {
+                case 0: OptionContinue(); break;
+                case 1: OptionNewGame(); break;
+                case 2: OptionOptions(); break;
+                case 3: OptionQuitGame(); break;
+            }
+        } else {
+            switch (_activeTab) {
+                case 0: OptionNewGame(); break;
+                case 1: OptionOptions(); break;
+                case 2: OptionQuitGame(); break;
+            }
+        }
+    }
+
+    private void OptionQuitGame() {
+        confirmationWindow = UI.RequestConfirmation(promptQuit, mNodeMenu);
+        confirmationWindow.OnChoiceMade += OnConfirm;
+        awaitingConfirmation = true;
+    }
+
+    private void OptionOptions() {
+        optionsMenu.gameObject.SetActive(true);
+    }
+
+    private void OptionContinue() {
+        if (saveFileExists) {
+            LoadGame();
+        }
+    }
+
+    private void OptionNewGame() {
+        if (saveFileExists) {
+            confirmationWindow = UI.RequestConfirmation(promptNewGame, mNodeMenu);
+            confirmationWindow.OnChoiceMade += OnConfirm;
+            awaitingConfirmation = true;
+        } else {
+            NewGame();
         }
     }
 

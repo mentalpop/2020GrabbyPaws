@@ -188,7 +188,7 @@ public class UI : MonoBehaviour
     }
 
     void Update() {
-        if (lockUI == null) { //No GameObject is currently locking the UI
+        if (lockUI == null && player != null) { //No GameObject is currently locking the UI
             if (MenuNavigator.MouseIsUsing()) {
                 //Open / Close menus
                 if (!lappy.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab)) { //"Inventory"
