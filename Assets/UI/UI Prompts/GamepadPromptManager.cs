@@ -5,12 +5,6 @@ using UnityEngine;
 public class GamepadPromptManager : MonoBehaviour
 {
     public GameObject prefabPrompt;
-    public enum PromptType
-    {
-        PromptIgnoredGamepad,
-        PromptDetectedGamepad,
-        PromptDetectedMouse
-    }
     public Sprite promptIgnoredGamepad;
     public string promptTextIgnoredGamepad;
     public Sprite promptDetectedGamepad;
@@ -18,24 +12,36 @@ public class GamepadPromptManager : MonoBehaviour
     public Sprite promptDetectedMouse;
     public string promptTextDetectedMouse;
 
+    private ControllerPrompt currentPrompt;
+
+    public enum PromptType
+    {
+        PromptIgnoredGamepad,
+        PromptDetectedGamepad,
+        PromptDetectedMouse
+    }
+
     public void CreatePrompt(PromptType promptType) {
-        GameObject newGO = Instantiate(prefabPrompt, transform, false);
-        Sprite _promptSprite = promptIgnoredGamepad;
-        string _promptText = "";
-        switch (promptType) {
-            case PromptType.PromptIgnoredGamepad:
-                _promptSprite = promptIgnoredGamepad;
-                _promptText = promptTextIgnoredGamepad; 
-                break;
-            case PromptType.PromptDetectedGamepad:
-                _promptSprite = promptDetectedGamepad;
-                _promptText = promptTextDetectedGamepad;
-                break;
-            case PromptType.PromptDetectedMouse:
-                _promptSprite = promptDetectedMouse;
-                _promptText = promptTextDetectedMouse;
-                break;
+        if (currentPrompt == null) {
+            GameObject newGO = Instantiate(prefabPrompt, transform, false);
+            Sprite _promptSprite = promptIgnoredGamepad;
+            string _promptText = "";
+            switch (promptType) {
+                case PromptType.PromptIgnoredGamepad:
+                    _promptSprite = promptIgnoredGamepad;
+                    _promptText = promptTextIgnoredGamepad;
+                    break;
+                case PromptType.PromptDetectedGamepad:
+                    _promptSprite = promptDetectedGamepad;
+                    _promptText = promptTextDetectedGamepad;
+                    break;
+                case PromptType.PromptDetectedMouse:
+                    _promptSprite = promptDetectedMouse;
+                    _promptText = promptTextDetectedMouse;
+                    break;
+            }
+            currentPrompt = newGO.GetComponent<ControllerPrompt>();
+            currentPrompt.Unpack(_promptSprite, _promptText);
         }
-        newGO.GetComponent<ControllerPrompt>().Unpack(_promptSprite, _promptText);
     }
 }
