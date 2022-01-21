@@ -4782,6 +4782,8 @@ MonoBehaviour:
   itemTooltip: {fileID: 1669461762406351715}
   pickupSphere: {fileID: 7665324660621762108, guid: 6654e4a1c297c6d449b22614777b4a29,
     type: 3}
+  prefabDroppedItemInteractable: {fileID: 6806573664893770701, guid: d2ff61d3591f5664b918b5c53e9b2bde,
+    type: 3}
   items: []
   gadgetUnlocked: 
 --- !u!114 &5819588752494907363
@@ -4843,6 +4845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuNavigator: {fileID: 4311098172652755225}
   inputActivate: A
+  inputAlternate: X
   inputHorizontal: LeftAnalogHorizontal
   inputVertical: LeftAnalogVertical
   axisThreshold: 0.9

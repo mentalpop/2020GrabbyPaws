@@ -12,7 +12,8 @@ public class TitleMenuHandler : MonoBehaviour
     public List<Sprite> artSprites = new List<Sprite>();
 [Header("ConfirmationPromptData")]
     public ConfirmationPromptData promptNewGame;
-	public ConfirmationPromptData promptQuit;
+    public ConfirmationPromptData promptEraseData;
+    public ConfirmationPromptData promptQuit;
 [Header("New Game Data")]
     public string startScene;
     public SpawnPoints initialSpawnPoint;
@@ -22,7 +23,8 @@ public class TitleMenuHandler : MonoBehaviour
 [Header("Menu Handling")]
     public ListController menuList;
     public ListUnpacker listUnpacker;
-    public List<NavButtonData> buttonData = new List<NavButtonData>();
+    public List<NavButtonData> dataNoSave = new List<NavButtonData>();
+    public List<NavButtonData> dataHasSaveFile = new List<NavButtonData>();
 
     private ConfirmationWindow confirmationWindow;
     private bool awaitingConfirmation = false;
@@ -44,29 +46,24 @@ public class TitleMenuHandler : MonoBehaviour
     }
 
     private void Start() {
-    //Set UI Scale of Options Window
+        //Set UI Scale of Options Window
         Instance_OnUIScaled(UI.GetUIScale()); //Load default value
-    //These are important for when the user returns to the title screen in order to reset references
-        tsCanvas.worldCamera = UI.Instance.uiCamera; 
+                                              //These are important for when the user returns to the title screen in order to reset references
+        tsCanvas.worldCamera = UI.Instance.uiCamera;
         optionsMenu.lappyMenu = UI.Instance.lappy;
 
-    //Randomize Art Layer
+        //Randomize Art Layer
         artLayer.sprite = artSprites[Random.Range(0, artSprites.Count)];
+        CheckSaveFileExistsCreateMenuButtons();
+    }
 
+    private void CheckSaveFileExistsCreateMenuButtons() {
         saveFileExists = UI.Instance.GameDataExists(UI.GetCurrentFile());
-        //If Save file does not exist, remove Continue button from the list
-        //if (!saveFileExists) {
-        //    var _button = menuList.Elements[1]; //Magic number to "get" the Continue Button
-        //    _button.navButton.SetAvailable(false);
-        //}
+        //Depending on whether the save file exists, instantiate a different list
         if (saveFileExists) {
-            listUnpacker.Unpack(buttonData);
+            listUnpacker.Unpack(dataHasSaveFile);
         } else {
-            List<NavButtonData> _buttonData = new List<NavButtonData>();
-            for (int i = 1; i < buttonData.Count; i++) { //Build a new list, ignore the first element (Continue Button)
-                _buttonData.Add(buttonData[i]);
-            }
-            listUnpacker.Unpack(_buttonData);
+            listUnpacker.Unpack(dataNoSave);
         }
     }
 
@@ -80,7 +77,8 @@ public class TitleMenuHandler : MonoBehaviour
                 case 0: OptionContinue(); break;
                 case 1: OptionNewGame(); break;
                 case 2: OptionOptions(); break;
-                case 3: OptionQuitGame(); break;
+                case 3: OptionEraseSaveData(); break;
+                case 4: OptionQuitGame(); break;
             }
         } else {
             switch (_activeTab) {
@@ -121,14 +119,22 @@ public class TitleMenuHandler : MonoBehaviour
 		awaitingConfirmation = false;
 		confirmationWindow.OnChoiceMade -= OnConfirm;
 		if (_choice) {
-            if (confirmationWindow.promptData.promptID == ConfirmationPromptID.NewGame) {
-                NewGame();
+            switch (confirmationWindow.promptData.promptID) {
+                case ConfirmationPromptID.QuitGame:
+                    Application.Quit();
+                    Debug.Log("Application.Quit");
+                    break;
+                case ConfirmationPromptID.NewGame:
+                    NewGame();
+                    break;
+                case ConfirmationPromptID.EraseSaveData:
+                    UI.Instance.EraseData(UI.GetCurrentFile());
+                    CheckSaveFileExistsCreateMenuButtons();
+                    break;
             }
-            if (confirmationWindow.promptData.promptID == ConfirmationPromptID.QuitGame) {
-                Application.Quit();
-                Debug.Log("Application.Quit");
-            }
-		} else {
+
+
+        } else {
 			Debug.Log("User selected NOPE");
 		}
 	}
@@ -140,6 +146,12 @@ public class TitleMenuHandler : MonoBehaviour
         } else {
             SceneTransitionHandler.SceneGoto(startScene, initialSpawnPoint);
         }
+    }
+
+    private void OptionEraseSaveData() {
+        confirmationWindow = UI.RequestConfirmation(promptEraseData, mNodeMenu);
+        confirmationWindow.OnChoiceMade += OnConfirm;
+        awaitingConfirmation = true;
     }
 
     private void LoadGame() {

@@ -6,6 +6,7 @@ public class MenuInputLegacy : MonoBehaviour
 {
     public MenuNavigator menuNavigator;
     public string inputActivate;
+    public string inputAlternate;
     public string inputHorizontal;
     public string inputVertical;
     public float axisThreshold = 0.025f;
@@ -118,15 +119,28 @@ public class MenuInputLegacy : MonoBehaviour
             //menuNavigator.MenuActivate();
             if (Input.GetButtonDown(inputActivate)) {
                 //Debug.Log("MenuPress");
-                menuNavigator.MenuPress();
+                menuNavigator.MenuPress(0);
                 //Debug.Log("MenuNode.NavDir.MenuActivate");
             }
             if (Input.GetButtonUp(inputActivate)) {
                 //Debug.Log("MenuRelease");
-                menuNavigator.MenuRelease();
+                menuNavigator.MenuRelease(0);
             }
         }
-            
+    //inputActivate
+        if (inputAlternate != "") {
+            //menuNavigator.MenuActivate();
+            if (Input.GetButtonDown(inputAlternate)) {
+                //Debug.Log("MenuPress");
+                menuNavigator.MenuPress(1);
+                //Debug.Log("MenuNode.NavDir.MenuActivate");
+            }
+            if (Input.GetButtonUp(inputAlternate)) {
+                //Debug.Log("MenuRelease");
+                menuNavigator.MenuRelease(1);
+            }
+        }
+
         /*
         for (int i = 0; i < inputs.Count; i++) {
             if (inputs[i] != "" && Input.GetButtonUp(inputs[i])) {

@@ -103,10 +103,12 @@ public class UI : MonoBehaviour
 
     private int currentFile = 0;
 
+    //File I/O
     public delegate void FileIOEvent(int fileNum);
     public event FileIOEvent OnSave = delegate { };
     public event FileIOEvent OnLoad = delegate { };
     public event FileIOEvent OnNewGame = delegate { };
+    public ES3Settings saveSettings { get; private set; }
 
     public delegate void TextScaledEvent(float fontScale);
     public event TextScaledEvent OnTextScaled = delegate { };
@@ -172,6 +174,7 @@ public class UI : MonoBehaviour
         }
         Instance = this;
         //Debug.Log("Instance: "+Instance);
+        DefineSaveSettings(currentFile);
         LoadOptionsData();
         DontDestroyOnLoad(gameObject);
     }
@@ -687,26 +690,39 @@ public class UI : MonoBehaviour
     private readonly string ssFileExists = "fileExists_";
 
     public bool GameDataExists(int fileNum) {
-        return ES3.Load(ssFileExists + fileNum.ToString(), false);
+        return ES3.Load(ssFileExists + fileNum.ToString(), false, saveSettings);
     }
 
     public void NewGame(int fileNum) {
+        EraseData(fileNum);
         OnNewGame?.Invoke(fileNum);
     }
 
     public void SaveGameData(int fileNum) {
         OnSave?.Invoke(fileNum);
-        ES3.Save(ssScene + fileNum.ToString(), SceneTransitionHandler.instance.currentScene);
-        ES3.Save(ssSpawnPoint + fileNum.ToString(), SceneTransitionHandler.instance.spawnPoint);
-        ES3.Save(ssFileExists + fileNum.ToString(), true);
+        ES3.Save(ssScene + fileNum.ToString(), SceneTransitionHandler.instance.currentScene, saveSettings);
+        Debug.Log("SceneTransitionHandler.instance.currentScene: " + SceneTransitionHandler.instance.currentScene);
+        ES3.Save(ssSpawnPoint + fileNum.ToString(), SceneTransitionHandler.instance.spawnPoint, saveSettings);
+        ES3.Save(ssFileExists + fileNum.ToString(), true, saveSettings);
     }
 
     public void LoadGameData(int fileNum) {
         Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
-        string _scene = ES3.Load(ssScene + fileNum.ToString(), ES3Settings.defaultSettings.path, ""); //(string)
-        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint + fileNum.ToString());
+        string _scene = ES3.Load(ssScene + fileNum.ToString(), saveSettings.path, "", saveSettings);
+        SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint + fileNum.ToString(), saveSettings);
+        Debug.Log("_scene: " + _scene + ", _spawnPoint: " + _spawnPoint);
         SceneTransitionHandler.SceneGoto(_scene, _spawnPoint);
+    }
+
+    public void EraseData(int fileNum) {
+        ES3.DeleteFile(saveSettings.path); //This will get the actual name of the save file "Grabby.Paws"
+    }
+
+    private void DefineSaveSettings(int setFileNum) {
+        currentFile = setFileNum;
+        saveSettings = new ES3Settings(true);
+        saveSettings.path = saveSettings.path + currentFile.ToString() + ".txt";
     }
 
     public static int GetCurrentFile() {

@@ -23,5 +23,6 @@ public enum ConfirmationPromptID
     QuitToTitle,
     QuitGame,
     NewGame,
-    RestoreDefaults
+    RestoreDefaults,
+    EraseSaveData
 }

@@ -26,7 +26,8 @@ public class InventorySlot : ListElement {
     }
 
     private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
-        if ((int)_data == 1) { //eventData.button == PointerEventData.InputButton.Right
+        int choice = (int)_data;
+        if (choice == 1) { //eventData.button == PointerEventData.InputButton.Right
             if (iItem.item.category == CategoryItem.Trash) {
                 Inventory.instance.Drop(iItem.item);
                 Debug.Log("Dropping: " + iItem.item.name);

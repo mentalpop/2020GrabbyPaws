@@ -9,12 +9,14 @@ public class SaveLoadInteractable : Interactable
     protected bool hasBeenCollected = false;
 
     private void Start() {
-        var result = Inventory.CompareChange(GetSaveID());
-        Debug.Log("SaveLoadInteractable Start" + gameObject.name + ": " + result);
-        if (result) { //Load the item
-            OnLoadTrue();
-        } else {
-            OnLoadFalse();
+        if (doSaveLoad) {
+            var result = Inventory.CompareChange(GetSaveID());
+            //Debug.Log("SaveLoadInteractable Start" + gameObject.name + ": " + result);
+            if (result) { //Load the item
+                OnLoadTrue();
+            } else {
+                OnLoadFalse();
+            }
         }
     }
 

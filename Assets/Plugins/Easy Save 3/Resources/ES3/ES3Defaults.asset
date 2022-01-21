@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     _location: 0
-    path: Grabby.Paws
+    path: GrabbySave
     encryptionType: 0
     compressionType: 0
     encryptionPassword: password

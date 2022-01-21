@@ -74,11 +74,11 @@ public class Currency : MonoBehaviour
     #endregion
 
     public void Save(int fileIndex) {
-        ES3.Save(saveString, _cash);
+        ES3.Save(saveString, _cash, UI.Instance.saveSettings);
     }
 
     public void Load(int fileIndex) {
-        Cash = (int)ES3.Load(saveString, startingFunds);
+        Cash = (int)ES3.Load(saveString, startingFunds, UI.Instance.saveSettings);
     }
 
     private void NewGame(int fileNum) {

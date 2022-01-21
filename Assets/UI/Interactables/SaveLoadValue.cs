@@ -28,7 +28,7 @@ public class SaveLoadValue : MonoBehaviour
     }
 
     public void Load(int fileIndex) {
-        _SavedValue = ES3.Load(GetSaveID(), false);
+        _SavedValue = ES3.Load(GetSaveID(), false, UI.Instance.saveSettings);
     }
 
     public virtual string GetSaveID() {

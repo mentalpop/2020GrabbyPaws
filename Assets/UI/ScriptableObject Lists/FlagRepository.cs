@@ -94,11 +94,11 @@ public class FlagRepository : MonoBehaviour
     private string saveString = "flags";
 
     public void Save(int fileIndex) {
-        ES3.Save<GameFlags>(saveString, flags);
+        ES3.Save<GameFlags>(saveString, flags, UI.Instance.saveSettings);
     }
 
     public void Load(int fileIndex) {
-        flags = ES3.Load(saveString, new GameFlags());
+        flags = ES3.Load(saveString, new GameFlags(), UI.Instance.saveSettings);
     }
 }
 

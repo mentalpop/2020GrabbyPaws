@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public Vector3 dropPosition;
     public ItemTooltip itemTooltip;
     public GameObject pickupSphere;
+    public GameObject prefabDroppedItemInteractable;
     public List<InventoryItem> items = new List<InventoryItem>();
     //public UI uiRef;
     [HideInInspector] public List<bool> gadgetUnlocked = new List<bool>();
@@ -207,33 +208,33 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         if (foundInChanges) {
             return value;
         } else {
-            return ES3.Load(key, false); //False; not collected by default
+            return ES3.Load(key, false, UI.Instance.saveSettings); //False; not collected by default
         }
     }
 
     public void Save(int fileIndex) {
-        ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked);
+        ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked, UI.Instance.saveSettings);
         List<int> itemIDs = new List<int>();
         List<int> itemCount = new List<int>();
         foreach (var item in items) {
             itemIDs.Add(itemMetaList.GetIndex(item.item));
             itemCount.Add(item.quantity);
         }
-        ES3.Save<List<int>>(saveStringItemIDs, itemIDs);
-        ES3.Save<List<int>>(saveStringItemCount, itemCount);
+        ES3.Save<List<int>>(saveStringItemIDs, itemIDs, UI.Instance.saveSettings);
+        ES3.Save<List<int>>(saveStringItemCount, itemCount, UI.Instance.saveSettings);
         //List<bool> _gadgetsUnlocked = new List<bool>();
     //Commit Pending changes
         foreach (var change in pendingPickUps) {
             Debug.Log("Saving: " + change.Key + ", " + change.Value);
-            ES3.Save(change.Key, change.Value); //Save whether the instance still exists (if it hasn't, it has been picked up)
+            ES3.Save(change.Key, change.Value, UI.Instance.saveSettings); //Save whether the instance still exists (if it hasn't, it has been picked up)
         }
         pendingPickUps.Clear();
     }
 
     public void Load(int fileIndex) {
-        gadgetUnlocked = ES3.Load(saveStringGadgets, new List<bool>());
-        List<int> loadItems = ES3.Load(saveStringItemIDs, new List<int>());
-        List<int> loadCount = ES3.Load(saveStringItemCount, new List<int>());
+        gadgetUnlocked = ES3.Load(saveStringGadgets, new List<bool>(), UI.Instance.saveSettings);
+        List<int> loadItems = ES3.Load(saveStringItemIDs, new List<int>(), UI.Instance.saveSettings);
+        List<int> loadCount = ES3.Load(saveStringItemCount, new List<int>(), UI.Instance.saveSettings);
         items.Clear();
         for (int i = 0; i < loadItems.Count; i++) {
             items.Add(new InventoryItem(itemMetaList.GetItem(loadItems[i]), loadCount[i]));
@@ -312,8 +313,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             if (item.item == _toDrop) {
                 if (item.item.physicalItem != null) {
                     toDrop = Instantiate(item.item.physicalItem, dropPosition, Quaternion.identity);
+                    Instantiate(prefabDroppedItemInteractable, toDrop.transform);
                     Instantiate(pickupSphere, dropPosition, Quaternion.identity); //Drop a sphere where the item was dropped
-                    OnDrop(item.item);
+                    OnDrop?.Invoke(item.item);
                 }
                 Remove(item.item);
                 break;

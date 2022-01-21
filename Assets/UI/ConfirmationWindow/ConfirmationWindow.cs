@@ -15,6 +15,8 @@ public class ConfirmationWindow : MonoBehaviour
     //public UI UIRef;
     public ClickToClose clickToClose;
     [HideInInspector] public ConfirmationPromptData promptData;
+    public RectTransform headerTransform;
+    public float headerPadding = 32f;
 
     //private MenuNode menuOnDisable;
 
@@ -68,6 +70,7 @@ public class ConfirmationWindow : MonoBehaviour
         promptData = _data;
         //Debug.Log("_data: "+_data);
         header.text = _data.header.ToUpper();
+        headerTransform.sizeDelta = new Vector2(header.preferredWidth + headerPadding, headerTransform.sizeDelta.y); //Resize Header to match width of text
         description.text = _data.description.ToUpper();
         buttonA.text = _data.buttonA.ToUpper();
         buttonB.text = _data.buttonB.ToUpper();
