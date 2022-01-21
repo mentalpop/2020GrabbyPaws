@@ -1,0 +1,547 @@
+fileFormatVersion: 2
+guid: 4dd5afd5b73a8c645ac12d9924e88db8
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: 1822027589140802499
+    second: Plane.167|Base Parents.003Action
+  - first:
+      74: 7277399090250176769
+    second: Plane.167|Base Parents.003Action.001
+  - first:
+      74: 4385251312809859188
+    second: Plane.167|Counter.008Action
+  - first:
+      74: 1091697337095231610
+    second: Plane.167|Counter.008Action.001
+  - first:
+      74: -8489557709082825697
+    second: Plane.167|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: 4200712012563951944
+    second: Plane.167|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: -425958477328111922
+    second: Plane.167|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: -5104854807878200629
+    second: Plane.167|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: -5830545198923978859
+    second: Plane.167|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: 7671336868935320470
+    second: Plane.167|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 5856294585537071348
+    second: Plane.167|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: 8086849016846613386
+    second: Plane.167|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: -3785107259488320920
+    second: Plane.167|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: -7630596534106186065
+    second: Plane.167|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: -5370076575730402500
+    second: Plane.167|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: 4787230001113908217
+    second: Plane.167|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: 1775388537830726591
+    second: Plane.167|PlaneAction
+  - first:
+      74: 4001867541031058211
+    second: Plane.167|PlaneAction.001
+  - first:
+      74: 4829406078209217149
+    second: Plane.167|PlaneAction.003
+  - first:
+      74: 5667812951294901229
+    second: Plane.167|PlaneAction.004
+  - first:
+      74: 7751360989748295371
+    second: Plane.167|PlaneAction.006
+  - first:
+      74: 244034224597622558
+    second: Plane.167|PlaneAction.007
+  - first:
+      74: -1394378433775725413
+    second: Plane.168|Base Parents.003Action
+  - first:
+      74: -7661103059233784935
+    second: Plane.168|Base Parents.003Action.001
+  - first:
+      74: -97801947906506571
+    second: Plane.168|Counter.008Action
+  - first:
+      74: -7383331155223483544
+    second: Plane.168|Counter.008Action.001
+  - first:
+      74: 2164859059533011989
+    second: Plane.168|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: -8005802211106563639
+    second: Plane.168|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: 5501622785198786627
+    second: Plane.168|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: 4536265362277273691
+    second: Plane.168|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: -2725973388745647916
+    second: Plane.168|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: 1855075581708997497
+    second: Plane.168|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 4030516373595622958
+    second: Plane.168|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: 1008857685293972964
+    second: Plane.168|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: -8361344857011245803
+    second: Plane.168|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: 6373357591297749713
+    second: Plane.168|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: 3124299564117776465
+    second: Plane.168|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: 7705034545131553804
+    second: Plane.168|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: 345793870462690894
+    second: Plane.168|PlaneAction
+  - first:
+      74: -2608268749883312562
+    second: Plane.168|PlaneAction.001
+  - first:
+      74: 7549642855989592888
+    second: Plane.168|PlaneAction.003
+  - first:
+      74: 1682293781055522007
+    second: Plane.168|PlaneAction.004
+  - first:
+      74: 6938464238890148937
+    second: Plane.168|PlaneAction.006
+  - first:
+      74: -9090923630247027211
+    second: Plane.168|PlaneAction.007
+  - first:
+      74: -2323074669075388517
+    second: Plane.170|Base Parents.003Action
+  - first:
+      74: -7329873243351943184
+    second: Plane.170|Base Parents.003Action.001
+  - first:
+      74: -1672322139731913461
+    second: Plane.170|Counter.008Action
+  - first:
+      74: -6403162265056900339
+    second: Plane.170|Counter.008Action.001
+  - first:
+      74: -1623432004632227599
+    second: Plane.170|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: 3730764387879153353
+    second: Plane.170|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: -7564531887592692028
+    second: Plane.170|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: 3426947517994856283
+    second: Plane.170|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: 8649785731760768689
+    second: Plane.170|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: 1041223313703477547
+    second: Plane.170|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 1289856694547633180
+    second: Plane.170|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: 3928373610946404401
+    second: Plane.170|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: 6187736648466799674
+    second: Plane.170|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: -7091960887126407712
+    second: Plane.170|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: -4938160706605123157
+    second: Plane.170|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: 3313576404914524437
+    second: Plane.170|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: -1594037350743602079
+    second: Plane.170|PlaneAction
+  - first:
+      74: 3559523196735642725
+    second: Plane.170|PlaneAction.001
+  - first:
+      74: 5999195716229600244
+    second: Plane.170|PlaneAction.003
+  - first:
+      74: 6124815782237817868
+    second: Plane.170|PlaneAction.004
+  - first:
+      74: 4969501855084586432
+    second: Plane.170|PlaneAction.006
+  - first:
+      74: 2737707429914472526
+    second: Plane.170|PlaneAction.007
+  - first:
+      74: -8578977369866668824
+    second: Plane.181|Base Parents.003Action
+  - first:
+      74: 3411400391432917114
+    second: Plane.181|Base Parents.003Action.001
+  - first:
+      74: 6375609181062422533
+    second: Plane.181|Counter.008Action
+  - first:
+      74: 8516359090133262764
+    second: Plane.181|Counter.008Action.001
+  - first:
+      74: -9209788935997523988
+    second: Plane.181|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: -3031971056818655810
+    second: Plane.181|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: -869096556470505576
+    second: Plane.181|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: -4801192769643166599
+    second: Plane.181|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: -8359119541813617548
+    second: Plane.181|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: -6508199900761746135
+    second: Plane.181|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 5898807112755313160
+    second: Plane.181|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: 7685904258855623301
+    second: Plane.181|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: 3322663855870522883
+    second: Plane.181|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: -7487098893252373775
+    second: Plane.181|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: -7242559004990715812
+    second: Plane.181|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: -8289660349244512585
+    second: Plane.181|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: -1225581687467585530
+    second: Plane.181|PlaneAction
+  - first:
+      74: 6614878193509590776
+    second: Plane.181|PlaneAction.001
+  - first:
+      74: 7052397945736006785
+    second: Plane.181|PlaneAction.003
+  - first:
+      74: 7821345908891439595
+    second: Plane.181|PlaneAction.004
+  - first:
+      74: 517536921734479769
+    second: Plane.181|PlaneAction.006
+  - first:
+      74: -8303254248901628773
+    second: Plane.181|PlaneAction.007
+  - first:
+      74: 6866366086293848526
+    second: Plane.169|Base Parents.003Action
+  - first:
+      74: 2533247115993883998
+    second: Plane.169|Base Parents.003Action.001
+  - first:
+      74: 2462436092293982854
+    second: Plane.169|Counter.008Action
+  - first:
+      74: 5109454825190821291
+    second: Plane.169|Counter.008Action.001
+  - first:
+      74: -6933258964918452195
+    second: Plane.169|Counter.010|Counter.009|Base Parents.003Action.001|Counter.009|
+  - first:
+      74: -874666893800882137
+    second: Plane.169|Counter.010|Counter.009|Base Parents.003Action|Counter.009|Base
+  - first:
+      74: -8404017522122651289
+    second: Plane.169|Counter.010|Counter.009|Counter.008Action.001|Counter.009|Count
+  - first:
+      74: 904648890596394337
+    second: Plane.169|Counter.010|Counter.009|Counter.008Action|Counter.009|Counter.0
+  - first:
+      74: 629452870329479454
+    second: Plane.169|Counter.010|Counter.009|FlatStonesAction|Counter.009|FlatStones
+  - first:
+      74: 7895610227344688577
+    second: Plane.169|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A
+  - first:
+      74: 295690055115050346
+    second: Plane.169|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.001
+  - first:
+      74: 1937538162462885170
+    second: Plane.169|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.002
+  - first:
+      74: 9057874218573304019
+    second: Plane.169|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001A.003
+  - first:
+      74: 5719118155745131020
+    second: Plane.169|Counter.010|Counter.009|RaccoonBody04Head02.GreenBlack.001Actio
+  - first:
+      74: 6258454584370370216
+    second: Plane.169|Counter.010|Counter.009|Torus.061Action|Counter.009|Torus.061Ac
+  - first:
+      74: 1350448987731780558
+    second: Plane.169|Counter.010|Counter.009|Torus.062Action|Counter.009|Torus.062Ac
+  - first:
+      74: -6308636229753825532
+    second: Plane.169|PlaneAction
+  - first:
+      74: -6154555420899814644
+    second: Plane.169|PlaneAction.001
+  - first:
+      74: 316390104358383545
+    second: Plane.169|PlaneAction.003
+  - first:
+      74: -992373113866785400
+    second: Plane.169|PlaneAction.004
+  - first:
+      74: -6022631326764769068
+    second: Plane.169|PlaneAction.006
+  - first:
+      74: 3421817999800908222
+    second: Plane.169|PlaneAction.007
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue Light
+    second: {fileID: 2100000, guid: fadff4d48aa1a814aa8e5d69459e0a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bricks_DarkPurple
+    second: {fileID: 2100000, guid: c5874585a1de15244a78ce4121199b47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bricks_LightPurple
+    second: {fileID: 2100000, guid: d3e7fbfd232bdae469ead0e7d3cb458c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns01
+    second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessWindow Light
+    second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darkness
+    second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Denn
+    second: {fileID: 2100000, guid: 265960776f9dbc94ca6fd6b62933ff48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dim Light
+    second: {fileID: 2100000, guid: 1588805183a264948a75686c87353b19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FaceGreenGrey
+    second: {fileID: 2100000, guid: 9706d5c0e19f3f841b1d5127fdcc6974, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatBrowns
+    second: {fileID: 2100000, guid: df6f9dfc25333c44c90e68be9c773745, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSaleSign03
+    second: {fileID: 2100000, guid: a59cd4feb71e8c444a097101f2b88950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSpecials
+    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Browns
+    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Reds
+    second: {fileID: 2100000, guid: 5ec6c00fff0b69c4db2ad83be706ded3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Specials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Stones
+    second: {fileID: 2100000, guid: 25b9c614ed097924ba1f406d3717b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Purple Light
+    second: {fileID: 2100000, guid: a8293bdce5e3b4e43aa46a83dc5d3c22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RaccoonFur
+    second: {fileID: 2100000, guid: 165a3fd5c7582a64486b8df62343e3ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red Light
+    second: {fileID: 2100000, guid: 4c3a79662559ddc4d92521507f01fa2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SaleSigns03
+    second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WarmLight
+    second: {fileID: 2100000, guid: 79d56be46e9b3874e8b919083271cc6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: cf29ac74f31d4344b9d6edd0295b99a0, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
