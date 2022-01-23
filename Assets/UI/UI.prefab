@@ -4723,8 +4723,10 @@ MonoBehaviour:
     minValue: 0
     maxValue: 1
     value: 0
-  cameraSpeedMin: {x: 20, y: 1}
-  cameraSpeedMax: {x: 200, y: 10}
+  cameraSpeedMinMouse: {x: 20, y: 1}
+  cameraSpeedMaxMouse: {x: 200, y: 10}
+  cameraSpeedMinGamepad: {x: 20, y: 1}
+  cameraSpeedMaxGamepad: {x: 200, y: 10}
   uiScale:
     key: uiScale
     defaultValue: 0

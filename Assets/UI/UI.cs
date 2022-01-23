@@ -89,8 +89,10 @@ public class UI : MonoBehaviour
     public ConstrainedIntPref quality;
     [Header("MISC Options")]
     public ConstrainedFloatPref mouseSensitivity;
-    public Vector2 cameraSpeedMin;
-    public Vector2 cameraSpeedMax;
+    public Vector2 cameraSpeedMinMouse;
+    public Vector2 cameraSpeedMaxMouse;
+    public Vector2 cameraSpeedMinGamepad;
+    public Vector2 cameraSpeedMaxGamepad;
     public ConstrainedIntPref uiScale;
     public ConstrainedIntPref textSize;
     public ConstrainedIntPref fontChoice;
@@ -344,8 +346,13 @@ public class UI : MonoBehaviour
                 //*/
                 case CinemachineFreeLook cFc:
                     //Sensitivity
-                    cFc.m_XAxis.m_MaxSpeed = cameraSpeedMin.x + (cameraSpeedMax.x - cameraSpeedMin.x) * mouseSensitivity.value;
-                    cFc.m_YAxis.m_MaxSpeed = cameraSpeedMin.y + (cameraSpeedMax.y - cameraSpeedMin.y) * mouseSensitivity.value;
+                    if (MenuNavigator.MouseIsUsing()) {
+                        cFc.m_XAxis.m_MaxSpeed = cameraSpeedMinMouse.x + (cameraSpeedMaxMouse.x - cameraSpeedMinMouse.x) * mouseSensitivity.value;
+                        cFc.m_YAxis.m_MaxSpeed = cameraSpeedMinMouse.y + (cameraSpeedMaxMouse.y - cameraSpeedMinMouse.y) * mouseSensitivity.value;
+                    } else {
+                        cFc.m_XAxis.m_MaxSpeed = cameraSpeedMinGamepad.x + (cameraSpeedMaxGamepad.x - cameraSpeedMinGamepad.x) * mouseSensitivity.value;
+                        cFc.m_YAxis.m_MaxSpeed = cameraSpeedMinGamepad.y + (cameraSpeedMaxGamepad.y - cameraSpeedMinGamepad.y) * mouseSensitivity.value;
+                    }
                     //Axis Inversion
                     cFc.m_XAxis.m_InvertInput = Instance.cameraInversion.value == 2 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
                     cFc.m_YAxis.m_InvertInput = Instance.cameraInversion.value == 1 || Instance.cameraInversion.value == 3; //Normal = 0, Inverted = 1
