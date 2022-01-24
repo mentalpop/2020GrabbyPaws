@@ -449,6 +449,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Water
     second: {fileID: 2100000, guid: cf29ac74f31d4344b9d6edd0295b99a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: graffiti.001
+    second: {fileID: 2100000, guid: c60bc8d0ba570994fa22b49763904fe0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
