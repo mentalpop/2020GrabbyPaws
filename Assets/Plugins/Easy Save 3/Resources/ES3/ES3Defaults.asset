@@ -32,8 +32,8 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - Assembly-CSharp
     - Cinemachine
-    - CFXRDemo
     - CFXRRuntime
+    - CFXRDemo
     - CFXREditor
     - CFXRDemoEditor
     showAdvancedSettings: 0
