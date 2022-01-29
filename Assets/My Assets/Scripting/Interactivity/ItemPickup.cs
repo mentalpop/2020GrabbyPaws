@@ -59,13 +59,14 @@ public class ItemPickup : SaveLoadInteractable
             } else {
                 Destroy(itemToPickup);
             }
-            hasBeenCollected = true;
+            hasInteracted = true;
         }
         base.Interact();
         //PickUp();
     }
 
     protected override void OnLoadTrue() {
+        onLoadTrue.Invoke();
         Destroy(itemToPickup);
     }
 

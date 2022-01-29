@@ -112,6 +112,8 @@ public class UI : MonoBehaviour
     public event FileIOEvent OnNewGame = delegate { };
     public ES3Settings saveSettings { get; private set; }
 
+    private Dictionary<string, bool> pendingChanges = new Dictionary<string, bool>();
+
     public delegate void TextScaledEvent(float fontScale);
     public event TextScaledEvent OnTextScaled = delegate { };
 
@@ -702,19 +704,26 @@ public class UI : MonoBehaviour
 
     public void NewGame(int fileNum) {
         EraseData(fileNum);
+        pendingChanges.Clear();
         OnNewGame?.Invoke(fileNum);
     }
 
     public void SaveGameData(int fileNum) {
+        //Commit Pending changes
+        foreach (var change in pendingChanges) {
+            Debug.Log("Saving: " + change.Key + ", " + change.Value);
+            ES3.Save(change.Key, change.Value, Instance.saveSettings); //Save whether the instance still exists (if it hasn't, it has been picked up)
+        }
+        pendingChanges.Clear();
         OnSave?.Invoke(fileNum);
         ES3.Save(ssScene + fileNum.ToString(), SceneTransitionHandler.instance.currentScene, saveSettings);
-        Debug.Log("SceneTransitionHandler.instance.currentScene: " + SceneTransitionHandler.instance.currentScene);
+        //Debug.Log("SceneTransitionHandler.instance.currentScene: " + SceneTransitionHandler.instance.currentScene);
         ES3.Save(ssSpawnPoint + fileNum.ToString(), SceneTransitionHandler.instance.spawnPoint, saveSettings);
         ES3.Save(ssFileExists + fileNum.ToString(), true, saveSettings);
     }
 
     public void LoadGameData(int fileNum) {
-        Debug.Log("Game Loaded");
+        //Debug.Log("Game Loaded");
         OnLoad?.Invoke(fileNum);
         string _scene = ES3.Load(ssScene + fileNum.ToString(), saveSettings.path, "", saveSettings);
         SpawnPoints _spawnPoint = (SpawnPoints)ES3.Load(ssSpawnPoint + fileNum.ToString(), saveSettings);
@@ -734,6 +743,19 @@ public class UI : MonoBehaviour
 
     public static int GetCurrentFile() {
         return Instance.currentFile;
+    }
+
+    public static void RegisterChange(string key, bool value) {
+        Instance.pendingChanges.Add(key, value);
+    }
+    public static bool CompareChange(string key) {
+        //To "load" an item, it will either be in the list of Pending changes, or you'll have to actually check the save file
+        bool foundInChanges = Instance.pendingChanges.TryGetValue(key, out bool value);
+        if (foundInChanges) {
+            return value;
+        } else {
+            return ES3.Load(key, false, Instance.saveSettings); //False; not collected by default
+        }
     }
     #endregion
 }

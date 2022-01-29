@@ -27,8 +27,6 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public InventoryEvent OnItemChanged;
     public InventoryEvent OnItemGiven;
 
-    private Dictionary<string, bool> pendingPickUps = new Dictionary<string, bool>();
-
     public static Inventory instance;
 
     private void Awake() {
@@ -49,14 +47,14 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
-        UI.Instance.OnNewGame += NewGame;
+        //UI.Instance.OnNewGame += NewGame;
         RegisterLuaFunctions();
     }
 
     private void OnDisable() {
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
-        UI.Instance.OnNewGame -= NewGame;
+        //UI.Instance.OnNewGame -= NewGame;
     }
     #region Lua Functions
     private void RegisterLuaFunctions() {
@@ -198,19 +196,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     }
     
     #endregion
-    public static void RegisterChange(string key, bool value) {
-        instance.pendingPickUps.Add(key, value);
-    }
 
-    public static bool CompareChange(string key) {
-        //To "load" an item, it will either be in the list of Pending changes, or you'll have to actually check the save file
-        bool foundInChanges = instance.pendingPickUps.TryGetValue(key, out bool value);
-        if (foundInChanges) {
-            return value;
-        } else {
-            return ES3.Load(key, false, UI.Instance.saveSettings); //False; not collected by default
-        }
-    }
 
     public void Save(int fileIndex) {
         ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked, UI.Instance.saveSettings);
@@ -223,12 +209,6 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         ES3.Save<List<int>>(saveStringItemIDs, itemIDs, UI.Instance.saveSettings);
         ES3.Save<List<int>>(saveStringItemCount, itemCount, UI.Instance.saveSettings);
         //List<bool> _gadgetsUnlocked = new List<bool>();
-    //Commit Pending changes
-        foreach (var change in pendingPickUps) {
-            Debug.Log("Saving: " + change.Key + ", " + change.Value);
-            ES3.Save(change.Key, change.Value, UI.Instance.saveSettings); //Save whether the instance still exists (if it hasn't, it has been picked up)
-        }
-        pendingPickUps.Clear();
     }
 
     public void Load(int fileIndex) {
@@ -246,9 +226,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         //*/
     }
 
-    private void NewGame(int fileNum) {
-        pendingPickUps.Clear();
-    }
+    //private void NewGame(int fileNum) {
+    //    pendingPickUps.Clear();
+    //}
 
     public bool Add(Item item) {
 //If you don't specify a quantity, add 1

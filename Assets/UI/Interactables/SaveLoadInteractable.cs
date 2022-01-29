@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.Events;
 
 public class SaveLoadInteractable : Interactable
 {
     public bool doSaveLoad = true;
+    public UnityEvent onLoadTrue;
+    public UnityEvent onLoadFalse;
 
-    protected bool hasBeenCollected = false;
+    protected bool hasInteracted = false;
 
     private void Start() {
         if (doSaveLoad) {
-            var result = Inventory.CompareChange(GetSaveID());
+            var result = UI.CompareChange(GetSaveID());
             //Debug.Log("SaveLoadInteractable Start" + gameObject.name + ": " + result);
             if (result) { //Load the item
                 OnLoadTrue();
@@ -22,8 +24,9 @@ public class SaveLoadInteractable : Interactable
 
     public override void Interact() {
         if (doSaveLoad) {
-            Inventory.RegisterChange(GetSaveID(), hasBeenCollected); //Save whether the instance still exists (if it hasn't, it has been picked up)
+            UI.RegisterChange(GetSaveID(), hasInteracted); //Save whether the instance still exists (if it hasn't, it has been picked up)
         }
+        onInteract.Invoke();
     }
 
     public virtual string GetSaveID() {
@@ -31,10 +34,10 @@ public class SaveLoadInteractable : Interactable
     }
 
     protected virtual void OnLoadTrue() {
-        Destroy(gameObject); //Most cases, simply destroy the item
+        onLoadTrue.Invoke();
     }
 
     protected virtual void OnLoadFalse() {
-
+        onLoadFalse.Invoke();
     }
 }
