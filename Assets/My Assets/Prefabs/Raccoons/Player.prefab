@@ -1264,7 +1264,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1994073855349067489}
   - component: {fileID: 7955790628343829674}
-  - component: {fileID: 8705517533206462001}
   m_Layer: 8
   m_Name: SoupPivot
   m_TagString: Untagged
@@ -1300,20 +1299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8705517533206462001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4616423525700323513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd6fe756005ca14daa6072837451508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoldEmsParent: {fileID: 1994073855349067489}
-  handik: {fileID: 3082480293249503241}
 --- !u!1 &4670251899076039129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9183037144381183333}
   - component: {fileID: 3082480293249503241}
+  - component: {fileID: 8920574425937115578}
   m_Layer: 8
   m_Name: RigLayer_Carrying_Soup
   m_TagString: Untagged
@@ -1548,6 +1534,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 0
   m_Effectors: []
+--- !u!114 &8920574425937115578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836545550067332817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92e9a04da426b04881f218bb12646ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rig: {fileID: 3082480293249503241}
+  rigTransform: {fileID: 7955790628343829674}
+  rigID: 0
 --- !u!1 &5878978200214231931
 GameObject:
   m_ObjectHideFlags: 0

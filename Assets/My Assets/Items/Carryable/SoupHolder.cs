@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class SoupHolder : MonoBehaviour
+public class SoupHolder : HoldableHeld
 {
     public string soupID;
     public List<GameObject> soups = new List<GameObject>();

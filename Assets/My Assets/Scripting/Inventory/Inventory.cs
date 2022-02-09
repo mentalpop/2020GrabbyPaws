@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
-using System;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int>>
 {
@@ -23,11 +23,16 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
 
     public delegate void InventoryEvent(Item item);
     public InventoryEvent OnPickUp;
-    public InventoryEvent OnDrop;
+    //public InventoryEvent OnDrop;
     public InventoryEvent OnItemChanged;
     public InventoryEvent OnItemGiven;
 
+    public delegate void HoldableEvent(HoldableData holdableData);
+    public HoldableEvent OnDrop;
+
     public static Inventory instance;
+
+    [HideInInspector] public HoldableHeld holdableHeld;
 
     private void Awake() {
     //Singleton Pattern
@@ -47,6 +52,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private void OnEnable() {
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
         //UI.Instance.OnNewGame += NewGame;
         RegisterLuaFunctions();
     }
@@ -54,6 +61,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private void OnDisable() {
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
         //UI.Instance.OnNewGame -= NewGame;
     }
     #region Lua Functions
@@ -194,9 +203,47 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             OnItemChanged?.Invoke(newItem);
         }
     }
-    
+
+    public bool HoldablePickUp(HoldableData holdableData) {
+        if (holdableHeld == null) {
+            holdableHeld = UI.Player.rigManager.AssignRig(holdableData);
+            return true;
+        }
+        return false;
+    }
+
+
+    public GameObject DropHoldable() {
+        GameObject toDrop = null; //Drop the Held item
+        if (holdableHeld != null && holdableHeld.holdableData.worldPrefab != null) {
+            toDrop = Instantiate(holdableHeld.holdableData.worldPrefab, holdableHeld.transform.position, Quaternion.identity);
+            OnDrop?.Invoke(holdableHeld.holdableData);
+            UI.Player.rigManager.ClearRig();
+            holdableHeld = null;
+        }
+        return toDrop;
+    }
     #endregion
 
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn += SpawnManager_OnPlayerSpawn;
+    }
+
+    private void SpawnManager_OnPlayerSpawn() {
+        if (holdableHeld != null) {
+            holdableHeld = UI.Player.rigManager.AssignRig(holdableHeld.holdableData);
+        }
+    }
+
+    private void SceneManager_sceneUnloaded(Scene scene) {
+        SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn -= SpawnManager_OnPlayerSpawn;
+        //Delete the Holdable
+        if (holdableHeld != null && holdableHeld.holdableData.holdableType == HoldableType.HTypeLocked) {
+            UI.Player.rigManager.ClearRig();
+            holdableHeld = null;
+        }
+    }
 
     public void Save(int fileIndex) {
         ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked, UI.Instance.saveSettings);
@@ -286,23 +333,23 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         OnItemChanged?.Invoke(item);
     }
 
-    public GameObject Drop(Item _toDrop) {
-        GameObject toDrop = null;
-//Drop an item from the Inventory
-        foreach (var item in items) { //Ensure the item exists in the inventory
-            if (item.item == _toDrop) {
-                if (item.item.physicalItem != null) {
-                    toDrop = Instantiate(item.item.physicalItem, dropPosition, Quaternion.identity);
-                    Instantiate(prefabDroppedItemInteractable, toDrop.transform);
-                    Instantiate(pickupSphere, dropPosition, Quaternion.identity); //Drop a sphere where the item was dropped
-                    OnDrop?.Invoke(item.item);
-                }
-                Remove(item.item);
-                break;
-            }
-        }
-        return toDrop;
-    }
+//    public GameObject Drop(Item _toDrop) {
+//        GameObject toDrop = null;
+////Drop an item from the Inventory
+//        foreach (var item in items) { //Ensure the item exists in the inventory
+//            if (item.item == _toDrop) {
+//                if (item.item.physicalItem != null) {
+//                    toDrop = Instantiate(item.item.physicalItem, dropPosition, Quaternion.identity);
+//                    Instantiate(prefabDroppedItemInteractable, toDrop.transform);
+//                    Instantiate(pickupSphere, dropPosition, Quaternion.identity); //Drop a sphere where the item was dropped
+//                    OnDrop?.Invoke(item.item);
+//                }
+//                Remove(item.item);
+//                break;
+//            }
+//        }
+//        return toDrop;
+//    }
 
     public static InventoryItem GetInventoryItem(Item lookupItem) {
         InventoryItem inventoryItem = null;

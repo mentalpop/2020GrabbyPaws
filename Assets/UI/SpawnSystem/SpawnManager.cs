@@ -18,6 +18,9 @@ public class SpawnManager : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject dSystem;
 
+    public delegate void PlayerSpawnEvent();
+    public event PlayerSpawnEvent OnPlayerSpawn = delegate { };
+
     /*
     private void Awake() {
         SpawnPlayer(SpawnPoints.UITestRoomA);
@@ -67,6 +70,7 @@ public class SpawnManager : MonoBehaviour
             UI.Instance.cFreeLook = cinemachineFreeLook;//tpCamera.GetComponent<CinemachineBrain>(); //Cinemachine Brain is on the TP Camera
             cinemachineFreeLook.LookAt = _player.cameraTarget.transform;
             cinemachineFreeLook.Follow = _player.cameraTarget.transform;
+            OnPlayerSpawn();
         } else {
             Debug.Log("Failed to find SpawnPoint: "+point);
         }

@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     public ProximitySelector proximitySelector;
     public string interactMessage = "Click to Interact";
     public string interactMessageGamepad = "A to Interact";
+    public RigManager rigManager;
 
     [HideInInspector] public bool controlsLocked = false;
 
@@ -71,6 +72,9 @@ public class PlayerBehaviour : MonoBehaviour
         //Awful hack to override the use Message
         if (standardUISelectorElements.useMessageText.text == interactMessage || standardUISelectorElements.useMessageText.text == interactMessageGamepad) {
             standardUISelectorElements.useMessageText.text = proximitySelector.defaultUseMessage;
+        }
+        if (Input.GetMouseButtonDown(1)) { //Right click to Drop
+            Inventory.instance.DropHoldable();
         }
     }
 

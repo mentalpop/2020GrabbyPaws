@@ -20,22 +20,22 @@ public class InventorySlot : ListElement {
     private ItemTooltip iTooltip;
 
     private void OnEnable() {
-        navButton.OnSelectExt += NavButton_OnSelectExt;
+        //navButton.OnSelectExt += NavButton_OnSelectExt; //Dropping items
         navButton.OnFocusGain += NavButton_OnFocusGain;
         navButton.OnFocusLost += NavButton_OnFocusLost;
     }
 
-    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
-        int choice = (int)_data;
-        if (choice == 1) { //eventData.button == PointerEventData.InputButton.Right
-            if (iItem.item.category == CategoryItem.Trash) {
-                Inventory.instance.Drop(iItem.item);
-                Debug.Log("Dropping: " + iItem.item.name);
-            } else {
-                Debug.Log("Can't drop item: " + iItem.item.name);
-            }
-        }
-    }
+    //private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+    //    int choice = (int)_data;
+    //    if (choice == 1) { //eventData.button == PointerEventData.InputButton.Right
+    //        if (iItem.item.category == CategoryItem.Trash) {
+    //            Inventory.instance.Drop(iItem.item);
+    //            Debug.Log("Dropping: " + iItem.item.name);
+    //        } else {
+    //            Debug.Log("Can't drop item: " + iItem.item.name);
+    //        }
+    //    }
+    //}
 
     private void NavButton_OnFocusGain(ButtonStateData _buttonStateData) {
         //Tooltip Handling
@@ -49,7 +49,7 @@ public class InventorySlot : ListElement {
     }
 
     private void OnDisable() {
-        navButton.OnSelectExt -= NavButton_OnSelectExt;
+        //navButton.OnSelectExt -= NavButton_OnSelectExt;
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;
         CloseTooltip();
