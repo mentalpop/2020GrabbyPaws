@@ -74,7 +74,7 @@ public class PlayerBehaviour : MonoBehaviour
             standardUISelectorElements.useMessageText.text = proximitySelector.defaultUseMessage;
         }
         if (Input.GetMouseButtonDown(1)) { //Right click to Drop
-            Inventory.instance.DropHoldable();
+            Inventory.instance.HoldableDrop();
         }
     }
 

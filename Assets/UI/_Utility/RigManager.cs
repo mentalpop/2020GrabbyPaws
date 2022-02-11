@@ -8,9 +8,13 @@ public class RigManager : MonoBehaviour
     public List<RigReference> rigs = new List<RigReference>();
 
     private RigReference activeRig;
-    private HoldableHeld holdableHeld;
+    public HoldableHeld HoldableHeld { get; private set; }
 
-    public HoldableHeld AssignRig(HoldableData holdableData/*RigIDs rigID*/) {
+    public HoldableHeld AssignRig(int holdableID) {
+        return AssignRig(Inventory.instance.holdableMetaList.GetHoldable(holdableID));
+    }
+
+    public HoldableHeld AssignRig(HoldableData holdableData) {
         if (activeRig == null || (activeRig != null && holdableData.rigID != activeRig.rigID)) {
             ClearRig();
             activeRig = rigs.FirstOrDefault(p => p.rigID == holdableData.rigID);
@@ -19,10 +23,10 @@ public class RigManager : MonoBehaviour
             GameObject newGO = Instantiate(holdableData.heldPrefab, activeRig.rigTransform.transform);
             newGO.transform.localPosition = Vector3.zero;
             newGO.transform.localRotation = Quaternion.identity;
-            holdableHeld = newGO.GetComponent<HoldableHeld>();
-            holdableHeld.Unpack(holdableData);
+            HoldableHeld = newGO.GetComponent<HoldableHeld>();
+            HoldableHeld.Unpack(holdableData);
         }
-        return holdableHeld;
+        return HoldableHeld;
     }
 
     public void ClearRig() {
@@ -30,8 +34,8 @@ public class RigManager : MonoBehaviour
             activeRig.rig.weight = 0f;
             activeRig = null;
         }
-        if (holdableHeld != null) {
-            Destroy(holdableHeld.gameObject);
+        if (HoldableHeld != null) {
+            Destroy(HoldableHeld.gameObject);
         }
     }
 

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int>>
 {
     public ItemMetaList itemMetaList;
+    public HoldableMetaList holdableMetaList;
     public InventoryItem nullItem;
     public GadgetList gadgetList;
     public Vector3 dropPosition;
@@ -31,8 +33,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public HoldableEvent OnDrop;
 
     public static Inventory instance;
-
-    [HideInInspector] public HoldableHeld holdableHeld;
+    private HoldableHeld RigHeld => UI.Player.rigManager.HoldableHeld;
 
     private void Awake() {
     //Singleton Pattern
@@ -74,6 +75,13 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         Lua.RegisterFunction("InventorySubtract", this, SymbolExtensions.GetMethodInfo(() => InventorySubtract(string.Empty, 0f)));
         Lua.RegisterFunction("InventoryRemove", this, SymbolExtensions.GetMethodInfo(() => InventoryRemove(string.Empty)));
         Lua.RegisterFunction("InventoryGive", this, SymbolExtensions.GetMethodInfo(() => InventoryGive(string.Empty, 0f)));
+
+        //Holdables
+        Lua.RegisterFunction("IsHolding", this, SymbolExtensions.GetMethodInfo(() => IsHolding()));
+        Lua.RegisterFunction("HoldingAnything", this, SymbolExtensions.GetMethodInfo(() => HoldingAnything()));
+        Lua.RegisterFunction("HoldableGive", this, SymbolExtensions.GetMethodInfo(() => HoldableGive(string.Empty)));
+        Lua.RegisterFunction("HoldableClear", this, SymbolExtensions.GetMethodInfo(() => HoldableClear()));
+        Lua.RegisterFunction("HoldableUse", this, SymbolExtensions.GetMethodInfo(() => HoldableUse()));
     }
 
     public bool InventoryHas(string name) {
@@ -204,44 +212,74 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
     }
 
+    public string IsHolding() {
+        if (RigHeld == null) {
+            return "";
+        }
+        return RigHeld.holdableData.name;
+    }
+
+    public bool HoldingAnything() {
+        return RigHeld != null;
+    }
+
+    public void HoldableGive(string ID) {
+        //HoldablePickUp(instance.holdableMetaList.GetHoldable(instance.holdableMetaList.GetIndex(ID)));
+        HoldablePickUp(holdableMetaList.holdables.FirstOrDefault(p => p.name == ID));
+    }
+
     public bool HoldablePickUp(HoldableData holdableData) {
-        if (holdableHeld == null) {
-            holdableHeld = UI.Player.rigManager.AssignRig(holdableData);
+        if (RigHeld == null) {
+            UI.Player.rigManager.AssignRig(holdableData);
             return true;
         }
         return false;
     }
 
 
-    public GameObject DropHoldable() {
+    public GameObject HoldableDrop() {
         GameObject toDrop = null; //Drop the Held item
-        if (holdableHeld != null && holdableHeld.holdableData.worldPrefab != null) {
-            toDrop = Instantiate(holdableHeld.holdableData.worldPrefab, holdableHeld.transform.position, Quaternion.identity);
-            OnDrop?.Invoke(holdableHeld.holdableData);
-            UI.Player.rigManager.ClearRig();
-            holdableHeld = null;
+        if (RigHeld != null && RigHeld.holdableData.worldPrefab != null) {
+            if (RigHeld.CanDrop()) {
+                toDrop = Instantiate(RigHeld.holdableData.worldPrefab, RigHeld.transform.position, RigHeld.transform.rotation);
+                OnDrop?.Invoke(RigHeld.holdableData);
+                HoldableClear();
+            }
         }
         return toDrop;
+    }
+
+    public void HoldableClear() {
+        UI.Player.rigManager.ClearRig();
+    }
+
+    public void HoldableUse() {
+        if (RigHeld != null) {
+            RigHeld.Use();
+        }
     }
     #endregion
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn += SpawnManager_OnPlayerSpawn;
+        if (SceneTransitionHandler.instance.spawnManager != null) {
+            SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn += SpawnManager_OnPlayerSpawn;
+        }
     }
 
     private void SpawnManager_OnPlayerSpawn() {
-        if (holdableHeld != null) {
-            holdableHeld = UI.Player.rigManager.AssignRig(holdableHeld.holdableData);
+        if (RigHeld != null) {
+            //UI.Player.rigManager.AssignRig(holdableHeld.holdableData);
         }
     }
 
     private void SceneManager_sceneUnloaded(Scene scene) {
-        SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn -= SpawnManager_OnPlayerSpawn;
+        if (SceneTransitionHandler.instance.spawnManager != null) {
+            SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn -= SpawnManager_OnPlayerSpawn;
+        }
         //Delete the Holdable
-        if (holdableHeld != null && holdableHeld.holdableData.holdableType == HoldableType.HTypeLocked) {
-            UI.Player.rigManager.ClearRig();
-            holdableHeld = null;
+        if (RigHeld != null && RigHeld.holdableData.holdableType == HoldableType.HTypeLocked) {
+            HoldableClear();
         }
     }
 
