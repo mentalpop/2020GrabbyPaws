@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public GadgetList gadgetList;
     public Vector3 dropPosition;
     public ItemTooltip itemTooltip;
+    public SceneTransitionHandler sceneTransitionHandler;
     public GameObject pickupSphere;
     public GameObject prefabDroppedItemInteractable;
     public List<InventoryItem> items = new List<InventoryItem>();
@@ -22,6 +23,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private string saveStringItemIDs = "itemID";
     private string saveStringItemCount = "itemQuantity";
     private string saveStringGadgets = "gadgets";
+    private string saveStringHeldItem = "heldItem";
 
     public delegate void InventoryEvent(Item item);
     public InventoryEvent OnPickUp;
@@ -33,7 +35,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public HoldableEvent OnDrop;
 
     public static Inventory instance;
-    private HoldableHeld RigHeld => UI.Player.rigManager.HoldableHeld;
+    private HoldableHeld RigHeld => UI.Player == null ? null : UI.Player.rigManager.HoldableHeld;
+    private int heldBetweenScenesIndex = -1;
+    private bool hasSubscribedToFallbackMethod = false;
 
     private void Awake() {
     //Singleton Pattern
@@ -54,7 +58,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         UI.Instance.OnSave += Save;
         UI.Instance.OnLoad += Load;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        sceneTransitionHandler.OnPreEndCurrentScene += Instance_OnPreEndCurrentScene;
         //UI.Instance.OnNewGame += NewGame;
         RegisterLuaFunctions();
     }
@@ -63,8 +67,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         UI.Instance.OnSave -= Save;
         UI.Instance.OnLoad -= Load;
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
         //UI.Instance.OnNewGame -= NewGame;
+        sceneTransitionHandler.OnPreEndCurrentScene -= Instance_OnPreEndCurrentScene;
     }
     #region Lua Functions
     private void RegisterLuaFunctions() {
@@ -262,24 +266,43 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (SceneTransitionHandler.instance.spawnManager != null) {
-            SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn += SpawnManager_OnPlayerSpawn;
+        if (heldBetweenScenesIndex != -1) {
+            if (UI.Player == null) {
+                Debug.LogWarning("Player has not spawned yet; attempting fallback");
+                if (!hasSubscribedToFallbackMethod) {
+                    hasSubscribedToFallbackMethod = true;
+                    sceneTransitionHandler.OnPlayerSpawn += SpawnManager_OnPlayerSpawn;
+                }
+            } else { //Give Player Held Item
+                AssignHeldBetweenScenes();
+            }
         }
     }
 
-    private void SpawnManager_OnPlayerSpawn() {
-        if (RigHeld != null) {
-            //UI.Player.rigManager.AssignRig(holdableHeld.holdableData);
+    private void AssignHeldBetweenScenes() {
+        UI.Player.rigManager.AssignRig(heldBetweenScenesIndex);
+        heldBetweenScenesIndex = -1;
+    }
+
+    private void SpawnManager_OnPlayerSpawn(string sceneName, SpawnPoints point) {
+        //Debug.LogError("FALLBACK SpawnManager_OnPlayerSpawn");
+        sceneTransitionHandler.OnPlayerSpawn -= SpawnManager_OnPlayerSpawn;
+        hasSubscribedToFallbackMethod = false;
+        if (heldBetweenScenesIndex == -1) {
+            Debug.LogError("heldBetweenScenesIndex has been set to -1, this should not happen!");
+        } else {
+            AssignHeldBetweenScenes();
         }
     }
 
-    private void SceneManager_sceneUnloaded(Scene scene) {
-        if (SceneTransitionHandler.instance.spawnManager != null) {
-            SceneTransitionHandler.instance.spawnManager.OnPlayerSpawn -= SpawnManager_OnPlayerSpawn;
-        }
+    private void Instance_OnPreEndCurrentScene(string sceneName, SpawnPoints point) {
         //Delete the Holdable
-        if (RigHeld != null && RigHeld.holdableData.holdableType == HoldableType.HTypeLocked) {
-            HoldableClear();
+        if (RigHeld != null) {
+            if (RigHeld.holdableData.holdableType == HoldableType.HTypeLocked) {
+                HoldableClear();
+            } else {
+                heldBetweenScenesIndex = holdableMetaList.GetIndex(RigHeld.holdableData);
+            }
         }
     }
 
@@ -293,6 +316,8 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
         ES3.Save<List<int>>(saveStringItemIDs, itemIDs, UI.Instance.saveSettings);
         ES3.Save<List<int>>(saveStringItemCount, itemCount, UI.Instance.saveSettings);
+        ES3.Save(saveStringHeldItem, RigHeld ==  null ? -1 : holdableMetaList.GetIndex(RigHeld.holdableData), UI.Instance.saveSettings);
+
         //List<bool> _gadgetsUnlocked = new List<bool>();
     }
 
@@ -304,6 +329,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         for (int i = 0; i < loadItems.Count; i++) {
             items.Add(new InventoryItem(itemMetaList.GetItem(loadItems[i]), loadCount[i]));
         }
+        heldBetweenScenesIndex = ES3.Load(saveStringHeldItem, -1, UI.Instance.saveSettings);
         /*
         foreach (var item in loadItems) {
             items.Add(new InventoryItem(itemMetaList.GetItem(item.itemID), item.quantity));

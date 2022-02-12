@@ -23,6 +23,8 @@ public class SceneTransitionHandler : MonoBehaviour
 
     public delegate void SceneEvent(string sceneName, SpawnPoints point);
     public event SceneEvent OnBeginTransitionToNewScene = delegate { };
+    public event SceneEvent OnPreEndCurrentScene = delegate { };
+    public event SceneEvent OnPlayerSpawn = delegate { };
 
     private void Awake() {
     //Singleton Pattern
@@ -63,6 +65,7 @@ public class SceneTransitionHandler : MonoBehaviour
             } else {
                 currentScene = scene.name;
                 spawnManager.SpawnPlayer(spawnPoint);
+                OnPlayerSpawn(currentScene, spawnPoint);
             }
         }
     }
@@ -102,6 +105,7 @@ public class SceneTransitionHandler : MonoBehaviour
 
     private IEnumerator GoToSceneAfterAnimation() {
         yield return clipSeconds;
+        OnPreEndCurrentScene(sceneGoto, spawnPoint);
         SceneManager.LoadScene(sceneGoto);
     }
 

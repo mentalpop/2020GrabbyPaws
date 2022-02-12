@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: HoldableMetaList
   m_EditorClassIdentifier: 
   holdables:
+  - {fileID: 11400000, guid: 5d35455b4707fd24a8b22706ad7cb82c, type: 2}
+  - {fileID: 11400000, guid: bf3a643bec4d4a7478a77825eb0835bc, type: 2}
+  - {fileID: 11400000, guid: eccc40f2860bcb542a50e57c4bbd6cdc, type: 2}
   - {fileID: 11400000, guid: dc7af3541e477b847acf60578549169d, type: 2}
