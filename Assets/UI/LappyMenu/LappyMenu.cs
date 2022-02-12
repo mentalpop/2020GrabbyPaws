@@ -79,7 +79,7 @@ public class LappyMenu : MonoBehaviour
     }
 
     public bool Close() {
-        if (!rivenChatWindow.gameObject.activeSelf && !container.gTween.doReverse) {
+        if (!rivenChatWindow.gameObject.activeSelf && !container.gTween.doReverse && !awaitingConfirmation) {
             container.gTween.Reverse();
             return true;
         }
