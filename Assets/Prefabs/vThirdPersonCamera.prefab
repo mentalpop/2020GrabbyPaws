@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 8042505572053243553}
   - component: {fileID: 8597650160824743941}
   - component: {fileID: 7819190583271562503}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vThirdPersonCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -365,6 +365,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_SnowLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4008719323656374183, guid: e225538aa3b53b94a8eaf1adb367cbbf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4008719323656722739, guid: e225538aa3b53b94a8eaf1adb367cbbf,
         type: 3}

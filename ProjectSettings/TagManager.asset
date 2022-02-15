@@ -46,7 +46,7 @@ TagManager:
   - 
   - 
   - Player
-  - Enemy
+  - Camera
   - CompanionAI
   - Triggers
   - StopMove
@@ -58,7 +58,7 @@ TagManager:
   - NPC
   - Interactable
   - Sittable
-  - 
+  - NoDropCollider
   - 
   - 
   - 

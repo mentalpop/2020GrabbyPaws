@@ -808,6 +808,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_SnowLight
       objectReference: {fileID: 0}
+    - target: {fileID: 4008719323656374183, guid: e225538aa3b53b94a8eaf1adb367cbbf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4008719323656722739, guid: e225538aa3b53b94a8eaf1adb367cbbf,
         type: 3}
       propertyPath: m_LocalPosition.x
