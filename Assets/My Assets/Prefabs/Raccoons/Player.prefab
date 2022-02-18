@@ -784,6 +784,7 @@ GameObject:
   - component: {fileID: 5377947205448663607}
   - component: {fileID: 5377947205448663608}
   - component: {fileID: 6417826691543031508}
+  - component: {fileID: 3332355997408583808}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1254,6 +1255,44 @@ MonoBehaviour:
   - rig: {fileID: 3082480293249503241}
     active: 1
   m_Effectors: []
+--- !u!114 &3332355997408583808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144335763972101866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab01fc92c35bcd64681457359b1685c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openCloseEvents: 1
+  openCloseWindow: 1
+  selectedToolbar: 0
+  actionInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: L
+    keyboardAxis: 0
+    joystick: A
+    joystickAxis: 0
+    mobile: A
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+    timeButtonWasPressed: 0
+    lastTimeTheButtonWasPressed: 0
+    inButtomTimer: 0
+  animationClip: CoolLean
+  animationEnd: 0.8
+  OnPlayAnimation:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndAnimation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4616423525700323513
 GameObject:
   m_ObjectHideFlags: 0
