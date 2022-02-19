@@ -45,7 +45,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.03
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1015667563886943879
 MonoBehaviour:
@@ -78,14 +78,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   doSaveLoad: 1
-  onLoadTrue:
-    m_PersistentCalls:
-      m_Calls: []
-  onLoadFalse:
-    m_PersistentCalls:
-      m_Calls: []
   holdableData: {fileID: 11400000, guid: dc7af3541e477b847acf60578549169d, type: 2}
   itemToPickup: {fileID: 0}
+  holdableID: 0
 --- !u!114 &1015667563886943876
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,12 +24,14 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     private string saveStringItemCount = "itemQuantity";
     private string saveStringGadgets = "gadgets";
     private string saveStringHeldItem = "heldItem";
+    private string saveStringHoldableIDs = "holdableIDs";
 
     public delegate void InventoryEvent(Item item);
     public InventoryEvent OnPickUp;
     //public InventoryEvent OnDrop;
     public InventoryEvent OnItemChanged;
     public InventoryEvent OnItemGiven;
+    public Dictionary<HoldableID, HoldableRegistered> registeredHoldables = new Dictionary<HoldableID, HoldableRegistered>();
 
     public delegate void HoldableEvent(HoldableData holdableData);
     public HoldableEvent OnDrop;
@@ -83,7 +85,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         //Holdables
         Lua.RegisterFunction("IsHolding", this, SymbolExtensions.GetMethodInfo(() => IsHolding()));
         Lua.RegisterFunction("HoldingAnything", this, SymbolExtensions.GetMethodInfo(() => HoldingAnything()));
-        Lua.RegisterFunction("HoldableGive", this, SymbolExtensions.GetMethodInfo(() => HoldableGive(string.Empty)));
+        Lua.RegisterFunction("HoldableGive", this, SymbolExtensions.GetMethodInfo(() => HoldableGive(string.Empty, HoldableID.None)));
         Lua.RegisterFunction("HoldableClear", this, SymbolExtensions.GetMethodInfo(() => HoldableClear()));
         Lua.RegisterFunction("HoldableUse", this, SymbolExtensions.GetMethodInfo(() => HoldableUse()));
     }
@@ -215,7 +217,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             OnItemChanged?.Invoke(newItem);
         }
     }
+    #endregion
 
+    #region Holdable Functions
     public string IsHolding() {
         if (RigHeld == null) {
             return "";
@@ -227,12 +231,12 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         return RigHeld != null;
     }
 
-    public void HoldableGive(string ID) {
+    public void HoldableGive(string ID, HoldableID holdableID) {
         //HoldablePickUp(instance.holdableMetaList.GetHoldable(instance.holdableMetaList.GetIndex(ID)));
-        HoldablePickUp(holdableMetaList.holdables.FirstOrDefault(p => p.name == ID));
+        HoldablePickUp(holdableMetaList.holdables.FirstOrDefault(p => p.name == ID), holdableID);
     }
 
-    public bool HoldablePickUp(HoldableData holdableData) {
+    public bool HoldablePickUp(HoldableData holdableData, HoldableID holdableID) {
         if (RigHeld == null) {
             UI.Player.rigManager.AssignRig(holdableData);
             return true;
@@ -247,6 +251,10 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             if (RigHeld.CanDrop()) {
                 toDrop = Instantiate(RigHeld.holdableData.worldPrefab, RigHeld.transform.position, RigHeld.transform.rotation);
                 OnDrop?.Invoke(RigHeld.holdableData);
+                HoldableInteractable holdableInteractable = toDrop.GetComponentInChildren<HoldableInteractable>();
+                //Debug.Log("holdableInteractable: " + holdableInteractable);
+                if (holdableInteractable.holdableData.holdableType == HoldableType.HTypePermanent)
+                    HoldableRegister(holdableInteractable);
                 HoldableClear();
             }
         }
@@ -262,8 +270,31 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             RigHeld.Use();
         }
     }
-    #endregion
 
+    public void HoldableRegister(HoldableInteractable holdableInteractable) {
+        HoldableRegistered foundHoldable;
+        string _currentScene = SceneManager.GetActiveScene().ToString();
+        registeredHoldables.TryGetValue(holdableInteractable.holdableID, out foundHoldable);
+        if (foundHoldable == null) {
+            foundHoldable = new HoldableRegistered();
+            foundHoldable.Register(_currentScene, holdableMetaList.GetIndex(holdableInteractable.holdableData), holdableInteractable.holdableID);
+            registeredHoldables.Add(holdableInteractable.holdableID, foundHoldable);
+        }
+        foundHoldable.EndOfSceneUpKeep(_currentScene, holdableInteractable);
+    }
+
+    public void HoldableDeregister(HoldableInteractable holdableInteractable) {
+        //Debug.Log("HoldableDeregister: " + holdableInteractable.holdableID);
+        HoldableRegistered foundHoldable;
+        registeredHoldables.TryGetValue(holdableInteractable.holdableID, out foundHoldable);
+        if (foundHoldable != null) {
+            registeredHoldables.Remove(holdableInteractable.holdableID);
+        }
+    }
+
+    public bool HoldableIsRegistered(HoldableID holdableID) {
+        return registeredHoldables.ContainsKey(holdableID);// || holdableMetaList.GetHoldable(heldBetweenScenesIndex).;
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (heldBetweenScenesIndex != -1) {
@@ -277,7 +308,17 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
                 AssignHeldBetweenScenes();
             }
         }
+    //Instantiate every registered Holdable
+        foreach (var _holdable in registeredHoldables.Values) {
+            Debug.Log("_holdable: " + _holdable.HoldableDataIndex);
+            if (_holdable.CurrentScene == SceneManager.GetActiveScene().ToString()) {
+                Instantiate(holdableMetaList.GetHoldable(_holdable.HoldableDataIndex).worldPrefab
+                    , _holdable.Position, _holdable.Rotation);
+            }
+        }
     }
+
+
 
     private void AssignHeldBetweenScenes() {
         UI.Player.rigManager.AssignRig(heldBetweenScenesIndex);
@@ -305,6 +346,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
             }
         }
     }
+    #endregion
 
     public void Save(int fileIndex) {
         ES3.Save<List<bool>>(saveStringGadgets, gadgetUnlocked, UI.Instance.saveSettings);
@@ -316,8 +358,12 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
         ES3.Save<List<int>>(saveStringItemIDs, itemIDs, UI.Instance.saveSettings);
         ES3.Save<List<int>>(saveStringItemCount, itemCount, UI.Instance.saveSettings);
+    //Holdables
         ES3.Save(saveStringHeldItem, RigHeld ==  null ? -1 : holdableMetaList.GetIndex(RigHeld.holdableData), UI.Instance.saveSettings);
-
+        ES3.Save<List<HoldableID>>(saveStringHoldableIDs, registeredHoldables.Keys.ToList(), UI.Instance.saveSettings);
+        foreach (var _holdable in registeredHoldables.Values) {
+            _holdable.Save();
+        }
         //List<bool> _gadgetsUnlocked = new List<bool>();
     }
 
@@ -329,7 +375,15 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         for (int i = 0; i < loadItems.Count; i++) {
             items.Add(new InventoryItem(itemMetaList.GetItem(loadItems[i]), loadCount[i]));
         }
+    //Holdables
         heldBetweenScenesIndex = ES3.Load(saveStringHeldItem, -1, UI.Instance.saveSettings);
+        List<HoldableID> _holdableIDs = ES3.Load(saveStringHoldableIDs, new List<HoldableID>(), UI.Instance.saveSettings);
+        registeredHoldables.Clear();
+        foreach (var _holdableID in _holdableIDs) {
+            HoldableRegistered loadHoldable = new HoldableRegistered();
+            loadHoldable.Load(_holdableID);
+            registeredHoldables.Add(_holdableID, loadHoldable);
+        }
         /*
         foreach (var item in loadItems) {
             items.Add(new InventoryItem(itemMetaList.GetItem(item.itemID), item.quantity));
@@ -465,6 +519,46 @@ public class InventoryItem
     public InventoryItem(Item item, int quantity) {
         this.item = item;
         this.quantity = quantity;
+    }
+}
+
+public class HoldableRegistered
+{
+    public HoldableID HoldableID { get; private set; }
+    public int HoldableDataIndex { get; private set; }
+    public string OriginalScene { get; private set; }
+    public string CurrentScene { get; private set; }
+    public Vector3 Position { get; private set; }
+    public Quaternion Rotation { get; private set; }
+
+    public void EndOfSceneUpKeep(string _scene, HoldableInteractable holdableInteractable) {
+        CurrentScene = _scene;
+        Position = holdableInteractable.transform.position;
+        Rotation = holdableInteractable.transform.rotation;
+    }
+
+    public void Register(string _scene, int holdableDataIndex, HoldableID holdableID) {
+        OriginalScene = _scene;
+        HoldableDataIndex = holdableDataIndex;
+        HoldableID = holdableID;
+    }
+
+    public void Save() {
+        ES3.Save("HoldableID_" + HoldableID.ToString(), HoldableID, UI.Instance.saveSettings);
+        ES3.Save("HoldableDataIndex_" + HoldableID.ToString(), HoldableDataIndex, UI.Instance.saveSettings);
+        ES3.Save("OriginalScene_" + HoldableID.ToString(), OriginalScene, UI.Instance.saveSettings);
+        ES3.Save("CurrentScene_" + HoldableID.ToString(), CurrentScene, UI.Instance.saveSettings);
+        ES3.Save("HoldablePosition_" + HoldableID.ToString(), Position, UI.Instance.saveSettings);
+        ES3.Save("HoldableRotation_" + HoldableID.ToString(), Rotation, UI.Instance.saveSettings);
+    }
+
+    public void Load(HoldableID _HoldableID) {
+        HoldableID = ES3.Load("HoldableID_" + _HoldableID.ToString(), HoldableID.None, UI.Instance.saveSettings);
+        HoldableDataIndex = ES3.Load("HoldableDataIndex_" + _HoldableID.ToString(), 0, UI.Instance.saveSettings);
+        OriginalScene = ES3.Load("OriginalScene_" + _HoldableID.ToString(), UI.Instance.saveSettings.path, "", UI.Instance.saveSettings);
+        CurrentScene = ES3.Load("CurrentScene_" + _HoldableID.ToString(), UI.Instance.saveSettings.path, "", UI.Instance.saveSettings);
+        Position = ES3.Load("HoldablePosition_" + _HoldableID.ToString(), Vector3.zero, UI.Instance.saveSettings);
+        Rotation = ES3.Load("HoldableRotation_" + _HoldableID.ToString(), Quaternion.identity, UI.Instance.saveSettings);
     }
 }
 

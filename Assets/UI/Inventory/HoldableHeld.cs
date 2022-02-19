@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HoldableHeld : MonoBehaviour
 {
-    private int layerPreventDrop = 12; //StopMove
+    private int layerPreventDrop = 21; //NoDropCollider
 
     public HoldableData holdableData { get; protected set; }
 
