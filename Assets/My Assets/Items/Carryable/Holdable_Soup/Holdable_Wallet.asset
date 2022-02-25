@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigID: 0
   holdableType: 0
+  holdableID: 1
   heldPrefab: {fileID: 517317681091345151, guid: f00141004d25bb64f8222101b298ab45,
     type: 3}
   worldPrefab: {fileID: 6709629176449267801, guid: 0611bedc9107afd48ae852a3bb578038,

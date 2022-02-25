@@ -8,7 +8,7 @@ public class HoldableInteractable : Interactable
     public bool doSaveLoad = true;
     public HoldableData holdableData;
     public GameObject itemToPickup;
-    public HoldableID holdableID; // = HoldableID.None
+    //public HoldableID holdableID; // = HoldableID.None
 
     private SceneTransitionHandler sceneTransitionHandler;
 
@@ -30,7 +30,7 @@ public class HoldableInteractable : Interactable
         if (UI.LockControls) {
             return;
         }
-        bool wasPickedUp = Inventory.instance.HoldablePickUp(holdableData, holdableID);
+        bool wasPickedUp = Inventory.instance.HoldablePickUp(holdableData, holdableData.holdableID);
         if (wasPickedUp) {
             if (itemToPickup == null) {
                 Destroy(gameObject);
@@ -50,7 +50,7 @@ public class HoldableInteractable : Interactable
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (doSaveLoad) {
             //var result = UI.CompareChange(GetSaveID());
-            if (Inventory.instance.HoldableIsRegistered(holdableID)) { //Check if registered
+            if (Inventory.instance.HoldableIsRegistered(holdableData.holdableID)) { //Check if registered
                 Destroy(itemToPickup); //The inventory will take care of spawning this instance as necessary
             }
         }
@@ -60,10 +60,4 @@ public class HoldableInteractable : Interactable
         if (holdableData.holdableType == HoldableType.HTypePermanent)
             Inventory.instance.HoldableRegister(this);
     }
-}
-
-public enum HoldableID
-{
-    None,
-    Test
 }

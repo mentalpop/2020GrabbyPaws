@@ -273,12 +273,12 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
 
     public void HoldableRegister(HoldableInteractable holdableInteractable) {
         HoldableRegistered foundHoldable;
-        string _currentScene = SceneManager.GetActiveScene().ToString();
-        registeredHoldables.TryGetValue(holdableInteractable.holdableID, out foundHoldable);
+        string _currentScene = SceneManager.GetActiveScene().name;
+        registeredHoldables.TryGetValue(holdableInteractable.holdableData.holdableID, out foundHoldable);
         if (foundHoldable == null) {
             foundHoldable = new HoldableRegistered();
-            foundHoldable.Register(_currentScene, holdableMetaList.GetIndex(holdableInteractable.holdableData), holdableInteractable.holdableID);
-            registeredHoldables.Add(holdableInteractable.holdableID, foundHoldable);
+            foundHoldable.Register(_currentScene, holdableMetaList.GetIndex(holdableInteractable.holdableData), holdableInteractable.holdableData.holdableID);
+            registeredHoldables.Add(holdableInteractable.holdableData.holdableID, foundHoldable);
         }
         foundHoldable.EndOfSceneUpKeep(_currentScene, holdableInteractable);
     }
@@ -286,14 +286,16 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public void HoldableDeregister(HoldableInteractable holdableInteractable) {
         //Debug.Log("HoldableDeregister: " + holdableInteractable.holdableID);
         HoldableRegistered foundHoldable;
-        registeredHoldables.TryGetValue(holdableInteractable.holdableID, out foundHoldable);
+        registeredHoldables.TryGetValue(holdableInteractable.holdableData.holdableID, out foundHoldable);
         if (foundHoldable != null) {
-            registeredHoldables.Remove(holdableInteractable.holdableID);
+            registeredHoldables.Remove(holdableInteractable.holdableData.holdableID);
         }
     }
 
     public bool HoldableIsRegistered(HoldableID holdableID) {
-        return registeredHoldables.ContainsKey(holdableID);// || holdableMetaList.GetHoldable(heldBetweenScenesIndex).;
+        return registeredHoldables.ContainsKey(holdableID) ||
+            (heldBetweenScenesIndex != -1 && holdableMetaList.GetHoldable(heldBetweenScenesIndex).holdableID == holdableID) || //OR; the held item maatches the index of the Holdable Interactable checking
+            (RigHeld != null && RigHeld.holdableData.holdableID == holdableID); //The rig has already been supplied with the object
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -310,8 +312,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
     //Instantiate every registered Holdable
         foreach (var _holdable in registeredHoldables.Values) {
-            Debug.Log("_holdable: " + _holdable.HoldableDataIndex);
-            if (_holdable.CurrentScene == SceneManager.GetActiveScene().ToString()) {
+            if (_holdable.CurrentScene == SceneManager.GetActiveScene().name) {
                 Instantiate(holdableMetaList.GetHoldable(_holdable.HoldableDataIndex).worldPrefab
                     , _holdable.Position, _holdable.Rotation);
             }

@@ -7,6 +7,7 @@ public class HoldableData : ScriptableObject
 {
     public RigIDs rigID;
     public HoldableType holdableType;
+    public HoldableID holdableID;
     public GameObject heldPrefab;
     public GameObject worldPrefab;
     public Item itemData;
@@ -22,4 +23,10 @@ public enum HoldableType
     HTypePermanent,
     HTypeTransient,
     HTypeLocked
+}
+
+public enum HoldableID
+{
+    None,
+    Test
 }
