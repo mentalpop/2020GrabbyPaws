@@ -73,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (standardUISelectorElements.useMessageText.text == interactMessage || standardUISelectorElements.useMessageText.text == interactMessageGamepad) {
             standardUISelectorElements.useMessageText.text = proximitySelector.defaultUseMessage;
         }
-        if (Input.GetMouseButtonDown(1)) { //Right click to Drop
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("B")) { //Right click to Drop
             Inventory.instance.HoldableDrop();
         }
     }

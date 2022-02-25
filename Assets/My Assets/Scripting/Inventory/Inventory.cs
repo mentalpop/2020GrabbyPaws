@@ -295,7 +295,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         }
     }
 
-    public bool HoldableIsRegistered(HoldableID holdableID) {
+    public bool HoldableIsRegisteredHeldOrSold(HoldableID holdableID) { //TODO: Account for Holdable being sold
         return registeredHoldables.ContainsKey(holdableID) ||
             (heldBetweenScenesIndex != -1 && holdableMetaList.GetHoldable(heldBetweenScenesIndex).holdableID == holdableID) || //OR; the held item maatches the index of the Holdable Interactable checking
             (RigHeld != null && RigHeld.holdableData.holdableID == holdableID); //The rig has already been supplied with the object

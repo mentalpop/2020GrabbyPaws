@@ -52,7 +52,7 @@ public class HoldableInteractable : Interactable
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (doSaveLoad) {
             //var result = UI.CompareChange(GetSaveID());
-            if (Inventory.instance.HoldableIsRegistered(holdableData.holdableID)) { //Check if registered
+            if (Inventory.instance.HoldableIsRegisteredHeldOrSold(holdableData.holdableID)) { //Check if registered
                 Destroy(itemToPickup); //The inventory will take care of spawning this instance as necessary
             }
         }
