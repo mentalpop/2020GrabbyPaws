@@ -294,7 +294,7 @@ public class MenuNavigator : MonoBehaviour
     //*/
 
     private void SwitchToMouse() {
-        //Debug.Log("SwitchToMouse");
+        Debug.Log("SwitchToMouse");
         if (activeMenuNode != null) {
             activeMenuNode.MenuUnfocus();
         }
@@ -307,7 +307,7 @@ public class MenuNavigator : MonoBehaviour
     }
 
     private void SwitchToGamepad() {
-        //Debug.Log("SwitchToGamepad");
+        Debug.Log("SwitchToGamepad");
         useMouse = false;
         standaloneInputModule.horizontalAxis = gamepadHorizontalInput;
         standaloneInputModule.verticalAxis = gamepadVerticalInput;

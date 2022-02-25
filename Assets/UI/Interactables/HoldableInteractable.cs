@@ -8,7 +8,6 @@ public class HoldableInteractable : Interactable
     public bool doSaveLoad = true;
     public HoldableData holdableData;
     public GameObject itemToPickup;
-    //public HoldableID holdableID; // = HoldableID.None
 
     private SceneTransitionHandler sceneTransitionHandler;
 
@@ -42,12 +41,7 @@ public class HoldableInteractable : Interactable
             if (holdableData.holdableType == HoldableType.HTypePermanent)
                 Inventory.instance.HoldableDeregister(this); //The item in the player's hands isn't handled by the "Registered" system
         }
-        //base.Interact(); //Write the pending change to the save file
     }
-
-    //public virtual string GetSaveID() {
-    //    return string.Format("{0}_Holdable_{1}", UI.GetCurrentFile(), holdableID);
-    //}
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (doSaveLoad) {

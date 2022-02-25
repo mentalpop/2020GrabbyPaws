@@ -1100,13 +1100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputDevice: 2
-  joystickKeyCodesToCheck: 4a0100004b0100004c01000051010000
-  joystickButtonsToCheck:
-  - A
-  - X
-  - LeftStickClick
-  - Start
-  - Back
+  joystickKeyCodesToCheck: 4a0100004b0100004c010000510100005001000052010000
+  joystickButtonsToCheck: []
   joystickAxesToCheck:
   - LeftAnalogHorizontal
   - LeftAnalogVertical

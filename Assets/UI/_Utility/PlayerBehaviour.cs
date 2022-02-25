@@ -9,7 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public vThirdPersonInput vThirdPersonInput;
     public Transform cameraTarget;
-    public Transform dropTarget;
+    //public Transform dropTarget;
     public CinemachineVirtualCamera firstPersonCam;
     public ProximitySelector proximitySelector;
     public string interactMessage = "Click to Interact";
@@ -50,7 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     private void Update() {
-        Inventory.instance.dropPosition = dropTarget.position;
+        //Inventory.instance.dropPosition = dropTarget.position;
 
         if (MenuNavigator.useMouse) {
             if (Input.mouseScrollDelta.y > 0f) {// forward

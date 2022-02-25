@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public HoldableMetaList holdableMetaList;
     public InventoryItem nullItem;
     public GadgetList gadgetList;
-    public Vector3 dropPosition;
+    //public Vector3 dropPosition;
     public ItemTooltip itemTooltip;
     public SceneTransitionHandler sceneTransitionHandler;
     public GameObject pickupSphere;
