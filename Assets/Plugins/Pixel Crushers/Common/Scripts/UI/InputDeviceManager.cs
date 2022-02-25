@@ -292,7 +292,6 @@ namespace PixelCrushers
                 {
                     if (GetButtonDown(joystickButtonsToCheck[i]))
                     {
-                        Debug.Log("GetButtonDown: " + joystickButtonsToCheck[i]);
                         return true;
                     }
                 }

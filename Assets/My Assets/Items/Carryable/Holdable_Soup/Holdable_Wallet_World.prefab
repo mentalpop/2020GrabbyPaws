@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8422701511156101493}
   - component: {fileID: 6825813200360466246}
   - component: {fileID: 3266147866024434536}
+  - component: {fileID: 4451218500991587540}
   m_Layer: 0
   m_Name: Holdable_Wallet_World
   m_TagString: Untagged
@@ -91,7 +92,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6709629176449267801}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.79, y: 0.8, z: 0.61}
@@ -108,10 +109,24 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4451218500991587540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6709629176449267801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebfd0c4bb702df4db94e74545dcd2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rBody: {fileID: 3266147866024434536}
+  myCollider: {fileID: 6825813200360466246}
 --- !u!1001 &1130162528283707558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +210,16 @@ PrefabInstance:
       propertyPath: holdableID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1183533974461266209, guid: 7aecde947126c80439481276a6244f4e,
+        type: 3}
+      propertyPath: rBody
+      value: 
+      objectReference: {fileID: 3266147866024434536}
+    - target: {fileID: 1183533974461266209, guid: 7aecde947126c80439481276a6244f4e,
+        type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 6825813200360466246}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aecde947126c80439481276a6244f4e, type: 3}
 --- !u!4 &123642901242631718 stripped
