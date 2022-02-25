@@ -19,11 +19,13 @@ public class HoldableInteractable : Interactable
     private void OnEnable() {
         sceneTransitionHandler.OnPreEndCurrentScene += Instance_OnPreEndCurrentScene;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        Inventory.instance.OnPreSave += Instance_OnPreSave;
     }
 
     private void OnDisable() {
         sceneTransitionHandler.OnPreEndCurrentScene -= Instance_OnPreEndCurrentScene;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        Inventory.instance.OnPreSave -= Instance_OnPreSave;
     }
 
     public override void Interact() {
@@ -56,8 +58,12 @@ public class HoldableInteractable : Interactable
         }
     }
 
-    private void Instance_OnPreEndCurrentScene(string sceneName, SpawnPoints point) {
+    private void Instance_OnPreSave() {
         if (holdableData.holdableType == HoldableType.HTypePermanent)
             Inventory.instance.HoldableRegister(this);
+    }
+
+    private void Instance_OnPreEndCurrentScene(string sceneName, SpawnPoints point) { //This is for transition between Spawn Points / Scenes; NOT saving
+        Instance_OnPreSave(); //Save the current position of the Holdable
     }
 }

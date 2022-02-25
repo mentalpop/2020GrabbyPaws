@@ -36,6 +36,9 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
     public delegate void HoldableEvent(HoldableData holdableData);
     public HoldableEvent OnDrop;
 
+    public delegate void InventoryUtilityEvent();
+    public event InventoryUtilityEvent OnPreSave = delegate { };
+
     public static Inventory instance;
     private HoldableHeld RigHeld => UI.Player == null ? null : UI.Player.rigManager.HoldableHeld;
     private int heldBetweenScenesIndex = -1;
@@ -360,6 +363,7 @@ public class Inventory : MonoBehaviour//Singleton<Inventory>//, IFileIO<List<int
         ES3.Save<List<int>>(saveStringItemIDs, itemIDs, UI.Instance.saveSettings);
         ES3.Save<List<int>>(saveStringItemCount, itemCount, UI.Instance.saveSettings);
     //Holdables
+        OnPreSave();
         ES3.Save(saveStringHeldItem, RigHeld ==  null ? -1 : holdableMetaList.GetIndex(RigHeld.holdableData), UI.Instance.saveSettings);
         ES3.Save<List<HoldableID>>(saveStringHoldableIDs, registeredHoldables.Keys.ToList(), UI.Instance.saveSettings);
         foreach (var _holdable in registeredHoldables.Values) {
