@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 3
+  selectedToolbar: 0
   _isDead: 0
   _currentHealth: 0
   isImmortal: 0
@@ -1271,7 +1271,7 @@ MonoBehaviour:
   openCloseWindow: 1
   selectedToolbar: 0
   actionInput:
-    useInput: 1
+    useInput: 0
     isAxisInUse: 0
     keyboard: L
     keyboardAxis: 0
@@ -1286,7 +1286,7 @@ MonoBehaviour:
     lastTimeTheButtonWasPressed: 0
     inButtomTimer: 0
   animationClip: CoolLean
-  animationEnd: 0.8
+  animationEnd: 0
   OnPlayAnimation:
     m_PersistentCalls:
       m_Calls: []

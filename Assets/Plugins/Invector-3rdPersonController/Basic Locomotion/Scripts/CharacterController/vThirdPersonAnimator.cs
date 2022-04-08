@@ -86,6 +86,7 @@ namespace Invector.vCharacterController
             customAction = IsAnimatorTag("CustomAction");
             // identify if the controller is airborne
             isInAirborne = IsAnimatorTag("Airborne");
+
         }
 
         public virtual void UpdateAnimatorParameters()
@@ -348,5 +349,6 @@ namespace Invector.vCharacterController
         public static int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
         public static int IdleRandom = Animator.StringToHash("IdleRandom");
         public static int IdleRandomTrigger = Animator.StringToHash("IdleRandomTrigger");
+        public static int PoseTrigger = Animator.StringToHash("PoseTrigger");
     }
 }

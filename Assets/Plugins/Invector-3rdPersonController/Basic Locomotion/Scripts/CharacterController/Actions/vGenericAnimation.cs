@@ -18,6 +18,7 @@ namespace Invector.vCharacterController.vActions
 
         public UnityEvent OnPlayAnimation;
         public UnityEvent OnEndAnimation;
+     
 
         protected bool isPlaying;
         protected bool triggerOnce;
@@ -38,11 +39,13 @@ namespace Invector.vCharacterController.vActions
 
         protected virtual void TriggerAnimation()
         {
+           
             // condition to trigger the animation
             bool playConditions = !isPlaying && !tpInput.cc.customAction && !string.IsNullOrEmpty(animationClip);
 
             if (actionInput.GetButtonDown() && playConditions)                           
                 PlayAnimation();            
+
         }
 
         public virtual void PlayAnimation()
@@ -54,6 +57,8 @@ namespace Invector.vCharacterController.vActions
             // trigger the animationClip
             tpInput.cc.animator.CrossFadeInFixedTime(animationClip, 0.1f);
         }
+
+
 
         protected virtual void AnimationBehaviour()
         {
