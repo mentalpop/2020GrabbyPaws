@@ -117,7 +117,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BottomColor: {r: 0.03676468, g: 0.9601423, b: 1, a: 1}
-    - _Color: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.4117647}
+    - _Color: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.4627451}
     - _ColorA: {r: 1, g: 1, b: 1, a: 1}
     - _ColorB: {r: 1, g: 1, b: 1, a: 1}
     - _Emis: {r: 1, g: 1, b: 1, a: 1}
@@ -125,7 +125,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0.0647167, g: 0.9023639, b: 0.97794116, a: 1}
     - _RimColor: {r: 0, g: 0.71034503, b: 1, a: 0.684}
-    - _SColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SColor: {r: 1, g: 1, b: 1, a: 0.29803923}
     - _TColor: {r: 0.008434264, g: 0.24310054, b: 0.38235295, a: 1}
     - _TintA: {r: 1, g: 1, b: 1, a: 1}
     - _TintB: {r: 1, g: 1, b: 1, a: 1}

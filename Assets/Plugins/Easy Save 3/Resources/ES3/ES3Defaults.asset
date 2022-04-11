@@ -34,8 +34,12 @@ MonoBehaviour:
     - Cinemachine
     - CFXRRuntime
     - CFXRDemo
+    - FMODUnityResonance
+    - FMODUnity
     - CFXREditor
     - CFXRDemoEditor
+    - FMODUnityEditor
+    - FMODUnityResonanceEditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

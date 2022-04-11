@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f6cb095a-5d65-49e4-9187-baa3d08c8b99}">
+		<property name="assetPath">
+			<value>ComputerKeyboard_SFXB.4080.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.36861678004535148</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1ef6a4e2-a3b7-4986-9c7c-1dbe72b6e29d}</destination>
+		</relationship>
+	</object>
+</objects>
