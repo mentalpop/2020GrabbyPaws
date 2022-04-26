@@ -31,14 +31,14 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp-firstpass
     - Assembly-CSharp
+    - FMODUnityResonance
     - Cinemachine
+    - FMODUnity
     - CFXRRuntime
     - CFXRDemo
-    - FMODUnityResonance
-    - FMODUnity
+    - FMODUnityEditor
     - CFXREditor
     - CFXRDemoEditor
-    - FMODUnityEditor
     - FMODUnityResonanceEditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
