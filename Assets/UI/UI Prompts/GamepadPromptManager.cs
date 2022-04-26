@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GamepadPromptManager : MonoBehaviour
 {
+    public bool allowPrompts = false;
     public GameObject prefabPrompt;
     public Sprite promptIgnoredGamepad;
     public string promptTextIgnoredGamepad;
@@ -22,7 +23,7 @@ public class GamepadPromptManager : MonoBehaviour
     }
 
     public void CreatePrompt(PromptType promptType) {
-        if (currentPrompt == null) {
+        if (currentPrompt == null && allowPrompts) {
             GameObject newGO = Instantiate(prefabPrompt, transform, false);
             Sprite _promptSprite = promptIgnoredGamepad;
             string _promptText = "";
@@ -42,6 +43,9 @@ public class GamepadPromptManager : MonoBehaviour
             }
             currentPrompt = newGO.GetComponent<ControllerPrompt>();
             currentPrompt.Unpack(_promptSprite, _promptText);
+        }
+        if (!allowPrompts) {
+            Debug.LogWarning("allowPrompts is disabled on GamepadPromptManager");
         }
     }
 }
