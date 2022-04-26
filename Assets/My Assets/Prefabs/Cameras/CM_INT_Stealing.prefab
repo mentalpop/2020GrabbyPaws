@@ -820,7 +820,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_YAxis:
-    Value: 1
+    Value: 0.72
     m_SpeedMode: 0
     m_MaxSpeed: 1
     m_AccelTime: 0.1
@@ -882,9 +882,9 @@ MonoBehaviour:
     m_Radius: 3
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7206859309607158569}
+  - {fileID: 5006419193670999229}
+  - {fileID: 5352095692396669693}
 --- !u!114 &7320447579706161520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
-  m_CenterOnActivate: 1
+  m_CenterOnActivate: 0
 --- !u!1 &9079859666307891328
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: f3d2ff47364a079459a0b8df116871b5
 ModelImporter:
-  serializedVersion: 19300
+  serializedVersion: 19301
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -12,13 +12,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Blueprint
+    second: {fileID: 2100000, guid: 957e72700adf7104f8c38be473b5dc34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessSigns01
     second: {fileID: 2100000, guid: 76776aea5100f814281517ab6fdb9363, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BusinessWindow Light
-    second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
+      name: FlatBrowns
+    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -28,52 +33,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FlatSpecials
-    second: {fileID: 2100000, guid: 6d0e33af10298564c86818a96131095e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor01
-    second: {fileID: 2100000, guid: c54dcd4abcebf4245be136707f36c40d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor02
-    second: {fileID: 2100000, guid: 9f7f13c7b2b59a04cb8b23b962b4eba0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor03
-    second: {fileID: 2100000, guid: 287aea87b9cdd16419109874ee326219, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor04
-    second: {fileID: 2100000, guid: ed9c31fc504840e4886892b9b5796058, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor05
-    second: {fileID: 2100000, guid: 0d34d138f8860124a952ddd9f940a97d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor06
-    second: {fileID: 2100000, guid: d3e7fbfd232bdae469ead0e7d3cb458c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor07
-    second: {fileID: 2100000, guid: c5874585a1de15244a78ce4121199b47, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor08
-    second: {fileID: 2100000, guid: ef6cbe3d8f751ba41a2efafb51628eaf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor09
-    second: {fileID: 2100000, guid: 610382174de7e534f83651a82a604c45, type: 2}
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -103,27 +63,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: HotPink Light
-    second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Light
-    second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
+    second: {fileID: 2100000, guid: 09fd7b3b1d5d2cd40aa3e67f1f7a02e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Paintings
     second: {fileID: 2100000, guid: 8b55a2894b76ac445b9a6db607d235b3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Palette Browns
-    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Palette Greens
-    second: {fileID: 2100000, guid: 16d0f1b3013ddbb4dba9eb2fc7a129ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -152,11 +97,6 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Riven
-    second: {fileID: 2100000, guid: 84e4d958d6b573a469350f8caf5732a6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: SaleSigns03
     second: {fileID: 2100000, guid: ec2a1a2b4c84eef44a1401eec2d57003, type: 2}
   - first:
@@ -164,11 +104,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Screen
     second: {fileID: 2100000, guid: cc487427856e9ae4cbc5db9062e21734, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SeeThru
-    second: {fileID: 2100000, guid: a99dd48dffabfda468f4abd754683584, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -184,11 +119,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: SnackBar03
     second: {fileID: 2100000, guid: fa0325bf8f1053442877113fd2c8111f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SnackBar04
-    second: {fileID: 2100000, guid: 1582a80fae979f04d8e4882320a365be, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -211,7 +141,7 @@ ModelImporter:
     second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
   materials:
     materialImportMode: 1
-    materialName: 2
+    materialName: 0
     materialSearch: 1
     materialLocation: 1
   animations:
@@ -248,6 +178,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1

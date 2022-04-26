@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UI/UITestScene.unity
     guid: 6be7c8a9f5f61464cb1316a1496cd915
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/EXT_BigCity_Griftings.unity
     guid: f6c26ed8ce608804f97658402a9f4f5b
   - enabled: 1

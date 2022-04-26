@@ -35,8 +35,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: '**ANY CAMERA**'
-    m_To: Apartmint Cam
+  - m_From: WatchDennandRiven CAM 2
+    m_To: '**ANY CAMERA**'
     m_Blend:
       m_Style: 0
       m_Time: 2
@@ -59,6 +59,17 @@ MonoBehaviour:
         m_RotationOrder: 0
   - m_From: '**ANY CAMERA**'
     m_To: Giant IceBlock Cam
+    m_Blend:
+      m_Style: 0
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: WatchDennandRiven CAM
+    m_To: WatchDennandRiven CAM 2
     m_Blend:
       m_Style: 0
       m_Time: 2
