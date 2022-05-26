@@ -21,9 +21,9 @@ MonoBehaviour:
   physicalItem: {fileID: 0}
   weight: 0
   model: {fileID: 919132149155446097, guid: 4b129fe529d23c04eb625b133a817e4d, type: 3}
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 1
+  positionOffset: {x: -0.26, y: -0.57, z: 0}
+  rotationOffset: {x: -60.045, y: 72.027, z: -74.301}
+  itemScale: 25
   consumable: 0
   cursed: 0
   negativeValue: 0

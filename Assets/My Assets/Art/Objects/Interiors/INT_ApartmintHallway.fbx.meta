@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 0a5c185980655a544ace7a6cc65d6fc8
 ModelImporter:
-  serializedVersion: 19300
+  serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 6755971201363062354
@@ -100,6 +100,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: HotPink Light
     second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Browns
+    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -214,6 +219,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1

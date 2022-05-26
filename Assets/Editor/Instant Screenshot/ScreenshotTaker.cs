@@ -14,7 +14,6 @@ public class Screenshot : EditorWindow
 	int scale = 1;
 
 	string path = "";
-	bool showPreview = true;
 	RenderTexture renderTexture;
 
 	bool isTransparent = false;

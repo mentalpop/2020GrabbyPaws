@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     _location: 0
-    path: GrabbySave
+    path: SaveFile.es3
     encryptionType: 0
     compressionType: 0
     encryptionPassword: password
@@ -30,16 +30,17 @@ MonoBehaviour:
     serializationDepthLimit: 32
     assemblyNames:
     - Assembly-CSharp-firstpass
-    - Assembly-CSharp
-    - FMODUnityResonance
-    - Cinemachine
     - FMODUnity
-    - CFXRRuntime
+    - Assembly-CSharp
+    - Cinemachine
     - CFXRDemo
+    - CFXRRuntime
+    - FMODUnityResonance
     - FMODUnityEditor
-    - CFXREditor
-    - CFXRDemoEditor
+    - PPv2URPConverters
     - FMODUnityResonanceEditor
+    - CFXRDemoEditor
+    - CFXREditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
