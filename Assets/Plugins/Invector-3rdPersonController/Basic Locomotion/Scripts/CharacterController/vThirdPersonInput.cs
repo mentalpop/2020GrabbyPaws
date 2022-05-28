@@ -201,7 +201,8 @@ namespace Invector.vCharacterController
         /// <param name="value"></param>
         public virtual void SetLockBasicInput(bool value)
         {
-            lockInput = value;
+            lockInput = value;// && UI.LockControls;
+            Debug.Log("lockInput: " + lockInput);
             if (value)
             {
                 cc.input = Vector2.zero;
