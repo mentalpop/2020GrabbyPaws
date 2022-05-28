@@ -35,10 +35,12 @@ public class ListControllerDropDown : ListController
 
     private void OnEnable() {
         header.OnSelect += Header_OnSelect;
+        header.OnSelectExt += NavButton_OnSelectExt;
     }
 
     private void OnDisable() {
         header.OnSelect -= Header_OnSelect;
+        header.OnSelectExt += NavButton_OnSelectExt;
     }
 
     void Awake() {
@@ -114,6 +116,10 @@ public class ListControllerDropDown : ListController
         Open();
     }
 
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        Header_OnSelect(_buttonStateData);
+    }
+
     public override void SetActiveIndex(int _index) {
         base.SetActiveIndex(_index);
         activeIndex = _index;
@@ -174,7 +180,7 @@ public class ListControllerDropDown : ListController
             if (listHasFocus)
                 mNodeList.MenuNavigate(MenuNode.NavDir.Cancel);
         } else {
-            Debug.Log("Redundant call to Close: "+gameObject.name);
+            Debug.LogWarning("Redundant call to Close: "+gameObject.name);
         }
     }
 

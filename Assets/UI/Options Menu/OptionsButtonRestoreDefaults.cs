@@ -15,10 +15,12 @@ public class OptionsButtonRestoreDefaults : MonoBehaviour
 
     private void OnEnable() {
         button.OnSelect += button_OnSelect;
+        button.OnSelectExt += NavButton_OnSelectExt;
     }
 
     private void OnDisable() {
         button.OnSelect -= button_OnSelect;
+        button.OnSelectExt -= NavButton_OnSelectExt;
         if (awaitingConfirmation) {
 			awaitingConfirmation = false;
 			confirmationWindow.OnChoiceMade -= OnConfirm;
@@ -31,6 +33,10 @@ public class OptionsButtonRestoreDefaults : MonoBehaviour
 		    confirmationWindow.OnChoiceMade += OnConfirm;
 		    awaitingConfirmation = true;
         }
+    }
+
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        button_OnSelect(_buttonStateData);
     }
 
     private void OnConfirm(bool result) {

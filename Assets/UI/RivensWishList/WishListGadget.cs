@@ -51,6 +51,7 @@ public class WishListGadget : MonoBehaviour
 
 	private void OnEnable() {
         buildButton.OnSelect += BuildButton_OnSelect;
+		buildButton.OnSelectExt += NavButton_OnSelectExt;
 		/*
 		if (wishListWindow != null)
 			EvaluateCanBuild();
@@ -64,6 +65,7 @@ public class WishListGadget : MonoBehaviour
 			confirmationWindow.OnChoiceMade -= OnConfirm;
 		}
 		wishList.listController.OnSelect -= ListController_OnSelect;
+		buildButton.OnSelectExt -= NavButton_OnSelectExt;
 	}
 
 	private void ListController_OnSelect(int index) {
@@ -83,9 +85,13 @@ public class WishListGadget : MonoBehaviour
 			confirmationWindow.OnChoiceMade += OnConfirm;
 			awaitingConfirmation = true;
 		}
-    }
+	}
 
-    public void EvaluateCanBuild() {
+	private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+		BuildButton_OnSelect(_buttonStateData);
+	}
+
+	public void EvaluateCanBuild() {
 //Evaluate canBuildGadget; Iterate throught required scrap items to see if the player has all they need
 		unlocked = inventory.gadgetUnlocked[gadgetIndex];
 		if (unlocked) {

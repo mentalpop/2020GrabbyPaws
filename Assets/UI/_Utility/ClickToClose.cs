@@ -12,12 +12,14 @@ public class ClickToClose : MonoBehaviour
     private void OnEnable() {
         UI.Instance.OnUIScaled += Instance_OnUIScaled;
         button.OnSelect += button_OnSelect;
+        button.OnSelectExt += NavButton_OnSelectExt;
         Instance_OnUIScaled(1f);
     }
 
     private void OnDisable() {
         UI.Instance.OnUIScaled -= Instance_OnUIScaled;
         button.OnSelect -= button_OnSelect;
+        button.OnSelectExt -= NavButton_OnSelectExt;
     }
 
     private void Instance_OnUIScaled(float scale) {
@@ -31,6 +33,10 @@ public class ClickToClose : MonoBehaviour
     private void button_OnSelect(ButtonStateData _buttonStateData) {
         //Debug.Log("OnPointerClick");
 		ManualClose();
+    }
+
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        button_OnSelect(_buttonStateData);
     }
 
     public void ManualClose() {

@@ -25,8 +25,10 @@ public class ConfirmationWindow : MonoBehaviour
 
     private void OnEnable() {
         buttonOK.OnSelect += OnClickOK;
+        buttonOK.OnSelectExt += OnClickOKExt;
         buttonNo.OnSelect += OnClickNo;
-		clickToClose.OnClick += OnClickCancel;
+        buttonNo.OnSelectExt += OnClickNoExt;
+        clickToClose.OnClick += OnClickCancel;
         menuHub.OnMenuClose += OnClickCancel;
     }
 
@@ -38,8 +40,10 @@ public class ConfirmationWindow : MonoBehaviour
 
     private void OnDisable() {
         buttonOK.OnSelect -= OnClickOK;
+        buttonOK.OnSelectExt -= OnClickOKExt;
         buttonNo.OnSelect -= OnClickNo;
-		clickToClose.OnClick -= OnClickCancel;
+        buttonNo.OnSelectExt -= OnClickNoExt;
+        clickToClose.OnClick -= OnClickCancel;
         menuHub.OnMenuClose -= OnClickCancel;
         /*
         buttonOK.SetFocus(false);
@@ -52,9 +56,17 @@ public class ConfirmationWindow : MonoBehaviour
         Close();
     }
 
+    private void OnClickOKExt(ButtonStateData _buttonStateData, object _data) {
+        OnClickOK(_buttonStateData);
+    }
+
     public void OnClickNo(ButtonStateData _buttonStateData) {
         OnChoiceMade(false);
         Close();
+    }
+
+    private void OnClickNoExt(ButtonStateData _buttonStateData, object _data) {
+        OnClickNo(_buttonStateData);
     }
 
     public void OnClickCancel() {

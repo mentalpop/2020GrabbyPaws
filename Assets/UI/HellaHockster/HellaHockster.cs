@@ -31,11 +31,14 @@ public class HellaHockster : MonoBehaviour
 
 	private void OnEnable() {
 		hocksterCallButton.OnSelect += HocksterCallButton_OnClick;
+		hocksterCallButton.OnSelectExt += HocksterCallButton_OnSelectExt;
 		clickToClose.OnClick += Close;
 		closeButton.OnClick += Close;
 		dumpTrash.OnSelect += DumpAllTrash;
+		dumpTrash.OnSelectExt += DumpTrash_OnSelectExt;
 		recoverTrash.OnSelect += RecoverAllTrash;
-        //inventory.OnItemChanged += UpdateDisplay;
+		recoverTrash.OnSelectExt += RecoverTrash_OnSelectExt;
+		//inventory.OnItemChanged += UpdateDisplay;
 		UpdateHockstersAvailable();
 	//Player Funds
 		Currency.instance.OnCashChanged += CurrencyCashUpdate;
@@ -61,11 +64,14 @@ public class HellaHockster : MonoBehaviour
 
 	private void OnDisable() {
 		hocksterCallButton.OnSelect -= HocksterCallButton_OnClick;
-        clickToClose.OnClick -= Close;
+		hocksterCallButton.OnSelectExt -= HocksterCallButton_OnSelectExt;
+		clickToClose.OnClick -= Close;
         //inventory.OnItemChanged -= UpdateDisplay;
 		closeButton.OnClick -= Close;
 		dumpTrash.OnSelect -= DumpAllTrash;
+		dumpTrash.OnSelectExt -= DumpTrash_OnSelectExt;
 		recoverTrash.OnSelect -= RecoverAllTrash;
+		recoverTrash.OnSelectExt -= RecoverTrash_OnSelectExt;
 		Currency.instance.OnCashChanged -= CurrencyCashUpdate;
 		if (awaitingConfirmation) {
 			awaitingConfirmation = false;
@@ -87,6 +93,10 @@ public class HellaHockster : MonoBehaviour
 		} else {
 			Debug.Log("No Hocksters available");
 		}
+	}
+
+	private void HocksterCallButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+		HocksterCallButton_OnClick(_buttonStateData);
 	}
 
 	private void OnConfirm(bool _choice) {
@@ -180,6 +190,10 @@ public class HellaHockster : MonoBehaviour
 		UpdateDisplay();
 	}
 
+	private void DumpTrash_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+		DumpAllTrash(_buttonStateData);
+	}
+
 	public void RecoverAllTrash(ButtonStateData _buttonStateData) {
 //Move ALL items out of list
 		foreach (var item in hocksterInventory) {
@@ -187,5 +201,9 @@ public class HellaHockster : MonoBehaviour
 		}
 		hocksterInventory.Clear();
 		UpdateDisplay();
+	}
+
+	private void RecoverTrash_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+		RecoverAllTrash(_buttonStateData);
 	}
 }

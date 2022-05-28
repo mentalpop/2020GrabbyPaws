@@ -17,10 +17,12 @@ public class NotSecretLineItem : MonoBehaviour
 
     private void OnEnable() {
         navButton.OnSelect += NavButton_OnSelect;
+        navButton.OnSelectExt += NavButton_OnSelectExt;
     }
 
     private void OnDisable() {
         navButton.OnSelect -= NavButton_OnSelect;
+        navButton.OnSelectExt -= NavButton_OnSelectExt;
     }
 
     private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
@@ -35,6 +37,10 @@ public class NotSecretLineItem : MonoBehaviour
         }
         notSecretsRef.SortListElementsUnderTransform();
         TextSetStricken();
+    }
+
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        NavButton_OnSelect(_buttonStateData);
     }
 
     public void Unpack(NotSecretData nsData, NotSecrets _NotSecrets) {

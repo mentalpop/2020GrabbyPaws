@@ -23,12 +23,14 @@ public class TimeInterval : MonoBehaviour
         navButton.OnFocusGain += NavButton_OnFocusGain;
         navButton.OnFocusLost += NavButton_OnFocusLost;
         navButton.OnSelect += NavButton_OnSelect;
+        navButton.OnSelectExt += NavButton_OnSelectExt;
     }
 
     private void OnDisable() {
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;
         navButton.OnSelect -= NavButton_OnSelect;
+        navButton.OnSelectExt -= NavButton_OnSelectExt;
         CloseTooltip();
     }
 
@@ -60,6 +62,10 @@ public class TimeInterval : MonoBehaviour
 
     private void NavButton_OnSelect(ButtonStateData _buttonStateData) {
         TooltipExpand();
+    }
+
+    private void NavButton_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        NavButton_OnSelect(_buttonStateData);
     }
 
     public void TooltipExpand() {

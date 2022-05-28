@@ -15,8 +15,10 @@ public class OptionsTabHandler : MonoBehaviour
 
     private void OnEnable() {
         tabMisc.OnSelect += TabMisc_OnSelect;
+        tabMisc.OnSelectExt += TabMisc_OnSelectExt;
         tabMisc.OnFocusGain += TabMisc_OnFocusGain;
         tabControls.OnSelect += TabControls_OnSelect;
+        tabControls.OnSelectExt += TabControls_OnSelectExt;
         tabControls.OnFocusGain += TabControls_OnFocusGain;
     }
 
@@ -32,9 +34,17 @@ public class OptionsTabHandler : MonoBehaviour
         OnTabSelected(true);
     }
 
+    private void TabControls_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        TabControls_OnSelect(_buttonStateData);
+    }
+
     private void TabMisc_OnSelect(ButtonStateData _buttonStateData) {
         SetActiveMisc();
         OnTabSelected(false);
+    }
+
+    private void TabMisc_OnSelectExt(ButtonStateData _buttonStateData, object _data) {
+        TabMisc_OnSelect(_buttonStateData);
     }
 
     private void TabControls_OnFocusGain(ButtonStateData _buttonStateData) {
