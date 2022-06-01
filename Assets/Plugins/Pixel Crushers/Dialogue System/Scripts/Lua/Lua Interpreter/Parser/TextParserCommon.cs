@@ -143,7 +143,13 @@ namespace Language.Lua
             Errors.RemoveRange(count, Errors.Count - count);
         }
 
-        public string GetEorrorMessages()
+        public void ClearErrors()
+        {
+            Errors.Clear();
+            ErrorStack.Clear();
+        }
+
+        public string GetErrorMessages()
         {
             StringBuilder text = new StringBuilder();
             foreach (Tuple<int, string> msg in Errors)

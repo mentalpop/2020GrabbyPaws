@@ -47,7 +47,7 @@ namespace PixelCrushers.DialogueSystem.Articy
 
         public enum StageDirModes { Sequences, NotSequences }
 
-        public enum ConvertDropdownsModes { Ints, Strings }
+        public enum ConvertDropdownsModes { Int, TechnicalName, DisplayName }
 
         public enum ConvertSlotsModes { DisplayName, ID, TechnicalName }
 
@@ -82,7 +82,7 @@ namespace PixelCrushers.DialogueSystem.Articy
         public const string DefaultVoiceOverProperty = "VoiceOverFile";
 
         public Encoding Encoding { get { return EncodingTypeTools.GetEncoding(EncodingType); } }
-        public bool ConvertDropdownsAsString { get { return ConvertDropdownsAs == ConvertDropdownsModes.Strings; } }
+        //public bool ConvertDropdownsAsString { get { return ConvertDropdownsAs == ConvertDropdownsModes.Strings; } }
 
         public ConverterPrefs()
         {
@@ -99,7 +99,7 @@ namespace PixelCrushers.DialogueSystem.Articy
             ConversionSettings = new ConversionSettings();
             EncodingType = EncodingType.Default;
             RecursionMode = RecursionModes.On;
-            ConvertDropdownsAs = ConvertDropdownsModes.Ints;
+            ConvertDropdownsAs = ConvertDropdownsModes.Int;
             ConvertSlotsAs = ConvertSlotsModes.DisplayName;
             UseTechnicalNames = false;
             DirectConversationLinksToEntry1 = false;

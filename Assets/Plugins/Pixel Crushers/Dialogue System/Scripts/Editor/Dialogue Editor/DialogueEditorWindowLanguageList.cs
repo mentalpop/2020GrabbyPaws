@@ -66,12 +66,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
-        private void DrawLocalizedVersions(List<Field> fields, string titleFormat, bool alwaysAdd, FieldType fieldType)
+        private void DrawLocalizedVersions(List<Field> fields, string titleFormat, bool alwaysAdd, FieldType fieldType, bool useSequenceEditor = false)
         {
-            DrawLocalizedVersions(fields, titleFormat, alwaysAdd, fieldType, null);
+            DrawLocalizedVersions(fields, titleFormat, alwaysAdd, fieldType, null, useSequenceEditor);
         }
 
-        private void DrawLocalizedVersions(List<Field> fields, string titleFormat, bool alwaysAdd, FieldType fieldType, List<Field> alreadyDrawn)
+        private void DrawLocalizedVersions(List<Field> fields, string titleFormat, bool alwaysAdd, FieldType fieldType, List<Field> alreadyDrawn, bool useSequenceEditor = false)
         {
             bool indented = false;
             foreach (var language in languages)
@@ -90,8 +90,16 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                         indented = true;
                         EditorWindowTools.StartIndentedSection();
                     }
-                    EditorGUILayout.LabelField(localizedTitle);
-                    field.value = EditorGUILayout.TextArea(field.value);
+                    //[TODO] Resolve menu callback issue.
+                    //if (useSequenceEditor)
+                    //{
+                    //    field.value = SequenceEditorTools.DrawLayout(new GUIContent(localizedTitle), field.value, ref sequenceRect, ref sequenceSyntaxState);
+                    //}
+                    //else
+                    {
+                        EditorGUILayout.LabelField(localizedTitle);
+                        field.value = EditorGUILayout.TextArea(field.value);
+                    }
                     if (alreadyDrawn != null) alreadyDrawn.Add(field);
                 }
             }

@@ -87,7 +87,7 @@ namespace PixelCrushers
         private static void SaveAssetWithFilename(ScriptableObject asset, string filename, bool select = true)
         {
             AssetDatabase.CreateAsset(asset, filename);
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.SaveAssets();
             if (select)
             {
                 EditorUtility.FocusProjectWindow();
@@ -104,9 +104,9 @@ namespace PixelCrushers
         {
             scriptableObject.hideFlags = HideFlags.HideInHierarchy;
             AssetDatabase.AddObjectToAsset(scriptableObject, asset);
-            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(scriptableObject));
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            //AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(scriptableObject));
+            //AssetDatabase.SaveAssets();
+            //AssetDatabase.Refresh();
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace PixelCrushers
         {
             if (scriptableObject == null) return;
             UnityEngine.Object.DestroyImmediate(scriptableObject, true);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            //AssetDatabase.SaveAssets();
+            //AssetDatabase.Refresh();
         }
 
     }

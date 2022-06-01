@@ -246,7 +246,9 @@ namespace PixelCrushers.DialogueSystem
                 // Actor:
                 item.actorNamesIndex = EditorGUILayout.Popup(item.actorNamesIndex, actorNames);
                 item.actorFieldIndex = EditorGUILayout.Popup(item.actorFieldIndex, actorFieldNames);
-                DrawRightHand(item, GetWizardActorFieldType(item.actorFieldIndex));
+
+                CustomFieldType customFieldType = GetCustomFieldType(database.actors, item.actorNamesIndex, item.actorFieldIndex);
+                DrawRightHand(item, GetWizardActorFieldType(item.actorFieldIndex), customFieldType);
 
                 s_lastActorNamesIndex = item.actorNamesIndex;
                 s_lastActorFieldIndex = item.actorFieldIndex;
@@ -256,7 +258,8 @@ namespace PixelCrushers.DialogueSystem
                 // Item:
                 item.itemNamesIndex = EditorGUILayout.Popup(item.itemNamesIndex, itemNames);
                 item.itemFieldIndex = EditorGUILayout.Popup(item.itemFieldIndex, itemFieldNames);
-                DrawRightHand(item, GetWizardItemFieldType(item.itemFieldIndex));
+                CustomFieldType customFieldType = GetCustomFieldType(database.items, item.itemNamesIndex, item.itemFieldIndex);
+                DrawRightHand(item, GetWizardItemFieldType(item.itemFieldIndex), customFieldType);
 
                 s_lastItemNamesIndex = item.itemNamesIndex;
                 s_lastItemFieldIndex = item.itemFieldIndex;
@@ -266,7 +269,8 @@ namespace PixelCrushers.DialogueSystem
                 // Location:
                 item.locationNamesIndex = EditorGUILayout.Popup(item.locationNamesIndex, locationNames);
                 item.locationFieldIndex = EditorGUILayout.Popup(item.locationFieldIndex, locationFieldNames);
-                DrawRightHand(item, GetWizardLocationFieldType(item.locationFieldIndex));
+                CustomFieldType customFieldType = GetCustomFieldType(database.locations, item.locationNamesIndex, item.locationFieldIndex);
+                DrawRightHand(item, GetWizardLocationFieldType(item.locationFieldIndex), customFieldType);
 
                 s_lastLocationNameIndex = item.locationNamesIndex;
                 s_lastLocationFieldIndex = item.locationFieldIndex;
@@ -373,7 +377,7 @@ namespace PixelCrushers.DialogueSystem
             EditorGUILayout.EndHorizontal();
         }
 
-        private void DrawRightHand(ConditionItem item, FieldType fieldType)
+        private void DrawRightHand(ConditionItem item, FieldType fieldType, CustomFieldType customFieldType = null)
         {
             switch (fieldType)
             {
@@ -396,7 +400,15 @@ namespace PixelCrushers.DialogueSystem
                     break;
                 default:
                     item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(60));
-                    item.stringValue = EditorGUILayout.TextField(item.stringValue);
+
+                    if (customFieldType != null)
+                    {
+                        item.stringValue = customFieldType.Draw(item.stringValue, database);
+                    }
+                    else
+                    {
+                        item.stringValue = EditorGUILayout.TextField(item.stringValue);
+                    }
                     break;
             }
         }
@@ -701,7 +713,7 @@ namespace PixelCrushers.DialogueSystem
                                     openParen,
                                     tableName,
                                     DialogueLua.StringToTableIndex(elementName),
-                                    DialogueLua.StringToTableIndex(fieldName),
+                                    DialogueLua.StringToFieldName(fieldName),
                                     GetWizardEqualityText(item.equalityType),
                                     (item.booleanValue == BooleanType.True) ? "true" : "false",
                                     closeParen);
@@ -713,7 +725,7 @@ namespace PixelCrushers.DialogueSystem
                                         openParen,
                                         tableName,
                                         DialogueLua.StringToTableIndex(elementName),
-                                        DialogueLua.StringToTableIndex(fieldName),
+                                        DialogueLua.StringToFieldName(fieldName),
                                         GetWizardComparisonText(item.comparisonType),
                                         item.floatValue,
                                         item.floatValue2,
@@ -725,7 +737,7 @@ namespace PixelCrushers.DialogueSystem
                                         openParen,
                                         tableName,
                                         DialogueLua.StringToTableIndex(elementName),
-                                        DialogueLua.StringToTableIndex(fieldName),
+                                        DialogueLua.StringToFieldName(fieldName),
                                         GetWizardComparisonText(item.comparisonType),
                                         item.floatValue,
                                         closeParen);
@@ -736,7 +748,7 @@ namespace PixelCrushers.DialogueSystem
                                     openParen,
                                     tableName,
                                     DialogueLua.StringToTableIndex(elementName),
-                                    DialogueLua.StringToTableIndex(fieldName),
+                                    DialogueLua.StringToFieldName(fieldName),
                                     GetWizardEqualityText(item.equalityType),
                                     item.stringValue,
                                     closeParen);
@@ -911,10 +923,25 @@ namespace PixelCrushers.DialogueSystem
                 // Variable:
                 var freeWidth = position.width - (typeWidth + equalityWidth + deleteButtonWidth + 8);
                 rect = new Rect(x, y, freeWidth / 2, EditorGUIUtility.singleLineHeight);
-                item.variableNamesIndex = EditorGUI.Popup(rect, item.variableNamesIndex, variablePopupNames);
+                FieldType variableType = FieldType.Text;
+                if (item.variableNamesIndex == 0)
+                {
+                    // New variable:
+                    var thirdWidth = rect.width / 3;
+                    item.variableNamesIndex = EditorGUI.Popup(new Rect(rect.x, rect.y, thirdWidth, rect.height), item.variableNamesIndex, variablePopupNames);
+                    item.newVariableName = EditorGUI.TextField(new Rect(rect.x + thirdWidth, rect.y, thirdWidth, rect.height), item.newVariableName);
+                    item.newVariableType = (FieldType)EditorGUI.EnumPopup(new Rect(rect.x + 2 * thirdWidth, rect.y, thirdWidth, rect.height), item.newVariableType);
+                    variableType = item.newVariableType;
+                }
+                else
+                {
+                    // Existing variable:
+                    item.variableNamesIndex = EditorGUI.Popup(rect, item.variableNamesIndex, variablePopupNames);
+                    variableType = GetWizardVariableType(item.variableNamesIndex);
+                }
                 x += rect.width + 2;
                 rect = new Rect(x, y, equalityWidth + 2 + (freeWidth / 2), EditorGUIUtility.singleLineHeight);
-                DrawRightHand(rect, item, GetWizardVariableType(item.variableNamesIndex));
+                DrawRightHand(rect, item, variableType);
                 x += rect.width + 2;
 
             }

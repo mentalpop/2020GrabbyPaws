@@ -31,9 +31,16 @@ namespace PixelCrushers.DialogueSystem
         protected Dictionary<Transform, StandardUIMenuPanel> m_actorPanelCache = new Dictionary<Transform, StandardUIMenuPanel>();
         protected Dictionary<int, StandardUIMenuPanel> m_actorIdPanelCache = new Dictionary<int, StandardUIMenuPanel>();
         protected StandardUIMenuPanel m_currentPanel = null;
+        protected StandardUIMenuPanel m_forcedOverridePanel = null;
         protected Sprite m_pcPortraitSprite = null;
         protected string m_pcPortraitName = null;
         protected bool useFirstResponseForPortrait = false;
+
+        public StandardUIMenuPanel defaultPanel
+        {
+            get { return m_defaultPanel; }
+            set { m_defaultPanel = value; }
+        }
 
         #endregion
 
@@ -62,6 +69,14 @@ namespace PixelCrushers.DialogueSystem
         {
             if (dialogueActor == null) return;
             OverrideActorMenuPanel(dialogueActor.transform, menuPanelNumber, dialogueActor.standardDialogueUISettings.customMenuPanel);
+        }
+
+        /// <summary>
+        /// Forces menus to use a specific panel regardless of any other default or override settings.
+        /// </summary>
+        public void ForceOverrideMenuPanel(StandardUIMenuPanel panel)
+        {
+            m_forcedOverridePanel = panel;
         }
 
         /// <summary>
@@ -101,13 +116,30 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual StandardUIMenuPanel GetPanel(Subtitle lastSubtitle, Response[] responses)
         {
-            // Find player's transform & DialogueActor:
-            var playerTransform = (lastSubtitle != null && lastSubtitle.speakerInfo.isPlayer) ? lastSubtitle.speakerInfo.transform
-                : (responses != null && responses.Length > 0) ? GetActorTransformFromID(responses[0].destinationEntry.ActorID)
-                : (lastSubtitle != null && lastSubtitle.listenerInfo.isPlayer) ? lastSubtitle.listenerInfo.transform
-                : DialogueManager.currentActor;
-            if (playerTransform == null) playerTransform = DialogueManager.currentActor;
+            // Check if we have a forced override panel:
+            if (m_forcedOverridePanel != null) return m_forcedOverridePanel;
 
+            // Find player's transform & DialogueActor:
+            // [2021-04-20]: Prioritize responses[0] panel only if useFirstResponseForPortrait is true:
+            var playerTransform = (lastSubtitle != null && lastSubtitle.speakerInfo.isPlayer) ? lastSubtitle.speakerInfo.transform : null;
+            if (playerTransform == null)
+            {
+                if (useFirstResponseForPortrait)
+                {
+                    playerTransform =
+                        (responses != null && responses.Length > 0) ? GetActorTransformFromID(responses[0].destinationEntry.ActorID)
+                        : (lastSubtitle != null && lastSubtitle.listenerInfo.isPlayer) ? lastSubtitle.listenerInfo.transform
+                        : DialogueManager.currentActor;
+                }
+                else
+                {
+                    playerTransform =
+                        (lastSubtitle != null && lastSubtitle.listenerInfo.isPlayer) ? lastSubtitle.listenerInfo.transform
+                        : (responses != null && responses.Length > 0) ? GetActorTransformFromID(responses[0].destinationEntry.ActorID)
+                        : DialogueManager.currentActor;
+                }
+            }
+            if (playerTransform == null) playerTransform = DialogueManager.currentActor;
             var playerDialogueActor = DialogueActor.GetDialogueActorComponent(playerTransform);
 
             // Check NPC for non-default menu panel:
@@ -138,20 +170,22 @@ namespace PixelCrushers.DialogueSystem
             if (playerTransform != null)
             {
                 // If NPC doesn't specify a menu panel, check for an override by player's transform:
-                if (m_actorPanelCache.ContainsKey(playerTransform)) return m_actorPanelCache[playerTransform];
+                if (m_actorPanelCache.ContainsKey(playerTransform))
+                {
+                    var actorTransformPanel = m_actorPanelCache[playerTransform];
+                    if (actorTransformPanel != m_defaultPanel) return actorTransformPanel;
+                }
             }
-            else
-            {
-                // If no player transform, check for an override by player actor ID:
-                var playerID = (lastSubtitle != null && lastSubtitle.speakerInfo.isPlayer) ? lastSubtitle.speakerInfo.id
-                    : (responses != null && responses.Length > 0) ? responses[0].destinationEntry.ActorID : -1;
-                if (m_actorIdPanelCache.ContainsKey(playerID)) return m_actorIdPanelCache[playerID];
-            }
+
+            // Check for an override by player actor ID:
+            var playerID = (lastSubtitle != null && lastSubtitle.speakerInfo.isPlayer) ? lastSubtitle.speakerInfo.id
+                : (responses != null && responses.Length > 0) ? responses[0].destinationEntry.ActorID : -1;
+            if (m_actorIdPanelCache.ContainsKey(playerID)) return m_actorIdPanelCache[playerID];
 
             // Otherwise use player's menu panel:
             var panel = GetDialogueActorPanel(playerDialogueActor);
             if (panel == null) panel = m_defaultPanel;
-            if (playerTransform != null) m_actorPanelCache.Add(playerTransform, panel);
+            if (playerTransform != null) m_actorPanelCache[playerTransform] = panel;
             return panel;
         }
 
@@ -162,7 +196,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         protected StandardUIMenuPanel GetPanelFromNumber(MenuPanelNumber menuPanelNumber, StandardUIMenuPanel customMenuPanel)
-        { 
+        {
             switch (menuPanelNumber)
             {
                 case MenuPanelNumber.Default:
@@ -291,7 +325,31 @@ namespace PixelCrushers.DialogueSystem
                     if (panel != null && !m_builtinPanels.Contains(panel) && !cachedPanels.Contains(panel)) panel.Close();
                 }
             }
-            //--- No longer close cache when closing menu: ClearCache();
+            //--- No longer close cache when closing menus because SetDialoguePanel may close them: ClearCache();
+        }
+
+        public bool AreAnyPanelsClosing()
+        {
+            for (int i = 0; i < m_builtinPanels.Count; i++)
+            {
+                if (m_builtinPanels[i] != null && m_builtinPanels[i].panelState == UIPanel.PanelState.Closing) return true;
+            }
+            if (m_defaultPanel != null && !m_builtinPanels.Contains(m_defaultPanel) && m_defaultPanel.panelState == UIPanel.PanelState.Closing) return true;
+            foreach (var kvp in m_actorPanelCache)
+            {
+                var panel = kvp.Value;
+                if (panel != null && !m_builtinPanels.Contains(panel) && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            if (m_actorIdPanelCache.Count > 0)
+            {
+                var cachedPanels = new List<StandardUIMenuPanel>(m_actorIdPanelCache.Values);
+                foreach (var kvp in m_actorIdPanelCache)
+                {
+                    var panel = kvp.Value;
+                    if (panel != null && !m_builtinPanels.Contains(panel) && !cachedPanels.Contains(panel) && panel.panelState == UIPanel.PanelState.Closing) return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

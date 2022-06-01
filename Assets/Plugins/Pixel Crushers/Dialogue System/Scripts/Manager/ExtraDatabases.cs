@@ -59,8 +59,10 @@ namespace PixelCrushers.DialogueSystem
         public static event System.Action removedDatabases = delegate { };
 
         private bool m_trying = false;
+        private Coroutine m_destroyCoroutine = null;
+        private int m_numActiveCoroutines = 0;
 
-        private void TryAddDatabases(Transform interactor, bool immediate)
+        private void TryAddDatabases(Transform interactor, bool onePerFrame)
         {
             if (!m_trying)
             {
@@ -69,8 +71,7 @@ namespace PixelCrushers.DialogueSystem
                 {
                     if ((condition == null) || condition.IsTrue(interactor))
                     {
-                        AddDatabases(immediate);
-                        if (once) Destroy(this);
+                        AddDatabases(onePerFrame);
                     }
                 }
                 finally
@@ -80,15 +81,15 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        public void AddDatabases(bool immediate)
+        public void AddDatabases(bool onePerFrame)
         {
-            if (immediate)
+            if (onePerFrame)
             {
-                AddDatabasesImmediate();
+                StartCoroutine(AddDatabasesCoroutine());
             }
             else if (gameObject.activeInHierarchy && enabled)
             {
-                StartCoroutine(AddDatabasesCoroutine());
+                AddDatabasesImmediate();
             }
         }
 
@@ -99,16 +100,20 @@ namespace PixelCrushers.DialogueSystem
                 AddDatabase(database);
             }
             addedDatabases();
+            if (once) Destroy(this);
         }
 
         private IEnumerator AddDatabasesCoroutine()
         {
+            m_numActiveCoroutines++;
+            if (once && m_destroyCoroutine == null) m_destroyCoroutine = StartCoroutine(DestroyCoroutine());
             foreach (var database in databases)
             {
                 AddDatabase(database);
                 yield return null;
             }
             addedDatabases();
+            m_numActiveCoroutines--;
         }
 
         private void AddDatabase(DialogueDatabase database)
@@ -120,7 +125,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void TryRemoveDatabases(Transform interactor, bool immediate)
+        private void TryRemoveDatabases(Transform interactor, bool onePerFrame)
         {
             if (!m_trying)
             {
@@ -129,8 +134,7 @@ namespace PixelCrushers.DialogueSystem
                 {
                     if ((condition == null) || condition.IsTrue(interactor))
                     {
-                        RemoveDatabases(immediate);
-                        if (once) Destroy(this);
+                        RemoveDatabases(onePerFrame);
                     }
                 }
                 finally
@@ -140,15 +144,15 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        public void RemoveDatabases(bool immediate)
+        public void RemoveDatabases(bool onePerFrame)
         {
-            if (immediate)
+            if (onePerFrame)
             {
-                RemoveDatabasesImmediate();
+                StartCoroutine(RemoveDatabasesCoroutine());
             }
             else if (gameObject.activeInHierarchy && enabled)
             {
-                StartCoroutine(RemoveDatabasesCoroutine());
+                RemoveDatabasesImmediate();
             }
         }
 
@@ -159,16 +163,20 @@ namespace PixelCrushers.DialogueSystem
                 RemoveDatabase(database);
             }
             removedDatabases();
+            if (once) Destroy(this);
         }
 
         private IEnumerator RemoveDatabasesCoroutine()
         {
+            m_numActiveCoroutines++;
+            if (once && m_destroyCoroutine == null) m_destroyCoroutine = StartCoroutine(DestroyCoroutine());
             foreach (var database in databases)
             {
                 RemoveDatabase(database);
                 yield return null;
             }
             removedDatabases();
+            m_numActiveCoroutines--;
         }
 
         private void RemoveDatabase(DialogueDatabase database)
@@ -180,8 +188,28 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        private IEnumerator DestroyCoroutine()
+        {
+            // If Once is ticked and component both adds & removes databases, we need to wait for both to finish:
+            while (m_numActiveCoroutines > 0)
+            {
+                yield return null;
+            }
+            m_destroyCoroutine = null;
+            Destroy(this);
+        }
+
         public void Start()
         {
+            if (addTrigger == DialogueTriggerEvent.OnStart || removeTrigger == DialogueTriggerEvent.OnStart)
+            {
+                StartCoroutine(StartEndOfFrame());
+            }
+        }
+
+        private IEnumerator StartEndOfFrame()
+        {
+            yield return new WaitForEndOfFrame();
             if (addTrigger == DialogueTriggerEvent.OnStart) TryAddDatabases(null, onePerFrame);
             if (removeTrigger == DialogueTriggerEvent.OnStart) TryRemoveDatabases(null, onePerFrame);
         }
@@ -194,14 +222,14 @@ namespace PixelCrushers.DialogueSystem
 
         public void OnDisable()
         {
-            if (addTrigger == DialogueTriggerEvent.OnDisable) TryAddDatabases(null, onePerFrame);
-            if (removeTrigger == DialogueTriggerEvent.OnDisable) TryRemoveDatabases(null, onePerFrame);
+            if (addTrigger == DialogueTriggerEvent.OnDisable) TryAddDatabases(null, false); // Can't run coroutine when disabled.
+            if (removeTrigger == DialogueTriggerEvent.OnDisable) TryRemoveDatabases(null, false);
         }
 
         public void OnDestroy()
         {
-            if (addTrigger == DialogueTriggerEvent.OnDestroy) TryAddDatabases(null, onePerFrame);
-            if (removeTrigger == DialogueTriggerEvent.OnDestroy) TryRemoveDatabases(null, onePerFrame);
+            if (addTrigger == DialogueTriggerEvent.OnDestroy) TryAddDatabases(null, false); // Can't run coroutine when destroyed.
+            if (removeTrigger == DialogueTriggerEvent.OnDestroy) TryRemoveDatabases(null, false);
         }
 
         public void OnUse(Transform actor)

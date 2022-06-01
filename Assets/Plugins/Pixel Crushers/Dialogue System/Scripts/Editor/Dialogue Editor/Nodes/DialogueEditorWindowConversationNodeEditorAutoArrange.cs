@@ -49,7 +49,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private void CheckNodeArrangement()
         {
             if (startEntry == null) return;
-            if ((startEntry.canvasRect.x == 0) && (startEntry.canvasRect.y == 0)) AutoArrangeNodes(addNewNodesToRight);
+            if ((startEntry.canvasRect.x == 0) && (startEntry.canvasRect.y == 0)) AutoArrangeNodes(!addNewNodesToRight);
         }
 
         private void ConfirmAndAutoArrangeNodes()

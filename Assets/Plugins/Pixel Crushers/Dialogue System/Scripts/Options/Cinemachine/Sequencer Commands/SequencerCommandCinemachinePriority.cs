@@ -12,40 +12,95 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
     /// Sets the priority of a Cinemachine virtual camera.
     /// 
     /// - vcam: The name of a GameObject containing a CinemachineVirtualCamera.
+    ///    Alternate: 'all' or 'except:GameObject': All affects all vcams; except affects all except one.
     /// - priority: (Optional) New priority level. Default: 999.
     /// - cut: (Optional) Cuts to the vcam instead of allowing Cinemachine to ease there.
     /// </summary>
     public class SequencerCommandCinemachinePriority : SequencerCommand
     {
+        private static bool hasRecordedBlendMode = false;
 
         public System.Collections.IEnumerator Start()
         {
-            var subject = GetSubject(0);
-            var vcam = (subject != null) ? subject.GetComponent<CinemachineVirtualCamera>() : null;
+            bool all = false;
+            string allExcept = string.Empty;
+            CinemachineVirtualCamera vcam = null;
+
+            var vcamName = GetParameter(0);
+            if (vcamName == "all")
+            {
+                all = true;
+            }
+            else if (vcamName.StartsWith("except:"))
+            {
+                all = true;
+                allExcept = vcamName.Substring("except:".Length);
+            }
+            else
+            {
+                var subject = GetSubject(0);
+                vcam = (subject != null) ? subject.GetComponent<CinemachineVirtualCamera>() : null;
+            }
             var priority = GetParameterAsInt(1, 999);
             var cut = string.Equals(GetParameter(2), "cut", System.StringComparison.OrdinalIgnoreCase);
-            if (vcam == null)
+            if (!all && vcam == null)
             {
                 if (DialogueDebug.LogWarnings) Debug.LogWarning("Dialogue System: Sequencer: CinemachinePriority(" + GetParameters() +
                     "): Can't find virtual camera '" + GetParameter(0) + ".");
             }
             else
             {
-                if (DialogueDebug.LogInfo) Debug.Log("Dialogue System: Sequencer: CinemachinePriority(" + vcam + ", " + priority + ", cut=" + cut + ")");
-                vcam.Priority = priority;
-                if (cut)
+                if (DialogueDebug.LogInfo) Debug.Log("Dialogue System: Sequencer: CinemachinePriority(" + vcamName + ", " + priority + ", cut=" + cut + ")");
+
+                // Handle cut:
+                var shouldIRestoreBlendMode = false;
+                var cinemachineBrain = cut ? FindObjectOfType<CinemachineBrain>() : null;
+                var previousBlendStyle = CinemachineBlendDefinition.Style.EaseInOut;
+                var previousBlendTime = 0f;
+                if (cut && cinemachineBrain != null)
                 {
-                    var cinemachineBrain = FindObjectOfType<CinemachineBrain>();
-                    if (cinemachineBrain != null)
+                    shouldIRestoreBlendMode = !hasRecordedBlendMode;
+                    hasRecordedBlendMode = true;
+                    previousBlendStyle = cinemachineBrain.m_DefaultBlend.m_Style;
+                    previousBlendTime = cinemachineBrain.m_DefaultBlend.m_Time;
+                    cinemachineBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+                    cinemachineBrain.m_DefaultBlend.m_Time = 0;
+                    cinemachineBrain.enabled = false;
+                }
+
+                if (all)
+                {
+                    var allVcams = FindObjectsOfType<CinemachineVirtualCamera>();
+                    foreach (CinemachineVirtualCamera avcam in allVcams)
                     {
-                        var previousBlendTime = cinemachineBrain.m_DefaultBlend.m_Time;
-                        cinemachineBrain.m_DefaultBlend.m_Time = 0;
+                        avcam.Priority = priority;
+                        if (cut)
+                        {
+                            avcam.enabled = false;
+                            avcam.enabled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    vcam.Priority = priority;
+                    if (cut)
+                    {
                         vcam.enabled = false;
                         vcam.enabled = true;
+                    }
+                }
+
+                // Clean up cut:
+                if (cut && cinemachineBrain != null)
+                {
+                    cinemachineBrain.enabled = true;
+                    if (shouldIRestoreBlendMode)
+                    {
                         yield return null;
-                        //yield return null;  // Cinemachine changed. No longer need to yield 2 frames, but need to disable & re-enable vcam.
+                        cinemachineBrain.m_DefaultBlend.m_Style = previousBlendStyle;
                         cinemachineBrain.m_DefaultBlend.m_Time = previousBlendTime;
-                        yield return null;
+                        hasRecordedBlendMode = false;
                     }
                 }
             }

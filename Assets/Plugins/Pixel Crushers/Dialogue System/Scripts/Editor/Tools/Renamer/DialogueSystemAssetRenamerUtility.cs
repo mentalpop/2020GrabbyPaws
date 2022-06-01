@@ -18,6 +18,8 @@ namespace PixelCrushers.DialogueSystem
     public static class DialogueSystemAssetRenamerUtility
     {
 
+        #region Variables
+
         public delegate void ProcessFileDelegate(string filename, string assetPath, string originalName, string replacementName, ProcessSceneDelegate processSceneHandler, ProcessPrefabDelegate processPrefabHandler);
         public delegate bool ProcessSceneDelegate(string originalName, string replacementName);
         public delegate bool ProcessPrefabDelegate(string assetPath, string originalName, string replacementName);
@@ -46,16 +48,9 @@ namespace PixelCrushers.DialogueSystem
         public static string report;
         public static string ignoreFilesRegex;
 
-        public static string FindVariable(string variableName, string replacementName)
-        {
-            if (string.IsNullOrEmpty(variableName)) return string.Empty;
-            var title = string.IsNullOrEmpty(replacementName) ? "Find Variable" : "Rename Variable";
-            report = string.IsNullOrEmpty(replacementName)
-                ? ("Searching for variable '" + variableName + "'\nResults:\n")
-                : ("Replacing variable '" + variableName + "' with '" + replacementName + "'\nResults:\n");
-            ProcessAssets(title, variableName, replacementName, ProcessVariableInFile, ProcessVariableInScene, ProcessVariableInPrefab);
-            return report;
-        }
+        #endregion
+
+        #region Process
 
         public static void ProcessAssets(string title, string originalName, string replacementName,
             ProcessFileDelegate processFileHandler, ProcessSceneDelegate processSceneHandler, ProcessPrefabDelegate processPrefabHandler)
@@ -115,6 +110,7 @@ namespace PixelCrushers.DialogueSystem
             AssetDatabase.Refresh();
 
             var isWindows = Application.platform == RuntimePlatform.WindowsEditor;
+            var hasRegex = !string.IsNullOrEmpty(ignoreFilesRegex);
             try
             {
                 // Update all scene, scriptable object, and prefab files:
@@ -126,7 +122,7 @@ namespace PixelCrushers.DialogueSystem
                     var assetPath = filename;
                     if (isWindows) assetPath = assetPath.Replace("\\", "/");
                     assetPath = "Assets" + assetPath.Substring(Application.dataPath.Length);
-                    if (Regex.IsMatch(assetPath, ignoreFilesRegex)) continue; // Ignore this file.
+                    if (hasRegex && Regex.IsMatch(assetPath, ignoreFilesRegex)) continue; // Ignore this file.
                     cancel = EditorUtility.DisplayCancelableProgressBar(title, filename, (float)i / (float)files.Length);
                     ProcessAssetFile(filename, assetPath, originalName, replacementName, processFileHandler, processSceneHandler, processPrefabHandler);
                     if (cancel)
@@ -197,6 +193,21 @@ namespace PixelCrushers.DialogueSystem
                     report += "Unable to process " + filename + ": " + e.Message + "\n";
                 }
             }
+        }
+
+        #endregion
+
+        #region Find Variable
+
+        public static string FindVariable(string variableName, string replacementName)
+        {
+            if (string.IsNullOrEmpty(variableName)) return string.Empty;
+            var title = string.IsNullOrEmpty(replacementName) ? "Find Variable" : "Rename Variable";
+            report = string.IsNullOrEmpty(replacementName)
+                ? ("Searching for variable '" + variableName + "'\nResults:\n")
+                : ("Replacing variable '" + variableName + "' with '" + replacementName + "'\nResults:\n");
+            ProcessAssets(title, variableName, replacementName, ProcessVariableInFile, ProcessVariableInScene, ProcessVariableInPrefab);
+            return report;
         }
 
         public static void ProcessVariableInFile(string filename, string assetPath, string originalName, string replacementName,
@@ -337,6 +348,518 @@ namespace PixelCrushers.DialogueSystem
             }
             return found;
         }
+
+        #endregion
+
+        #region Find Actor
+
+        public static string FindActor(string actorName, string replacementName)
+        {
+            if (string.IsNullOrEmpty(actorName)) return string.Empty;
+            var title = string.IsNullOrEmpty(replacementName) ? "Find Actor" : "Rename Actor";
+            report = string.IsNullOrEmpty(replacementName)
+                ? ("Searching for actor'" + actorName + "'\nResults:\n")
+                : ("Replacing actor '" + actorName + "' with '" + replacementName + "'\nResults:\n");
+            ProcessAssets(title, actorName, replacementName, ProcessActorInFile, ProcessActorInScene, ProcessActorInPrefab);
+            return report;
+        }
+
+        public static void ProcessActorInFile(string filename, string assetPath, string originalName, string replacementName,
+            ProcessSceneDelegate processSceneHandler, ProcessPrefabDelegate processPrefabHandler)
+        {
+            if (string.IsNullOrEmpty(filename) || string.IsNullOrEmpty(originalName)) return;
+            var text = File.ReadAllText(filename);
+            if (string.IsNullOrEmpty(text)) return;
+            var replace = !string.IsNullOrEmpty(replacementName);
+
+            // Find/replace Lua expressions that use the original actor name:
+            var originalLuaExpression = "Actor[\"" + DialogueLua.StringToTableIndex(originalName) + "\"]";
+            var replacementLuaExpression = string.IsNullOrEmpty(replacementName.Trim()) ? string.Empty : "Actor[\"" + DialogueLua.StringToTableIndex(replacementName) + "\"]";
+            var found = text.Contains(originalLuaExpression);
+            if (found && replace)
+            {
+                text = text.Replace(originalLuaExpression, replacementLuaExpression);
+            }
+
+            if (found && replace)
+            {
+                File.WriteAllText(filename, text);
+                AssetDatabase.Refresh();
+            }
+
+            // If it's a dialogue database, find/replace actual actor name, too:
+            if (text.Contains("globalUserScript")) // DBs contain this string; used to minimize attempts to load non-database assets.
+            {
+                AssetDatabase.Refresh();
+                var database = AssetDatabase.LoadAssetAtPath<DialogueDatabase>(assetPath);
+                if (database != null)
+                {
+                    var actor = database.GetActor(originalName);
+                    if (actor != null)
+                    {
+                        found = true;
+                        if (replace)
+                        {
+                            actor.Name = replacementName;
+                            EditorUtility.SetDirty(database);
+                            AssetDatabase.SaveAssets();
+                        }
+                    }
+                }
+            }
+
+            // If file is a scene, open it to check for any components such as DialogueActor that use ActorPopup:
+            if (assetPath.EndsWith(".unity"))
+            {
+                // Open scene:
+                var sceneName = Path.GetFileNameWithoutExtension(filename);
+                EditorSceneManager.OpenScene(filename);
+                var scene = EditorSceneManager.GetSceneByName(sceneName);
+                if (!scene.IsValid()) return;
+
+                // Call scene checking delegate:
+                var foundInScene = processSceneHandler(originalName, replacementName);
+                if (foundInScene)
+                {
+                    // If found and replaced, save scene:
+                    found = true;
+                    if (replace)
+                    {
+                        EditorSceneManager.MarkSceneDirty(scene);
+                        EditorSceneManager.SaveScene(scene);
+                    }
+                }
+            }
+            // If file is a prefab, check it:
+            else if (assetPath.EndsWith(".prefab"))
+            {
+                var foundInPrefab = processPrefabHandler(assetPath, originalName, replacementName);
+                if (foundInPrefab)
+                {
+                    found = true;
+                    if (replace) AssetDatabase.SaveAssets();
+                }
+            }
+
+            // Update report:
+            if (found)
+            {
+                report += (replace ? "Replaced in: " : "Found in: ") + assetPath + "\n";
+            }
+        }
+
+        public static bool ProcessActorInScene(string originalName, string replacementName)
+        {
+            var replace = !string.IsNullOrEmpty(replacementName);
+            var found = false;
+            foreach (var dialogueActor in GameObject.FindObjectsOfType<DialogueActor>())
+            {
+                if (dialogueActor.actor == originalName)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        dialogueActor.actor = replacementName;
+                    }
+                }
+            }
+            return found;
+        }
+
+        public static bool ProcessActorInPrefab(string assetPath, string originalName, string replacementName)
+        {
+            var replace = !string.IsNullOrEmpty(replacementName);
+            var found = false;
+            var objects = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+            foreach (var thisObject in objects)
+            {
+                if (thisObject is DialogueActor)
+                {
+                    var dialogueActor = thisObject as DialogueActor;
+                    if (dialogueActor.actor == originalName)
+                    {
+                        found = true;
+                        if (replace)
+                        {
+                            dialogueActor.actor = replacementName;
+                            EditorUtility.SetDirty(dialogueActor);
+                        }
+                    }
+                }
+            }
+            return found;
+        }
+
+        #endregion
+
+        #region Find Quest
+
+        public static string FindQuest(string questName, string replacementName)
+        {
+            if (string.IsNullOrEmpty(questName)) return string.Empty;
+            var title = string.IsNullOrEmpty(replacementName) ? "Find Quest" : "Rename Quest";
+            report = string.IsNullOrEmpty(replacementName)
+                ? ("Searching for quest'" + questName + "'\nResults:\n")
+                : ("Replacing quest '" + questName + "' with '" + replacementName + "'\nResults:\n");
+            ProcessAssets(title, questName, replacementName, ProcessQuestInFile, ProcessQuestInScene, ProcessQuestInPrefab);
+            return report;
+        }
+
+        public static bool FindText(string originalSubstring, string replacementSubstring, bool replace, ref string text)
+        {
+            var found = text.Contains(originalSubstring);
+            if (found && replace)
+            {
+                text = text.Replace(originalSubstring, replacementSubstring);
+            }
+            return found;
+        }
+
+        public static bool FindLuaFunction(string funcName, string originalName, string replacementName, bool replace, ref string text)
+        {
+            var originalLuaCode = funcName + "(\"" + DialogueLua.StringToTableIndex(originalName) + "\"";
+            var replacementLuaCode = string.IsNullOrEmpty(replacementName.Trim()) ? string.Empty : funcName + "(\"" + DialogueLua.StringToTableIndex(replacementName) + "\"";
+            return FindText(originalLuaCode, replacementLuaCode, replace, ref text);
+        }
+
+        public static void ProcessQuestInFile(string filename, string assetPath, string originalName, string replacementName,
+            ProcessSceneDelegate processSceneHandler, ProcessPrefabDelegate processPrefabHandler)
+        {
+            if (string.IsNullOrEmpty(filename) || string.IsNullOrEmpty(originalName)) return;
+            var text = File.ReadAllText(filename);
+            if (string.IsNullOrEmpty(text)) return;
+            var replace = !string.IsNullOrEmpty(replacementName);
+
+            // Find/replace Lua expressions that use the original quest name:
+            // Item[]
+            var originalLuaExpression = "Item[\"" + DialogueLua.StringToTableIndex(originalName) + "\"]";
+            var replacementLuaExpression = string.IsNullOrEmpty(replacementName.Trim()) ? string.Empty : "Item[\"" + DialogueLua.StringToTableIndex(replacementName) + "\"]";
+            var found = FindText(originalLuaExpression, replacementLuaExpression, replace, ref text);
+            // Quest[]
+            originalLuaExpression = "Quest[\"" + DialogueLua.StringToTableIndex(originalName) + "\"]";
+            replacementLuaExpression = string.IsNullOrEmpty(replacementName.Trim()) ? string.Empty : "Quest[\"" + DialogueLua.StringToTableIndex(replacementName) + "\"]";
+            found = FindText(originalLuaExpression, replacementLuaExpression, replace, ref text) || found;
+            // Quest functions
+            found = FindLuaFunction("CurrentQuestState", originalName, replacementName, replace, ref text) || found;
+            found = FindLuaFunction("SetQuestState", originalName, replacementName, replace, ref text) || found;
+            found = FindLuaFunction("CurrentQuestEntryState", originalName, replacementName, replace, ref text) || found;
+            found = FindLuaFunction("SetQuestEntryState", originalName, replacementName, replace, ref text) || found;
+
+            if (found && replace)
+            {
+                File.WriteAllText(filename, text);
+                AssetDatabase.Refresh();
+            }
+
+            // If it's a dialogue database, find/replace actual quest name, too:
+            if (text.Contains("globalUserScript")) // DBs contain this string; used to minimize attempts to load non-database assets.
+            {
+                AssetDatabase.Refresh();
+                var database = AssetDatabase.LoadAssetAtPath<DialogueDatabase>(assetPath);
+                if (database != null)
+                {
+                    var quest = database.GetItem(originalName);
+                    if (quest != null)
+                    {
+                        found = true;
+                        if (replace)
+                        {
+                            quest.Name = replacementName;
+                            EditorUtility.SetDirty(database);
+                            AssetDatabase.SaveAssets();
+                        }
+                    }
+                }
+            }
+
+            // If file is a scene, open it to check for any components such as DialogueSystemTrigger that use QuestPopup:
+            if (assetPath.EndsWith(".unity"))
+            {
+                // Open scene:
+                var sceneName = Path.GetFileNameWithoutExtension(filename);
+                EditorSceneManager.OpenScene(filename);
+                var scene = EditorSceneManager.GetSceneByName(sceneName);
+                if (!scene.IsValid()) return;
+
+                // Call scene checking delegate:
+                var foundInScene = processSceneHandler(originalName, replacementName);
+                if (foundInScene)
+                {
+                    // If found and replaced, save scene:
+                    found = true;
+                    if (replace)
+                    {
+                        EditorSceneManager.MarkSceneDirty(scene);
+                        EditorSceneManager.SaveScene(scene);
+                    }
+                }
+            }
+            // If file is a prefab, check it:
+            else if (assetPath.EndsWith(".prefab"))
+            {
+                var foundInPrefab = processPrefabHandler(assetPath, originalName, replacementName);
+                if (foundInPrefab)
+                {
+                    found = true;
+                    if (replace) AssetDatabase.SaveAssets();
+                }
+            }
+
+            // Update report:
+            if (found)
+            {
+                report += (replace ? "Replaced in: " : "Found in: ") + assetPath + "\n";
+            }
+        }
+
+        public static bool ProcessQuestInScene(string originalName, string replacementName)
+        {
+            var replace = !string.IsNullOrEmpty(replacementName);
+            var found = false;
+            foreach (var dialogueSystemTrigger in GameObject.FindObjectsOfType<DialogueSystemTrigger>())
+            {
+                found = FindQuestInDialogueSystemTrigger(dialogueSystemTrigger, originalName, replacementName, replace, false) || found;
+            }
+            foreach (var questStateListener in GameObject.FindObjectsOfType<QuestStateListener>())
+            {
+                found = FindQuestInQuestStateListener(questStateListener, originalName, replacementName, replace, false) || found;
+            }
+            return found;
+        }
+
+        public static bool ProcessQuestInPrefab(string assetPath, string originalName, string replacementName)
+        {
+            var replace = !string.IsNullOrEmpty(replacementName);
+            var found = false;
+            var objects = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+            foreach (var thisObject in objects)
+            {
+                if (thisObject is DialogueSystemTrigger)
+                {
+                    found = FindQuestInDialogueSystemTrigger(thisObject as DialogueSystemTrigger, originalName, replacementName, replace, true) || found;
+                }
+                else if (thisObject is QuestStateListener)
+                {
+                    found = FindQuestInQuestStateListener(thisObject as QuestStateListener, originalName, replacementName, replace, true) || found;
+                }
+            }
+            return found;
+        }
+
+        public static bool FindQuestInDialogueSystemTrigger(DialogueSystemTrigger dialogueSystemTrigger, string originalName, string replacementName, bool replace, bool isPrefab)
+        {
+            var found = false;
+            if (dialogueSystemTrigger != null)
+            {
+                foreach (var questCondition in dialogueSystemTrigger.condition.questConditions)
+                {
+                    if (questCondition.questName == originalName)
+                    {
+                        found = true;
+                        if (replace)
+                        {
+                            questCondition.questName = replacementName;
+                        }
+                    }
+                }
+                if (dialogueSystemTrigger.questName == originalName)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        dialogueSystemTrigger.questName = replacementName;
+                    }
+                }
+            }
+            if (found && replace && isPrefab) EditorUtility.SetDirty(dialogueSystemTrigger);
+            return found;
+        }
+
+        public static bool FindQuestInQuestStateListener(QuestStateListener questStateListener, string originalName, string replacementName, bool replace, bool isPrefab)
+        {
+            var found = false;
+            if (questStateListener != null)
+            {
+                if (questStateListener.questName == originalName)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        questStateListener.questName = replacementName;
+                        if (isPrefab) EditorUtility.SetDirty(questStateListener);
+                    }
+                }
+            }
+            return found;
+        }
+
+        #endregion
+
+        #region Find Conversation
+
+        public static string FindConversation(string conversationTitle, string replacementName)
+        {
+            if (string.IsNullOrEmpty(conversationTitle)) return string.Empty;
+            var title = string.IsNullOrEmpty(replacementName) ? "Find Conversation" : "Rename Conversation";
+            report = string.IsNullOrEmpty(replacementName)
+                ? ("Searching for Conversation'" + conversationTitle + "'\nResults:\n")
+                : ("Replacing Conversation '" + conversationTitle + "' with '" + replacementName + "'\nResults:\n");
+            ProcessAssets(title, conversationTitle, replacementName, ProcessConversationInFile, ProcessConversationInScene, ProcessConversationInPrefab);
+            return report;
+        }
+
+        public static void ProcessConversationInFile(string filename, string assetPath, string originalTitle, string replacementTitle,
+            ProcessSceneDelegate processSceneHandler, ProcessPrefabDelegate processPrefabHandler)
+        {
+            if (string.IsNullOrEmpty(filename) || string.IsNullOrEmpty(originalTitle)) return;
+            var text = File.ReadAllText(filename);
+            if (string.IsNullOrEmpty(text)) return;
+            var replace = !string.IsNullOrEmpty(replacementTitle);
+
+            var found = false;
+
+            // No need to find/replace Lua expressions that use the original Conversation name, since Lua uses conversation IDs.
+
+            // If it's a dialogue database, find/replace actual conversation title:
+            if (text.Contains("globalUserScript")) // DBs contain this string; used to minimize attempts to load non-database assets.
+            {
+                AssetDatabase.Refresh();
+                var database = AssetDatabase.LoadAssetAtPath<DialogueDatabase>(assetPath);
+                if (database != null)
+                {
+                    var conversation = database.GetConversation(originalTitle);
+                    if (conversation != null)
+                    {
+                        found = true;
+                        if (replace)
+                        {
+                            conversation.Title = replacementTitle;
+                            EditorUtility.SetDirty(database);
+                            AssetDatabase.SaveAssets();
+                        }
+                    }
+                }
+            }
+
+            // If file is a scene, open it to check for any components such as DialogueSystemTrigger that use ConversationPopup:
+            if (assetPath.EndsWith(".unity"))
+            {
+                // Open scene:
+                var sceneName = Path.GetFileNameWithoutExtension(filename);
+                EditorSceneManager.OpenScene(filename);
+                var scene = EditorSceneManager.GetSceneByName(sceneName);
+                if (!scene.IsValid()) return;
+
+                // Call scene checking delegate:
+                var foundInScene = processSceneHandler(originalTitle, replacementTitle);
+                if (foundInScene)
+                {
+                    // If found and replaced, save scene:
+                    found = true;
+                    if (replace)
+                    {
+                        EditorSceneManager.MarkSceneDirty(scene);
+                        EditorSceneManager.SaveScene(scene);
+                    }
+                }
+            }
+            // If file is a prefab, check it:
+            else if (assetPath.EndsWith(".prefab"))
+            {
+                var foundInPrefab = processPrefabHandler(assetPath, originalTitle, replacementTitle);
+                if (foundInPrefab)
+                {
+                    found = true;
+                    if (replace) AssetDatabase.SaveAssets();
+                }
+            }
+
+            // Update report:
+            if (found)
+            {
+                report += (replace ? "Replaced in: " : "Found in: ") + assetPath + "\n";
+            }
+        }
+
+        public static bool ProcessConversationInScene(string originalTitle, string replacementTitle)
+        {
+            var replace = !string.IsNullOrEmpty(replacementTitle);
+            var found = false;
+            foreach (var dialogueSystemTrigger in GameObject.FindObjectsOfType<DialogueSystemTrigger>())
+            {
+                found = FindConversationInDialogueSystemTrigger(dialogueSystemTrigger, originalTitle, replacementTitle, replace, false) || found;
+            }
+            foreach (var conversationStarter in GameObject.FindObjectsOfType<ConversationStarter>())
+            {
+                found = FindConversationInConversationStarter(conversationStarter, originalTitle, replacementTitle, replace, false) || found;
+            }
+            return found;
+        }
+
+        public static bool ProcessConversationInPrefab(string assetPath, string originalTitle, string replacementTitle)
+        {
+            var replace = !string.IsNullOrEmpty(replacementTitle);
+            var found = false;
+            var objects = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+            foreach (var thisObject in objects)
+            {
+                if (thisObject is DialogueSystemTrigger)
+                {
+                    found = FindConversationInDialogueSystemTrigger(thisObject as DialogueSystemTrigger, originalTitle, replacementTitle, replace, true) || found;
+                }
+                else if (thisObject is ConversationStarter)
+                {
+                    found = FindConversationInConversationStarter(thisObject as ConversationStarter, originalTitle, replacementTitle, replace, true) || found;
+                }
+            }
+            return found;
+        }
+
+        public static bool FindConversationInDialogueSystemTrigger(DialogueSystemTrigger dialogueSystemTrigger, string originalTitle, string replacementTitle, bool replace, bool isPrefab)
+        {
+            var found = false;
+            if (dialogueSystemTrigger != null)
+            {
+                if (dialogueSystemTrigger.conversation == originalTitle)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        dialogueSystemTrigger.conversation = replacementTitle;
+                    }
+                }
+                if (dialogueSystemTrigger.barkConversation == originalTitle)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        dialogueSystemTrigger.barkConversation = replacementTitle;
+                    }
+                }
+            }
+            if (found && replace && isPrefab) EditorUtility.SetDirty(dialogueSystemTrigger);
+            return found;
+        }
+
+        public static bool FindConversationInConversationStarter(ConversationStarter conversationStarter, string originalTitle, string replacementTitle, bool replace, bool isPrefab)
+        {
+            var found = false;
+            if (conversationStarter != null)
+            {
+                if (conversationStarter.conversation == originalTitle)
+                {
+                    found = true;
+                    if (replace)
+                    {
+                        conversationStarter.conversation = replacementTitle;
+                        if (isPrefab) EditorUtility.SetDirty(conversationStarter);
+                    }
+                }
+            }
+            return found;
+        }
+
+        #endregion
 
     }
 }

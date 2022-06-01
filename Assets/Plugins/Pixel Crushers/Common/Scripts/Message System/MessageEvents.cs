@@ -99,7 +99,8 @@ namespace PixelCrushers
                 var messageEvent = messagesToListenFor[i];
                 if (IsParticipantOk(messageEvent.requiredSender, messageArgs.sender) &&
                     IsParticipantOk(messageEvent.requiredTarget, messageArgs.target) && 
-                    string.Equals(messageEvent.message, messageArgs.message) && string.Equals(messageEvent.parameter, messageArgs.parameter))
+                    string.Equals(messageEvent.message, messageArgs.message) && 
+                    (StringField.IsNullOrEmpty(messageEvent.parameter) || string.Equals(messageEvent.parameter, messageArgs.parameter)))
                 {
                     messageEvent.onMessage.Invoke(messageArgs);
                 }

@@ -59,6 +59,12 @@ namespace PixelCrushers
         }
 
 #if TMP_PRESENT
+        private TMPro.TextMeshPro m_textMeshPro;
+        public TMPro.TextMeshPro textMeshPro
+        {
+            get { return m_textMeshPro; }
+            set { m_textMeshPro = value; }
+        }
         private TMPro.TextMeshProUGUI m_textMeshProUGUI;
         public TMPro.TextMeshProUGUI textMeshProUGUI
         {
@@ -83,7 +89,7 @@ namespace PixelCrushers
         {
             if (!started) return;
             var textTable = this.textTable;
-            var language = UILocalizationManager.instance.currentLanguage;
+            var language = (UILocalizationManager.instance != null) ? UILocalizationManager.instance.currentLanguage : string.Empty;
 
             // Skip if no text table or language set:
             if (textTable == null)
@@ -95,7 +101,7 @@ namespace PixelCrushers
             if (!textTable.HasLanguage(language))
             {
                 Debug.LogWarning("Text table " + textTable.name + " does not have a language '" + language + "'.", textTable);
-                return;
+                //return; //--- Allow to continue and use default language value.
             }
 
             // Make sure we have localizable UI components:
@@ -109,6 +115,7 @@ namespace PixelCrushers
             if (!m_lookedForTMP)
             {
                 m_lookedForTMP = true;
+                textMeshPro = GetComponent<TMPro.TextMeshPro>();
                 textMeshProUGUI = GetComponent<TMPro.TextMeshProUGUI>();
             }
             hasLocalizableComponent = hasLocalizableComponent || textMeshProUGUI != null;
@@ -159,7 +166,23 @@ namespace PixelCrushers
             if (!m_lookedForTMP)
             {
                 m_lookedForTMP = true;
+                textMeshPro = GetComponent<TMPro.TextMeshPro>();
                 textMeshProUGUI = GetComponent<TMPro.TextMeshProUGUI>();
+            }
+            if (textMeshPro != null)
+            {
+                if (string.IsNullOrEmpty(fieldName))
+                {
+                    fieldName = (textMeshPro != null) ? textMeshPro.text : string.Empty;
+                }
+                if (!textTable.HasField(fieldName))
+                {
+                    Debug.LogWarning("Text table " + textTable.name + " does not have a field '" + fieldName + "'.", textTable);
+                }
+                else
+                {
+                    textMeshPro.text = GetLocalizedText(fieldName);
+                }
             }
             if (textMeshProUGUI != null)
             {

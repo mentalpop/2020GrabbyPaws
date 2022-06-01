@@ -14,6 +14,7 @@ namespace PixelCrushers.DialogueSystem
     public static class ScreenplayExporter
     {
         private static bool omitNoneOrContinueEntries = false;
+        private static string lastActorName = string.Empty;
 
         /// <summary>
         /// The main export method. Exports screenplay text files for each language.
@@ -26,6 +27,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (database == null || string.IsNullOrEmpty(filename)) return;
             omitNoneOrContinueEntries = omitNoneSequenceEntries;
+            lastActorName = string.Empty;
             var otherLanguages = FindOtherLanguages(database);
             ExportFile(database, string.Empty, filename, encodingType);
             foreach (var language in otherLanguages)
@@ -157,7 +159,16 @@ namespace PixelCrushers.DialogueSystem
                     Actor actor = database.GetActor(entry.ActorID);
                     actorNames.Add(entry.ActorID, (actor != null) ? actor.Name.ToUpper() : "ACTOR");
                 }
-                if (show) file.WriteLine(string.Format("\t\t\t\t{0}", actorNames[entry.ActorID]));
+                if (show)
+                {
+                    var actorName = actorNames[entry.ActorID];
+                    if (actorName != lastActorName)
+                    {
+                        lastActorName = actorName;
+                        file.WriteLine(string.Format("\t\t\t\t{0}", actorName));
+                    }
+                }
+
                 var description = Field.LookupValue(entry.fields, "Description");
                 if (!string.IsNullOrEmpty(description))
                 {

@@ -12,11 +12,39 @@ namespace PixelCrushers.DialogueSystem
 
     public enum SequenceSyntaxState { Unchecked, Valid, Error }
 
+    public delegate void SetupGenericMenuDelegate(GenericMenu menu);
+    public delegate bool TryDragAndDropDelegate(UnityEngine.Object obj, ref string sequence);
+
     /// <summary>
     /// This class provides a custom drawer for Sequence fields.
     /// </summary>
     public static class SequenceEditorTools
     {
+
+        /// <summary>
+        /// Assign delegate handler to check extra drag-n-drop options.
+        /// </summary>
+        public static TryDragAndDropDelegate tryDragAndDrop = null;
+
+        /// <summary>
+        /// Assign handler(s) to add extra menu items to the Sequence dropdown menu.
+        /// </summary>
+        public static event SetupGenericMenuDelegate customSequenceMenuSetup = null;
+
+        /// <summary>
+        /// Add text to the currently-edited sequence. Typically called from a
+        /// customSequenceMenuSetup handler.
+        /// </summary>
+        public static void AddText(string text)
+        {
+            if (!string.IsNullOrEmpty(queuedText))
+            {
+                queuedText += ";\n";
+            }
+            queuedText += text;
+        }
+
+        private static string queuedText = string.Empty;
 
         private enum MenuResult
         {
@@ -77,6 +105,13 @@ namespace PixelCrushers.DialogueSystem
 
         public static string DrawLayout(GUIContent guiContent, string sequence, ref Rect rect, ref SequenceSyntaxState syntaxState)
         {
+            if (!string.IsNullOrEmpty(queuedText))
+            {
+                if (!string.IsNullOrEmpty(sequence)) sequence += ";\n";
+                sequence += queuedText;
+                queuedText = string.Empty;
+            }
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(guiContent);
             EditorGUI.BeginDisabledGroup(string.IsNullOrEmpty(sequence));
@@ -127,7 +162,11 @@ namespace PixelCrushers.DialogueSystem
                             DragAndDrop.AcceptDrag();
                             foreach (var obj in DragAndDrop.objectReferences)
                             {
-                                if (obj is AudioClip)
+                                if (tryDragAndDrop != null && tryDragAndDrop(obj, ref sequence))
+                                {
+                                    GUI.changed = true;
+                                }
+                                else if (obj is AudioClip)
                                 {
                                     // Drop audio clip according to selected audio command:
                                     var clip = obj as AudioClip;
@@ -232,6 +271,7 @@ namespace PixelCrushers.DialogueSystem
             menu.AddItem(new GUIContent("Component Drag-n-Drop/Alt-Key/SetEnabled(Component,false,GameObject)"), alternateComponentDragDropCommand == ComponentDragDropCommand.SetEnabledFalse, SetAlternateComponentDragDropCommand, ComponentDragDropCommand.SetEnabledFalse);
             AddAllSequencerCommands(menu);
             AddAllShortcuts(menu);
+            if (customSequenceMenuSetup != null) customSequenceMenuSetup(menu);
             menu.ShowAsContext();
         }
 

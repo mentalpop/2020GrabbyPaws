@@ -79,6 +79,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     currentEntryID = value.id;
                     if (value.fields != null) BuildLanguageListFromFields(value.fields);
                 }
+                else
+                {
+                    CloseQuickDialogueTextEntry();
+                }
                 if (verboseDebug && value != null) Debug.Log("<color=magenta>Set current entry ID to " + currentEntryID + "</color>");
             }
         }
@@ -632,7 +636,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 EditorWindowTools.EditorGUILayoutBeginGroup();
 
                 entry.Sequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence. Drag audio clips to add AudioWait() commands."), entry.Sequence, ref sequenceRect, ref sequenceSyntaxState);
-                DrawLocalizedVersions(entry.fields, "Sequence {0}", false, FieldType.Text);
+                DrawLocalizedVersions(entry.fields, "Sequence {0}", false, FieldType.Text, true);
 
                 // Response Menu Sequence:
                 bool hasResponseMenuSequence = entry.HasResponseMenuSequence();
@@ -672,12 +676,18 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             entryEventFoldout = EditorGUILayout.Foldout(entryEventFoldout, "Events");
             if (entryEventFoldout) DrawUnityEvents();
 
-            // Notes:
+            // Notes: (special handling to use TextArea)
             Field notes = Field.Lookup(entry.fields, "Notes");
             if (notes != null)
             {
                 EditorGUILayout.LabelField("Notes");
                 notes.value = EditorGUILayout.TextArea(notes.value);
+            }
+
+            // Custom inspector code hook:
+            if (customDrawDialogueEntryInspector != null)
+            {
+                customDrawDialogueEntryInspector(database, entry);
             }
 
             // All Fields foldout:
@@ -882,9 +892,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (!template.dialogueEntryPrimaryFieldTitles.Contains(field.title)) continue;
                 if (dialogueEntryBuiltInFieldTitles.Contains(fieldTitle)) continue;
                 if (fieldTitle.StartsWith("Menu Text") || fieldTitle.StartsWith("Sequence") || fieldTitle.StartsWith("Response Menu Sequence")) continue;
-                EditorGUILayout.BeginHorizontal();
-                DrawField(field, false, false);
-                EditorGUILayout.EndHorizontal();
+                DrawMainSectionField(field);
             }
         }
 
@@ -1075,9 +1083,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             VerifyParticipantField(entry, "Actor", ref currentEntryActor);
             VerifyParticipantField(entry, "Conversant", ref currentEntryConversant);
 
-            // If actor and conversant are unassigned, use conversation's values:
+            // If actor is unassigned, use conversation's values: (conversant may be set to None)
             if (IsActorIDUnassigned(currentEntryActor)) currentEntryActor.value = currentConversation.ActorID.ToString();
-            if (IsActorIDUnassigned(currentEntryConversant)) currentEntryConversant.value = currentConversation.ConversantID.ToString(); ;
+            //if (IsActorIDUnassigned(currentEntryConversant)) currentEntryConversant.value = currentConversation.ConversantID.ToString(); ;
 
             // Participant IDs:
             EditorGUILayout.BeginHorizontal();
@@ -1104,7 +1112,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private bool IsActorIDUnassigned(Field field)
         {
-            return (field == null) || string.IsNullOrEmpty(field.value) || string.Equals(field.value, "0");
+            return (field == null) || string.IsNullOrEmpty(field.value) || string.Equals(field.value, "-1");
         }
 
         private void DrawParticipantField(Field participantField, string tooltipText)
@@ -1155,7 +1163,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     }
                     else
                     {
-                        destinationList.Add(new GUIContent(Tools.StripRichTextCodes(GetDialogueEntryText(destinationEntry)), string.Empty));
+                        var text = (prefs.preferTitlesForLinksTo && !string.IsNullOrEmpty(destinationEntry.Title))
+                            ? ("<" + destinationEntry.Title + ">")
+                            : GetDialogueEntryText(destinationEntry);
+                        destinationList.Add(new GUIContent(Tools.StripRichTextCodes(text)));
                     }
                 }
             }
@@ -1234,7 +1245,11 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                             {
                                 string linkText = (linkEntry == null) ? string.Empty
                                     : (linkEntry.isGroup ? GetDialogueEntryText(linkEntry) : linkEntry.responseButtonText);
-                                if (string.IsNullOrEmpty(linkText)) linkText = "<" + linkEntry.Title + ">";
+                                if (string.IsNullOrEmpty(linkText) ||
+                                    (prefs.preferTitlesForLinksTo && linkEntry != null && !string.IsNullOrEmpty(linkEntry.Title)))
+                                {
+                                    linkText = "<" + linkEntry.Title + ">";
+                                }
                                 GUIStyle linkButtonStyle = GetLinkButtonStyle(linkEntry);
                                 if (GUILayout.Button(linkText, linkButtonStyle))
                                 {
@@ -1429,7 +1444,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (source != null)
             {
-                DialogueEntry newEntry = CreateNewDialogueEntry("New Dialogue Entry");
+                DialogueEntry newEntry = CreateNewDialogueEntry(string.Empty);
                 if (useSameActorAssignments)
                 {
                     newEntry.ActorID = (source.ActorID == source.ConversantID) ? database.playerID : source.ActorID;

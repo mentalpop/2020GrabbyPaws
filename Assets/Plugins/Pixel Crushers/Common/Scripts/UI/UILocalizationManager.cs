@@ -25,9 +25,17 @@ namespace PixelCrushers
         [SerializeField]
         private bool m_saveLanguageInPlayerPrefs = true;
 
+        [Tooltip("When updating UIs, perform longer search that also finds LocalizeUI components on inactive GameObjects.")]
+        [SerializeField]
+        private bool m_alsoUpdateInactiveLocalizeUI = true;
+
+        [Tooltip("If a language's field value is blank, use default language's field value.")]
+        [SerializeField]
+        private bool m_useDefaultLanguageForBlankTranslations = true;
+
         private string m_currentLanguage = string.Empty;
 
-        private static UILocalizationManager m_instance = null;
+        private static UILocalizationManager s_instance = null;
 
         /// <summary>
         /// Current global instance of UILocalizationManager. If one doesn't exist,
@@ -37,23 +45,31 @@ namespace PixelCrushers
         {
             get
             {
-                if (m_instance == null)
+                if (s_instance == null)
                 {
-                    m_instance = FindObjectOfType<UILocalizationManager>();
-                    if (m_instance == null)
+                    s_instance = FindObjectOfType<UILocalizationManager>();
+                    if (s_instance == null && Application.isPlaying)
                     {
                         var globalTextTable = FindObjectOfType<GlobalTextTable>();
-                        m_instance = (globalTextTable != null) ? globalTextTable.gameObject.AddComponent<UILocalizationManager>()
+                        s_instance = (globalTextTable != null) ? globalTextTable.gameObject.AddComponent<UILocalizationManager>()
                             : new GameObject("UILocalizationManager").AddComponent<UILocalizationManager>();
                     }
                 }
-                return m_instance;
+                return s_instance;
             }
             set
             {
-                m_instance = value;
+                s_instance = value;
             }
         }
+
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void InitStaticVariables()
+        {
+            s_instance = null;
+        }
+#endif
 
         /// <summary>
         /// Overrides the global text table.
@@ -95,9 +111,20 @@ namespace PixelCrushers
             set { m_saveLanguageInPlayerPrefs = value; }
         }
 
+        public bool useDefaultLanguageForBlankTranslations
+        {
+            get { return m_useDefaultLanguageForBlankTranslations; }
+            set { m_useDefaultLanguageForBlankTranslations = value; TextTable.useDefaultLanguageForBlankTranslations = value; }
+        }
+
         private void Awake()
         {
-            if (m_instance == null) m_instance = this;
+            if (s_instance == null) s_instance = this;
+            Initialize();
+        }
+
+        public void Initialize()
+        { 
             if (saveLanguageInPlayerPrefs)
             {
                 if (!string.IsNullOrEmpty(currentLanguagePlayerPrefsKey) && PlayerPrefs.HasKey(currentLanguagePlayerPrefsKey))
@@ -105,6 +132,7 @@ namespace PixelCrushers
                     m_currentLanguage = PlayerPrefs.GetString(currentLanguagePlayerPrefsKey);
                 }
             }
+            TextTable.useDefaultLanguageForBlankTranslations = m_useDefaultLanguageForBlankTranslations;
         }
 
         private IEnumerator Start()
@@ -127,7 +155,10 @@ namespace PixelCrushers
                     PlayerPrefs.SetString(currentLanguagePlayerPrefsKey, language);
                 }
             }
-            var localizeUIs = FindObjectsOfType<LocalizeUI>();
+
+            var localizeUIs = m_alsoUpdateInactiveLocalizeUI
+                ? GameObjectUtility.FindObjectsOfTypeAlsoInactive<LocalizeUI>()
+                : FindObjectsOfType<LocalizeUI>();
             for (int i = 0; i < localizeUIs.Length; i++)
             {
                 localizeUIs[i].UpdateText();

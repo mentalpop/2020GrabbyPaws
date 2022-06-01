@@ -77,7 +77,21 @@ namespace PixelCrushers.DialogueSystem
             if (!enabled || string.IsNullOrEmpty(s)) return;
             var data = SaveSystem.Deserialize<Data>(s);
             if (data == null) return;
+            StartCoroutine(StartSavedConversation(data));
+        }
+
+        protected System.Collections.IEnumerator StartSavedConversation(Data data)
+        {
+            var dialogueUI = DialogueManager.dialogueUI as StandardDialogueUI;
             DialogueManager.StopConversation();
+            if (dialogueUI != null)
+            {
+                float safeguardTimeout = Time.realtimeSinceStartup + 5f;
+                while (dialogueUI.isOpen && Time.realtimeSinceStartup < safeguardTimeout)
+                {
+                    yield return null;
+                }
+            }
             var conversationID = data.conversationID;
             var entryID = data.entryID;
             var conversation = DialogueManager.masterDatabase.GetConversation(conversationID);

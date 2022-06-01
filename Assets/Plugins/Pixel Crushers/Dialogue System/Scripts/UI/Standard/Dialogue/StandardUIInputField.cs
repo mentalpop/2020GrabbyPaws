@@ -39,11 +39,11 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Call this delegate when the player accepts the input in the text field.
         /// </summary>
-        private AcceptedTextDelegate m_acceptedText = null;
+        protected AcceptedTextDelegate m_acceptedText = null;
 
-        private bool m_isAwaitingInput = false;
+        protected bool m_isAwaitingInput = false;
 
-        private TouchScreenKeyboard m_touchScreenKeyboard = null;
+        protected TouchScreenKeyboard m_touchScreenKeyboard = null;
 
         protected override void Start()
         {
@@ -58,7 +58,7 @@ namespace PixelCrushers.DialogueSystem
         /// <param name="text">The current value to use for the input field.</param>
         /// <param name="maxLength">Max length, or <c>0</c> for unlimited.</param>
         /// <param name="acceptedText">The delegate to call when accepting text.</param>
-        public void StartTextInput(string labelText, string text, int maxLength, AcceptedTextDelegate acceptedText)
+        public virtual void StartTextInput(string labelText, string text, int maxLength, AcceptedTextDelegate acceptedText)
         {
             label.text = labelText;
             inputField.text = text;
@@ -86,7 +86,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Cancels the text input field.
         /// </summary>
-        public void CancelTextInput()
+        public virtual void CancelTextInput()
         {
             m_isAwaitingInput = false;
             Hide();
@@ -96,7 +96,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Accepts the text input and calls the accept handler delegate.
         /// </summary>
-        public void AcceptTextInput()
+        public virtual void AcceptTextInput()
         {
             m_isAwaitingInput = false;
             if (m_acceptedText != null)
@@ -108,16 +108,21 @@ namespace PixelCrushers.DialogueSystem
             onAccept.Invoke();
         }
 
-        private void Show()
+        protected virtual void Show()
         {
             SetActive(true);
             Open();
-            if (showTouchScreenKeyboard) m_touchScreenKeyboard = TouchScreenKeyboard.Open(inputField.text);
+            if (showTouchScreenKeyboard) ShowTouchScreenKeyboard();
             inputField.ActivateInputField();
             EventSystem.current.SetSelectedGameObject(inputField.gameObject);
         }
 
-        private void Hide()
+        protected virtual void ShowTouchScreenKeyboard()
+        { 
+            m_touchScreenKeyboard = TouchScreenKeyboard.Open(inputField.text); 
+        }
+
+        protected virtual void Hide()
         {
             Close();
             SetActive(false);
@@ -128,7 +133,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void SetActive(bool value)
+        protected virtual void SetActive(bool value)
         {
             if (panel != null) panel.gameObject.SetActive(value);
             if (panel == null || value == true)

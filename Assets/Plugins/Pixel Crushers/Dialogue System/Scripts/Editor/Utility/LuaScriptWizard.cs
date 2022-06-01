@@ -283,7 +283,9 @@ namespace PixelCrushers.DialogueSystem
                         item.floatValue = EditorGUILayout.FloatField(item.floatValue);
                         break;
                     default:
-                        item.stringValue = EditorGUILayout.TextField(item.stringValue);
+                        CustomFieldType customFieldType = GetCustomFieldType(database.actors, item.actorNamesIndex, item.actorFieldIndex);
+                        if (customFieldType != null) item.stringValue = customFieldType.Draw(item.stringValue, database);
+                        else item.stringValue = EditorGUILayout.TextField(item.stringValue);
                         break;
                 }
 
@@ -306,7 +308,9 @@ namespace PixelCrushers.DialogueSystem
                         item.floatValue = EditorGUILayout.FloatField(item.floatValue);
                         break;
                     default:
-                        item.stringValue = EditorGUILayout.TextField(item.stringValue);
+                        CustomFieldType customFieldType = GetCustomFieldType(database.items, item.itemNamesIndex, item.itemFieldIndex);
+                        if (customFieldType != null) item.stringValue = customFieldType.Draw(item.stringValue, database);
+                        else item.stringValue = EditorGUILayout.TextField(item.stringValue);
                         break;
                 }
 
@@ -329,7 +333,9 @@ namespace PixelCrushers.DialogueSystem
                         item.floatValue = EditorGUILayout.FloatField(item.floatValue);
                         break;
                     default:
-                        item.stringValue = EditorGUILayout.TextField(item.stringValue);
+                        CustomFieldType customFieldType = GetCustomFieldType(database.locations, item.locationNamesIndex, item.locationNamesIndex);
+                        if (customFieldType != null) item.stringValue = customFieldType.Draw(item.stringValue, database);
+                        else item.stringValue = EditorGUILayout.TextField(item.stringValue);
                         break;
                 }
 
@@ -715,7 +721,7 @@ namespace PixelCrushers.DialogueSystem
                     sb.AppendFormat("{0}[\"{1}\"].{2} = {3}",
                                     tableName,
                                     DialogueLua.StringToTableIndex(elementName),
-                                    DialogueLua.StringToTableIndex(fieldName),
+                                    DialogueLua.StringToFieldName(fieldName),
                                     (item.booleanValue == BooleanType.True) ? "true" : "false");
                     break;
                 case FieldType.Number:
@@ -725,21 +731,21 @@ namespace PixelCrushers.DialogueSystem
                             sb.AppendFormat("{0}[\"{1}\"].{2} = {3}",
                                             tableName,
                                             DialogueLua.StringToTableIndex(elementName),
-                                            DialogueLua.StringToTableIndex(fieldName),
+                                            DialogueLua.StringToFieldName(fieldName),
                                             item.floatValue);
                             break;
                         case ValueSetMode.Add:
                             sb.AppendFormat("{0}[\"{1}\"].{2} = {0}[\"{1}\"].{2} + {3}",
                                             tableName,
                                             DialogueLua.StringToTableIndex(elementName),
-                                            DialogueLua.StringToTableIndex(fieldName),
+                                            DialogueLua.StringToFieldName(fieldName),
                                             item.floatValue);
                             break;
                         case ValueSetMode.Subtract:
                             sb.AppendFormat("{0}[\"{1}\"].{2} = {0}[\"{1}\"].{2} - {3}",
                                             tableName,
                                             DialogueLua.StringToTableIndex(elementName),
-                                            DialogueLua.StringToTableIndex(fieldName),
+                                            DialogueLua.StringToFieldName(fieldName),
                                             item.floatValue);
                             break;
                     }
@@ -748,7 +754,7 @@ namespace PixelCrushers.DialogueSystem
                     sb.AppendFormat("{0}[\"{1}\"].{2} = \"{3}\"",
                                     tableName,
                                     DialogueLua.StringToTableIndex(elementName),
-                                    DialogueLua.StringToTableIndex(fieldName),
+                                    DialogueLua.StringToFieldName(fieldName),
                                     item.stringValue);
                     break;
             }

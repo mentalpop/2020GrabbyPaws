@@ -176,6 +176,7 @@ namespace PixelCrushers.DialogueSystem
                 {
                     EditorWindowTools.EditorGUILayoutBeginGroup();
                     EditorGUILayout.PropertyField(displaySettingsProperty.FindPropertyRelative("dialogueUI"), true);
+                    EditorGUILayout.PropertyField(displaySettingsProperty.FindPropertyRelative("defaultCanvas"), true);
                     DrawLocalizationSettings();
                     DrawSubtitleSettings();
                     DrawCameraSettings();
@@ -267,6 +268,7 @@ namespace PixelCrushers.DialogueSystem
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("sequencerCamera"), true);
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("alternateCameraObject"), true);
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("cameraAngles"), true);
+                    EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("keepCameraPositionAtConversationEnd"), true);
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("defaultSequence"), true);
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("defaultPlayerSequence"), true);
                     EditorGUILayout.PropertyField(cameraSettings.FindPropertyRelative("defaultResponseMenuSequence"), true);
@@ -403,6 +405,10 @@ namespace PixelCrushers.DialogueSystem
                     }
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("preloadResources"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("warmUpConversationController"), true);
+                    if (serializedObject.FindProperty("warmUpConversationController").enumValueIndex != (int)DialogueSystemController.WarmUpMode.Off)
+                    {
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("dontHideImmediateDuringWarmup"), true);
+                    }
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("instantiateDatabase"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("includeSimStatus"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("allowSimultaneousConversations"), true);

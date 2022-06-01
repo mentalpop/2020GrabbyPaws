@@ -166,6 +166,7 @@ namespace PixelCrushers.DialogueSystem
         public override void ShowSubtitle(Subtitle subtitle)
         {
             if (subtitle.dialogueEntry.id == 0) return; // Don't need to show START entry.
+            if (string.IsNullOrEmpty(subtitle.formattedText.text)) return;
             var preDelay = subtitle.speakerInfo.IsNPC ? npcPreDelaySettings.GetDelayDuration(subtitle) : pcPreDelaySettings.GetDelayDuration(subtitle);
             if (Mathf.Approximately(0, preDelay))
             {

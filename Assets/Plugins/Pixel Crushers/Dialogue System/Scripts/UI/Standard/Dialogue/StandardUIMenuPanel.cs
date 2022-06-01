@@ -24,6 +24,9 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("(Optional) Text element to show PC name during response menu.")]
         public UITextField pcName;
 
+        [Tooltip("Set PC Image to actor portrait's native size. Image's Rect Transform can't use Stretch anchors.")]
+        public bool usePortraitNativeSize = false;
+
         [Tooltip("(Optional) Slider for timed menus.")]
         public UnityEngine.UI.Slider timerSlider;
 
@@ -124,7 +127,7 @@ namespace PixelCrushers.DialogueSystem
             get
             {
                 if (m_dialogueUI == null) m_dialogueUI = GetComponentInParent<StandardDialogueUI>();
-                return m_dialogueUI;
+                return m_dialogueUI ?? DialogueManager.standardDialogueUI;
             }
         }
 
@@ -145,8 +148,12 @@ namespace PixelCrushers.DialogueSystem
         {
             if (pcImage != null)
             {
-                pcImage.sprite = portraitSprite;
                 Tools.SetGameObjectActive(pcImage, portraitSprite != null);
+                pcImage.sprite = portraitSprite;
+                if (usePortraitNativeSize && portraitSprite != null)
+                {
+                    pcImage.rectTransform.sizeDelta = new Vector2(portraitSprite.texture.width, portraitSprite.texture.height);
+                }
             }
             pcName.text = portraitName;
         }
@@ -159,7 +166,7 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void ShowResponses(Subtitle subtitle, Response[] responses, Transform target)
         {
-            if (waitForClose)
+            if (waitForClose && dialogueUI != null)
             {
                 if (dialogueUI.AreAnyPanelsClosing())
                 {
@@ -182,6 +189,8 @@ namespace PixelCrushers.DialogueSystem
             ActivateUIElements();
             Open();
             Focus();
+            RefreshSelectablesList();
+            CheckFocus();
             if (blockInputDuration > 0)
             {
                 DisableInput();
@@ -191,14 +200,40 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (s_isInputDisabled) EnableInput();
             }
+#if TMP_PRESENT
+            StartCoroutine(CheckTMProAutoScroll());
+#endif
         }
+
+#if TMP_PRESENT
+        // Handles edge case where TMPro uses autoscroll but entry ends before typing starts.
+        // In this case, this method updates the autoscroll size.
+        protected IEnumerator CheckTMProAutoScroll()
+        {
+            var ui = GetComponentInParent<StandardDialogueUI>();
+            if (ui == null || ui.conversationUIElements.defaultNPCSubtitlePanel == null || ui.conversationUIElements.defaultNPCSubtitlePanel.subtitleText == null) yield break;
+            var tmp = ui.conversationUIElements.defaultNPCSubtitlePanel.subtitleText.textMeshProUGUI;
+            if (tmp == null) yield break;
+            var layoutElement = tmp.GetComponent<UnityEngine.UI.LayoutElement>();
+            if (layoutElement != null) layoutElement.preferredHeight = -1;
+            var uiScrollbarEnabler = GetComponentInParent<UIScrollbarEnabler>();
+            if (uiScrollbarEnabler != null)
+            {
+                yield return null;
+                uiScrollbarEnabler.CheckScrollbarWithResetValue(buttonTemplateScrollbarResetValue);
+            }
+        }
+#endif
 
         protected virtual IEnumerator ShowAfterPanelsClose(Subtitle subtitle, Response[] responses, Transform target)
         {
-            float safeguardTime = Time.realtimeSinceStartup + WaitForCloseTimeoutDuration;
-            while (dialogueUI.AreAnyPanelsClosing() && Time.realtimeSinceStartup < safeguardTime)
+            if (dialogueUI != null)
             {
-                yield return null;
+                float safeguardTime = Time.realtimeSinceStartup + WaitForCloseTimeoutDuration;
+                while (dialogueUI.AreAnyPanelsClosing() && Time.realtimeSinceStartup < safeguardTime)
+                {
+                    yield return null;
+                }
             }
             ShowResponsesNow(subtitle, responses, target);
         }
@@ -347,11 +382,11 @@ namespace PixelCrushers.DialogueSystem
                 if ((buttonTemplate != null) && (buttonTemplateHolder != null))
                 {
                     // Reset scrollbar to top:
-                    if (buttonTemplateScrollbar != null)
+                    //--- Scroll even if no scrollbar: if (buttonTemplateScrollbar != null)
                     {
                         if (buttonTemplateScrollbarResetValue >= 0)
                         {
-                            buttonTemplateScrollbar.value = buttonTemplateScrollbarResetValue;
+                            if (buttonTemplateScrollbar != null) buttonTemplateScrollbar.value = buttonTemplateScrollbarResetValue;
                             if (scrollbarEnabler != null)
                             {
                                 scrollbarEnabler.CheckScrollbarWithResetValue(buttonTemplateScrollbarResetValue);
@@ -423,6 +458,8 @@ namespace PixelCrushers.DialogueSystem
             }
 
             if (explicitNavigationForTemplateButtons) SetupTemplateButtonNavigation(hasDisabledButton);
+
+            if (InputDeviceManager.autoFocus) SetFocus(firstSelected);
 
             NotifyContentChanged();
         }
@@ -511,7 +548,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected GameObject InstantiateButton()
+        protected virtual GameObject InstantiateButton()
         {
             // Try to pull from pool first:
             if (m_instantiatedButtonPool.Count > 0)

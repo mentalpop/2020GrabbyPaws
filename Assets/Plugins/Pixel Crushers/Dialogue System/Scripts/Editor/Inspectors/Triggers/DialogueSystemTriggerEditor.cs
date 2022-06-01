@@ -566,6 +566,7 @@ namespace PixelCrushers.DialogueSystem
                         }
 
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("exclusive"), true);
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("replace"), true);
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("skipIfNoValidEntries"), true);
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("stopConversationOnTriggerExit"), true);
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("stopConversationIfTooFar"), true);

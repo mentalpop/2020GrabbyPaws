@@ -57,6 +57,25 @@ namespace PixelCrushers.DialogueSystem
 
         public Sequencer sequencer { get { return m_sequencer; } }
 
+        public IDialogueUI dialogueUI 
+        { 
+            get 
+            { 
+                return ui; 
+            } 
+            set 
+            {
+                if (ui != value)
+                {
+                    ui.SelectedResponseHandler -= OnSelectedResponse;
+                    ui.Close();
+                    ui = value;
+                    ui.Open();
+                    ui.SelectedResponseHandler += OnSelectedResponse;
+                }
+            } 
+        }
+
         /// <summary>
         /// Initialize a UI and sequencer with displaySettings.
         /// </summary>

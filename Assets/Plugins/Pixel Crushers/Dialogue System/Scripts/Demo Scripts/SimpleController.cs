@@ -87,18 +87,27 @@ namespace PixelCrushers.DialogueSystem.Demo
 
         void Start()
         {
-            m_originalCameraRotation = UnityEngine.Camera.main.transform.localRotation;
+            var camera = UnityEngine.Camera.main;
+            m_originalCameraRotation = (camera != null) ? camera.transform.localRotation : Quaternion.identity;
         }
 
         void Update()
         {
             if (Time.timeScale <= 0) return;
 
+#if USE_NEW_INPUT
+            var mouseX = UnityEngine.InputSystem.Mouse.current.delta.x.ReadValue() * Time.deltaTime;
+            var mouseY = UnityEngine.InputSystem.Mouse.current.delta.y.ReadValue() * Time.deltaTime;
+#else
+            var mouseX = InputDeviceManager.GetAxis(mouseXAxis); // Input Manager already multiplies mouse axes by Time.deltaTime.
+            var mouseY = InputDeviceManager.GetAxis(mouseYAxis);
+#endif
+
             // Mouse X rotation:
-            transform.Rotate(0, InputDeviceManager.GetAxis(mouseXAxis) * mouseSensitivityX, 0);
+            transform.Rotate(0, mouseX * mouseSensitivityX, 0);
 
             // Mouse Y rotation:
-            m_cameraRotationY += InputDeviceManager.GetAxis(mouseYAxis) * mouseSensitivityY;
+            m_cameraRotationY += mouseY * mouseSensitivityY;
             m_cameraRotationY = ClampAngle(m_cameraRotationY, mouseMinimumY, mouseMaximumY);
             Quaternion yQuaternion = Quaternion.AngleAxis(m_cameraRotationY, -Vector3.right);
             if (m_smoothCamera != null)

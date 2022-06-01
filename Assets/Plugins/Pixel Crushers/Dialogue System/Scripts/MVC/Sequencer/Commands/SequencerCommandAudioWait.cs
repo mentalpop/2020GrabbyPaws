@@ -13,12 +13,12 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
     public class SequencerCommandAudioWait : SequencerCommand
     {
 
-        private float stopTime = 0;
-        private AudioSource audioSource = null;
-        private int nextClipIndex = 2;
-        private AudioClip currentClip = null;
-        private AudioClip originalClip = null;
-        private bool restoreOriginalClip = false; // Don't restore; could stop next entry's AudioWait that runs same frame.
+        protected float stopTime = 0;
+        protected AudioSource audioSource = null;
+        protected int nextClipIndex = 2;
+        protected AudioClip currentClip = null;
+        protected AudioClip originalClip = null;
+        protected bool restoreOriginalClip = false; // Don't restore; could stop next entry's AudioWait that runs same frame.
 
         public IEnumerator Start()
         {
@@ -26,7 +26,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             Transform subject = GetSubject(1);
             nextClipIndex = 2;
             if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Sequencer: AudioWait({1})", new System.Object[] { DialogueDebug.Prefix, GetParameters() }));
-            audioSource = SequencerTools.GetAudioSource(subject);
+            audioSource = GetAudioSource(subject);
             if (audioSource == null)
             {
                 if (DialogueDebug.logWarnings) Debug.LogWarning(string.Format("{0}: Sequencer: AudioWait() command: can't find or add AudioSource to {1}.", new System.Object[] { DialogueDebug.Prefix, subject.name }));
@@ -40,6 +40,11 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                 originalClip = audioSource.clip;
                 TryAudioClip(audioClipName);
             }
+        }
+
+        protected virtual AudioSource GetAudioSource(Transform subject)
+        {
+            return SequencerTools.GetAudioSource(subject);
         }
 
         private void TryAudioClip(string audioClipName)

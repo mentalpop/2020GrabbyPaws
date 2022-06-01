@@ -18,6 +18,9 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Assign a GameObject that contains an active dialogue UI component. Can be a prefab. If unassigned, Dialogue Manager will search its children for an active dialogue UI component.")]
         public GameObject dialogueUI;
 
+        [Tooltip("Optional. Assign Canvas into which dialogue UI will be instantiated if it's a prefab.")]
+        public Canvas defaultCanvas;
+
         [System.Serializable]
         public class LocalizationSettings
         {
@@ -220,6 +223,12 @@ namespace PixelCrushers.DialogueSystem
             /// </summary>
             [Tooltip("Camera angle object or prefab. If unassigned, use default camera angle definitions.")]
             public GameObject cameraAngles = null;
+
+            /// <summary>
+            /// If conversation's sequences use Main Camera, leave camera in current position at end of conversation instead of restoring pre-conversation position.
+            /// </summary>
+            [Tooltip("If conversation's sequences use Main Camera, leave camera in current position at end of conversation instead of restoring pre-conversation position.")]
+            public bool keepCameraPositionAtConversationEnd = false;
 
             /// <summary>
             /// The default sequence to use if the dialogue entry doesn't have a sequence defined 

@@ -31,7 +31,7 @@ namespace PixelCrushers.DialogueSystem
 		[MenuItem("Tools/Pixel Crushers/Dialogue System/Commercial License...", false, -9)]
 		static public void BuyNow() 
         {
-			Application.OpenURL("https://www.assetstore.unity3d.com/en/#!/content/11672");
+			Application.OpenURL("https://assetstore.unity.com/packages/tools/ai/dialogue-system-for-unity-11672");
 		}
 #endif
 
@@ -50,7 +50,7 @@ namespace PixelCrushers.DialogueSystem
 		[MenuItem("Tools/Pixel Crushers/Dialogue System/BUY NOW...", false, 99)]
 		static public void BuyNow() 
         {
-			Application.OpenURL("https://www.assetstore.unity3d.com/en/#!/content/11672");
+			Application.OpenURL("https://assetstore.unity.com/packages/tools/ai/dialogue-system-for-unity-11672");
 		}
 		
 #endif

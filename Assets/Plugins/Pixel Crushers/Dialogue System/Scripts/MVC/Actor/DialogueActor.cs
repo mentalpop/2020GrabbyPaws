@@ -104,7 +104,7 @@ namespace PixelCrushers.DialogueSystem
             return UITools.GetSprite(portrait, spritePortrait);
         }
 
-        private void SetupBarkUI()
+        protected virtual void SetupBarkUI()
         {
             if (barkUISettings.barkUI != null && Tools.IsPrefab(barkUISettings.barkUI.gameObject))
             {

@@ -29,10 +29,10 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("If alert is displaying, continue past it.")]
         public bool continueAlertPanel = true;
 
-        private UnityEngine.UI.Button continueButton;
+        protected UnityEngine.UI.Button continueButton;
 
-        private AbstractDialogueUI m_runtimeDialogueUI;
-        private AbstractDialogueUI runtimeDialogueUI
+        protected AbstractDialogueUI m_runtimeDialogueUI;
+        protected virtual AbstractDialogueUI runtimeDialogueUI
         {
             get
             {

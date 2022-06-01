@@ -21,13 +21,15 @@ namespace PixelCrushers
             public string prefabName;
             public Vector3 position;
             public Quaternion rotation;
+            public string guid;
 
             public SpawnedObjectData() { }
-            public SpawnedObjectData(string prefabName, Vector3 position, Quaternion rotation)
+            public SpawnedObjectData(string prefabName, Vector3 position, Quaternion rotation, string guid = null)
             {
                 this.prefabName = prefabName;
                 this.position = position;
                 this.rotation = rotation;
+                this.guid = guid;
             }
         }
 
@@ -41,10 +43,12 @@ namespace PixelCrushers
         [SerializeField]
         private List<SpawnedObject> m_spawnedObjectPrefabs = new List<SpawnedObject>();
 
+        [Tooltip("Objects that have currently been spawned.")]
         [SerializeField]
         private List<SpawnedObject> m_spawnedObjects = new List<SpawnedObject>();
 
         [Tooltip("When restoring this Spawned Object Manager, tell respawned objects to restore their saved data also.")]
+        [SerializeField]
         private bool m_applySaveDataToSpawnedObjectsOnRestore = false;
 
         private static SpawnedObjectManager m_instance;
@@ -96,7 +100,7 @@ namespace PixelCrushers
             {
                 var spawnedObject = m_spawnedObjects[i];
                 if (spawnedObject == null) continue;
-                spawnedObjectDataList.list.Add(new SpawnedObjectData(spawnedObject.name.Replace("(Clone)", string.Empty), spawnedObject.transform.position, spawnedObject.transform.rotation));
+                spawnedObjectDataList.list.Add(new SpawnedObjectData(spawnedObject.name.Replace("(Clone)", string.Empty), spawnedObject.transform.position, spawnedObject.transform.rotation, spawnedObject.guid));
             }
             return SaveSystem.Serialize(spawnedObjectDataList);
         }
@@ -113,7 +117,8 @@ namespace PixelCrushers
                 if (spawnedObjectData == null) continue;
                 var prefab = GetSpawnedObjectPrefab(spawnedObjectData.prefabName);
                 if (prefab == null) continue;
-                Instantiate(prefab, spawnedObjectData.position, spawnedObjectData.rotation);
+                var instance = Instantiate(prefab, spawnedObjectData.position, spawnedObjectData.rotation);
+                instance.guid = spawnedObjectData.guid;
             }
             if (m_applySaveDataToSpawnedObjectsOnRestore)
             {
@@ -128,7 +133,7 @@ namespace PixelCrushers
             }
         }
 
-        protected void ApplyDataToRespawnedObjects()
+        protected virtual void ApplyDataToRespawnedObjects()
         {
             for (int i = 0; i < m_spawnedObjects.Count; i++)
             {
@@ -148,7 +153,7 @@ namespace PixelCrushers
             ApplyDataToRespawnedObjects();
         }
 
-        protected SpawnedObject GetSpawnedObjectPrefab(string prefabName)
+        protected virtual SpawnedObject GetSpawnedObjectPrefab(string prefabName)
         {
             return m_spawnedObjectPrefabs.Find(x => x != null && string.Equals(x.name, prefabName));
         }

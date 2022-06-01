@@ -50,7 +50,7 @@ namespace PixelCrushers.DialogueSystem
         /// Specifies whether to compute range from the targeted object (distance to the camera
         /// or distance to the selector's game object).
         /// </summary>
-        public enum DistanceFrom { Camera, GameObject }
+        public enum DistanceFrom { Camera, GameObject, ActorTransform }
 
         /// <summary>
         /// Specifies whether to do 2D or 3D raycasts.
@@ -253,11 +253,27 @@ namespace PixelCrushers.DialogueSystem
         protected RaycastHit lastHit = new RaycastHit();
         protected RaycastHit[] lastHits = null;
         protected int numLastHits = 0;
-        private const int MaxHits = 100;
+        protected const int MaxHits = 100;
 #if USE_PHYSICS2D || !UNITY_2018_1_OR_NEWER
-        RaycastHit2D[] lastHits2D = null;
+        protected RaycastHit2D[] lastHits2D = null;
 #endif
         protected bool hasReportedInvalidCamera = false;
+        protected bool hasCheckedDefaultInputManager = false;
+        protected bool isUsingDefaultInputManager = true;
+
+        protected virtual void Reset()
+        {
+#if UNITY_EDITOR
+            var selectorUseStandardUIElements = gameObject.GetComponent<SelectorUseStandardUIElements>();
+            if (selectorUseStandardUIElements == null)
+            {
+                if (UnityEditor.EditorUtility.DisplayDialog("Use Unity UI for Selector?", "Add a 'Selector Use Standard UI Elements' component to allow the Selector to use Unity UI? Otherwise it will use legacy Unity GUI. You can customize the Unity UI prefab assigned to the Dialogue Manager's Instantiate Prefabs component.", "Add", "Don't Add"))
+                {
+                    gameObject.AddComponent<SelectorUseStandardUIElements>();
+                }
+            }
+#endif
+        }
 
         public virtual void Start()
         {
@@ -277,8 +293,10 @@ namespace PixelCrushers.DialogueSystem
             // Exit if there's no camera:
             if (UnityEngine.Camera.main == null) return;
 
+#if !USE_NEW_INPUT // (In new Input System, IsPointerOverGameObject returns true for all GameObjects, not just UI objects, so skip this check until Input System is fixed.)
             // Exit if using mouse selection and is over a UI element:
             if ((selectAt == SelectAt.MousePosition) && (UnityEngine.EventSystems.EventSystem.current != null) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) return;
+#endif
 
             // Raycast 2D or 3D:
             switch (runRaycasts)
@@ -355,7 +373,10 @@ namespace PixelCrushers.DialogueSystem
                 for (int i = 0; i < numHits; i++)
                 {
                     var hit = lastHits2D[i];
-                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? 0 : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
+                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? 0
+                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
+                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
+                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
                     if (selection == hit.collider.gameObject)
                     {
                         foundUsable = true;
@@ -388,7 +409,10 @@ namespace PixelCrushers.DialogueSystem
                 hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(GetSelectionPoint()), Vector2.zero, maxSelectionDistance, layerMask);
                 if (hit.collider != null)
                 {
-                    distance = (distanceFrom == DistanceFrom.Camera) ? 0 : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
+                    distance = (distanceFrom == DistanceFrom.Camera) ? 0
+                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
+                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
+                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
                     if (selection != hit.collider.gameObject)
                     {
                         Usable hitUsable = hit.collider.GetComponent<Usable>();
@@ -431,7 +455,10 @@ namespace PixelCrushers.DialogueSystem
                 for (int i = 0; i < numLastHits; i++)
                 {
                     var hit = lastHits[i];
-                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? hit.distance : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
+                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? 0
+                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
+                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
+                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
                     if (selection == hit.collider.gameObject)
                     {
                         foundUsable = true;
@@ -463,7 +490,10 @@ namespace PixelCrushers.DialogueSystem
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, maxSelectionDistance, layerMask))
                 {
-                    distance = (distanceFrom == DistanceFrom.Camera) ? hit.distance : Vector3.Distance(gameObject.transform.position, hit.collider.transform.position);
+                    distance = (distanceFrom == DistanceFrom.Camera) ? 0
+                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
+                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
+                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
                     Usable hitUsable = hit.collider.GetComponent<Usable>();
                     if (hitUsable != null && hitUsable.enabled)
                     {
@@ -487,6 +517,7 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void SetCurrentUsable(Usable usable)
         {
+            if (usable == this.usable) return;
             if (usable == null)
             {
                 DeselectTarget();
@@ -550,7 +581,8 @@ namespace PixelCrushers.DialogueSystem
             if ((useKey != KeyCode.None) && InputDeviceManager.IsKeyDown(useKey)) return true;
             if (!string.IsNullOrEmpty(useButton))
             {
-                if (DialogueManager.instance != null && DialogueManager.getInputButtonDown == DialogueManager.instance.StandardGetInputButtonDown)
+                if (DialogueManager.instance != null && 
+                    DialogueManager.getInputButtonDown == DialogueManager.instance.StandardGetInputButtonDown && IsUsingDefaultInputManager())
                 {
                     return InputDeviceManager.IsButtonUp(useButton) && (selection == clickedDownOn);
                 }
@@ -560,6 +592,19 @@ namespace PixelCrushers.DialogueSystem
                 }
             }
             return false;
+        }
+
+        protected virtual bool IsUsingDefaultInputManager()
+        {
+            // Make sure we're not using Rewired, since we don't want to use clickedDownOn with Rewired:
+            if (!hasCheckedDefaultInputManager)
+            {
+                hasCheckedDefaultInputManager = true;
+                var inputDeviceManagerRewiredType = RuntimeTypeUtility.GetTypeFromName("PixelCrushers.RewiredSupport.InputDeviceManagerRewired");
+                var isRewiredPresent = (inputDeviceManagerRewiredType != null) && (FindObjectOfType(inputDeviceManagerRewiredType) != null);
+                isUsingDefaultInputManager = !isRewiredPresent;
+            }
+            return isUsingDefaultInputManager;
         }
 
         protected virtual Vector3 GetSelectionPoint()
@@ -582,6 +627,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void OnGUI()
         {
+            if (!enabled) return;
             if (!useDefaultGUI) return;
             if (guiStyle == null && (Event.current.type == EventType.Repaint || usable != null))
             {

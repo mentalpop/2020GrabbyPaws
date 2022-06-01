@@ -91,7 +91,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         private static Language.Lua.LuaTable m_environment = Language.Lua.LuaInterpreter.CreateGlobalEnviroment();
 
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void InitStaticVariables()
         {
@@ -283,7 +283,7 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-                //if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Registering Lua function {1}", new System.Object[] { DialogueDebug.Prefix, functionName }));
+                if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Registering Lua function {1}", new System.Object[] { DialogueDebug.Prefix, functionName }));
                 environment.RegisterMethodFunction(functionName, target, method);
             }
         }

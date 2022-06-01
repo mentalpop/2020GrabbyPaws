@@ -36,7 +36,7 @@ namespace PixelCrushers.DialogueSystem
         /// <value><c>true</c> if has instance; otherwise, <c>false</c>.</value>
         public static bool hasInstance { get { return instance != null; } }
 
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void InitStaticVariables()
         {
@@ -72,6 +72,16 @@ namespace PixelCrushers.DialogueSystem
         {
             get { return (instance != null) ? instance.dialogueUI : null; }
             set { instance.dialogueUI = value; }
+        }
+
+        /// <summary>
+        /// Convenience property that casts the dialogueUI property as a StandardDialogueUI.
+        /// If the dialogueUI is not a StandardDialogueUI, returns null.
+        /// </summary>
+        public static StandardDialogueUI standardDialogueUI
+        {
+            get { return (instance != null) ? instance.standardDialogueUI : null; }
+            set { instance.standardDialogueUI = value; }
         }
 
         /// <summary>
@@ -111,6 +121,15 @@ namespace PixelCrushers.DialogueSystem
         {
             get { return hasInstance ? instance.isDialogueEntryValid : null; }
             set { instance.isDialogueEntryValid = value; }
+        }
+
+        /// <summary>
+        /// If response timeout action is set to Custom and menu times out, call this method.
+        /// </summary>
+        public static System.Action customResponseTimeoutHandler
+        {
+            get { return hasInstance ? instance.customResponseTimeoutHandler : null; }
+            set { instance.customResponseTimeoutHandler = value; }
         }
 
         /// <summary>
@@ -354,9 +373,10 @@ namespace PixelCrushers.DialogueSystem
         /// direct camera angles and perform other actions. In PC-NPC conversations, the conversant
         /// is usually the NPC.
         /// </param>
-        public static bool ConversationHasValidEntry(string title, Transform actor, Transform conversant)
+        /// <param name="initialDialogueEntryID">Optional starting entry ID; omit to start at beginning.</param>
+        public static bool ConversationHasValidEntry(string title, Transform actor, Transform conversant, int initialDialogueEntryID = -1)
         {
-            return hasInstance ? instance.ConversationHasValidEntry(title, actor, conversant) : false;
+            return hasInstance ? instance.ConversationHasValidEntry(title, actor, conversant, initialDialogueEntryID) : false;
         }
 
         /// <summary>
@@ -498,6 +518,15 @@ namespace PixelCrushers.DialogueSystem
         {
             if (!hasInstance) return;
             instance.StopConversation();
+        }
+
+        /// <summary>
+        /// Stops all current conversations immediately.
+        /// </summary>
+        public static void StopAllConversations()
+        {
+            if (!hasInstance) return;
+            instance.StopAllConversations();
         }
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace PixelCrushers
         {
             if (HasAnimator() && !string.IsNullOrEmpty(triggerName))
             {
-                if (m_animator != null)
+                if (IsAnimatorValid())
                 {
                     // Run Animator and wait:
                     CheckAnimatorModeAndTimescale(triggerName);
@@ -67,9 +67,9 @@ namespace PixelCrushers
                         while ((currentHashID != goalHashID) && (currentHashID == oldHashId) && (Time.realtimeSinceStartup < timeout))
                         {
                             yield return null;
-                            currentHashID = (m_animator != null) ? UIUtility.GetAnimatorNameHash(m_animator.GetCurrentAnimatorStateInfo(0)) : 0;
+                            currentHashID = IsAnimatorValid() ? UIUtility.GetAnimatorNameHash(m_animator.GetCurrentAnimatorStateInfo(0)) : 0;
                         }
-                        if (Time.realtimeSinceStartup < timeout && m_animator != null)
+                        if (Time.realtimeSinceStartup < timeout && IsAnimatorValid())
                         {
                             var clipLength = m_animator.GetCurrentAnimatorStateInfo(0).length;
                             if (Mathf.Approximately(0, Time.timeScale))
@@ -87,7 +87,7 @@ namespace PixelCrushers
                         }
                     }
                 }
-                else if (m_animation != null)
+                else if (m_animation != null && m_animation.enabled)
                 {
                     m_animation.Play(triggerName);
                     if (wait)
@@ -128,6 +128,11 @@ namespace PixelCrushers
                 }
             }
             return (m_animator != null || m_animation != null);
+        }
+
+        private bool IsAnimatorValid()
+        {
+            return m_animator != null && m_animator.enabled && m_animator.runtimeAnimatorController != null;
         }
 
         private void CheckAnimatorModeAndTimescale(string triggerName)

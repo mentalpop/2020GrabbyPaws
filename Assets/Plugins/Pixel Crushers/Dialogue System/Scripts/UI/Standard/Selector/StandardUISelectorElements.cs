@@ -80,6 +80,14 @@ namespace PixelCrushers.DialogueSystem
             get { return (m_instances.Count > 0) ? m_instances[0] : null; }
         }
 
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void InitStaticVariables()
+        {
+            m_instances = new List<StandardUISelectorElements>();
+        }
+#endif
+
         private void Awake()
         {
             animator = GetComponent<Animator>();

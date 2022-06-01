@@ -88,9 +88,13 @@ namespace PixelCrushers.DialogueSystem
 
         protected Animator animator { get; set; }
 
+        protected AbstractTypewriterEffect typewriter { get; set; }
+
         protected Vector3 originalCanvasLocalPosition { get; set; }
 
         protected int numSequencesActive = 0;
+
+        protected bool hasEverBarked = false;
 
         /// <summary>
         /// Indicates whether a bark is currently playing.
@@ -110,6 +114,7 @@ namespace PixelCrushers.DialogueSystem
         {
             canvas = GetComponentInChildren<Canvas>();
             animator = GetComponentInChildren<Animator>();
+            typewriter = TypewriterUtility.GetTypewriter(barkText);
             if ((animator == null) && (canvasGroup != null)) animator = canvasGroup.GetComponentInChildren<Animator>();
         }
 
@@ -120,7 +125,6 @@ namespace PixelCrushers.DialogueSystem
                 if (waitForContinueButton && (canvas.worldCamera == null)) canvas.worldCamera = UnityEngine.Camera.main;
                 canvas.enabled = false;
                 originalCanvasLocalPosition = canvas.GetComponent<RectTransform>().localPosition;
-                //originalCanvasLocalPosition = canvas.transform.localPosition;
             }
             if (nameText != null) nameText.SetActive(includeName);
             Tools.SetGameObjectActive(portraitImage, false);
@@ -128,7 +132,12 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void Update()
         {
-            if (keepInView && isPlaying)
+            if (!hasEverBarked) return;
+            if (!waitUntilSequenceEnds && doneTime > 0 && DialogueTime.time >= doneTime)
+            {
+                Hide();
+            }
+            else if (keepInView && isPlaying)
             {
                 var mainCamera = Camera.main;
                 if (mainCamera == null) return;
@@ -165,6 +174,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (ShouldShowText(subtitle))
             {
+                hasEverBarked = true;
                 SetUIElementsActive(false);
                 string subtitleText = subtitle.formattedText.text;
                 if (includeName)
@@ -192,14 +202,22 @@ namespace PixelCrushers.DialogueSystem
                     Tools.SetGameObjectActive(portraitImage, false);
                 }
                 if (barkText != null) barkText.text = subtitleText;
+
                 SetUIElementsActive(true);
                 if (CanTriggerAnimations() && !string.IsNullOrEmpty(animationTransitions.showTrigger))
                 {
+                    if (!string.IsNullOrEmpty(animationTransitions.hideTrigger))
+                    {
+                        animator.ResetTrigger(animationTransitions.hideTrigger);
+                    }
                     animator.SetTrigger(animationTransitions.showTrigger);
                 }
-                CancelInvoke("Hide");
+                if (typewriter != null) typewriter.StartTyping(subtitleText);
+
+                //--- We now observe DialogueTime.time instead of using Invoke.
+                //CancelInvoke("Hide");
                 var barkDuration = Mathf.Approximately(0, duration) ? DialogueManager.GetBarkDuration(subtitleText) : duration;
-                if (!(waitUntilSequenceEnds || waitForContinueButton)) Invoke("Hide", barkDuration);
+                //if (!(waitUntilSequenceEnds || waitForContinueButton)) Invoke("Hide", barkDuration);
                 if (waitUntilSequenceEnds) numSequencesActive++;
                 doneTime = waitForContinueButton ? Mathf.Infinity : (DialogueTime.time + barkDuration);
             }
@@ -229,10 +247,15 @@ namespace PixelCrushers.DialogueSystem
 
         public override void Hide()
         {
+            if (!hasEverBarked)
+            {
+                if (canvas != null) canvas.enabled = false;
+                return;
+            }
             numSequencesActive = 0;
             if (CanTriggerAnimations() && !string.IsNullOrEmpty(animationTransitions.hideTrigger))
             {
-                if (!string.IsNullOrEmpty(animationTransitions.hideTrigger))
+                if (!string.IsNullOrEmpty(animationTransitions.showTrigger))
                 {
                     animator.ResetTrigger(animationTransitions.showTrigger);
                 }

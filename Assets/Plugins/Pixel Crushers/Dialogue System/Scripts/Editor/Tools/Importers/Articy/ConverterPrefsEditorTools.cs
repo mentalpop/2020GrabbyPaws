@@ -55,7 +55,7 @@ namespace PixelCrushers.DialogueSystem.Articy
             converterPrefs.ConversionSettings = ConversionSettings.FromXml(EditorPrefs.GetString(ArticyConversionSettingsKey));
             converterPrefs.EncodingType = EditorPrefs.HasKey(ArticyEncodingKey) ? (EncodingType)EditorPrefs.GetInt(ArticyEncodingKey) : EncodingType.Default;
             converterPrefs.RecursionMode = EditorPrefs.HasKey(ArticyRecursionKey) ? (ConverterPrefs.RecursionModes)EditorPrefs.GetInt(ArticyRecursionKey) : ConverterPrefs.RecursionModes.On;
-            converterPrefs.ConvertDropdownsAs = EditorPrefs.HasKey(ArticyDropdownsKey) ? (ConverterPrefs.ConvertDropdownsModes)EditorPrefs.GetInt(ArticyDropdownsKey) : ConverterPrefs.ConvertDropdownsModes.Ints;
+            converterPrefs.ConvertDropdownsAs = EditorPrefs.HasKey(ArticyDropdownsKey) ? (ConverterPrefs.ConvertDropdownsModes)EditorPrefs.GetInt(ArticyDropdownsKey) : ConverterPrefs.ConvertDropdownsModes.Int;
             converterPrefs.ConvertSlotsAs = EditorPrefs.HasKey(ArticySlotsKey) ? (ConverterPrefs.ConvertSlotsModes)EditorPrefs.GetInt(ArticySlotsKey) : ConverterPrefs.ConvertSlotsModes.DisplayName;
             converterPrefs.UseTechnicalNames = EditorPrefs.GetBool(ArticyUseTechnicalNamesKey, false);
             converterPrefs.DirectConversationLinksToEntry1 = EditorPrefs.GetBool(ArticyDirectConversationLinksToEntry1Key, false);

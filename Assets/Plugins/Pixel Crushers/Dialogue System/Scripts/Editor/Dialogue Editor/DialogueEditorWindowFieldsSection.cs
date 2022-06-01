@@ -8,6 +8,8 @@ using System.Collections.Generic;
 namespace PixelCrushers.DialogueSystem.DialogueEditor
 {
 
+    public enum BooleanType { True, False }
+
     /// <summary>
     /// This part of the Dialogue Editor window handles drawing a single field 
     /// and a list of fields.
@@ -159,17 +161,52 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             // Delete button:
             if (GUILayout.Button(new GUIContent(" ", string.Format("Delete field {0}.", fieldTitle)), "OL Minus", GUILayout.Width(16))) fieldToRemove = i;
-
         }
 
-        private void DrawTextAreaFirstPart(Field field, bool isTitleEditable = true)
+        private void DrawMainSectionField(Field field)
         {
-            EditorGUI.BeginDisabledGroup(!isTitleEditable);
-            field.title = EditorGUILayout.TextField(field.title);
-            EditorGUI.EndDisabledGroup();
-            GUI.enabled = false;
-            EditorGUILayout.TextField(" ");
-            GUI.enabled = true;
+            EditorGUILayout.BeginHorizontal();
+            if (field.typeString == "CustomFieldType_Text")
+            {
+                DrawTextArea(field);
+            }
+            else
+            {
+                DrawField(field, false, false);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawTextArea(Field field)
+        {
+            EditorGUI.BeginChangeCheck();
+            DrawTextAreaFirstPart(field, false, false);
+            DrawTextAreaSecondPart(field);
+            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty((field != null) ? field.title : string.Empty);
+        }
+
+        private void DrawTextAreaFirstPart(Field field, bool isTitleEditable = true, bool showMiddleField = true)
+        {
+            if (!isTitleEditable && !showMiddleField)
+            {
+                EditorGUILayout.LabelField(field.title);
+            }
+            else
+            {
+                EditorGUI.BeginDisabledGroup(!isTitleEditable);
+                field.title = EditorGUILayout.TextField(field.title);
+                EditorGUI.EndDisabledGroup();
+                if (showMiddleField)
+                {
+                    GUI.enabled = false;
+                    EditorGUILayout.TextField(" ");
+                    GUI.enabled = true;
+                }
+                else
+                {
+                    GUILayout.FlexibleSpace();
+                }
+            }
             DrawFieldType(field);
         }
 
@@ -182,11 +219,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void DrawField(Field field, bool isTitleEditable = true, bool showType = true)
         {
+            EditorGUI.BeginChangeCheck();
             if (isTitleEditable)
             {
-                //EditorGUI.BeginDisabledGroup(!isTitleEditable);
                 field.title = EditorGUILayout.TextField(field.title);
-                //EditorGUI.EndDisabledGroup();
             }
             else
             {
@@ -197,27 +233,23 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             field.value = CustomFieldTypeService.DrawField(field, database);
 
             if (showType) DrawFieldType(field);
+            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty((field != null) ? field.title : string.Empty);
         }
 
         private void DrawField(GUIContent label, Field field, bool showType = true)
         {
+            EditorGUI.BeginChangeCheck();
             // Custom field types:
             field.value = CustomFieldTypeService.DrawField(label, field, database);
 
             if (showType) DrawFieldType(field);
+            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty((field != null) ? field.title : string.Empty);
         }
 
         private void DrawFieldType(Field field)
         {
             // Custom field types:
             CustomFieldTypeService.DrawFieldType(field);
-
-            //---Was:
-            //FieldType newFieldType = (FieldType) EditorGUILayout.EnumPopup(field.type);
-            //if (newFieldType != field.type) {
-            //	field.type = newFieldType;
-            //	field.value = string.Empty;
-            //}
         }
 
         private bool IsTextAreaField(Field field)
@@ -326,8 +358,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             return (newIndex != index) ? assetList.GetID(newIndex) : value;
         }
 
-        private enum BooleanType { True, False }
-
         private static BooleanType StringToBooleanType(string s)
         {
             return (string.Compare(s, "true", System.StringComparison.OrdinalIgnoreCase) == 0) ? BooleanType.True : BooleanType.False;
@@ -369,6 +399,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 fields.Add(field);
                 SetDatabaseDirty("Create Field " + fieldTitle);
             }
+            EditorGUI.BeginChangeCheck();
             if (isTextArea)
             {
                 EditorGUILayout.LabelField(new GUIContent(label, tooltip));
@@ -377,6 +408,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             else {
                 field.value = EditorGUILayout.TextField(new GUIContent(label, tooltip), field.value);
             }
+            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty(fieldTitle);
             if (alreadyDrawn != null) alreadyDrawn.Add(field);
         }
 

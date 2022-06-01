@@ -18,7 +18,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
     {
 
         private const float SmoothMoveCutoff = 0.05f;
-        private const int FaderCanvasSortOrder = 32766;
+        private const int FaderCanvasSortOrder = 32760;
 
         private string direction;
         private float duration;

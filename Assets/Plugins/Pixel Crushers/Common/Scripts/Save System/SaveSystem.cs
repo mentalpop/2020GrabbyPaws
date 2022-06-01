@@ -22,6 +22,10 @@ namespace PixelCrushers
         /// </summary>
         public const string LastSavedGameSlotPlayerPrefsKey = "savedgame_lastSlotNum";
 
+        [Tooltip("Optional saved game version number of your choosing. Version number is included in saved game files.")]
+        [SerializeField]
+        private int m_version = 0;
+
         [Tooltip("When loading a game, load the scene that the game was saved in.")]
         [SerializeField]
         private bool m_saveCurrentScene = true;
@@ -34,9 +38,13 @@ namespace PixelCrushers
         [SerializeField]
         private bool m_debug = false;
 
+        private bool m_isLoadingAdditiveScene = false;
+
         private static SaveSystem m_instance = null;
 
         private static List<Saver> m_savers = new List<Saver>();
+
+        private static List<Saver> m_tmpSavers = new List<Saver>();
 
         private static SavedGameData m_savedGameData = new SavedGameData();
 
@@ -58,12 +66,13 @@ namespace PixelCrushers
 
         private static bool m_isQuitting = false;
 
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void InitStaticVariables()
         {
             m_instance = null;
             m_savers = new List<Saver>();
+            m_tmpSavers = new List<Saver>();
             m_savedGameData = new SavedGameData();
             m_serializer = null;
             m_storer = null;
@@ -75,6 +84,21 @@ namespace PixelCrushers
             m_isQuitting = false;
         }
 #endif
+
+        /// <summary>
+        /// Optional saved game version number of your choosing. Version number is included in saved game files.
+        /// </summary>
+        public static int version
+        {
+            get
+            {
+                return (m_instance != null) ? m_instance.m_version : 0;
+            }
+            set
+            {
+                if (m_instance != null) m_instance.m_version = value;
+            }
+        }
 
         /// <summary>
         /// When loading a game, load the scene that the game was saved in.
@@ -116,6 +140,14 @@ namespace PixelCrushers
             {
                 if (m_instance != null) m_instance.m_debug = value;
             }
+        }
+
+        /// <summary>
+        /// Checks if an instance already exists, without also implicitly creating one.
+        /// </summary>
+        public static bool hasInstance
+        {
+            get { return m_instance != null; }
         }
 
         public static SaveSystem instance
@@ -206,11 +238,15 @@ namespace PixelCrushers
 
         /// <summary>
         /// The saved game data recorded by the last call to SaveToSlot,
-        /// LoadScene, or RecordSavedGameData.
+        /// LoadScene, or RecordSavedGameData. 
+        /// 
+        /// Note: This saved game data stays in memory until you clear it by using
+        /// RestartGame() or ResetGameState(), or by loading a saved game.
         /// </summary>
         public static SavedGameData currentSavedGameData
         {
             get { return m_savedGameData; }
+            set { m_savedGameData = value; }
         }
 
         /// <summary>
@@ -358,8 +394,10 @@ namespace PixelCrushers
             }
             while (m_currentAsyncOperation != null && !m_currentAsyncOperation.isDone)
             {
+                sceneTransitionManager.OnLoading(m_currentAsyncOperation.progress);
                 yield return null;
             }
+            sceneTransitionManager.OnLoading(1);
             m_currentAsyncOperation = null;
             instance.StartCoroutine(sceneTransitionManager.EnterScene());
         }
@@ -374,6 +412,24 @@ namespace PixelCrushers
             {
                 RecursivelyApplySavers(rootGOs[i].transform);
             }
+        }
+
+        public static void UnloadAdditiveSceneInternal(string sceneName)
+        {
+#if UNITY_5_3 || UNITY_5_4
+            UnityEngine.SceneManagement.SceneManager.UnloadScene(sceneName);
+#else
+            var scene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName);
+            if (scene.IsValid())
+            {
+                var rootGOs = scene.GetRootGameObjects();
+                for (int i = 0; i < rootGOs.Length; i++)
+                {
+                    RecursivelyInformBeforeSceneChange(rootGOs[i].transform);
+                }
+            }
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
+#endif
         }
 
         /// <summary>
@@ -391,15 +447,24 @@ namespace PixelCrushers
             }
         }
 
-        public static void UnloadAdditiveSceneInternal(string sceneName)
+        /// <summary>
+        /// Calls BeforeSceneChange on all saver components on the transform and its children.
+        /// Used when unloading an additive scene.
+        /// </summary>
+        /// <param name="t"></param>
+        public static void RecursivelyInformBeforeSceneChange(Transform t)
         {
-#if UNITY_5_3 || UNITY_5_4
-            UnityEngine.SceneManagement.SceneManager.UnloadScene(sceneName);
-#else
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
-#endif
+            if (t == null) return;
+            var saver = t.GetComponent<Saver>();
+            if (saver != null) saver.OnBeforeSceneChange();
+            foreach (Transform child in t)
+            {
+                RecursivelyInformBeforeSceneChange(child);
+            }
         }
+
 #else
+
         public static string GetCurrentSceneName()
         {
             return Application.loadedLevelName;
@@ -573,6 +638,7 @@ namespace PixelCrushers
         /// <returns></returns>
         public static SavedGameData RecordSavedGameData()
         {
+            m_savedGameData.version = version;
             m_savedGameData.sceneName = GetCurrentSceneName();
             for (int i = 0; i < m_savers.Count; i++)
             {
@@ -614,13 +680,15 @@ namespace PixelCrushers
             if (savedGameData == null) return;
             m_savedGameData = savedGameData;
             if (m_savers.Count <= 0) return;
-            for (int i = m_savers.Count - 1; i >= 0; i--) // A saver may remove itself from list during apply.
+            m_tmpSavers.Clear();
+            m_tmpSavers.AddRange(m_savers); // Make a copy in case a saver ends up removing multiple savers.
+            for (int i = m_tmpSavers.Count - 1; i >= 0; i--) // A saver may remove itself from list during apply.
             {
                 try
                 {
-                    if (0 <= i && i < m_savers.Count)
+                    if (0 <= i && i < m_tmpSavers.Count)
                     {
-                        var saver = m_savers[i];
+                        var saver = m_tmpSavers[i];
                         if (saver != null) saver.ApplyData(savedGameData.GetData(saver.key));
                     }
                 }
@@ -739,27 +807,33 @@ namespace PixelCrushers
         private static void ApplyDataImmediate()
         {
             if (m_savers.Count <= 0) return;
-            try
+            m_tmpSavers.Clear();
+            m_tmpSavers.AddRange(m_savers); // Make a copy in case a saver ends up removing multiple savers.
+            for (int i = m_tmpSavers.Count - 1; i >= 0; i--) // A saver may remove itself from list during apply.
             {
-                for (int i = m_savers.Count - 1; i >= 0; i--) // A saver may remove itself from list during apply.
+                try
                 {
-                    if (0 <= i && i < m_savers.Count)
+                    if (0 <= i && i < m_tmpSavers.Count)
                     {
-                        var saver = m_savers[i];
+                        var saver = m_tmpSavers[i];
                         if (saver != null) saver.ApplyDataImmediate();
                     }
                 }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogException(e);
+                catch (System.Exception e)
+                {
+                    Debug.LogException(e);
+                }
             }
         }
 
         private void FinishedLoadingScene(string sceneName, int sceneIndex)
         {
             m_currentSceneIndex = sceneIndex;
-            m_savedGameData.DeleteObsoleteSaveData(sceneIndex);
+            if (!m_isLoadingAdditiveScene)
+            { // Don't delete other non-cross-scene data if loading additive scene:
+                m_savedGameData.DeleteObsoleteSaveData(sceneIndex);
+            }
+            m_isLoadingAdditiveScene = false;
             sceneLoaded(sceneName, sceneIndex);
         }
 
@@ -771,6 +845,7 @@ namespace PixelCrushers
         {
             if (string.IsNullOrEmpty(sceneName) || m_addedScenes.Contains(sceneName)) return;
             m_addedScenes.Add(sceneName);
+            instance.m_isLoadingAdditiveScene = true;
             instance.StartCoroutine(LoadAdditiveSceneInternal(sceneName));
         }
 

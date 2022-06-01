@@ -125,30 +125,36 @@ namespace PixelCrushers
             {
                 path = path.Replace("/", "\\");
             }
-            string[] filenames = Directory.GetFiles(path, "*.cs", SearchOption.AllDirectories);
-            var found = string.Empty;
-            var recompileAtText = "// Recompile at " + DateTime.Now + "\r\n";
-            var searchString = "#if " + symbol;
-            foreach (string filename in filenames)
+            if (!Directory.Exists(path))
             {
-                var text = File.ReadAllText(filename);
-                if (text.Contains(searchString))
+                Debug.Log("It looks like you've moved this Pixel Crushers asset. In the Project view, please right-click on the folder in its new location and select Reimport.");
+            }
+            else
+            { 
+                string[] filenames = Directory.GetFiles(path, "*.cs", SearchOption.AllDirectories);
+                var found = string.Empty;
+                var recompileAtText = "// Recompile at " + DateTime.Now + "\r\n";
+                var searchString = "#if " + symbol;
+                foreach (string filename in filenames)
                 {
-                    found += filename + "\n";
-                    if (text.StartsWith("// Recompile at "))
+                    var text = File.ReadAllText(filename);
+                    if (text.Contains(searchString))
                     {
-                        var lines = File.ReadAllLines(filename);
-                        lines[0] = recompileAtText;
-                        File.WriteAllLines(filename, lines);
-                    }
-                    else
-                    {
-                        text = recompileAtText + text;
-                        File.WriteAllText(filename, text);
+                        found += filename + "\n";
+                        if (text.StartsWith("// Recompile at "))
+                        {
+                            var lines = File.ReadAllLines(filename);
+                            lines[0] = recompileAtText;
+                            File.WriteAllLines(filename, lines);
+                        }
+                        else
+                        {
+                            text = recompileAtText + text;
+                            File.WriteAllText(filename, text);
+                        }
                     }
                 }
             }
-            //Debug.Log("Touched: " + found);
         }
 
         //=============================================================
@@ -195,10 +201,10 @@ namespace PixelCrushers
         [MenuItem("Tools/Pixel Crushers/Common/Misc/Use New Input System...", false, 102)]
         static public void AddUSENEWINPUT()
         {
-            if (EditorUtility.DisplayDialog("Use New Input System", "This will switch the Input Device Manager to read from Unity's new Input System. You must have already added the Input System package.\n\n*IMPORTANT*: Support for the new Input System has not been implemented yet! This option currently only suppresses error messages by preventing the Input Device Manager from accessing Unity's default Input class.", "OK", "Cancel"))
+            if (EditorUtility.DisplayDialog("Use New Input System", "This will switch the Input Device Manager to read from Unity's new Input System. You must have already added the Input System package.\n\nSee the configuration manual in Plugins > Pixel Crushers > Common > Documentation.", "OK", "Cancel"))
             {
                 MoreEditorUtility.TryAddScriptingDefineSymbols("USE_NEW_INPUT");
-                EditorUtility.DisplayDialog("Using New Input System", "*IMPORTANT*: Support for the new Input System has not been implemented yet! This option currently only suppresses error messages by preventing the Input Device Manager from accessing Unity's default Input class.", "OK");
+                EditorUtility.DisplayDialog("Using New Input System", "See the configuration manual in Plugins > Pixel Crushers > Common > Documentation.", "OK");
             }
         }
 

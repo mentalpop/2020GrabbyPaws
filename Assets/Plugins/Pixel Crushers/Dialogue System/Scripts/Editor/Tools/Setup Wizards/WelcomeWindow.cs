@@ -26,7 +26,7 @@ namespace PixelCrushers.DialogueSystem
         public static WelcomeWindow ShowWindow()
         {
             var window = GetWindow<WelcomeWindow>(false, "Welcome");
-            window.minSize = new Vector2(370, 530);
+            window.minSize = new Vector2(370, 560);
             window.showOnStart = true; // Can't check EditorPrefs when constructing window: showOnStartPrefs;
             return window;
         }
@@ -175,9 +175,12 @@ namespace PixelCrushers.DialogueSystem
             var define_USE_ADDRESSABLES = false;
             var define_USE_TIMELINE = false;
             var define_USE_CINEMACHINE = false;
+            var define_USE_ARCWEAVE = false;
             var define_USE_ARTICY = false;
             var define_USE_AURORA = false;
+            var define_USE_CELTX = false;
             var define_USE_TWINE = false;
+            var define_USE_YARN = false;
             var define_TMP_PRESENT = false;
             var define_USE_STM = false;
             var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup).Split(';');
@@ -188,9 +191,12 @@ namespace PixelCrushers.DialogueSystem
                 if (string.Equals(ScriptingSymbolNames.USE_ADDRESSABLES, defines[i].Trim())) define_USE_ADDRESSABLES = true;
                 if (string.Equals(ScriptingSymbolNames.USE_TIMELINE, defines[i].Trim())) define_USE_TIMELINE = true;
                 if (string.Equals(ScriptingSymbolNames.USE_CINEMACHINE, defines[i].Trim())) define_USE_CINEMACHINE = true;
+                if (string.Equals(ScriptingSymbolNames.USE_ARCWEAVE, defines[i].Trim())) define_USE_ARCWEAVE = true;
                 if (string.Equals(ScriptingSymbolNames.USE_ARTICY, defines[i].Trim())) define_USE_ARTICY = true;
                 if (string.Equals(ScriptingSymbolNames.USE_AURORA, defines[i].Trim())) define_USE_AURORA = true;
+                if (string.Equals(ScriptingSymbolNames.USE_CELTX, defines[i].Trim())) define_USE_CELTX = true;
                 if (string.Equals(ScriptingSymbolNames.USE_TWINE, defines[i].Trim())) define_USE_TWINE = true;
+                if (string.Equals(ScriptingSymbolNames.USE_YARN, defines[i].Trim())) define_USE_YARN = true;
                 if (string.Equals(ScriptingSymbolNames.TMP_PRESENT, defines[i].Trim())) define_TMP_PRESENT = true;
                 if (string.Equals(ScriptingSymbolNames.USE_STM, defines[i].Trim())) define_USE_STM = true;
             }
@@ -200,43 +206,34 @@ namespace PixelCrushers.DialogueSystem
             define_USE_ADDRESSABLES = false;
             define_TMP_PRESENT = false;
             define_USE_STM = false;
+            define_USE_ARCWEAVE = false;
             define_USE_ARTICY = true;
             define_USE_AURORA = true;
+            define_USE_CELTX = true;
             define_USE_TWINE = true;
+            define_USE_YARN = true;
 #endif
 
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.LabelField(new GUIContent("Enable support for:", "NOTE: Enables Dialogue System support. You must still enable each package in Package Manager."));
 #if UNITY_2018_1_OR_NEWER && !EVALUATION_VERSION
             var new_USE_PHYSICS2D = EditorGUILayout.ToggleLeft("2D Physics (USE_PHYSICS2D)", define_USE_PHYSICS2D);
-            var new_USE_NEW_INPUT = EditorGUILayout.ToggleLeft("New Input System (USE_NEW_INPUT)", define_USE_NEW_INPUT);
             var new_USE_ADDRESSABLES = EditorGUILayout.ToggleLeft("Addressables (USE_ADDRESSABLES)", define_USE_ADDRESSABLES);
+            var new_USE_CINEMACHINE = EditorGUILayout.ToggleLeft(new GUIContent("Cinemachine (USE_CINEMACHINE)", "Enable Dialogue System support for Cinemachine. You must still enable Cinemachine in Package Manager."), define_USE_CINEMACHINE);
+            var new_USE_NEW_INPUT = EditorGUILayout.ToggleLeft("New Input System (USE_NEW_INPUT)", define_USE_NEW_INPUT);
 #else
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.ToggleLeft(new GUIContent("2D Physics (USE_PHYSICS2D)", "Support is built in for evaluation version or Unity 2017 and earlier."), define_USE_PHYSICS2D);
+            EditorGUILayout.ToggleLeft(new GUIContent("Addressables (USE_ADDRESSABLES)", "Addressables support not available in evaluation version."), define_USE_ADDRESSABLES);
             EditorGUILayout.ToggleLeft(new GUIContent("New Input System (USE_NEW_INPUT)", "New Input System support not available in evaluation version."), define_USE_NEW_INPUT);
             EditorGUI.EndDisabledGroup();
             var new_USE_PHYSICS2D = define_USE_PHYSICS2D;
+            var new_USE_CINEMACHINE = define_USE_CINEMACHINE;
             var new_USE_NEW_INPUT = define_USE_NEW_INPUT;
             var new_USE_ADDRESSABLES = define_USE_ADDRESSABLES;
 #endif
 
             var new_USE_TIMELINE = EditorGUILayout.ToggleLeft(new GUIContent("Timeline (USE_TIMELINE)", "Enable Dialogue System support for Timeline. You must still enable Timeline in Package Manager."), define_USE_TIMELINE);
-            var new_USE_CINEMACHINE = EditorGUILayout.ToggleLeft(new GUIContent("Cinemachine (USE_CINEMACHINE)", "Enable Dialogue System support for Cinemachine. You must still enable Cinemachine in Package Manager."), define_USE_CINEMACHINE);
-
-#if EVALUATION_VERSION
-            EditorGUI.BeginDisabledGroup(true);
-            EditorGUILayout.ToggleLeft(new GUIContent("articy:draft (USE_ARTICY)", "Enable Dialogue System support for articy:draft XML import."), define_USE_ARTICY);
-            EditorGUILayout.ToggleLeft(new GUIContent("Aurora Toolset (USE_AURORA)", "Enable Dialogue System support for Aurora (Neverwinter Nights) Toolset import."), define_USE_AURORA);
-            EditorGUI.EndDisabledGroup();
-            var new_USE_ARTICY = define_USE_ARTICY;
-            var new_USE_AURORA = define_USE_AURORA;
-            var new_USE_TWINE = define_USE_TWINE;
-#else
-            var new_USE_ARTICY = EditorGUILayout.ToggleLeft(new GUIContent("articy:draft (USE_ARTICY)", "Enable Dialogue System support for articy:draft XML import."), define_USE_ARTICY);
-            var new_USE_AURORA = EditorGUILayout.ToggleLeft(new GUIContent("Aurora Toolset (USE_AURORA)", "Enable Dialogue System support for Aurora (Neverwinter Nights) Toolset import."), define_USE_AURORA);
-            var new_USE_TWINE = EditorGUILayout.ToggleLeft(new GUIContent("Twine (USE_TWINE)", "Enable Dialogue System support for Twine import."), define_USE_TWINE);
-#endif
 
 #if EVALUATION_VERSION
             EditorGUI.BeginDisabledGroup(true);
@@ -249,17 +246,100 @@ namespace PixelCrushers.DialogueSystem
             var new_TMP_PRESENT = EditorGUILayout.ToggleLeft(new GUIContent("TextMesh Pro (TMP_PRESENT)", "Enable Dialogue System support for TextMesh Pro. You must still enable TextMesh Pro in Package Manager."), define_TMP_PRESENT);
             var new_USE_STM = EditorGUILayout.ToggleLeft(new GUIContent("Super Text Mesh (USE_STM)", "Enable Dialogue System support for Super Text Mesh. Requires Super Text Mesh in project."), define_USE_STM);
 #endif
+
+#if EVALUATION_VERSION
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.ToggleLeft(new GUIContent("Arcweave (USE_ARCWEAVE)", "Enable Dialogue System support for Arcweave import."), define_USE_ARCWEAVE);
+            EditorGUILayout.ToggleLeft(new GUIContent("articy:draft (USE_ARTICY)", "Enable Dialogue System support for articy:draft XML import."), define_USE_ARTICY);
+            EditorGUILayout.ToggleLeft(new GUIContent("Aurora Toolset (USE_AURORA)", "Enable Dialogue System support for Aurora (Neverwinter Nights) Toolset import."), define_USE_AURORA);
+            EditorGUILayout.ToggleLeft(new GUIContent("Celtx (USE_CELTX)", "Enable Dialogue System support for Celtx JSON import."), define_USE_CELTX);
+            EditorGUILayout.ToggleLeft(new GUIContent("Twine (USE_TWINE)", "Enable Dialogue System support for Twine Twison import."), define_USE_TWINE);
+            EditorGUILayout.ToggleLeft(new GUIContent("Yarn (USE_YARN)", "Enable Dialogue System support for YarnSpinner import."), define_USE_YARN);
+            EditorGUI.EndDisabledGroup();
+            var new_USE_ARCWEAVE = define_USE_ARCWEAVE;
+            var new_USE_ARTICY = define_USE_ARTICY;
+            var new_USE_AURORA = define_USE_AURORA;
+            var new_USE_CELTX = define_USE_CELTX;
+            var new_USE_TWINE = define_USE_TWINE;
+            var new_USE_YARN = define_USE_YARN;
+#else
+            var new_USE_ARCWEAVE = EditorGUILayout.ToggleLeft(new GUIContent("Arcweave (USE_ARCWEAVE)", "Enable Dialogue System support for Arcweave import."), define_USE_ARCWEAVE);
+            var new_USE_ARTICY = EditorGUILayout.ToggleLeft(new GUIContent("articy:draft (USE_ARTICY)", "Enable Dialogue System support for articy:draft XML import."), define_USE_ARTICY);
+            var new_USE_AURORA = EditorGUILayout.ToggleLeft(new GUIContent("Aurora Toolset (USE_AURORA)", "Enable Dialogue System support for Aurora (Neverwinter Nights) Toolset import."), define_USE_AURORA);
+            var new_USE_CELTX = EditorGUILayout.ToggleLeft(new GUIContent("Celtx (USE_CELTX)", "Enable Dialogue System support for Celtx JSON import."), define_USE_CELTX);
+            var new_USE_TWINE = EditorGUILayout.ToggleLeft(new GUIContent("Twine (USE_TWINE)", "Enable Dialogue System support for Twine Twison import."), define_USE_TWINE);
+            var new_USE_YARN = EditorGUILayout.ToggleLeft(new GUIContent("Yarn (USE_YARN)", "Enable Dialogue System support for YarnSpinner import."), define_USE_YARN);
+#endif
+
             var changed = EditorGUI.EndChangeCheck();
 
             if (new_USE_PHYSICS2D != define_USE_PHYSICS2D) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_PHYSICS2D, new_USE_PHYSICS2D);
-            if (new_USE_NEW_INPUT != define_USE_NEW_INPUT) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_NEW_INPUT, new_USE_NEW_INPUT);
-            if (new_USE_ADDRESSABLES != define_USE_ADDRESSABLES) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ADDRESSABLES, new_USE_ADDRESSABLES);
+            //if (new_USE_NEW_INPUT != define_USE_NEW_INPUT) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_NEW_INPUT, new_USE_NEW_INPUT);
+            //if (new_USE_ADDRESSABLES != define_USE_ADDRESSABLES) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ADDRESSABLES, new_USE_ADDRESSABLES);
             if (new_USE_TIMELINE != define_USE_TIMELINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_TIMELINE, new_USE_TIMELINE, true);
-            if (new_USE_CINEMACHINE != define_USE_CINEMACHINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CINEMACHINE, new_USE_CINEMACHINE);
+            //if (new_USE_CINEMACHINE != define_USE_CINEMACHINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CINEMACHINE, new_USE_CINEMACHINE);
+            //if (new_USE_ARCWEAVE != define_USE_ARCWEAVE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ARCWEAVE, new_USE_ARCWEAVE);
             if (new_USE_ARTICY != define_USE_ARTICY) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ARTICY, new_USE_ARTICY);
             if (new_USE_AURORA != define_USE_AURORA) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_AURORA, new_USE_AURORA);
+            if (new_USE_CELTX != define_USE_CELTX) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CELTX, new_USE_CELTX);
             if (new_USE_TWINE != define_USE_TWINE) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_TWINE, new_USE_TWINE);
+            if (new_USE_YARN != define_USE_YARN) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_YARN, new_USE_YARN);
             if (new_TMP_PRESENT != define_TMP_PRESENT) MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.TMP_PRESENT, new_TMP_PRESENT, true);
+
+            if (new_USE_NEW_INPUT != define_USE_NEW_INPUT)
+            {
+                if (new_USE_NEW_INPUT)
+                {
+                    if (EditorUtility.DisplayDialog("Enable New Input Package Support", "This will switch the Dialogue System to use the new Input System. You MUST have installed the new Input System package via the Package Manager window first. If you're using Unity's built-in input, click Cancel now.", "OK", "Cancel"))
+                    {
+                        MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_NEW_INPUT, new_USE_NEW_INPUT);
+                    }
+                    else
+                    {
+                        changed = false;
+                    }
+                }
+                else
+                {
+                    MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_NEW_INPUT, new_USE_NEW_INPUT);
+                }
+            }
+            if (new_USE_ADDRESSABLES != define_USE_ADDRESSABLES)
+            {
+                if (new_USE_ADDRESSABLES)
+                {
+                    if (EditorUtility.DisplayDialog("Enable Addressables Support", "This will enable support for Addressables. You MUST have installed the Addressables package via the Package Manager window first.", "OK", "Cancel"))
+                    {
+                        MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ADDRESSABLES, new_USE_ADDRESSABLES);
+                    }
+                    else
+                    {
+                        changed = false;
+                    }
+                }
+                else
+                {
+                    MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ADDRESSABLES, new_USE_ADDRESSABLES);
+                }
+            }
+            if (new_USE_CINEMACHINE != define_USE_CINEMACHINE)
+            {
+                if (new_USE_CINEMACHINE)
+                {
+                    if (EditorUtility.DisplayDialog("Enable Cinemachine Support", "This will enable support for Cinemachine. You MUST have installed the Cinemachine package via the Package Manager window first.", "OK", "Cancel"))
+                    {
+                        MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CINEMACHINE, new_USE_CINEMACHINE);
+                    }
+                    else
+                    {
+                        changed = false;
+                    }
+                }
+                else
+                {
+                    MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_CINEMACHINE, new_USE_CINEMACHINE);
+                }
+            }
             if (new_USE_STM != define_USE_STM)
             {
                 if (new_USE_STM)
@@ -278,6 +358,24 @@ namespace PixelCrushers.DialogueSystem
                     MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_STM, new_USE_STM);
                 }
             }
+            if (new_USE_ARCWEAVE != define_USE_ARCWEAVE)
+            {
+                if (new_USE_ARCWEAVE)
+                {
+                    if (EditorUtility.DisplayDialog("Enable Arcweave Import", "This will enable the ability to import Arcweave projects. Newtonsoft Json.NET MUST already be installed in your project first. See the Arcweave Import instructions in the online manual if Newtonsoft Json.NET is not installed yet.\n\n*IMPORTANT*: Only press OK if Newtonsoft Json.NET is already installed!\n\nTo continue, press OK. If you need to install Newtonsoft Json.NET first, press Cancel.", "OK", "Cancel"))
+                    {
+                        MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ARCWEAVE, new_USE_ARCWEAVE);
+                    }
+                    else
+                    {
+                        changed = false;
+                    }
+                }
+                else
+                {
+                    MoreEditorUtility.ToggleScriptingDefineSymbol(ScriptingSymbolNames.USE_ARCWEAVE, new_USE_ARCWEAVE);
+                }
+            }
 
             EditorWindowTools.DrawHorizontalLine();
             GUILayout.EndArea();
@@ -287,7 +385,7 @@ namespace PixelCrushers.DialogueSystem
 
         private void DrawFooter()
         {
-            var newShowOnStart = EditorGUI.ToggleLeft(new Rect(5, position.height - 5 - EditorGUIUtility.singleLineHeight, position.width - 90, EditorGUIUtility.singleLineHeight), "Show at start", showOnStart);
+            var newShowOnStart = EditorGUI.ToggleLeft(new Rect(5, position.height - 5 - EditorGUIUtility.singleLineHeight, position.width - (70+150), EditorGUIUtility.singleLineHeight), "Show at start", showOnStart);
             if (newShowOnStart != showOnStart)
             {
                 showOnStart = newShowOnStart;
@@ -297,6 +395,12 @@ namespace PixelCrushers.DialogueSystem
             {
                 Application.OpenURL("http://www.pixelcrushers.com/support-form/");
             }
+#if EVALUATION_VERSION
+            if (GUI.Button(new Rect(position.width - 154, position.height - 5 - EditorGUIUtility.singleLineHeight, 70, EditorGUIUtility.singleLineHeight), new GUIContent("Buy", "Buy a license")))
+            {
+                Application.OpenURL("https://assetstore.unity.com/packages/tools/ai/dialogue-system-for-unity-11672");
+            }
+#endif
         }
 
     }

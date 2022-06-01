@@ -29,12 +29,18 @@ namespace PixelCrushers
                 if (assembly.FullName.StartsWith("UnityEngine")) continue;
                 if (assembly.FullName.StartsWith("UnityEditor")) continue;
                 if (assembly.FullName.StartsWith("mscorlib")) continue;
-                foreach (Type type in assembly.GetTypes())
+                try
                 {
-                    if (!type.IsClass) continue;
-                    if (type.IsAbstract) continue;
-                    if (!type.IsSubclassOf(typeof(T))) continue;
-                    subtypes.Add(type);
+                    foreach (Type type in assembly.GetTypes())
+                    {
+                        if (!type.IsClass) continue;
+                        if (type.IsAbstract) continue;
+                        if (!type.IsSubclassOf(typeof(T))) continue;
+                        subtypes.Add(type);
+                    }
+                }
+                catch (System.Reflection.ReflectionTypeLoadException)
+                {
                 }
             }
             return subtypes;

@@ -1,6 +1,8 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -10,6 +12,59 @@ namespace PixelCrushers.DialogueSystem
     /// </summary>
     public static class SequencerTools
     {
+
+        private static Dictionary<string, Transform> registeredSubjects = new Dictionary<string, Transform>();
+        private static bool hasHookedIntoSceneLoaded = false;
+
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void InitStaticVariables()
+        {
+            registeredSubjects = new Dictionary<string, Transform>();
+            hasHookedIntoSceneLoaded = false;
+        }
+#endif
+
+        public static void HookIntoSceneLoaded()
+        {
+            if (!hasHookedIntoSceneLoaded)
+            {
+                hasHookedIntoSceneLoaded = true;
+                SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+        }
+
+        private static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            CleanNullSubjects();
+        }
+
+        /// <summary>
+        /// Registers a GameObject by name for faster lookup.
+        /// </summary>
+        public static void RegisterSubject(Transform subject)
+        {
+            if (subject == null) return;
+            registeredSubjects[subject.name] = subject;
+            HookIntoSceneLoaded();
+        }
+
+        /// <summary>
+        /// Unregisters a registered GameObject.
+        /// </summary>
+        public static void UnregisterSubject(Transform subject)
+        {
+            if (subject == null || !registeredSubjects.ContainsKey(subject.name)) return;
+            registeredSubjects.Remove(subject.name);
+        }
+
+        /// <summary>
+        /// Clears null entries from registeredSubjects.
+        /// </summary>
+        public static void CleanNullSubjects()
+        {
+            registeredSubjects.RemoveAll(x => x == null);
+        }
 
         /// <summary>
         /// Sequencer commands usually specify a subject to which the command applies (e.g., where to
@@ -44,6 +99,14 @@ namespace PixelCrushers.DialogueSystem
             else if (string.Compare(specifier, SequencerKeywords.Listener, System.StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return listener;
+            }
+            else if (string.Compare(specifier, SequencerKeywords.SpeakerPortrait, System.StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return GetPortraitImage(speaker);
+            }
+            else if (string.Compare(specifier, SequencerKeywords.ListenerPortrait, System.StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return GetPortraitImage(listener);
             }
             else
             {
@@ -98,6 +161,9 @@ namespace PixelCrushers.DialogueSystem
             var t = CharacterInfo.GetRegisteredActorTransform(specifier);
             if (t != null) return t.gameObject;
 
+            // Check registered subjects:
+            if (registeredSubjects.TryGetValue(specifier, out t)) return t.gameObject;
+
             // Search for active objects in scene:
             var match = GameObject.Find(specifier);
             if (match != null) return match;
@@ -115,6 +181,37 @@ namespace PixelCrushers.DialogueSystem
                 {
                     return go;
                 }
+            }
+            return null;
+        }
+
+        /// <returns>
+        /// The transform of the Portrait Image GameObject, or null if not found.
+        /// Must be using Standard Dialogue UI. Not for use with simultaneous conversations.
+        /// </returns>
+        public static Transform GetPortraitImage(Transform subject)
+        {
+            if (DialogueManager.standardDialogueUI != null)
+            {
+                StandardUISubtitlePanel panel = null;
+                if (DialogueManager.IsConversationActive)
+                {
+                    DialogueActor dialogueActor;
+                    panel = DialogueManager.standardDialogueUI.conversationUIElements.standardSubtitleControls.GetPanel(DialogueManager.currentConversationState.subtitle, out dialogueActor);
+                }
+                else if (subject != null)
+                {
+                    DialogueActor dialogueActor = DialogueActor.GetDialogueActorComponent(subject);
+                    if (dialogueActor != null)
+                    {
+                        panel = DialogueManager.standardDialogueUI.conversationUIElements.standardSubtitleControls.GetDialogueActorPanel(dialogueActor);
+                    }
+                }
+                else
+                {
+                    panel = DialogueManager.standardDialogueUI.conversationUIElements.standardSubtitleControls.defaultNPCPanel;
+                }
+                if (panel != null && panel.portraitImage != null) return panel.portraitImage.transform;
             }
             return null;
         }
@@ -261,7 +358,13 @@ namespace PixelCrushers.DialogueSystem
         {
             GameObject go = (subject != null) ? subject.gameObject : DialogueManager.instance.gameObject;
             AudioSource audio = go.GetComponentInChildren<AudioSource>();
-            return (audio != null) ? audio : go.AddComponent<AudioSource>();
+            if (audio == null)
+            { 
+                audio = go.AddComponent<AudioSource>();
+                audio.playOnAwake = false;
+                audio.loop = false;
+            }
+            return audio;
         }
 
         /// <summary>

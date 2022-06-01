@@ -56,20 +56,49 @@ namespace PixelCrushers.DialogueSystem
 
         public UnityEvent onIncrement = new UnityEvent();
 
-        private bool listenForOnDestroy = false;
+        protected bool listenForOnDestroy = false;
+        protected bool awakeMarkedForDestroy = false;
 
-        protected string actualVariableName
+        protected virtual string actualVariableName
         {
             get { return string.IsNullOrEmpty(variable) ? DialogueActor.GetPersistentDataName(transform) : variable; }
         }
         protected string ActualVariableName { get { return actualVariableName; } } // Kept for 1.x compatibility.
 
+        protected virtual void Awake()
+        {
+            // Check if a DestructibleSaver on the same GameObject will be destroying this
+            // object when save data is applied. If so, ignore the OnDestroy:
+            var destructibleSaver = GetComponent<DestructibleSaver>();
+            if (destructibleSaver != null)
+            {
+                var saveSystem = FindObjectOfType<SaveSystem>();
+                if (saveSystem != null)
+                {
+                    if (SaveSystem.currentSavedGameData != null)
+                    {
+                        var destructibleSaverKey = destructibleSaver.key;
+                        var s = SaveSystem.currentSavedGameData.GetData(destructibleSaverKey);
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            var data = SaveSystem.Deserialize<DestructibleSaver.DestructibleData>(s);
+                            if (data != null && data.destroyed)
+                            {
+                                listenForOnDestroy = false;
+                                awakeMarkedForDestroy = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
         /// <summary>
         /// Only listen for OnDestroy if the script has been enabled.
         /// </summary>
-        public void OnEnable()
+        public virtual void OnEnable()
         {
-            listenForOnDestroy = true;
+            listenForOnDestroy = !awakeMarkedForDestroy;
             PersistentDataManager.RegisterPersistentData(gameObject);
         }
 
@@ -77,7 +106,7 @@ namespace PixelCrushers.DialogueSystem
         /// If the level is being unloaded, this GameObject will be destroyed.
         /// We don't want to count this in the variable, so disable the script.
         /// </summary>
-        public void OnLevelWillBeUnloaded()
+        public virtual void OnLevelWillBeUnloaded()
         {
             listenForOnDestroy = false;
         }
@@ -86,7 +115,7 @@ namespace PixelCrushers.DialogueSystem
         /// If the application is ending, don't listen, as this can log errors
         /// in the console.
         /// </summary>
-        public void OnApplicationQuit()
+        public virtual void OnApplicationQuit()
         {
             listenForOnDestroy = false;
         }
@@ -95,7 +124,7 @@ namespace PixelCrushers.DialogueSystem
         /// When this object is destroyed, increment the counter and update the quest tracker
         /// if incrementOn is set to Destroy.
         /// </summary>
-        public void OnDestroy()
+        public virtual void OnDestroy()
         {
             if (incrementOn == IncrementOn.Destroy) TryIncrement();
         }
@@ -104,18 +133,39 @@ namespace PixelCrushers.DialogueSystem
         /// When this object is disabled, increment the counter and update the quest tracker
         /// if incrementOn is set to Disable.
         /// </summary>
-        public void OnDisable()
+        public virtual void OnDisable()
         {
             PersistentDataManager.UnregisterPersistentData(gameObject);
             if (incrementOn == IncrementOn.Disable) TryIncrement();
         }
 
-        public void TryIncrement()
+        /// <summary>
+        /// Try to increment variable if conditions are met.
+        /// </summary>
+        public virtual void TryIncrement()
         {
-            if (!Application.isPlaying) return;
-            if (!listenForOnDestroy) return;
-            if (DialogueManager.Instance == null || DialogueManager.DatabaseManager == null || DialogueManager.MasterDatabase == null) return;
-            if (!condition.IsTrue(null)) return;
+            if (CanIncrement())
+            {
+                IncrementNow();
+            }
+        }
+
+        /// <summary>
+        /// Are the conditions correct to increment?
+        /// </summary>
+        protected virtual bool CanIncrement()
+        {
+            return Application.isPlaying &&
+            listenForOnDestroy &&
+            (DialogueManager.Instance != null && DialogueManager.DatabaseManager != null && DialogueManager.MasterDatabase != null) &&
+            condition.IsTrue(null);
+        }
+
+        /// <summary>
+        /// Increments variable. Assumes conditions to increment have already been checked and passed.
+        /// </summary>
+        protected virtual void IncrementNow()
+        { 
             int oldValue = DialogueLua.GetVariable(actualVariableName).asInt;
             int newValue = Mathf.Clamp(oldValue + increment, min, max);
             DialogueLua.SetVariable(actualVariableName, newValue);

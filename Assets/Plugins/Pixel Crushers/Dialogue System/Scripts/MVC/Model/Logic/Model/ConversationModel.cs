@@ -422,11 +422,19 @@ namespace PixelCrushers.DialogueSystem
                                     {
                                         string simStatus = Lua.Run(string.Format("return Conversation[{0}].Dialog[{1}].SimStatus", new System.Object[] { destinationEntry.conversationID, destinationEntry.id })).asString;
                                         bool isOldResponse = string.Equals(simStatus, DialogueLua.WasDisplayed);
-                                        if (isOldResponse) text = string.Format("[em{0}]{1}[/em{0}]", (int)m_emTagForOldResponses, text);
+                                        if (isOldResponse)
+                                        {
+                                            text = UITools.StripEmTags(text);
+                                            text = string.Format("[em{0}]{1}[/em{0}]", (int)m_emTagForOldResponses, text);
+                                        }
                                     }
                                     if (m_emTagForInvalidResponses != EmTag.None)
                                     {
-                                        if (!isValid) text = string.Format("[em{0}]{1}[/em{0}]", (int)m_emTagForInvalidResponses, text);
+                                        if (!isValid)
+                                        {
+                                            text = UITools.StripEmTags(text);
+                                            text = string.Format("[em{0}]{1}[/em{0}]", (int)m_emTagForInvalidResponses, text);
+                                        }
                                     }
                                     var formattedText = FormattedText.Parse(text, m_database.emphasisSettings);
                                     if (!isValid)
@@ -570,7 +578,8 @@ namespace PixelCrushers.DialogueSystem
                     actor = m_database.GetActor(dialogueActor.actor);
                 }
                 if (actor == null) actor = m_database.GetActor(id);
-                string nameInDatabase = (actor != null) ? actor.Name : string.Empty;
+                string nameInDatabase = (dialogueActor != null) ? dialogueActor.GetActorName() : string.Empty;
+                if (string.IsNullOrEmpty(nameInDatabase) && actor != null) nameInDatabase = actor.Name;
                 if (character == null && !string.IsNullOrEmpty(nameInDatabase))
                 {
                     character = CharacterInfo.GetRegisteredActorTransform(nameInDatabase);
@@ -583,6 +592,9 @@ namespace PixelCrushers.DialogueSystem
                 {
                     actor.AssignPortraitSprite((sprite) => { characterInfo.portrait = sprite; });
                 }
+                // Don't cache null actor ID -1:
+                if (id == -1) return characterInfo;
+                // Otherwise cache to speed up lookups:
                 m_characterInfoCache.Add(id, characterInfo);
             }
             return m_characterInfoCache[id];

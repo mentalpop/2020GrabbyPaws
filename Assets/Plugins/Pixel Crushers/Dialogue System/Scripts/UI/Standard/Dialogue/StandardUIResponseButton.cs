@@ -1,6 +1,7 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -10,9 +11,10 @@ namespace PixelCrushers.DialogueSystem
     /// response button in the dialogue UI.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
-    public class StandardUIResponseButton : MonoBehaviour
+    public class StandardUIResponseButton : MonoBehaviour, ISelectHandler
     {
 
+        [HelpBox("If Button's OnClick() event is empty, this Standard UI Response Button component will automatically assign its OnClick method at runtime. If Button's OnClick() event has other elements, you *must* manually assign the StandardUIResponseButton.OnClick method to it.", HelpBoxMessageType.Info)]
         public UnityEngine.UI.Button button;
 
         [Tooltip("Text element to display response text.")]
@@ -89,7 +91,10 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void Start()
         {
-            if (button != null) button.onClick.AddListener(OnClick);
+            if (button != null && button.onClick.GetPersistentEventCount() == 0)
+            {
+                button.onClick.AddListener(OnClick);
+            }
         }
 
         /// <summary>
@@ -121,9 +126,25 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void OnClick()
         {
-            if (target != null) target.SendMessage("OnClick", response, SendMessageOptions.RequireReceiver);
+            if (target != null)
+            {
+                SetCurrentResponse();
+                target.SendMessage("OnClick", response, SendMessageOptions.RequireReceiver);
+            }
         }
 
+        public void OnSelect(BaseEventData eventData)
+        {
+            SetCurrentResponse();
+        }
+
+        protected virtual void SetCurrentResponse()
+        {
+            if (DialogueManager.instance.conversationController != null)
+            {
+                DialogueManager.instance.conversationController.SetCurrentResponse(response);
+            }
+        }
     }
 
 }

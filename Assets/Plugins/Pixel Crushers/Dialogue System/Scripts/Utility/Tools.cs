@@ -346,12 +346,12 @@ namespace PixelCrushers.DialogueSystem
         public static string StripTextMeshProTags(string s)
         {
             if (!s.Contains("<")) return s;
-            return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=[#]?\w+>|<color=""\w+"">|</color>|" +
-                @"<align=\w+>|</align>|<font=\w+>|</font>|<indent=\w+\%>|<indent=\w+>|</indent>|" +
+            return Regex.Replace(s, @"<[Bb]>|</[Bb]>|<[Ii]>|</[Ii]>|<color=[#]?\w+>|<color=""\w+"">|</color>|" +
+                @"<align=\w+>|</align>|<font=[^>]+>|</font>|<indent=\w+\%>|<indent=\w+>|</indent>|" +
                 @"<line-height=\w+%>|<line-height=\w+>|</line-height>|<line-indent=\w+\%>|<line-ident=\w+>|</line-ident>|" +
                 @"<link=""[^""]+"">|</link>|<lowercase>|</lowercase>|<uppercase>|</uppercase>|" +
-                @"<smallcaps>|</smallcaps>|<margin=.+>|</margin>|<mark=#\w+>|</mark>|" +
-                @"<nobr>|</nobr>|<size=\w+\%>|<size=\w+>|</size>|<sprite=.+>|<s>|</s>|<u>|</u>|" +
+                @"<smallcaps>|</smallcaps>|<margin=.+>|<margin-?\w+=.+>|</margin>|<mark=#\w+>|</mark>|" +
+                @"<nobr>|</nobr>|<size=\w+\%>|<size=\w+>|</size>|<sprite=.+>|<[Ss]>|</[Ss]>|<[Uu]>|</[Uu]>|" +
                 @"<sup>|</sup>|<sub>|</sub>", string.Empty);
         }
 

@@ -15,7 +15,7 @@ namespace PixelCrushers.DialogueSystem.Articy
     public class ArticyConverterWindow : EditorWindow
     {
 
-        [MenuItem("Tools/Pixel Crushers/Dialogue System/Import/articy:draft", false, 1)]
+        [MenuItem("Tools/Pixel Crushers/Dialogue System/Import/articy:draft...", false, 1)]
         public static void Init()
         {
             EditorWindow.GetWindow(typeof(ArticyConverterWindow), false, "articy Import");
@@ -554,7 +554,7 @@ namespace PixelCrushers.DialogueSystem.Articy
                 StartIndentedSection();
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("All Ints", EditorStyles.miniButton, GUILayout.Width(72))) prefs.ConversionSettings.AllDropdownOverrides(ConversionSettings.DropdownOverrideMode.Int);
-                if (GUILayout.Button("All Strings", EditorStyles.miniButton, GUILayout.Width(72))) prefs.ConversionSettings.AllDropdownOverrides(ConversionSettings.DropdownOverrideMode.String);
+                if (GUILayout.Button("All Strings", EditorStyles.miniButton, GUILayout.Width(72))) prefs.ConversionSettings.AllDropdownOverrides(ConversionSettings.DropdownOverrideMode.Int);
                 if (GUILayout.Button("Reset", EditorStyles.miniButton, GUILayout.Width(72))) prefs.ConversionSettings.AllDropdownOverrides(ConversionSettings.DropdownOverrideMode.UseGlobalSetting);
                 EditorGUILayout.EndHorizontal();
                 foreach (var setting in prefs.ConversionSettings.dropdownOverrideList)
@@ -701,7 +701,7 @@ namespace PixelCrushers.DialogueSystem.Articy
             try
             {
                 EditorUtility.DisplayProgressBar("Loading articy:draft project", "Please wait...", 0);
-                articyData = ArticySchemaEditorTools.LoadArticyDataFromXmlFile(prefs.ProjectFilename, prefs.Encoding, prefs.ConvertDropdownsAsString, prefs);
+                articyData = ArticySchemaEditorTools.LoadArticyDataFromXmlFile(prefs.ProjectFilename, prefs.Encoding, prefs.ConvertDropdownsAs, prefs);
                 articyVarNameList = null;
                 mustReloadData = false;
                 if (articyData != null)

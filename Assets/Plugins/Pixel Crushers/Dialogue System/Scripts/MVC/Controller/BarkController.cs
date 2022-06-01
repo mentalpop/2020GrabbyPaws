@@ -98,7 +98,7 @@ namespace PixelCrushers.DialogueSystem
         /// <value>The last sequencer.</value>
         public static Sequencer LastSequencer { get; private set; }
 
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_2019_3_OR_NEWER && UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void InitStaticVariables()
         {

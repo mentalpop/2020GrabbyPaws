@@ -179,9 +179,19 @@ namespace PixelCrushers.DialogueSystem
         protected const float MinTimeBetweenUseButton = 0.5f;
         protected float timeToEnableUseButton = 0;
 
-        public delegate void ProximityEvent(Usable usable);
-        public event ProximityEvent OnUsableGainFocus = delegate { };
-        public event ProximityEvent OnUsableLoseFocus = delegate { };
+        protected virtual void Reset()
+        {
+#if UNITY_EDITOR
+            var selectorUseStandardUIElements = gameObject.GetComponent<SelectorUseStandardUIElements>();
+            if (selectorUseStandardUIElements == null)
+            {
+                if (UnityEditor.EditorUtility.DisplayDialog("Use Unity UI for Selector?", "Add a 'Selector Use Standard UI Elements' component to allow the Selector to use Unity UI? Otherwise it will use legacy Unity GUI. You can customize the Unity UI prefab assigned to the Dialogue Manager's Instantiate Prefabs component.", "Add", "Don't Add"))
+                {
+                    gameObject.AddComponent<SelectorUseStandardUIElements>();
+                }
+            }
+#endif
+        }
 
         public virtual void Start()
         {
@@ -221,30 +231,6 @@ namespace PixelCrushers.DialogueSystem
 
             // If the player presses the use key/button, send the OnUse message:
             if (IsUseButtonDown()) UseCurrentSelection();
-        }
-
-        public void IncreaseIndex() {
-            if (usablesInRange.Count > 0) {
-                int _index = usablesInRange.IndexOf(currentUsable);
-                //Debug.Log("_index: " + _index + ", usablesInRange.Count: " + usablesInRange.Count);
-                if (_index < usablesInRange.Count - 1) {
-                    SetCurrentUsable(usablesInRange[_index + 1]);
-                } else {
-                    SetCurrentUsable(usablesInRange[0]);
-                }
-            }
-        }
-
-        public void DecreaseIndex() {
-            if (usablesInRange.Count > 0) {
-                int _index = usablesInRange.IndexOf(currentUsable);
-                //Debug.Log("_index: " + _index + ", usablesInRange.Count: " + usablesInRange.Count);
-                if (_index > 0) {
-                    SetCurrentUsable(usablesInRange[_index - 1]);
-                } else {
-                    SetCurrentUsable(usablesInRange[usablesInRange.Count - 1]);
-                }
-            }
         }
 
         protected void OnSelectedUsableObject(Usable usable)
@@ -425,9 +411,9 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void SetCurrentUsable(Usable usable)
         {
+            if (usable == currentUsable) return;
             if (currentUsable != null)
             {
-                OnUsableLoseFocus(currentUsable);
                 currentUsable.disabled -= OnUsableDisabled;
                 if (currentUsable != usable)
                 {
@@ -437,7 +423,6 @@ namespace PixelCrushers.DialogueSystem
             currentUsable = usable;
             if (usable != null)
             {
-                OnUsableGainFocus(currentUsable);
                 usable.disabled -= OnUsableDisabled;
                 usable.disabled += OnUsableDisabled; 
                 currentHeading = currentUsable.GetName();
@@ -464,6 +449,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void OnGUI()
         {
+            if (!enabled) return;
             if (!useDefaultGUI) return;
             if (guiStyle == null && (Event.current.type == EventType.Repaint || currentUsable != null))
             {

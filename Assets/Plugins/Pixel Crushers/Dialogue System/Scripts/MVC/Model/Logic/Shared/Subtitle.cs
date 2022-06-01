@@ -51,6 +51,12 @@ namespace PixelCrushers.DialogueSystem
         public string entrytag = string.Empty;
 
         /// <summary>
+        /// The active conversation record associated with this subtitle; useful if
+        /// multiple simultaneous conversations are running and you need to distinguish them.
+        /// </summary>
+        public ActiveConversationRecord activeConversationRecord = null;
+
+        /// <summary>
         /// Initializes a new Subtitle.
         /// </summary>
         /// <param name="speakerInfo">Speaker info.</param>
