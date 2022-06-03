@@ -7,6 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"last_search.DA949520" = "MiniGraphWindowOpenVolume"
+	"OpenInspectorPreview.DA949520" = "0"
+	"currentGroup.DA949520" = "all"
 }
 providers = {
 	adb = {

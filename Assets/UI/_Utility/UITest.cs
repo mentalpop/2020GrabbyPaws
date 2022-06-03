@@ -7,6 +7,7 @@ public class UITest : MonoBehaviour
     public ReadableData sampleBook;
     public ReadableData sampleSign;
     public ReadablePCData samplePC;
+    public ShopUIData shopUIData;
 
     private void Start() {
 //Debug; 
@@ -29,6 +30,9 @@ public class UITest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P)) { //P for PC
             UI.Instance.DisplayPC(samplePC);
+        }
+        if (Input.GetKeyDown(KeyCode.H)) { //H for sHop
+            UI.Instance.DisplayShop(shopUIData);
         }
         /*
         if (Input.GetKeyDown(KeyCode.Keypad0)) {

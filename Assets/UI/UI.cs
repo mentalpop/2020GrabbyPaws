@@ -67,6 +67,7 @@ public class UI : MonoBehaviour
     public CinemachineBlendDefinition firstPersonBlend;
     public Camera uiCamera;
     //public FlagRepository flagRepository;
+    public ShopUI shop;
     [Header("Readables")]
     public Readable book;
     public Readable sign;
@@ -455,6 +456,13 @@ public class UI : MonoBehaviour
         SetControlState(true, controls.gameObject);
         controls.Unpack(rData);
         return controls;
+    }
+
+    public ShopUI DisplayShop(ShopUIData shopUIData) {
+        shop.gameObject.SetActive(true);
+        SetControlState(true, shop.gameObject);
+        shop.Unpack(shopUIData);
+        return shop;
     }
 
     public void DisplayPC(ReadablePCData pcData) {
