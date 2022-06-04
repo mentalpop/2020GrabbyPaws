@@ -23,8 +23,8 @@ public class ReadablePC : MonoBehaviour
         container.OnEffectComplete += Container_OnEffectComplete;
         listUnpacker.listController.OnSelect += ListController_OnSelect;
         menuHub.OnMenuClose += MenuNavigator_OnClose;
-        float _scale = UI.GetUIScale();
-        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
+        Instance_OnUIScaled(UI.GetUIScale());
+        UI.Instance.OnUIScaled += Instance_OnUIScaled;
     }
 
     private void OnDisable() {
@@ -32,6 +32,7 @@ public class ReadablePC : MonoBehaviour
         container.OnEffectComplete -= Container_OnEffectComplete;
         listUnpacker.listController.OnSelect -= ListController_OnSelect;
         menuHub.OnMenuClose -= MenuNavigator_OnClose;
+        UI.Instance.OnUIScaled -= Instance_OnUIScaled;
     }
 
     public void Unpack(ReadablePCData _rData) {
@@ -65,5 +66,9 @@ public class ReadablePC : MonoBehaviour
         windowText.rectTransform.sizeDelta = new Vector2(windowText.rectTransform.sizeDelta.x, windowText.preferredHeight);
         windowContent.sizeDelta = new Vector2(windowContent.sizeDelta.x, windowText.preferredHeight);
         contentScrollbar.value = 0f;
+    }
+
+    private void Instance_OnUIScaled(float scale) {
+        transform.localScale = new Vector3(scale, scale, 1f); //Z Scale MUST be 1f for 3D models to render!
     }
 }

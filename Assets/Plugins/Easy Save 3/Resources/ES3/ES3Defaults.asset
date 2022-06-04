@@ -30,8 +30,8 @@ MonoBehaviour:
     serializationDepthLimit: 32
     assemblyNames:
     - Assembly-CSharp-firstpass
-    - FMODUnity
     - Assembly-CSharp
+    - FMODUnity
     - Cinemachine
     - CFXRDemo
     - CFXRRuntime

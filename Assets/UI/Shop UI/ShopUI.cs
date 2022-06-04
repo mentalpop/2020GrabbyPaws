@@ -15,13 +15,14 @@ public class ShopUI : MonoBehaviour
     private void OnEnable() {
         clickToClose.OnClick += Close;
         container.OnEffectComplete += Container_OnEffectComplete;
-        float _scale = UI.GetUIScale();
-        transform.localScale = new Vector2(_scale, _scale); //Set scale first!
+        Instance_OnUIScaled(UI.GetUIScale());
+        UI.Instance.OnUIScaled += Instance_OnUIScaled;
     }
 
     private void OnDisable() {
         clickToClose.OnClick -= Close;
         container.OnEffectComplete -= Container_OnEffectComplete;
+        UI.Instance.OnUIScaled -= Instance_OnUIScaled;
     }
 
     public void Unpack(ShopUIData _shopUIData) {
@@ -46,5 +47,9 @@ public class ShopUI : MonoBehaviour
     public void Close() {
         if (!container.gTween.doReverse)
             container.gTween.Reverse();
+    }
+
+    private void Instance_OnUIScaled(float scale) {
+        transform.localScale = new Vector3(scale, scale, 1f); //Z Scale MUST be 1f for 3D models to render!
     }
 }
