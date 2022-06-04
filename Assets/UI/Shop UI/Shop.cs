@@ -7,11 +7,14 @@ public class Shop : MonoBehaviour
     public RectTransform itemContainer;
     public GameObject prefabShopItem;
 
-    public void Unpack(ShopUIData shopUIData) {
+    public List<ListElement> Unpack(ShopUIData shopUIData) {
+        List<ListElement> _elements = new List<ListElement>();
         foreach (var item in shopUIData.items) {
             GameObject newGO = Instantiate(prefabShopItem, itemContainer, false);
-            InventorySlot slot = newGO.GetComponent<InventorySlot>();
-            slot.Unpack(new InventoryItem(item, 1));
+            ShopItem shopItem = newGO.GetComponent<ShopItem>();
+            shopItem.Unpack(item);
+            _elements.Add(shopItem.inventorySlot);
         }
+        return _elements;
     }
 }

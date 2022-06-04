@@ -42,7 +42,7 @@ public class HellaHockster : MonoBehaviour
 		UpdateHockstersAvailable();
 	//Player Funds
 		Currency.instance.OnCashChanged += CurrencyCashUpdate;
-		CurrencyCashUpdate();
+		CurrencyCashUpdate(Currency.instance.Cash, Currency.instance.Cash);
 	//List setup
 		playerInventory.Clear();
 		hocksterInventory.Clear();
@@ -58,8 +58,8 @@ public class HellaHockster : MonoBehaviour
         Close();
     }
 
-    private void CurrencyCashUpdate() {
-		playerFunds.text = Currency.instance.Cash.ToString();
+    private void CurrencyCashUpdate(int cashOld, int cash) {
+		playerFunds.text = cash.ToString();
 	}
 
 	private void OnDisable() {

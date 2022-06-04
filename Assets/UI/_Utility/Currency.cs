@@ -13,6 +13,7 @@ public class Currency : MonoBehaviour
     public int Cash {
         get { return _cash; }
         set {
+            int cashOld = _cash;
             _cash = value;
             if (_cash > maxFunds)
                 _cash = maxFunds;
@@ -20,14 +21,14 @@ public class Currency : MonoBehaviour
                 _cash = 0;
                 Debug.LogWarning("Cash should not go below zero. This should be fixed!");
             }
-            OnCashChanged?.Invoke();
+            OnCashChanged?.Invoke(cashOld, _cash);
         }
     }
     private int _cash;
 
     private string saveString = "currency";
 
-    public delegate void CurrencyEvent();
+    public delegate void CurrencyEvent(int cashOld, int cash);
     public CurrencyEvent OnCashChanged = delegate { };
 
     private void Awake() {

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4678924995306566572}
   - component: {fileID: 3047231361781600167}
+  - component: {fileID: 7222451168474659993}
+  - component: {fileID: 4454834020844295094}
+  - component: {fileID: 6068962443483484607}
   m_Layer: 5
   m_Name: ShopUI
   m_TagString: Untagged
@@ -53,6 +56,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 5659013890055399867}
   clickToClose: {fileID: 4678924995351799221}
+  listController: {fileID: 6068962443483484607}
+  menuHub: {fileID: 7222451168474659993}
+  listMenuNode: {fileID: 4454834020844295094}
+  promptData: {fileID: 11400000, guid: 20f01038e340c654c9484b05531a5660, type: 2}
+--- !u!114 &7222451168474659993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678924995306566573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74f6855dde841543bcc54306055ad10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuOnEnable: {fileID: 0}
+  rememberLastMenu: 0
+  menuOnDisable: {fileID: 0}
+  nodes:
+  - {fileID: 4454834020844295094}
+--- !u!114 &4454834020844295094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678924995306566573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58d4f21a49839b42a9009816c2ddc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mAccept: {fileID: 0}
+  mCancel: {fileID: 0}
+  mLeft: {fileID: 0}
+  mRight: {fileID: 0}
+  mUp: {fileID: 0}
+  mDown: {fileID: 0}
+  mForward: {fileID: 0}
+  mBackward: {fileID: 0}
+  validSelection: 1
+  listController: {fileID: 6068962443483484607}
+  navigationType: 1
+  menuSize: {x: 0, y: 0}
+  outOfBoundsLoop: 1
+--- !u!114 &6068962443483484607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678924995306566573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf2b470e1712d144ad6fd9579953ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaveAsTabs: 0
+  activeIndex: 0
+  focusIndex: 0
+  listHasFocus: 0
 --- !u!1 &6921479386816820012
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class ShopItem : MonoBehaviour
+{
+    public InventorySlot inventorySlot;
+    public TextMeshProUGUI tmpCost;
+    public Color colorHasEnough = Color.white;
+    public Color colorNeedsMore = Color.red;
+
+    private Item item;
+
+    private void OnEnable() {
+        Currency.instance.OnCashChanged += Currency_OnCashChanged;
+    }
+
+    private void OnDisable() {
+        Currency.instance.OnCashChanged -= Currency_OnCashChanged;
+    }
+
+    public void Unpack(Item _item) {
+        item = _item;
+        inventorySlot.Unpack(new InventoryItem(item, 1));
+        tmpCost.text = item.value.ToString();
+        RectTransform tRect = (RectTransform)tmpCost.transform;
+        tRect.sizeDelta = new Vector2(tmpCost.preferredWidth, tRect.sizeDelta.y);
+        Currency_OnCashChanged(Currency.instance.Cash, Currency.instance.Cash);
+    }
+
+    private void Currency_OnCashChanged(int cashOld, int cash) {
+        tmpCost.color = (cash >= item.value) ? colorHasEnough : colorNeedsMore;
+    }
+}

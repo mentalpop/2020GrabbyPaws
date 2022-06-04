@@ -654,7 +654,7 @@ public class UI : MonoBehaviour
         return Instance.confirmationWindow; //Allow calling object to subscribe to the result
     }
 
-    private void OnCurrencyChanged() {
+    private void OnCurrencyChanged(int cashOld, int cash) {
         //doShowCurrencyDisplay = true;
         currencyDisplay.UpdateCashDisplay();
         currencyDisplay.gameObject.SetActive(true);
