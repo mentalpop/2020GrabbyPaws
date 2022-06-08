@@ -18,6 +18,9 @@ public class ShopUI : MonoBehaviour
     public delegate void ShopEvent();
     public event ShopEvent OnShopClose = delegate { };
 
+    private Shop shop;
+    private int indexOfItem = -1;
+
     private void OnEnable() {
         clickToClose.OnClick += Close;
         container.OnEffectComplete += Container_OnEffectComplete;
@@ -45,8 +48,9 @@ public class ShopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         GameObject newGO = Instantiate(_shopUIData.prefabShop, container.transform, false);
-        //Populate listController with Elements
-        listController.Elements = newGO.GetComponent<Shop>().Unpack(_shopUIData);
+    //Populate listController with Elements
+        shop = newGO.GetComponent<Shop>();
+        listController.Elements = shop.Unpack(_shopUIData);
         menuHub.menuOnEnable = listMenuNode;
         MenuNavigator.Instance.MenuFocus(listMenuNode);
     }
@@ -62,16 +66,30 @@ public class ShopUI : MonoBehaviour
     }
 
     private void ListController_OnSelect(int index) {
-        confirmationWindow = UI.RequestConfirmation(promptData, listMenuNode);
-        confirmationWindow.OnChoiceMade += OnConfirm;
-        awaitingConfirmation = true;
+        if (shop.itemPurchased[index]) {
+    //Error; player can't purchase an item they already bought
+            
+        } else {
+            int _cost = shopUIData.items[index].value;
+            if (Currency.instance.CanAfford(_cost)) {
+        //Open a window asking for confirmation before purchase
+                confirmationWindow = UI.RequestConfirmation(promptData, listMenuNode);
+                confirmationWindow.OnChoiceMade += OnConfirm;
+                awaitingConfirmation = true;
+                indexOfItem = index;
+            } else {
+        //Player has insufficient Buckles
+                shop.CanNotAfford(index);
+            }
+        }
     }
 
     private void OnConfirm(bool _choice) {
         awaitingConfirmation = false;
         confirmationWindow.OnChoiceMade -= OnConfirm;
-        if (_choice) {
-
+        if (_choice && indexOfItem != -1) {
+            Currency.instance.BuckleBuy(shopUIData.items[indexOfItem].value);
+            shop.Purchase(indexOfItem);
         } else {
             Debug.Log("Did not purchase item");
         }

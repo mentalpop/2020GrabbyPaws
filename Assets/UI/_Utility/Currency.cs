@@ -6,8 +6,8 @@ using System;
 
 public class Currency : MonoBehaviour
 {
-    public int startingFunds = 500;
-    public int maxFunds = 99999999;
+    [SerializeField] private int startingFunds = 500;
+    [SerializeField] private int maxFunds = 99999999;
 
     public static Currency instance;
     public int Cash {
@@ -93,5 +93,9 @@ public class Currency : MonoBehaviour
             purchaseSuccess = true;
         }
         return purchaseSuccess;
+    }
+
+    public bool CanAfford(int cost) {
+        return Cash >= cost;
     }
 }

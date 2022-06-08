@@ -164,6 +164,8 @@ GameObject:
   - component: {fileID: 8501855511519806955}
   - component: {fileID: 5480111703450411110}
   - component: {fileID: 7860851661098579358}
+  - component: {fileID: 5488702008824247071}
+  - component: {fileID: 7359247163227638701}
   m_Layer: 5
   m_Name: TMP_Cost
   m_TagString: Untagged
@@ -290,6 +292,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5488702008824247071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3011317395732699508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7be10e48114cf429d91ea5d0243fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durationOpen: 1
+  durationClose: 1
+  tweenStartVal: 0
+  tweenTargetVal: 1
+  effectActive: 0
+  doReverse: 0
+  iterations: 8
+  reduceMagnitudeOverDuration: 1
+--- !u!114 &7359247163227638701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3011317395732699508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb3e2ad47a94494b8ad4dbce3ca3b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BTween: {fileID: 5488702008824247071}
+  relative: 1
+  calibrateOnBegin: 0
+  resetOnEnd: 0
+  performEffectOnEnd: 0
+  subjectRect: {fileID: 8501855511519806955}
+  positionAsPercent: 0
+  magnitude: {x: 16, y: 0}
 --- !u!1 &5277177050035443879
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +544,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySlot: {fileID: 8691766794775436244}
   tmpCost: {fileID: 7860851661098579358}
+  colorHasEnough: {r: 1, g: 1, b: 1, a: 1}
+  colorNeedsMore: {r: 1, g: 0, b: 0, a: 1}
+  bTweenSystem: {fileID: 5488702008824247071}
+  itemNull: {fileID: 11400000, guid: 47dc374ecce8d9040aec9e89c4f5a3d3, type: 2}
 --- !u!114 &8691766794775436244
 MonoBehaviour:
   m_ObjectHideFlags: 0

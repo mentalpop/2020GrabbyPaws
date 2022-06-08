@@ -19,7 +19,8 @@ public class InventorySlot : ListElement {
     private bool mouseOver = false;
     private ItemTooltip iTooltip;
 
-    private void OnEnable() {
+    protected override void OnEnable() {
+        base.OnEnable();
         //navButton.OnSelectExt += NavButton_OnSelectExt; //Dropping items
         navButton.OnFocusGain += NavButton_OnFocusGain;
         navButton.OnFocusLost += NavButton_OnFocusLost;
@@ -48,7 +49,8 @@ public class InventorySlot : ListElement {
         CloseTooltip();
     }
 
-    private void OnDisable() {
+    protected override void OnDisable() {
+        base.OnDisable();
         //navButton.OnSelectExt -= NavButton_OnSelectExt;
         navButton.OnFocusGain -= NavButton_OnFocusGain;
         navButton.OnFocusLost -= NavButton_OnFocusLost;

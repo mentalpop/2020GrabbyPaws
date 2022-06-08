@@ -8,6 +8,7 @@ public class UITest : MonoBehaviour
     public ReadableData sampleSign;
     public ReadablePCData samplePC;
     public ShopUIData shopUIData;
+    public int startingCash = 500;
 
     private void Start() {
 //Debug; 
@@ -19,6 +20,7 @@ public class UITest : MonoBehaviour
         FlagRepository.SecretKeyFound(Secrets.s002Test.ToString());
         FlagRepository.SecretKeyFound(Secrets.s003Test.ToString());
         FlagRepository.SecretKeyFound(Secrets.s004Test.ToString());
+        Currency.instance.Cash += startingCash;
     }
 
     void Update() {

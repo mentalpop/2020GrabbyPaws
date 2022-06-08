@@ -9,12 +9,12 @@ public class ListElement : MonoBehaviour
     [HideInInspector] public ListController listController;
     [HideInInspector] public int listIndex;
 
-    private void OnEnable() {
+    protected virtual void OnEnable() {
         navButton.OnSelect += NavButton_OnSelect;
         navButton.OnSelectExt += NavButton_OnSelectExt;
     }
 
-    private void OnDisable() {
+    protected virtual void OnDisable() {
         navButton.OnSelect -= NavButton_OnSelect;
         navButton.OnSelectExt -= NavButton_OnSelectExt;
     }

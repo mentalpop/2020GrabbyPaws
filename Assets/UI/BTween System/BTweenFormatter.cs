@@ -8,6 +8,7 @@ public abstract class BTweenFormatter : MonoBehaviour
     [SerializeField] protected bool relative = false;
     [SerializeField] protected bool calibrateOnBegin = false;
     [SerializeField] protected bool resetOnEnd = false;
+    [SerializeField] protected bool performEffectOnEnd = true;
 
     private void Awake() {
         Calibrate();
@@ -32,13 +33,15 @@ public abstract class BTweenFormatter : MonoBehaviour
     protected virtual void BTween_OnBeginTween(float value) {
         if (calibrateOnBegin)
             Calibrate();
-        PerformEffect(value);
+        if (performEffectOnEnd)
+            PerformEffect(value);
     }
 
     protected virtual void BTween_OnEndTween(float value) {
         if (resetOnEnd)
             TweenReset(value);
-        PerformEffect(value);
+        if (performEffectOnEnd)
+            PerformEffect(value);
     }
 
     protected virtual void TweenReset(float value) {
