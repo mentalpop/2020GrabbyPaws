@@ -458,10 +458,10 @@ public class UI : MonoBehaviour
         return controls;
     }
 
-    public ShopUI DisplayShop(ShopUIData shopUIData) {
+    public ShopUI DisplayShop(ShopItemInventory _shopItemInventory) {
         shop.gameObject.SetActive(true);
         SetControlState(true, shop.gameObject);
-        shop.Unpack(shopUIData);
+        shop.Unpack(_shopItemInventory);
         return shop;
     }
 

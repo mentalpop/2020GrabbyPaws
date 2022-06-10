@@ -5,7 +5,7 @@ using TMPro;
 
 public class ShopItem : MonoBehaviour
 {
-    public InventorySlot inventorySlot;
+    public ShopItemSlot itemSlot;
     public TextMeshProUGUI tmpCost;
     public Color colorHasEnough = Color.white;
     public Color colorNeedsMore = Color.red;
@@ -25,7 +25,7 @@ public class ShopItem : MonoBehaviour
 
     public void Unpack(Item _item) {
         item = _item;
-        inventorySlot.Unpack(new InventoryItem(item, 1));
+        itemSlot.Unpack(new InventoryItem(item, 1));
         tmpCost.text = item.value.ToString();
         RectTransform tRect = (RectTransform)tmpCost.transform;
         tRect.sizeDelta = new Vector2(tmpCost.preferredWidth, tRect.sizeDelta.y);
@@ -43,6 +43,10 @@ public class ShopItem : MonoBehaviour
 
     public void Purchase() {
         tmpCost.gameObject.SetActive(false);
-        inventorySlot.Unpack(new InventoryItem(itemNull, 1));
+        itemSlot.SetItemNull();
+        InventoryItem _item = new InventoryItem(itemNull, 1);
+        itemSlot.Unpack(_item);
+    //Fallback; register "null" item as my item
+        item = _item.item;
     }
 }

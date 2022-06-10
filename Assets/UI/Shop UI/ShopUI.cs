@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ShopUI : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ShopUI : MonoBehaviour
     public MenuNode listMenuNode;
     public ConfirmationPromptData promptData;
 
-    private ShopUIData shopUIData;
+    private ShopItemInventory shopItemInventory;
     private ConfirmationWindow confirmationWindow;
     private bool awaitingConfirmation = false;
 
@@ -20,6 +21,7 @@ public class ShopUI : MonoBehaviour
 
     private Shop shop;
     private int indexOfItem = -1;
+    private Item itemToBuy = null;
 
     private void OnEnable() {
         clickToClose.OnClick += Close;
@@ -42,15 +44,15 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    public void Unpack(ShopUIData _shopUIData) {
-        shopUIData = _shopUIData;
+    public void Unpack(ShopItemInventory _shopItemInventory) {
+        shopItemInventory = _shopItemInventory;
         foreach (Transform child in container.transform) {
             Destroy(child.gameObject);
         }
-        GameObject newGO = Instantiate(_shopUIData.prefabShop, container.transform, false);
+        GameObject newGO = Instantiate(shopItemInventory.shopUIData.prefabShop, container.transform, false);
     //Populate listController with Elements
         shop = newGO.GetComponent<Shop>();
-        listController.Elements = shop.Unpack(_shopUIData);
+        listController.Elements = shop.Unpack(shopItemInventory);
         menuHub.menuOnEnable = listMenuNode;
         MenuNavigator.Instance.MenuFocus(listMenuNode);
     }
@@ -66,17 +68,19 @@ public class ShopUI : MonoBehaviour
     }
 
     private void ListController_OnSelect(int index) {
-        if (shop.itemPurchased[index]) {
+        Item _item = shopItemInventory.items.ElementAt(index).Key;
+        if (shopItemInventory.items[_item]) {
     //Error; player can't purchase an item they already bought
             
         } else {
-            int _cost = shopUIData.items[index].value;
+            int _cost = _item.value;
             if (Currency.instance.CanAfford(_cost)) {
         //Open a window asking for confirmation before purchase
                 confirmationWindow = UI.RequestConfirmation(promptData, listMenuNode);
                 confirmationWindow.OnChoiceMade += OnConfirm;
                 awaitingConfirmation = true;
                 indexOfItem = index;
+                itemToBuy = _item;
             } else {
         //Player has insufficient Buckles
                 shop.CanNotAfford(index);
@@ -87,12 +91,14 @@ public class ShopUI : MonoBehaviour
     private void OnConfirm(bool _choice) {
         awaitingConfirmation = false;
         confirmationWindow.OnChoiceMade -= OnConfirm;
-        if (_choice && indexOfItem != -1) {
-            Currency.instance.BuckleBuy(shopUIData.items[indexOfItem].value);
-            shop.Purchase(indexOfItem);
+        if (_choice && indexOfItem != -1 && itemToBuy != null) {
+            Currency.instance.BuckleBuy(itemToBuy.value);
+            shop.Purchase(itemToBuy, indexOfItem);
         } else {
             Debug.Log("Did not purchase item");
         }
+        itemToBuy = null;
+        indexOfItem = -1;
     }
 
     private void MenuHub_OnMenuClose() {

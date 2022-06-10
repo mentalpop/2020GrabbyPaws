@@ -22,8 +22,8 @@ MonoBehaviour:
   weight: 0
   model: {fileID: 919132149155446097, guid: 01fdcfd65ad68424faaa0427864cfd5a, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
-  itemScale: 0
+  rotationOffset: {x: -120, y: 90, z: -180}
+  itemScale: 172
   consumable: 0
   cursed: 0
   negativeValue: 0

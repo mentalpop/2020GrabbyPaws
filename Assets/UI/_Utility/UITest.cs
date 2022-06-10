@@ -34,7 +34,12 @@ public class UITest : MonoBehaviour
             UI.Instance.DisplayPC(samplePC);
         }
         if (Input.GetKeyDown(KeyCode.H)) { //H for sHop
-            UI.Instance.DisplayShop(shopUIData);
+            Dictionary<Item, bool> items = new Dictionary<Item, bool>();
+            for (int i = 0; i < shopUIData.items.Count; i++) {
+                var purchased = UI.CompareChange(shopUIData.GetSaveID(i));
+                items.Add(shopUIData.items[i], purchased);
+            }
+            UI.Instance.DisplayShop(new ShopItemInventory(shopUIData, items));
         }
         /*
         if (Input.GetKeyDown(KeyCode.Keypad0)) {
