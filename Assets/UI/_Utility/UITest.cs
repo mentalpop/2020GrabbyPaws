@@ -57,7 +57,10 @@ public class UITest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { //Load
             UI.Instance.LoadGameData(UI.GetCurrentFile());
         }
-//Currency
+        if (Input.GetKeyDown(KeyCode.Alpha0)) { //Erase Save File
+            UI.Instance.EraseData(UI.GetCurrentFile());
+        }
+        //Currency
         if (Input.GetKeyDown(KeyCode.KeypadPlus)) { //Add LOTS of funds
             Currency.instance.Cash += 10000000;
         }

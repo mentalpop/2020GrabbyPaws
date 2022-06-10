@@ -32,26 +32,18 @@ public class ShopInteractable : Interactable
             activeShop.OnShopClose -= ActiveShop_OnShopClose;
         }
     }
-    private void Start() {
-        for (int i = 0; i < shopUIData.items.Count; i++) {
-            var purchased = UI.CompareChange(shopUIData.GetSaveID(i));
-            items.Add(shopUIData.items[i], purchased);
-            if (!purchased) {
-                allPurchased = false;
-            }
-        }
-        Debug.Log("allPurchased: " + shopUIData.name);
-    }
 
     public override void Interact() {
         if (UI.LockControls) {
             return;
         }
+        AssessPurchasedItems();
         if (subbedEvent) {
             activeShop.OnShopClose -= ActiveShop_OnShopClose;
         }
     //All items purchased
         if (allPurchased) {
+            Debug.Log("allPurchased - " + shopUIData.name);
             OnLoadAllItemsPurchased.Invoke();
         } else {
     //Open the Shop
@@ -68,6 +60,19 @@ public class ShopInteractable : Interactable
     private void ActiveShop_OnShopClose() {
         if (usable != null) {
             usable.OnDeselectUsable();
+        }
+        AssessPurchasedItems();
+    }
+
+    public void AssessPurchasedItems() {
+        items.Clear();
+        allPurchased = true;
+        for (int i = 0; i < shopUIData.items.Count; i++) {
+            var purchased = UI.CompareChange(shopUIData.GetSaveID(i));
+            items.Add(shopUIData.items[i], purchased);
+            if (!purchased) {
+                allPurchased = false;
+            }
         }
     }
 }
