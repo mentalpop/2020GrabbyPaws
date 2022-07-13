@@ -8,19 +8,27 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Floor15
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4305fdd093e0a01429cfcd0dfadc02cb,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MainTex:
+        m_Texture: {fileID: 2800000, guid: 4d394b3791f115a4697899737af3e6cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Mask_R_Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 4d394b3791f115a4697899737af3e6cf, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -107,9 +115,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Brightness_Rim: 2
     - DirectionalBands: 4
     - Precision: 0.026
+    - Rim_Power: 5
+    - Toon_Ramp_Offset: 0.5
+    - Toon_Ramp_Smoothness: 0
     - _AlphaClip: 0
+    - _Ambient: 0
     - _AmbientCategory: 0
     - _AmbientShadowStrength: 0
     - _BaseReflectStrength: 0.5
@@ -152,6 +165,7 @@ Material:
     - _OcclusionStrength: 1
     - _Offset: 0.82
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _RIM: 0
     - _ReceiveShadows: 1
@@ -180,12 +194,14 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TEXTURESFOLDOUT: 0
+    - _Toon_Ramp_Offset_Point: 0.5
     - _TopBottomOffset: -2.58
     - _UVSec: 0
     - _UseRamp: 0
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
+    - Toon_Ramp_Tint: {r: 0.490566, g: 0.490566, b: 0.490566, a: 1}
     - _BaseColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
     - _BottomColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
