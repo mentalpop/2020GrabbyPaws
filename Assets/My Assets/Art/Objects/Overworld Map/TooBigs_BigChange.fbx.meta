@@ -1,9 +1,135 @@
 fileFormatVersion: 2
 guid: be839704771905a4a90797ff2d3d41ba
 ModelImporter:
-  serializedVersion: 19300
-  internalIDToNameTable: []
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      74: -1724325352786400265
+    second: Cube.353|Cube.681Action
+  - first:
+      74: -8812437398795795245
+    second: Cube.354|Cube.681Action
+  - first:
+      74: 8236532151467748218
+    second: Cube.355|Cube.681Action
+  - first:
+      74: 6320642415504855500
+    second: Cube.356|Cube.681Action
+  - first:
+      74: 3102795383354342339
+    second: Cube.357|Cube.681Action
+  - first:
+      74: 589480376671012352
+    second: Cube.358|Cube.681Action
+  - first:
+      74: -4259059270494546924
+    second: Cube.359|Cube.681Action
+  - first:
+      74: -702312213538731079
+    second: Cube.360|Cube.681Action
+  - first:
+      74: 5660839367350393291
+    second: Cube.361|Cube.681Action
+  - first:
+      74: 5908316284707826772
+    second: Cube.362|Cube.681Action
+  - first:
+      74: 1127024433694895223
+    second: Cube.364|Cube.681Action
+  - first:
+      74: 4532378420790464620
+    second: Cube.424|Cube.681Action
+  - first:
+      74: 9178517050070984138
+    second: Cube.425|Cube.681Action
+  - first:
+      74: 3319400093192288971
+    second: Cube.428|Cube.681Action
+  - first:
+      74: 5668531928370788428
+    second: Cube.434|Cube.681Action
+  - first:
+      74: 1425724423617200605
+    second: Cube.437|Cube.681Action
+  - first:
+      74: -5716458151811460541
+    second: Cube.438|Cube.681Action
+  - first:
+      74: 6087941185450640742
+    second: Cube.441|Cube.681Action
+  - first:
+      74: -5933730173809306442
+    second: Cube.442|Cube.681Action
+  - first:
+      74: -401193852165163339
+    second: Cube.443|Cube.681Action
+  - first:
+      74: 2445735369964267627
+    second: Cube.466|Cube.681Action
+  - first:
+      74: -8851581464576693635
+    second: Cube.478|Cube.681Action
+  - first:
+      74: -7682287865948000580
+    second: Cube.467|Cube.681Action
+  - first:
+      74: 4012251638318006784
+    second: Cube.465|Cube.681Action
+  - first:
+      74: 7915063618383597333
+    second: Cube.468|Cube.681Action
+  - first:
+      74: 6279275693731820526
+    second: Cube.379|Cube.681Action
+  - first:
+      74: -8724498521638521365
+    second: Cube.452|Cube.681Action
+  - first:
+      74: 7072732683729435602
+    second: Cube.469|Cube.681Action
+  - first:
+      74: -3608177742854890665
+    second: Cube.479|Cube.681Action
+  - first:
+      74: 1654311128903502553
+    second: Cube.349|Cube.681Action
+  - first:
+      74: -7254763563264941938
+    second: Cube.350|Cube.681Action
+  - first:
+      74: 491533577360737333
+    second: Cube.365|Cube.681Action
+  - first:
+      74: -8900847888831124848
+    second: Cube.387|Cube.681Action
+  - first:
+      74: -121172425374661709
+    second: Cube.482|Cube.681Action
+  - first:
+      74: -5069281569443916132
+    second: Cube.483|Cube.681Action
+  - first:
+      74: -1331740022100705670
+    second: Cube.484|Cube.681Action
+  - first:
+      74: -5023655832920186390
+    second: Cube.348|Cube.681Action
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads01
+    second: {fileID: 2100000, guid: b3a065fae220f1c439148789c8f06a46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads02
+    second: {fileID: 2100000, guid: 633b8a0946380404c8c1a21bdc57d8e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads03
+    second: {fileID: 2100000, guid: e31625ffb57c35f4fbcf6ef0339a7c10, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -22,6 +148,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BusinessSigns02
+    second: {fileID: 2100000, guid: 39857031c22a2e848810cbb7b3d273fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BusinessSigns03
+    second: {fileID: 2100000, guid: 891a3063ae6578042ac3764c23469cf3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
     second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
   - first:
@@ -29,6 +165,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Darkness
     second: {fileID: 2100000, guid: fe458bc2d03476043ac613ec4e739673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fence
+    second: {fileID: 2100000, guid: 6b866d4c0ce74934b93fcad996d289c6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -53,7 +194,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mentalpop Ground
-    second: {fileID: 2100000, guid: af93941db921b5543a1a5248115b341e, type: 2}
+    second: {fileID: 2100000, guid: 36e9b0ddae924544a9a7d211e0a2e0a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mushroom Light
+    second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MushroomPink
+    second: {fileID: 2100000, guid: 591afda37be6a2f468b0a520f76bd621, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -69,6 +220,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Palette Browns
     second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palette Greens
+    second: {fileID: 2100000, guid: 0f43adeced694df4d937a450154ccaf8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -139,6 +295,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: White Neon
     second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bkgGradients
+    second: {fileID: 2100000, guid: 034b32baa0798224ab4b832d7564f0ef, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -149,6 +310,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -178,20 +340,27 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -225,6 +394,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

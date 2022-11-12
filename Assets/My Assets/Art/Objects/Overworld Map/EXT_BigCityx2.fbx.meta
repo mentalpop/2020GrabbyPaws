@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 10d024f55b6f3b54c9ae921436ce2c4b
 ModelImporter:
-  serializedVersion: 19301
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 3640317659803112246
@@ -60,6 +60,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BusinessSigns05
+    second: {fileID: 2100000, guid: c66e855d578e62e428ba81aab99dee6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
     second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
   - first:
@@ -107,6 +112,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Mentalpop Ground
     second: {fileID: 2100000, guid: af93941db921b5543a1a5248115b341e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mushroom Light
+    second: {fileID: 2100000, guid: 080330e88719bb14f863bcf01f84a50a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -225,6 +235,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Signs03
+    second: {fileID: 2100000, guid: d5d3d7b4d753fee45b100ab81ed8c1bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Signs04
     second: {fileID: 2100000, guid: fd4cba85043bf9043af91f5257b16dfc, type: 2}
   - first:
@@ -305,6 +320,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: crystal
+    second: {fileID: 2100000, guid: cc6f377b89b8fbd49883156e346d6565, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: g.Paintings02
     second: {fileID: 2100000, guid: b04ee7097d49d7e468bf6303fc4cd2de, type: 2}
   materials:
@@ -317,6 +337,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -346,21 +367,27 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -394,6 +421,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

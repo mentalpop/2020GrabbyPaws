@@ -25,7 +25,7 @@ Material:
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -100,8 +100,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Brightness_Rim: 2
-    - Rim_Power: 5
+    - Brightness_Rim: 0
+    - Rim_Power: 0
     - Toon_Ramp_Offset: 0
     - Toon_Ramp_Smoothness: 0
     - _AlphaClip: 0
@@ -130,7 +130,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Toon_Ramp_Offset_Point: 0.5
+    - _Toon_Ramp_Offset_Point: 0
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
