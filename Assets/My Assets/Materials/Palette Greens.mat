@@ -124,10 +124,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Brightness_Rim: 2
+    - Brightness_Rim: 0
     - DirectionalBands: 4
     - Precision: 0.071
-    - Rim_Power: 5
+    - Rim_Power: 0
     - Toon_Ramp_Offset: 0
     - Toon_Ramp_Smoothness: 0
     - _Ambient: 0

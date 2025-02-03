@@ -10,10 +10,11 @@ Material:
   m_Name: Glass
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
+  - _EMISSION
   - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -138,7 +139,7 @@ Material:
     - _ReceiveShadows: 1
     - _RimBrightness: 3.32
     - _RimStrength: 1.8
-    - _Smoothness: 0.5
+    - _Smoothness: 0.649
     - _SmoothnessTextureChannel: 0
     - _SpecOffset: 0.708
     - _SpecSize: 0.683
@@ -155,18 +156,18 @@ Material:
     - _YSpeed: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.4627451}
+    - _BaseColor: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.24313726}
     - _BottomColor: {r: 0.03676468, g: 0.9601423, b: 1, a: 1}
-    - _Color: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.4627451}
+    - _Color: {r: 0.33664113, g: 0.8018868, b: 0.792386, a: 0.24313726}
     - _ColorA: {r: 1, g: 1, b: 1, a: 1}
     - _ColorB: {r: 1, g: 1, b: 1, a: 1}
     - _Emis: {r: 1, g: 1, b: 1, a: 1}
     - _EmisMask: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
     - _OutlineColor: {r: 0.0647167, g: 0.9023639, b: 0.97794116, a: 1}
     - _RimColor: {r: 0, g: 0.71034503, b: 1, a: 0.684}
     - _SColor: {r: 1, g: 1, b: 1, a: 0.29803923}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _TColor: {r: 0.008434264, g: 0.24310054, b: 0.38235295, a: 1}
     - _TintA: {r: 1, g: 1, b: 1, a: 1}
     - _TintB: {r: 1, g: 1, b: 1, a: 1}

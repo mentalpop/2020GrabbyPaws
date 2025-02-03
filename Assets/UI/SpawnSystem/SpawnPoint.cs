@@ -12,7 +12,7 @@ public enum SpawnPoints
     CityOrigin,
     EXTRiverWyrms,
     INTRiverWyrms,
-    INTLostFound01,
+    INT_TT_DustMother,
     EXTLostFound01,
     INTMondays,
     EXTMondays,

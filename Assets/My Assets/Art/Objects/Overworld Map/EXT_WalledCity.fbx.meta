@@ -2,7 +2,16 @@ fileFormatVersion: 2
 guid: 64c9e1a876f75e84bb9b8ec88216a4b1
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -442316461707884821
+    second: Torus.021|Torus.061Action.001
+  - first:
+      74: 788321359438699555
+    second: Torus.021|Torus.061Action.002
+  - first:
+      74: -4671745076655708639
+    second: Torus.021|Torus.061Action.004
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -47,6 +56,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BusinessSigns05
+    second: {fileID: 2100000, guid: c66e855d578e62e428ba81aab99dee6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BusinessWindow Light
     second: {fileID: 2100000, guid: fefab4d045e8287459ab4d0cd7be13f4, type: 2}
   - first:
@@ -63,7 +77,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FlatBrowns
-    second: {fileID: 2100000, guid: df6f9dfc25333c44c90e68be9c773745, type: 2}
+    second: {fileID: 2100000, guid: 69eda57f18a233d4dab7dcb573cb6a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlatSpecials
+    second: {fileID: 2100000, guid: f60a13aa23802ed4c985475e01e4c03c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -182,8 +201,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: SnackBar02
+    second: {fileID: 2100000, guid: 825ad6030dee5c94684ef9af797283f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SnackBar05
     second: {fileID: 2100000, guid: c622d27e98f8814439fad99b05d21d31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SnackBars02
+    second: {fileID: 2100000, guid: 825ad6030dee5c94684ef9af797283f1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -207,16 +236,21 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: WaterFall
+    second: {fileID: 2100000, guid: cf29ac74f31d4344b9d6edd0295b99a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: White Neon
     second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Yellow Neon
-    second: {fileID: 2100000, guid: 1cabee5bd2e70024187bb6a48eafbd8e, type: 2}
+    second: {fileID: 2100000, guid: e9d859af3525fe847806967a595647e3, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 1
+    materialName: 0
     materialSearch: 1
     materialLocation: 1
   animations:

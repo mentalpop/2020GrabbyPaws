@@ -43,7 +43,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - NoDropCollider
   - 
   - Player
   - Camera
@@ -58,7 +58,7 @@ TagManager:
   - NPC
   - Interactable
   - Sittable
-  - NoDropCollider
+  - 
   - 
   - 
   - 

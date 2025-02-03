@@ -66,7 +66,7 @@ Camera:
     m_Bits: 0
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 3754484921943646707}
   - component: {fileID: 3754484921943646709}
   - component: {fileID: 8042505572053243553}
-  - component: {fileID: 8597650160824743941}
   - component: {fileID: 7819190583271562503}
   - component: {fileID: 1902563293746135922}
   - component: {fileID: 4030190527453728914}
@@ -139,7 +138,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 2000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -271,19 +270,6 @@ MonoBehaviour:
   outlineShaderMaterial: {fileID: 0}
   renderTexture: {fileID: 0}
   extraRenderTexture: {fileID: 0}
---- !u!114 &8597650160824743941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3754484921943646705}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 7745bf99979aa7f46b04e2eb79308337, type: 2}
 --- !u!114 &7819190583271562503
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,47 +28,46 @@ using System.Collections.Generic;
 
 namespace cakeslice
 {
-    [ExecuteInEditMode]
-    [RequireComponent(typeof(Renderer))]
-    public class Outline : MonoBehaviour
-    {
-        public Renderer Renderer { get; private set; }
+	[RequireComponent(typeof(Renderer))]
+	/* [ExecuteInEditMode] */
+	public class Outline : MonoBehaviour
+	{
+		public Renderer Renderer { get; private set; }
+		public SpriteRenderer SpriteRenderer { get; private set; }
+		public SkinnedMeshRenderer SkinnedMeshRenderer { get; private set; }
+		public MeshFilter MeshFilter { get; private set; }
 
-        public int color;
-        public bool eraseRenderer;
+		public int color;
+		public bool eraseRenderer;
 
-        [HideInInspector]
-        public int originalLayer;
-        [HideInInspector]
-        public Material[] originalMaterials;
+		private void Awake()
+		{
+			Renderer = GetComponent<Renderer>();
+			SkinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+			SpriteRenderer = GetComponent<SpriteRenderer>();
+			MeshFilter = GetComponent<MeshFilter>();
+		}
 
-        private void Awake()
-        {
-            Renderer = GetComponent<Renderer>();
-        }
+		void OnEnable()
+		{
+			OutlineEffect.Instance?.AddOutline(this);
+		}
 
-        void OnEnable()
-        {
-			IEnumerable<OutlineEffect> effects = Camera.allCameras.AsEnumerable()
-				.Select(c => c.GetComponent<OutlineEffect>())
-				.Where(e => e != null);
+		void OnDisable()
+		{
+			OutlineEffect.Instance?.RemoveOutline(this);
+		}
 
-			foreach (OutlineEffect effect in effects)
-            {
-                effect.AddOutline(this);
-            }
-        }
+		private Material[] _SharedMaterials;
+		public Material[] SharedMaterials
+		{
+			get
+			{
+				if (_SharedMaterials == null)
+					_SharedMaterials = Renderer.sharedMaterials;
 
-        void OnDisable()
-        {
-			IEnumerable<OutlineEffect> effects = Camera.allCameras.AsEnumerable()
-				.Select(c => c.GetComponent<OutlineEffect>())
-				.Where(e => e != null);
-
-			foreach (OutlineEffect effect in effects)
-            {
-                effect.RemoveOutline(this);
-            }
-        }
-    }
+				return _SharedMaterials;
+			}
+		}
+	}
 }
